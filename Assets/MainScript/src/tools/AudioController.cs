@@ -1,0 +1,156 @@
+using System.Collections;
+using UnityEngine;
+
+public class AudioController : SingleTonMonoBehaviour<AudioController>
+{
+    public TSArray<AudioSource> audioSourcePool = new TSArray<AudioSource>();
+    private AudioSource bgAudioSource;
+
+    public void Init()
+    {        
+        this.audioSourcePool = new TSArray<AudioSource>();         
+        for (int index = 0; index < 5; index++)
+        {
+            var audioSource = gameObject.AddComponent<AudioSource>(); 
+            this.SetAudiioSourceDefaultValue(audioSource);  
+            this.audioSourcePool.push(audioSource);
+        }
+        
+        bgAudioSource = gameObject.AddComponent<AudioSource>();
+        this.SetAudiioSourceDefaultValue(bgAudioSource);  
+    }
+
+    public void SetAudiioSourceDefaultValue(AudioSource audioSource)
+    {
+        audioSource.pitch = 1.0f;
+        audioSource.volume = 1.0f;
+        audioSource.loop = false;
+        audioSource.clip = null; 
+        //audioSource.reverbZoneMix = 0f
+    }
+
+    public AudioSource getSourceFromPool()
+    {
+        foreach (var audioSource in this.audioSourcePool)
+        {
+            if (!audioSource.isPlaying)
+            {
+                this.SetAudiioSourceDefaultValue(audioSource);
+                return audioSource;
+            }
+         }
+
+        var newAudioSource = gameObject.AddComponent<AudioSource>();
+        this.SetAudiioSourceDefaultValue(newAudioSource);
+        audioSourcePool.push(newAudioSource);
+        PrintTool.Log("audioSource： ", audioSourcePool.Count);
+ 	    return newAudioSource;
+    }
+
+    private AudioClip GetAudioClip(string audioName)
+    {
+        return ResCenter.Instance.mBundleGameAllRes.FindAudioClip(audioName);
+    }
+    
+    public AudioSource playSound(string audioName, float volume = 1f)
+    {
+        bool bMute = DataCenter.Instance.bMute;
+        AudioClip obj = this.GetAudioClip(audioName);
+        if(obj)
+        {
+            AudioSource mAudioSource =  this.getSourceFromPool();     
+            mAudioSource.clip = obj;
+            mAudioSource.loop = false;
+            mAudioSource.volume = volume;
+            mAudioSource.mute = bMute;
+            
+            mAudioSource.Play();
+            return mAudioSource;
+        }
+        else
+        {
+            PrintTool.LogError("Not Exist audioName: ", audioName);
+        }
+        return null;
+    }
+
+    public void StopSound(string audioName)
+    {
+        foreach (var audioSource in this.audioSourcePool)
+        {
+            if(audioSource.isPlaying && audioSource.clip.name.EndsWith(audioName))
+            {
+                audioSource.Stop();
+            }
+        }
+    }
+
+    
+    public void PlayAudio(string audioName, float volume = 1f){
+        this.playSound(audioName, volume);
+    }
+
+    public void UpdateSoundState()
+    {
+        bool bMute = DataCenter.Instance.bMute;
+        foreach (var audioSource in this.audioSourcePool)
+        {
+            audioSource.mute = bMute;
+        }
+    }
+
+    public void playMusic(string musicName, int musicIndex)
+    {
+        AudioSource mAudioSource = bgAudioSource;
+        mAudioSource.Stop();
+        mAudioSource.clip = null;
+
+        AudioClip obj = GetAudioClip(musicName);
+        if(obj)
+        {
+            mAudioSource.clip = obj;
+            mAudioSource.loop = true;
+            if(musicIndex == 3)
+            {
+                mAudioSource.volume = 0.3f;
+            }else if(musicIndex == 4)
+            {
+                mAudioSource.volume = 0.6f;
+            }else if(musicIndex == 5)
+            {
+                mAudioSource.volume = 0.22f;
+            }else if(musicIndex == 6)
+            {
+                mAudioSource.volume = 0.2f;
+            }else if(musicIndex == 7)
+            {
+                mAudioSource.volume = 0.4f;
+            }
+            else
+            {
+                mAudioSource.volume = 0.2f;
+            }
+            
+            mAudioSource.Play();
+        }
+    }
+
+    public void StopTweenMusic()
+    {
+        AudioSource mAudioSource = bgAudioSource;
+        if(mAudioSource.clip == null) return;
+        
+        float oriVolume = mAudioSource.volume;
+        LeanTween.value(oriVolume, 0f, 0.5f).setOnUpdate((value)=>
+        {
+            mAudioSource.volume = value;
+        })
+        .setOnComplete(()=>
+        {
+            mAudioSource.Stop();
+        });
+    }
+
+}
+
+

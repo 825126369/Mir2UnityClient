@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "64538254913",
+    "project_id": "witt-solitaire",
+    "storage_bucket": "witt-solitaire.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64538254913:android:b387f1c0a10d1984c970c0",
+        "android_client_info": {
+          "package_name": "com.solitaire.jianhuan.card"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgCCk6weECIfp6w6pnTtK53MX30P7izYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

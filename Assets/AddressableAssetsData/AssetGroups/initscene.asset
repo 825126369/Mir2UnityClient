@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: initscene
+  m_EditorClassIdentifier: 
+  m_GroupName: initscene
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c73d844279baf40ca886c352dcb2f4b2
+  m_SerializeEntries:
+  - m_GUID: 4423a128ec456431294d2d207c053f37
+    m_Address: assets/gameassets/initscene/initsceneview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - initscene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 39028c3766c354b0197ed7be6c383914, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0bfddcaabe71047c4a7e7307ac75ab04, type: 2}
+    - {fileID: 11400000, guid: 4ce16be1a0c824f33b90d955726dd6fc, type: 2}

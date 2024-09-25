@@ -1,0 +1,277 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: game
+  m_EditorClassIdentifier: 
+  m_GroupName: game
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 3e2bdbf724ce245808dc59a6e780c38a
+  m_SerializeEntries:
+  - m_GUID: bbd146543a39a49439c4d33dbb19b225
+    m_Address: assets/gameassets/game/bundleallres.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 28378ee8b0e434bd39c547d443c5a55c
+    m_Address: assets/gameassets/game/lizi/confettiexplosionmix variant.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ffdc3e6c78d9341ff8172ee9e6d0f230
+    m_Address: assets/gameassets/game/prefabs/commondialogview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64ebb8aa86c654cbf9197496bc43cc4e
+    m_Address: assets/gameassets/game/prefabs/commontippoolview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b6dc7058c0dc47f7943a12f53466356
+    m_Address: assets/gameassets/game/prefabs/commonwindowloading.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbd40add592943d59698e24afb6c485
+    m_Address: assets/gameassets/game/prefabs/debugtestentry.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5d0ab50eedb2e417c8294381dddc7472
+    m_Address: assets/gameassets/game/prefabs/debugtestview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cf95c0b1b30447958e1ae2a0ea665dd
+    m_Address: assets/gameassets/game/prefabs/fps.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eab2d42999a114c1f97e6f50b6389141
+    m_Address: assets/gameassets/game/prefabs/gametheme.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d945de01936245958d9c0a8c917d0d3
+    m_Address: assets/gameassets/game/prefabs/selectmusicview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ae58c1f7d14e45cab1d6dc6e2bbc2bc
+    m_Address: assets/gameassets/game/prefabs/stagerewardpopview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 758828fb781cc47d1a1b13906e48b111
+    m_Address: assets/gameassets/game/prefabs/tip_fastplay-beifen.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8a4b4a1e874644ebbb3ed061459814f6
+    m_Address: assets/gameassets/game/prefabs/tip_fastplay.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1acc3f53b5cfa4f52b95b75195dd0e70
+    m_Address: assets/gameassets/game/prefabs/dynamicbg.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a393ef74733d54d80abf65d7ea266a47
+    m_Address: assets/gameassets/game/prefabs/flycoinsview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a9faf23525c2245dd912be952b9ccf8a
+    m_Address: assets/gameassets/game/prefabs/gamebegin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9e266aaa0e0364d65820c9490ad46447
+    m_Address: assets/gameassets/game/prefabs/gamecard.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a570afb4fd1b24d79bec46746799e3fe
+    m_Address: assets/gameassets/game/prefabs/gamecardanimation.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 417c46dbae0dc4673b97dfe917d01d9b
+    m_Address: assets/gameassets/game/prefabs/gamedailytask.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 422831f5877714ef19871182da275302
+    m_Address: assets/gameassets/game/prefabs/gameend.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d661e89e1ac404516be94ea9bf569bac
+    m_Address: assets/gameassets/game/prefabs/gameendtask.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93f3fd2effd884c7f806605832dacc41
+    m_Address: assets/gameassets/game/prefabs/gameguide.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53bc86a8f1d7e46c6b320559ac97dd64
+    m_Address: assets/gameassets/game/prefabs/gamemagicwandbuy.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dcebe54c7c1840a1b1ded3b27626605
+    m_Address: assets/gameassets/game/prefabs/gamemusicselecttip.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7dc72cbaded964842b9c0d66bce0f72e
+    m_Address: assets/gameassets/game/prefabs/gamereview.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d1ccdc9c9d9e4bc983537f62229621d
+    m_Address: assets/gameassets/game/prefabs/gameset.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12b28764738d54b598e7e06ade414fa0
+    m_Address: assets/gameassets/game/prefabs/gamestatistics.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f49b9e4abdf1400495e820f67b8a7e7
+    m_Address: assets/gameassets/game/prefabs/gametask.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d59382d87c17848f789e6340d12ed701
+    m_Address: assets/gameassets/game/prefabs/gametiaozhan.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d92a5e57b5d542c7be79267fc24331e
+    m_Address: assets/gameassets/game/prefabs/gametiaozhanaward.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ab211d436ea594a8a92315a4f82190f7
+    m_Address: assets/gameassets/game/prefabs/gametiaozhanreward.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32c9e70071d6047cdb847ed8853f3ad5
+    m_Address: assets/gameassets/game/prefabs/gameuistyle.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a9b386c2172e4d90bbc5749adadb1ef
+    m_Address: assets/gameassets/game/prefabs/gameunfinish.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6bd803609174431287c7814256db2d4
+    m_Address: assets/gameassets/game/prefabs/gameanimation2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef88d8e76a1984c1ea58577091fdd190
+    m_Address: assets/gameassets/game/prefabs/gameanimation5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d4824b029b96f4af2866aead53e750ff
+    m_Address: assets/gameassets/game/prefabs/gameanimation6_5star.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 13c879e0c819e4fa380cac81759aeeb1
+    m_Address: assets/gameassets/game/prefabs/gameanimation7_lingxing.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 617f28c791e0c418ca96efdfaec0599b
+    m_Address: assets/gameassets/game/prefabs/gameanimation8_butterfly.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 447be00f13baf4351a6f733c48ed219b
+    m_Address: assets/gameassets/game/prefabs/gameanimation9_smileface.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 80a390b21fab545ffa4fe9d085dabab9
+    m_Address: assets/gameassets/game/prefabs/imagicwandani.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: be64e877681e144619caa69b5e21d9d5
+    m_Address: assets/gameassets/game/prefabs/lobby.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79744e89060d648ea87a98508050b137
+    m_Address: assets/gameassets/game/prefabs/newplayertip.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - game
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 39028c3766c354b0197ed7be6c383914, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7ffa6a2e6287a40acb58df5d83dca010, type: 2}
+    - {fileID: 11400000, guid: a523a19ea971b4893860a0b3aa436a87, type: 2}
