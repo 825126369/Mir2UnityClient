@@ -8,7 +8,42 @@ using System;
 
 public static class MLibraryEditor
 {
-    public const string DataPath = "Assets/../";
+    public const string RootDir = "Assets/../Mir2Client/";
+    public const string DataPath = RootDir + "Data/",
+                    MapPath = RootDir + @"./Map/",
+                    SoundPath = RootDir + @"./Sound/",
+                    ExtraDataPath = RootDir + @"./Data/Extra/",
+                    ShadersPath = RootDir + @"./Data/Shaders/",
+                    MonsterPath = RootDir + @"./Data/Monster/",
+                    GatePath = RootDir + @"./Data/Gate/",
+                    FlagPath = RootDir + @"./Data/Flag/",
+                    SiegePath = RootDir + @"./Data/Siege/",
+                    NPCPath = RootDir + @"./Data/NPC/",
+                    CArmourPath = RootDir + @"./Data/CArmour/",
+                    CWeaponPath = RootDir + @"./Data/CWeapon/",
+                    CWeaponEffectPath = RootDir + @"./Data/CWeaponEffect/",
+                    CHairPath = RootDir + @"./Data/CHair/",
+                    AArmourPath = RootDir + @"./Data/AArmour/",
+                    AWeaponPath = RootDir + @"./Data/AWeapon/",
+                    AHairPath = RootDir + @"./Data/AHair/",
+                    ARArmourPath = RootDir + @"./Data/ARArmour/",
+                    ARWeaponPath = RootDir + @"./Data/ARWeapon/",
+                    ARHairPath = RootDir + @"./Data/ARHair/",
+                    CHumEffectPath = RootDir + @"./Data/CHumEffect/",
+                    AHumEffectPath = RootDir + @"./Data/AHumEffect/",
+                    ARHumEffectPath = RootDir + @"./Data/ARHumEffect/",
+                    MountPath = RootDir + @"./Data/Mount/",
+                    FishingPath = RootDir + @"./Data/Fishing/",
+                    PetsPath = RootDir + @"./Data/Pet/",
+                    TransformPath = RootDir + @"./Data/Transform/",
+                    TransformMountsPath = RootDir + @"./Data/TransformRide2/",
+                    TransformEffectPath = RootDir + @"./Data/TransformEffect/",
+                    TransformWeaponEffectPath = RootDir + @"./Data/TransformWeaponEffect/",
+                    MouseCursorPath = RootDir + @"./Data/Cursors/",
+                    ResourcePath = RootDir + @"./DirectX/",
+                    UserDataPath = RootDir + @"./Data/UserData/";
+
+
     public static readonly MLibrary ChrSel = new MLibrary(DataPath + "ChrSel");
     public static readonly MLibrary Prguse = new MLibrary(DataPath + "Prguse");
     public static readonly MLibrary Prguse2 = new MLibrary(DataPath + "Prguse2");
@@ -108,69 +143,69 @@ public static class MLibraryEditor
 
         #region Maplibs
         //wemade mir2 (allowed from 0-99)
-        MapLibs[0] = new MLibrary(DataPath + "Map\\WemadeMir2\\Tiles");
-        MapLibs[1] = new MLibrary(DataPath + "Map\\WemadeMir2\\Smtiles");
-        MapLibs[2] = new MLibrary(DataPath + "Map\\WemadeMir2\\Objects");
+        MapLibs[0] = new MLibrary(DataPath + "Map//WemadeMir2//Tiles");
+        MapLibs[1] = new MLibrary(DataPath + "Map//WemadeMir2//Smtiles");
+        MapLibs[2] = new MLibrary(DataPath + "Map//WemadeMir2//Objects");
         for (int i = 2; i < 28; i++)
         {
-            MapLibs[i + 1] = new MLibrary(DataPath + "Map\\WemadeMir2\\Objects" + i.ToString());
+            MapLibs[i + 1] = new MLibrary(DataPath + "Map//WemadeMir2//Objects" + i.ToString());
         }
-        MapLibs[90] = new MLibrary(DataPath + "Map\\WemadeMir2\\Objects_32bit");
+        MapLibs[90] = new MLibrary(DataPath + "Map//WemadeMir2//Objects_32bit");
 
         //shanda mir2 (allowed from 100-199)
-        MapLibs[100] = new MLibrary(DataPath + "Map\\ShandaMir2\\Tiles");
+        MapLibs[100] = new MLibrary(DataPath + "Map//ShandaMir2//Tiles");
         for (int i = 1; i < 10; i++)
         {
-            MapLibs[100 + i] = new MLibrary(DataPath + "Map\\ShandaMir2\\Tiles" + (i + 1));
+            MapLibs[100 + i] = new MLibrary(DataPath + "Map//ShandaMir2//Tiles" + (i + 1));
         }
-        MapLibs[110] = new MLibrary(DataPath + "Map\\ShandaMir2\\SmTiles");
+        MapLibs[110] = new MLibrary(DataPath + "Map//ShandaMir2//SmTiles");
         for (int i = 1; i < 10; i++)
         {
-            MapLibs[110 + i] = new MLibrary(DataPath + "Map\\ShandaMir2\\SmTiles" + (i + 1));
+            MapLibs[110 + i] = new MLibrary(DataPath + "Map//ShandaMir2//SmTiles" + (i + 1));
         }
-        MapLibs[120] = new MLibrary(DataPath + "Map\\ShandaMir2\\Objects");
+        MapLibs[120] = new MLibrary(DataPath + "Map//ShandaMir2//Objects");
         for (int i = 1; i < 31; i++)
         {
-            MapLibs[120 + i] = new MLibrary(DataPath + "Map\\ShandaMir2\\Objects" + (i + 1));
+            MapLibs[120 + i] = new MLibrary(DataPath + "Map//ShandaMir2//Objects" + (i + 1));
         }
-        MapLibs[190] = new MLibrary(DataPath + "Map\\ShandaMir2\\AniTiles1");
+        MapLibs[190] = new MLibrary(DataPath + "Map//ShandaMir2//AniTiles1");
         //wemade mir3 (allowed from 200-299)
-        string[] Mapstate = { "", "wood\\", "sand\\", "snow\\", "forest\\" };
+        string[] Mapstate = { "", "wood//", "sand//", "snow//", "forest//" };
         for (int i = 0; i < Mapstate.Length; i++)
         {
-            MapLibs[200 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Tilesc");
-            MapLibs[201 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Tiles30c");
-            MapLibs[202 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Tiles5c");
-            MapLibs[203 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Smtilesc");
-            MapLibs[204 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Housesc");
-            MapLibs[205 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Cliffsc");
-            MapLibs[206 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Dungeonsc");
-            MapLibs[207 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Innersc");
-            MapLibs[208 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Furnituresc");
-            MapLibs[209 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Wallsc");
-            MapLibs[210 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "smObjectsc");
-            MapLibs[211 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Animationsc");
-            MapLibs[212 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Object1c");
-            MapLibs[213 + (i * 15)] = new MLibrary(DataPath + "Map\\WemadeMir3\\" + Mapstate[i] + "Object2c");
+            MapLibs[200 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Tilesc");
+            MapLibs[201 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Tiles30c");
+            MapLibs[202 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Tiles5c");
+            MapLibs[203 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Smtilesc");
+            MapLibs[204 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Housesc");
+            MapLibs[205 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Cliffsc");
+            MapLibs[206 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Dungeonsc");
+            MapLibs[207 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Innersc");
+            MapLibs[208 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Furnituresc");
+            MapLibs[209 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Wallsc");
+            MapLibs[210 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "smObjectsc");
+            MapLibs[211 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Animationsc");
+            MapLibs[212 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Object1c");
+            MapLibs[213 + (i * 15)] = new MLibrary(DataPath + "Map//WemadeMir3//" + Mapstate[i] + "Object2c");
         }
         Mapstate = new string[] { "", "wood", "sand", "snow", "forest" };
         //shanda mir3 (allowed from 300-399)
         for (int i = 0; i < Mapstate.Length; i++)
         {
-            MapLibs[300 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Tilesc" + Mapstate[i]);
-            MapLibs[301 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Tiles30c" + Mapstate[i]);
-            MapLibs[302 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Tiles5c" + Mapstate[i]);
-            MapLibs[303 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Smtilesc" + Mapstate[i]);
-            MapLibs[304 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Housesc" + Mapstate[i]);
-            MapLibs[305 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Cliffsc" + Mapstate[i]);
-            MapLibs[306 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Dungeonsc" + Mapstate[i]);
-            MapLibs[307 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Innersc" + Mapstate[i]);
-            MapLibs[308 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Furnituresc" + Mapstate[i]);
-            MapLibs[309 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Wallsc" + Mapstate[i]);
-            MapLibs[310 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "smObjectsc" + Mapstate[i]);
-            MapLibs[311 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Animationsc" + Mapstate[i]);
-            MapLibs[312 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Object1c" + Mapstate[i]);
-            MapLibs[313 + (i * 15)] = new MLibrary(DataPath + "Map\\ShandaMir3\\" + "Object2c" + Mapstate[i]);
+            MapLibs[300 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Tilesc" + Mapstate[i]);
+            MapLibs[301 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Tiles30c" + Mapstate[i]);
+            MapLibs[302 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Tiles5c" + Mapstate[i]);
+            MapLibs[303 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Smtilesc" + Mapstate[i]);
+            MapLibs[304 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Housesc" + Mapstate[i]);
+            MapLibs[305 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Cliffsc" + Mapstate[i]);
+            MapLibs[306 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Dungeonsc" + Mapstate[i]);
+            MapLibs[307 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Innersc" + Mapstate[i]);
+            MapLibs[308 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Furnituresc" + Mapstate[i]);
+            MapLibs[309 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Wallsc" + Mapstate[i]);
+            MapLibs[310 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "smObjectsc" + Mapstate[i]);
+            MapLibs[311 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Animationsc" + Mapstate[i]);
+            MapLibs[312 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Object1c" + Mapstate[i]);
+            MapLibs[313 + (i * 15)] = new MLibrary(DataPath + "Map//ShandaMir3//" + "Object2c" + Mapstate[i]);
         }
         #endregion
 
@@ -187,11 +222,11 @@ public static class MLibraryEditor
             Directory.CreateDirectory(path);
         }
 
-        var allFiles = Directory.GetFiles(path, "*" + suffix + MLibrary.Extention, SearchOption.TopDirectoryOnly).OrderBy(x => int.Parse(Regex.Match(x, @"\d+").Value));
+        var allFiles = Directory.GetFiles(path, "*" + suffix + MLibrary.Extention, SearchOption.TopDirectoryOnly).OrderBy(x => int.Parse(Regex.Match(x, @"/d+").Value));
 
         var lastFile = allFiles.Count() > 0 ? Path.GetFileName(allFiles.Last()) : "0";
 
-        var count = int.Parse(Regex.Match(lastFile, @"\d+").Value) + 1;
+        var count = int.Parse(Regex.Match(lastFile, @"/d+").Value) + 1;
 
         library = new MLibrary[count];
 
