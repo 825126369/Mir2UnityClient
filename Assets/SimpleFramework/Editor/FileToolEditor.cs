@@ -80,6 +80,18 @@ public class FileToolEditor
         return null;
     }
 
+    public static string GetParentDirName(string path)
+    {
+        if (File.Exists(path))
+        {
+            path = path.Substring(0, path.LastIndexOf("/"));
+            int nIndex = path.LastIndexOf("/");
+            return path.Substring(nIndex + 1);
+        }
+
+        return null;
+    }
+
     private static void CopyDir(string origin, string target)
     {
         if (!Directory.Exists(target))

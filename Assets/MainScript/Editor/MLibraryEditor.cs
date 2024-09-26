@@ -3,10 +3,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.AddressableAssets.Build.BuildPipelineTasks.GenerateLocationListsTask;
 
 public static class MLibraryEditor
 {
@@ -112,6 +110,18 @@ public static class MLibraryEditor
     static bool Loaded;
 
     [MenuItem("Mir2Editor/解密资源")]
+    private static void Do()
+    {
+        Progress = 0;
+        Count = 0;
+        Loaded = false;
+
+        Debug.Log("Start...: " + Progress);
+        InitLibraries();
+        Debug.Log("Finish...: " + Progress);
+    }
+
+
     public static void InitLibraries()
     {
         //Wiz/War/Tao
@@ -497,11 +507,10 @@ public static class MLibraryEditor
 
 
 
-public sealed class MLibrary
+public class MLibrary
 {
     public const string Extention = ".Lib";
     public const int LibVersion = 3;
-    private readonly string _filePath;
     private MImage[] _images;
     private int[] _indexList;
     private int _count;
@@ -510,14 +519,19 @@ public sealed class MLibrary
     private BinaryReader _reader;
     private FileStream _fStream;
 
-    private string ParentDirName;
-    private string FileName;
+    private readonly string _filePath;
+    private readonly string ParentDirName;
+    private readonly string FileName;
 
     public MLibrary(string filePath)
     {
         _filePath = Path.ChangeExtension(filePath, Extention);
-        ParentDirName = FileToolEditor.GetDirParentDir(_filePath);
-        FileName = Path.GetFileName(_filePath);
+        ParentDirName = FileToolEditor.GetParentDirName(_filePath);
+        FileName = Path.GetFileNameWithoutExtension(_filePath);
+
+        Debug.Log("_filePath: " + _filePath);
+        Debug.Log("ParentDirName: " + ParentDirName);
+        Debug.Log("FileName: " + FileName);
     }
 
     public void Initialize()
@@ -554,7 +568,12 @@ public sealed class MLibrary
             {
                 _fStream.Seek(frameSeek, SeekOrigin.Begin);
                 var frameCount = _reader.ReadInt32();
-               
+
+            }
+
+            for (int i = 0; i < _count; ++i)
+            {
+                CheckImage(i);
             }
         }
         catch (Exception e)
@@ -564,13 +583,13 @@ public sealed class MLibrary
         }
     }
 
-    private bool CheckImage(int index)
+    private void CheckImage(int index)
     {
         if (!_initialized)
             Initialize();
 
         if (_images == null || index < 0 || index >= _images.Length)
-            return false;
+            return;
 
         if (_images[index] == null)
         {
@@ -579,18 +598,13 @@ public sealed class MLibrary
         }
 
         MImage mi = _images[index];
-        if (!mi.TextureValid)
-        {
-            if ((mi.Width == 0) || (mi.Height == 0))
-                return false;
-            _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
+        if ((mi.Width == 0) || (mi.Height == 0))
+            return;
+        _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
 
-            string path = Path.Combine(MLibraryEditor.OutDir, ParentDirName);
-            string fileName = FileName + index + ".png";
-            mi.CreateTexture(path, fileName, _reader);
-        }
-
-        return true;
+        string path = Path.Combine(MLibraryEditor.OutDir, ParentDirName);
+        string fileName = FileName + index + ".png";
+        mi.CreateTexture(path, fileName, _reader);
     }
 
 }
@@ -601,7 +615,6 @@ public sealed class MImage
     public short Width, Height, X, Y, ShadowX, ShadowY;
     public byte Shadow;
     public int Length;
-    public bool TextureValid;
     public Texture2D Image;
     //layer 2:
     public short MaskWidth, MaskHeight, MaskX, MaskY;
@@ -653,9 +666,9 @@ public sealed class MImage
             DecompressImage(reader.ReadBytes(Length), stream);
             MaskData = stream.ToArray();
             stream.Close();
-        }
 
-        SaveTexture(outParentDir + "Mask" + fileName, MaskData);
+            SaveTexture(outParentDir + "Mask" + fileName, MaskData);
+        }
     }
 
     private void SaveTexture(string outPath, byte[] Data)
