@@ -1,50 +1,50 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO.Compression;
-using System;
 using System.Linq;
-using System.Threading;
 using System.Text.RegularExpressions;
+using System.Threading;
+using UnityEditor;
+using UnityEngine;
+using static UnityEditor.AddressableAssets.Build.BuildPipelineTasks.GenerateLocationListsTask;
 
 public static class MLibraryEditor
 {
-    public const string RootDir = "Assets/../Mir2Client/";
+    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client2/";
+    public const string RootDir = "D:/Me/MyProject/CrystalMir2/Client/";
     public const string DataPath = RootDir + "Data/",
-                    MapPath = RootDir + @"./Map/",
-                    SoundPath = RootDir + @"./Sound/",
-                    ExtraDataPath = RootDir + @"./Data/Extra/",
-                    ShadersPath = RootDir + @"./Data/Shaders/",
-                    MonsterPath = RootDir + @"./Data/Monster/",
-                    GatePath = RootDir + @"./Data/Gate/",
-                    FlagPath = RootDir + @"./Data/Flag/",
-                    SiegePath = RootDir + @"./Data/Siege/",
-                    NPCPath = RootDir + @"./Data/NPC/",
-                    CArmourPath = RootDir + @"./Data/CArmour/",
-                    CWeaponPath = RootDir + @"./Data/CWeapon/",
-                    CWeaponEffectPath = RootDir + @"./Data/CWeaponEffect/",
-                    CHairPath = RootDir + @"./Data/CHair/",
-                    AArmourPath = RootDir + @"./Data/AArmour/",
-                    AWeaponPath = RootDir + @"./Data/AWeapon/",
-                    AHairPath = RootDir + @"./Data/AHair/",
-                    ARArmourPath = RootDir + @"./Data/ARArmour/",
-                    ARWeaponPath = RootDir + @"./Data/ARWeapon/",
-                    ARHairPath = RootDir + @"./Data/ARHair/",
-                    CHumEffectPath = RootDir + @"./Data/CHumEffect/",
-                    AHumEffectPath = RootDir + @"./Data/AHumEffect/",
-                    ARHumEffectPath = RootDir + @"./Data/ARHumEffect/",
-                    MountPath = RootDir + @"./Data/Mount/",
-                    FishingPath = RootDir + @"./Data/Fishing/",
-                    PetsPath = RootDir + @"./Data/Pet/",
-                    TransformPath = RootDir + @"./Data/Transform/",
-                    TransformMountsPath = RootDir + @"./Data/TransformRide2/",
-                    TransformEffectPath = RootDir + @"./Data/TransformEffect/",
-                    TransformWeaponEffectPath = RootDir + @"./Data/TransformWeaponEffect/",
-                    MouseCursorPath = RootDir + @"./Data/Cursors/",
-                    ResourcePath = RootDir + @"./DirectX/",
-                    UserDataPath = RootDir + @"./Data/UserData/";
+                    MapPath = RootDir + "Map/",
+                    SoundPath = RootDir + "Sound/",
+                    ExtraDataPath = RootDir + "Data/Extra/",
+                    ShadersPath = RootDir + "Data/Shaders/",
+                    MonsterPath = RootDir + "Data/Monster/",
+                    GatePath = RootDir + "Data/Gate/",
+                    FlagPath = RootDir + "Data/Flag/",
+                    SiegePath = RootDir + "Data/Siege/",
+                    NPCPath = RootDir + "Data/NPC/",
+                    CArmourPath = RootDir + "Data/CArmour/",
+                    CWeaponPath = RootDir + "Data/CWeapon/",
+                    CWeaponEffectPath = RootDir + "Data/CWeaponEffect/",
+                    CHairPath = RootDir + "Data/CHair/",
+                    AArmourPath = RootDir + "Data/AArmour/",
+                    AWeaponPath = RootDir + "Data/AWeapon/",
+                    AHairPath = RootDir + "Data/AHair/",
+                    ARArmourPath = RootDir + "Data/ARArmour/",
+                    ARWeaponPath = RootDir + "Data/ARWeapon/",
+                    ARHairPath = RootDir + "Data/ARHair/",
+                    CHumEffectPath = RootDir + "Data/CHumEffect/",
+                    AHumEffectPath = RootDir + "Data/AHumEffect/",
+                    ARHumEffectPath = RootDir + "Data/ARHumEffect/",
+                    MountPath = RootDir + "Data/Mount/",
+                    FishingPath = RootDir + "Data/Fishing/",
+                    PetsPath = RootDir + "Data/Pet/",
+                    TransformPath = RootDir + "Data/Transform/",
+                    TransformMountsPath = RootDir + "Data/TransformRide2/",
+                    TransformEffectPath = RootDir + "Data/TransformEffect/",
+                    TransformWeaponEffectPath = RootDir + "Data/TransformWeaponEffect/",
+                    MouseCursorPath = RootDir + "Data/Cursors/",
+                    ResourcePath = RootDir + "DirectX/",
+                    UserDataPath = RootDir + "Data/UserData/";
 
 
     public static readonly MLibrary ChrSel = new MLibrary(DataPath + "ChrSel");
@@ -111,7 +111,8 @@ public static class MLibraryEditor
     static int Count;
     static bool Loaded;
 
-    static void InitLibraries()
+    [MenuItem("Mir2Editor/解密资源")]
+    public static void InitLibraries()
     {
         //Wiz/War/Tao
         InitLibrary(ref CArmours, CArmourPath, "00");
@@ -217,9 +218,7 @@ public static class MLibraryEditor
         #endregion
 
         LoadLibraries();
-
-        Thread thread = new Thread(LoadGameLibraries) { IsBackground = true };
-        thread.Start();
+        LoadGameLibraries();
     }
 
     static void InitLibrary(ref MLibrary[] library, string path, string toStringValue, string suffix = "")
@@ -229,11 +228,11 @@ public static class MLibraryEditor
             Directory.CreateDirectory(path);
         }
 
-        var allFiles = Directory.GetFiles(path, "*" + suffix + MLibrary.Extention, SearchOption.TopDirectoryOnly).OrderBy(x => int.Parse(Regex.Match(x, @"/d+").Value));
+        var allFiles = Directory.GetFiles(path, "*" + suffix + MLibrary.Extention, SearchOption.TopDirectoryOnly).OrderBy(x => int.Parse(Regex.Match(x, @"\d+").Value));
 
         var lastFile = allFiles.Count() > 0 ? Path.GetFileName(allFiles.Last()) : "0";
 
-        var count = int.Parse(Regex.Match(lastFile, @"/d+").Value) + 1;
+        var count = int.Parse(Regex.Match(lastFile, @"\d+").Value) + 1;
 
         library = new MLibrary[count];
 
@@ -502,7 +501,7 @@ public sealed class MLibrary
 {
     public const string Extention = ".Lib";
     public const int LibVersion = 3;
-    private readonly string _fileName;
+    private readonly string _filePath;
     private MImage[] _images;
     private int[] _indexList;
     private int _count;
@@ -511,20 +510,25 @@ public sealed class MLibrary
     private BinaryReader _reader;
     private FileStream _fStream;
 
-    public MLibrary(string filename)
+    private string ParentDirName;
+    private string FileName;
+
+    public MLibrary(string filePath)
     {
-        _fileName = Path.ChangeExtension(filename, Extention);
+        _filePath = Path.ChangeExtension(filePath, Extention);
+        ParentDirName = FileToolEditor.GetDirParentDir(_filePath);
+        FileName = Path.GetFileName(_filePath);
     }
 
     public void Initialize()
     {
         _initialized = true;
-        if (!File.Exists(_fileName))
+        if (!File.Exists(_filePath))
             return;
 
         try
         {
-            _fStream = new FileStream(_fileName, FileMode.Open, FileAccess.Read);
+            _fStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
             _reader = new BinaryReader(_fStream);
             int currentVersion = _reader.ReadInt32();
             if (currentVersion < 2)
@@ -580,7 +584,10 @@ public sealed class MLibrary
             if ((mi.Width == 0) || (mi.Height == 0))
                 return false;
             _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
-            mi.CreateTexture(_reader);
+
+            string path = Path.Combine(MLibraryEditor.OutDir, ParentDirName);
+            string fileName = FileName + index + ".png";
+            mi.CreateTexture(path, fileName, _reader);
         }
 
         return true;
@@ -630,29 +637,30 @@ public sealed class MImage
         }
     }
 
-    public void CreateTexture(BinaryReader reader)
+    public void CreateTexture(string outParentDir, string fileName, BinaryReader reader)
     {
-        int w = Width; // + (4 - Width % 4) % 4;
-        int h = Height; // + (4 - Height % 4) % 4;
-
-        Texture2D Image = new Texture2D(w, h);
         MemoryStream stream = new MemoryStream();
         DecompressImage(reader.ReadBytes(Length), stream);
         Data = stream.ToArray();
         stream.Close();
 
+        SaveTexture(outParentDir + fileName, Data);
         if (HasMask)
         {
             reader.ReadBytes(12);
-            w = Width;// + (4 - Width % 4) % 4;
-            h = Height;// + (4 - Height % 4) % 4;
 
-            Texture2D MaskImage = new Texture2D(w, h);
             stream = new MemoryStream();
             DecompressImage(reader.ReadBytes(Length), stream);
             MaskData = stream.ToArray();
             stream.Close();
         }
+
+        SaveTexture(outParentDir + "Mask" + fileName, MaskData);
+    }
+
+    private void SaveTexture(string outPath, byte[] Data)
+    {
+        File.WriteAllBytes(outPath, Data);
     }
 
     private void DecompressImage(byte[] data, Stream destination)
