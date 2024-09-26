@@ -125,8 +125,8 @@ public static class MLibraryEditor
         Debug.Log("Start...: " + Progress);
         EditorApplication.update -= Update;
         EditorApplication.update += Update;
-        EditorApplication.update -= TextureRequestMgr.Instance.Update;
-        EditorApplication.update += TextureRequestMgr.Instance.Update;
+        EditorApplication.update -= TextureRequestMgr.Update;
+        EditorApplication.update += TextureRequestMgr.Update;
 
         tokenSource = new CancellationTokenSource();
         Task.Run(() =>
@@ -141,12 +141,12 @@ public static class MLibraryEditor
         {
             EditorUtility.ClearProgressBar();
             EditorApplication.update -= Update;
-            EditorApplication.update -= TextureRequestMgr.Instance.Update;
+            EditorApplication.update -= TextureRequestMgr.Update;
             Debug.Log("Finish...: " + Progress);
         }
         else
         {
-            if(EditorUtility.DisplayCancelableProgressBar("Mir2Editor/解密资源", currentPath, (float)Progress))
+            if (EditorUtility.DisplayCancelableProgressBar("Mir2Editor/解密资源", currentPath, 0.5f))
             {
                 CancelTask();
             }
@@ -565,18 +565,15 @@ public class MLibrary
     private FileStream _fStream;
 
     private readonly string _filePath;
-    private readonly string ParentDirName;
-    private readonly string FileName;
+    private readonly string OutParentDirName;
 
     public MLibrary(string filePath)
     {
         _filePath = Path.ChangeExtension(filePath, Extention);
-        ParentDirName = FileToolEditor.GetParentDirName(_filePath);
-        FileName = Path.GetFileNameWithoutExtension(_filePath);
+        OutParentDirName = FileToolEditor.GetParentDirName(_filePath) + "/" + Path.GetFileNameWithoutExtension(_filePath) + "/";
 
         Debug.Log("_filePath: " + _filePath);
-        Debug.Log("ParentDirName: " + ParentDirName);
-        Debug.Log("FileName: " + FileName);
+        Debug.Log("ParentDirName: " + OutParentDirName);
     }
 
     public void Initialize()
@@ -626,8 +623,10 @@ public class MLibrary
                 CheckImage(i);
             }
 
-            MLibraryEditor.currentPath = _filePath + "----------" + _count;
+            MLibraryEditor.currentPath = $"{_filePath}----------{_count}";
             _fStream.Close();
+            _fStream = null ;
+            _reader = null ;
         }
         catch (Exception e)
         {
@@ -655,8 +654,8 @@ public class MLibrary
             return;
         _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
 
-        string path = Path.Combine(MLibraryEditor.OutDir, ParentDirName);
-        string fileName = FileName + index;
+        string path = Path.Combine(MLibraryEditor.OutDir, OutParentDirName);
+        string fileName = "" + index;
         mi.CreateTexture(path, fileName, _reader);
     }
 }
@@ -674,8 +673,6 @@ public sealed class MImage
     public Texture MaskImage;
     public bool HasMask;
     public long CleanTime;
-    public byte[] Data;
-    public byte[] MaskData;
 
     public MImage(BinaryReader reader)
     {
@@ -706,7 +703,7 @@ public sealed class MImage
     {
         MemoryStream stream = new MemoryStream();
         DecompressImage(reader.ReadBytes(Length), stream);
-        Data = stream.ToArray();
+        byte[] Data = stream.ToArray();
         stream.Close();
 
         SaveTextureInMainThread(outParentDir + fileName, Width, Height, Data);
@@ -716,7 +713,7 @@ public sealed class MImage
 
             stream = new MemoryStream();
             DecompressImage(reader.ReadBytes(Length), stream);
-            MaskData = stream.ToArray();
+            byte[] MaskData = stream.ToArray();
             stream.Close();
 
             SaveTextureInMainThread(outParentDir + "Mask" + fileName, MaskWidth, MaskHeight, MaskData);
@@ -725,12 +722,15 @@ public sealed class MImage
 
     private void SaveTextureInMainThread(string outPath, int nWidith, int nHeight, byte[] Data)
     {
-        TextureRequestItem mItem = new TextureRequestItem();
-        mItem.nWidith = nWidith;
-        mItem.nHeight = nHeight;
-        mItem.Data = Data;
-        mItem.outPath = outPath;
-        TextureRequestMgr.Instance.AddItem(mItem);
+        if (!File.Exists(outPath))
+        {
+            TextureRequestItem mItem = new TextureRequestItem();
+            mItem.nWidith = nWidith;
+            mItem.nHeight = nHeight;
+            mItem.Data = Data;
+            mItem.outPath = outPath;
+            TextureRequestMgr.AddItem(mItem);
+        }
     }
 
     private void DecompressImage(byte[] data, Stream destination)
@@ -750,26 +750,45 @@ public class TextureRequestItem
     public byte[] Data;
 }
 
-public class TextureRequestMgr:Singleton<TextureRequestMgr>
+public static class TextureRequestMgr
 {
-    public List<TextureRequestItem> mItemList = new List<TextureRequestItem>();
+    public static Queue<TextureRequestItem> mItemList = new Queue<TextureRequestItem>();
     
-    public void AddItem(TextureRequestItem mItem)
+    public static void AddItem(TextureRequestItem mItem)
     {
-        mItemList.Add(mItem);
+        lock (mItemList)
+        {
+            mItemList.Enqueue(mItem);
+        }
     }
 
-    public void Update()
+    public static void Update()
     {
         if (MLibraryEditor.tokenSource.IsCancellationRequested)
         {
+            mItemList.Clear();
             return;
         }
 
-        if (mItemList.Count > 0)
+        lock (mItemList)
         {
-            SaveTexture(mItemList[0]);
-            mItemList.RemoveAt(0);
+            if (mItemList.Count > 0)
+            {
+                MLibraryEditor.currentPath = $"Texture Op Count:  {mItemList.Count}  {mItemList.Peek().outPath}";
+            }
+            else
+            {
+                MLibraryEditor.currentPath = $"Texture Op Count:  {mItemList.Count}";
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                if (mItemList.Count > 0)
+                {
+                    var mItem = mItemList.Dequeue();
+                    SaveTexture(mItem);
+                }
+            }
         }
 
         if (MLibraryEditor.Loaded1 && mItemList.Count == 0)
@@ -778,12 +797,18 @@ public class TextureRequestMgr:Singleton<TextureRequestMgr>
         }
     }
 
-    private void SaveTexture(TextureRequestItem mItem)
+    private static void SaveTexture(TextureRequestItem mItem)
     {
         string outPath = mItem.outPath;
         int nWidith = mItem.nWidith;
         int nHeight = mItem.nHeight;
         byte[] Data = mItem.Data;
+
+        string dir = Path.GetDirectoryName(outPath);
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
 
         Texture2D texture = new Texture2D(nWidith, nHeight, TextureFormat.RGBA32, false);
         texture.SetPixelData<byte>(Data, 0);
