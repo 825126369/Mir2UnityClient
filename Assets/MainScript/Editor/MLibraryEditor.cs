@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -117,7 +119,12 @@ public static class MLibraryEditor
         Loaded = false;
 
         Debug.Log("Start...: " + Progress);
-        InitLibraries();
+        EditorUtility.DisplayCancelableProgressBar("Mir2Editor/解密资源", "", (float)Progress);
+        Task.Run(() =>
+        {
+            InitLibraries();
+        });
+        EditorUtility.ClearProgressBar();
         Debug.Log("Finish...: " + Progress);
     }
 
@@ -606,7 +613,6 @@ public class MLibrary
         string fileName = FileName + index + ".png";
         mi.CreateTexture(path, fileName, _reader);
     }
-
 }
 
 
@@ -657,7 +663,7 @@ public sealed class MImage
         Data = stream.ToArray();
         stream.Close();
 
-        SaveTexture(outParentDir + fileName, Data);
+        SaveTexture(outParentDir + fileName, Width, Height, Data);
         if (HasMask)
         {
             reader.ReadBytes(12);
@@ -667,13 +673,32 @@ public sealed class MImage
             MaskData = stream.ToArray();
             stream.Close();
 
-            SaveTexture(outParentDir + "Mask" + fileName, MaskData);
+            SaveTexture(outParentDir + "Mask" + fileName, MaskWidth, MaskHeight, MaskData);
         }
     }
 
-    private void SaveTexture(string outPath, byte[] Data)
+    private void SaveTexture(string outPath, int nWidith, int nHeight, byte[] Data)
     {
+        Texture2D texture = new Texture2D(nWidith, nHeight);
+        for (int x = 0; x < nWidith; x++)
+        {
+            for (int y = 0; y < nHeight; y++)
+            {
+                texture.SetPixel(x, y, GetColor(Data, x, y, nWidith));
+            }
+        }
+        Data = texture.EncodeToPNG();
         File.WriteAllBytes(outPath, Data);
+    }
+
+    private Color32 GetColor(byte[] Data, int x, int y, int w)
+    {
+        int index = y * (w * 4) + x;
+        byte a = Data[index + 0];
+        byte r = Data[index + 1];
+        byte g = Data[index + 2];
+        byte b = Data[index + 3];
+        return new UnityEngine.Color32(r, g, b, a);
     }
 
     private void DecompressImage(byte[] data, Stream destination)
