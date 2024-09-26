@@ -12,7 +12,7 @@ using UnityEngine.PlayerLoop;
 
 public static class MLibraryEditor
 {
-    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client2/";
+    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client5/";
     public const string RootDir = "D:/Me/MyProject/CrystalMir2/Client/";
     public const string DataPath = RootDir + "Data/",
                     MapPath = RootDir + "Map/",
@@ -109,7 +109,7 @@ public static class MLibraryEditor
     public static MLibrary[] TransformEffect;
     public static MLibrary[] TransformWeaponEffect;
 
-    static int Progress;
+    public static int Progress;
     public static string currentPath;
     static int Count;
     static bool Loaded;
@@ -587,6 +587,11 @@ public class MLibrary
             return;
         }
 
+        if(MLibraryEditor.Progress > 5)
+        {
+            return;
+        }
+
         try
         {
             _fStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
@@ -652,7 +657,7 @@ public class MLibrary
         _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
 
         string path = Path.Combine(MLibraryEditor.OutDir, ParentDirName);
-        string fileName = FileName + index + ".png";
+        string fileName = FileName + index;
         mi.CreateTexture(path, fileName, _reader);
     }
 }
@@ -721,25 +726,30 @@ public sealed class MImage
 
     private void SaveTexture(string outPath, int nWidith, int nHeight, byte[] Data)
     {
-        Texture2D texture = new Texture2D(nWidith, nHeight);
-        for (int x = 0; x < nWidith; x++)
+        Texture2D texture = new Texture2D(nWidith, nHeight, TextureFormat.RGBA32, false);
+        texture.SetPixelData<byte>(Data, 0);
+        for (int y = 0; y < nHeight / 2; y++)
         {
-            for (int y = 0; y < nHeight; y++)
+            for (int x = 0; x < nWidith; x++)
             {
-                texture.SetPixel(x, y, GetColor(Data, x, y, nWidith));
+                UnityEngine.Color color1 = texture.GetPixel(x, y);
+                UnityEngine.Color color2 = texture.GetPixel(x, nHeight - 1 - y);
+
+                texture.SetPixel(x, y, color2);
+                texture.SetPixel(x, nHeight - 1 - y, color1);
             }
         }
         Data = texture.EncodeToPNG();
-        File.WriteAllBytes(outPath, Data);
+        File.WriteAllBytes(outPath + ".png", Data);
     }
 
     private Color32 GetColor(byte[] Data, int x, int y, int w)
     {
         int index = y * (w * 4) + x;
-        byte a = Data[index + 0];
         byte r = Data[index + 1];
         byte g = Data[index + 2];
         byte b = Data[index + 3];
+        byte a = Data[index + 0];
         return new UnityEngine.Color32(r, g, b, a);
     }
 
