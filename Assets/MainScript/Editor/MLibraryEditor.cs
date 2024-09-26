@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -8,7 +9,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public static class MLibraryEditor
 {
@@ -112,34 +112,36 @@ public static class MLibraryEditor
     public static int Progress;
     public static string currentPath;
     static int Count;
-    static bool Loaded;
-
+    public static bool Loaded1;
+    public static bool Loaded2;
     [MenuItem("Mir2Editor/解密资源")]
     private static void Do()
     {
         Progress = 0;
         Count = 0;
-        Loaded = false;
+        Loaded1 = false;
+        Loaded2 = false;
 
         Debug.Log("Start...: " + Progress);
         EditorApplication.update -= Update;
         EditorApplication.update += Update;
+        EditorApplication.update -= TextureRequestMgr.Instance.Update;
+        EditorApplication.update += TextureRequestMgr.Instance.Update;
 
         tokenSource = new CancellationTokenSource();
-        //Task.Run(() =>
-        //{
-        //    InitLibraries();
-        //});
-
-        InitLibraries();
+        Task.Run(() =>
+        {
+            InitLibraries();
+        });
     }
 
     private static void Update()
     {
-        if (Loaded)
+        if (Loaded1 && Loaded2)
         {
             EditorUtility.ClearProgressBar();
             EditorApplication.update -= Update;
+            EditorApplication.update -= TextureRequestMgr.Instance.Update;
             Debug.Log("Finish...: " + Progress);
         }
         else
@@ -159,7 +161,8 @@ public static class MLibraryEditor
             Debug.Log("CancelTask");
             tokenSource.Cancel();
             EditorUtility.ClearProgressBar();
-            Loaded = true;
+            Loaded1 = true;
+            Loaded2 = true;
             tokenSource = null;
         }
     }
@@ -543,7 +546,7 @@ public static class MLibraryEditor
             Progress++;
         }
 
-        Loaded = true;
+        Loaded1 = true;
     }
 }
 
@@ -587,11 +590,6 @@ public class MLibrary
             return;
         }
 
-        if(MLibraryEditor.Progress > 5)
-        {
-            return;
-        }
-
         try
         {
             _fStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
@@ -629,6 +627,7 @@ public class MLibrary
             }
 
             MLibraryEditor.currentPath = _filePath + "----------" + _count;
+            _fStream.Close();
         }
         catch (Exception e)
         {
@@ -710,7 +709,7 @@ public sealed class MImage
         Data = stream.ToArray();
         stream.Close();
 
-        SaveTexture(outParentDir + fileName, Width, Height, Data);
+        SaveTextureInMainThread(outParentDir + fileName, Width, Height, Data);
         if (HasMask)
         {
             reader.ReadBytes(12);
@@ -720,12 +719,72 @@ public sealed class MImage
             MaskData = stream.ToArray();
             stream.Close();
 
-            SaveTexture(outParentDir + "Mask" + fileName, MaskWidth, MaskHeight, MaskData);
+            SaveTextureInMainThread(outParentDir + "Mask" + fileName, MaskWidth, MaskHeight, MaskData);
         }
     }
 
-    private void SaveTexture(string outPath, int nWidith, int nHeight, byte[] Data)
+    private void SaveTextureInMainThread(string outPath, int nWidith, int nHeight, byte[] Data)
     {
+        TextureRequestItem mItem = new TextureRequestItem();
+        mItem.nWidith = nWidith;
+        mItem.nHeight = nHeight;
+        mItem.Data = Data;
+        mItem.outPath = outPath;
+        TextureRequestMgr.Instance.AddItem(mItem);
+    }
+
+    private void DecompressImage(byte[] data, Stream destination)
+    {
+        using (var stream = new GZipStream(new MemoryStream(data), CompressionMode.Decompress))
+        {
+            stream.CopyTo(destination);
+        }
+    }
+}
+
+public class TextureRequestItem
+{
+    public string outPath;
+    public int nWidith;
+    public int nHeight;
+    public byte[] Data;
+}
+
+public class TextureRequestMgr:Singleton<TextureRequestMgr>
+{
+    public List<TextureRequestItem> mItemList = new List<TextureRequestItem>();
+    
+    public void AddItem(TextureRequestItem mItem)
+    {
+        mItemList.Add(mItem);
+    }
+
+    public void Update()
+    {
+        if (MLibraryEditor.tokenSource.IsCancellationRequested)
+        {
+            return;
+        }
+
+        if (mItemList.Count > 0)
+        {
+            SaveTexture(mItemList[0]);
+            mItemList.RemoveAt(0);
+        }
+
+        if (MLibraryEditor.Loaded1 && mItemList.Count == 0)
+        {
+            MLibraryEditor.Loaded2 = true;
+        }
+    }
+
+    private void SaveTexture(TextureRequestItem mItem)
+    {
+        string outPath = mItem.outPath;
+        int nWidith = mItem.nWidith;
+        int nHeight = mItem.nHeight;
+        byte[] Data = mItem.Data;
+
         Texture2D texture = new Texture2D(nWidith, nHeight, TextureFormat.RGBA32, false);
         texture.SetPixelData<byte>(Data, 0);
         for (int y = 0; y < nHeight / 2; y++)
@@ -741,23 +800,6 @@ public sealed class MImage
         }
         Data = texture.EncodeToPNG();
         File.WriteAllBytes(outPath + ".png", Data);
-    }
-
-    private Color32 GetColor(byte[] Data, int x, int y, int w)
-    {
-        int index = y * (w * 4) + x;
-        byte r = Data[index + 1];
-        byte g = Data[index + 2];
-        byte b = Data[index + 3];
-        byte a = Data[index + 0];
-        return new UnityEngine.Color32(r, g, b, a);
-    }
-
-    private void DecompressImage(byte[] data, Stream destination)
-    {
-        using (var stream = new GZipStream(new MemoryStream(data), CompressionMode.Decompress))
-        {
-            stream.CopyTo(destination);
-        }
+        UnityEngine.Object.DestroyImmediate(texture);
     }
 }
