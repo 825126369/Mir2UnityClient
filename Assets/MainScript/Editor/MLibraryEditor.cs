@@ -4,9 +4,11 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public static class MLibraryEditor
 {
@@ -108,6 +110,7 @@ public static class MLibraryEditor
     public static MLibrary[] TransformWeaponEffect;
 
     static int Progress;
+    public static string currentPath;
     static int Count;
     static bool Loaded;
 
@@ -119,15 +122,47 @@ public static class MLibraryEditor
         Loaded = false;
 
         Debug.Log("Start...: " + Progress);
-        EditorUtility.DisplayCancelableProgressBar("Mir2Editor/解密资源", "", (float)Progress);
-        Task.Run(() =>
-        {
-            InitLibraries();
-        });
-        EditorUtility.ClearProgressBar();
-        Debug.Log("Finish...: " + Progress);
+        EditorApplication.update -= Update;
+        EditorApplication.update += Update;
+
+        tokenSource = new CancellationTokenSource();
+        //Task.Run(() =>
+        //{
+        //    InitLibraries();
+        //});
+
+        InitLibraries();
     }
 
+    private static void Update()
+    {
+        if (Loaded)
+        {
+            EditorUtility.ClearProgressBar();
+            EditorApplication.update -= Update;
+            Debug.Log("Finish...: " + Progress);
+        }
+        else
+        {
+            if(EditorUtility.DisplayCancelableProgressBar("Mir2Editor/解密资源", currentPath, (float)Progress))
+            {
+                CancelTask();
+            }
+        }
+    }
+
+    public static CancellationTokenSource tokenSource = null;
+    static void CancelTask()
+    {
+        if (tokenSource != null)
+        {
+            Debug.Log("CancelTask");
+            tokenSource.Cancel();
+            EditorUtility.ClearProgressBar();
+            Loaded = true;
+            tokenSource = null;
+        }
+    }
 
     public static void InitLibraries()
     {
@@ -547,6 +582,11 @@ public class MLibrary
         if (!File.Exists(_filePath))
             return;
 
+        if (MLibraryEditor.tokenSource.IsCancellationRequested)
+        {
+            return;
+        }
+
         try
         {
             _fStream = new FileStream(_filePath, FileMode.Open, FileAccess.Read);
@@ -578,15 +618,17 @@ public class MLibrary
 
             }
 
-            for (int i = 0; i < _count; ++i)
+            for (int i = 0; i < _count; i++)
             {
                 CheckImage(i);
             }
+
+            MLibraryEditor.currentPath = _filePath + "----------" + _count;
         }
         catch (Exception e)
         {
             _initialized = false;
-            throw;
+            Debug.LogError(e.Message);
         }
     }
 
