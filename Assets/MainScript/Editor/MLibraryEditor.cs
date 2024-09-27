@@ -655,7 +655,7 @@ public class MLibrary
         _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
 
         string path = Path.Combine(MLibraryEditor.OutDir, OutParentDirName);
-        string fileName = "" + index;
+        string fileName = $"{index}.png";
         mi.CreateTexture(path, fileName, _reader);
     }
 }
@@ -824,7 +824,7 @@ public static class TextureRequestMgr
             }
         }
         Data = texture.EncodeToPNG();
-        File.WriteAllBytes(outPath + ".png", Data);
+        File.WriteAllBytes(outPath, Data);
         UnityEngine.Object.DestroyImmediate(texture);
     }
 }
