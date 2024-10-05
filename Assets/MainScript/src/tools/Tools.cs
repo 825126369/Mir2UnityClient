@@ -74,18 +74,6 @@ public class Tools
         return Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer;
     }
 
-
-    // ios的所有内置字体  https://www.jianshu.com/p/1024ee910dc8
-    // exclude  排除的节点的名称.
-    public static void updateFont(GameObject parentNode, string fontFamily = "Arial Rounded MT Bold", TSArray<string> exclude = null)
-    {
-        
-    }
-    public static void UpdateFont(GameObject parentNode, string fontFamily = "Arial Rounded MT Bold", TSArray<string> exclude = null)
-    {
-        
-    }
-
     public static bool orTodayForTimeStamp(ulong nTimeStamp)
     {
         DateTime recordDateTime = TimeTool.GetLocalTimeFromTimeStamp(nTimeStamp);

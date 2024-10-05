@@ -9,11 +9,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.AddressableAssets.Build.BuildPipelineTasks.GenerateLocationListsTask;
 
 public static class MLibraryEditor
 {
-    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client5/";
+    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client6/";
     public const string RootDir = "D:/Me/MyProject/CrystalMir2/Client/";
+
     public const string DataPath = RootDir + "Data/",
                     MapPath = RootDir + "Map/",
                     SoundPath = RootDir + "Sound/",
@@ -284,13 +286,9 @@ public static class MLibraryEditor
         }
 
         var allFiles = Directory.GetFiles(path, "*" + suffix + MLibrary.Extention, SearchOption.TopDirectoryOnly).OrderBy(x => int.Parse(Regex.Match(x, @"\d+").Value));
-
         var lastFile = allFiles.Count() > 0 ? Path.GetFileName(allFiles.Last()) : "0";
-
         var count = int.Parse(Regex.Match(lastFile, @"\d+").Value) + 1;
-
         library = new MLibrary[count];
-
         for (int i = 0; i < count; i++)
         {
             library[i] = new MLibrary(path + i.ToString(toStringValue) + suffix);
@@ -570,19 +568,21 @@ public class MLibrary
     public MLibrary(string filePath)
     {
         _filePath = Path.ChangeExtension(filePath, Extention);
-        OutParentDirName = FileToolEditor.GetParentDirName(_filePath) + "/" + Path.GetFileNameWithoutExtension(_filePath) + "/";
-
-        Debug.Log("_filePath: " + _filePath);
-        Debug.Log("ParentDirName: " + OutParentDirName);
+        if(File.Exists(_filePath))
+        {
+            OutParentDirName = Path.Combine(FileToolEditor.GetParentDirName(_filePath, "Client/") , Path.GetFileNameWithoutExtension(_filePath) + "/");
+        }
     }
 
     public void Initialize()
     {
         _initialized = true;
         if (!File.Exists(_filePath))
+        {
             return;
+        }
 
-        if (MLibraryEditor.tokenSource.IsCancellationRequested)
+        if (MLibraryEditor.tokenSource == null || MLibraryEditor.tokenSource.IsCancellationRequested)
         {
             return;
         }
@@ -701,22 +701,42 @@ public sealed class MImage
 
     public void CreateTexture(string outParentDir, string fileName, BinaryReader reader)
     {
-        MemoryStream stream = new MemoryStream();
-        DecompressImage(reader.ReadBytes(Length), stream);
-        byte[] Data = stream.ToArray();
-        stream.Close();
-
-        SaveTextureInMainThread(outParentDir + fileName, Width, Height, Data);
-        if (HasMask)
+        string fileName1 = outParentDir + fileName;
+        if (!File.Exists(fileName1))
         {
-            reader.ReadBytes(12);
-
-            stream = new MemoryStream();
+            MemoryStream stream = new MemoryStream();
             DecompressImage(reader.ReadBytes(Length), stream);
-            byte[] MaskData = stream.ToArray();
+            byte[] Data = stream.ToArray();
             stream.Close();
 
-            SaveTextureInMainThread(outParentDir + "Mask" + fileName, MaskWidth, MaskHeight, MaskData);
+            SaveTextureInMainThread(fileName1, Width, Height, Data);
+        }
+        else
+        {
+            reader.ReadBytes(Length);
+            Debug.Log(fileName1 + " 已存在");
+        }
+
+        if (HasMask)
+        {
+            string fileName2 = outParentDir + "Mask" + fileName;
+            if (!File.Exists(fileName2))
+            {
+                reader.ReadBytes(12);
+
+                MemoryStream stream = new MemoryStream();
+                DecompressImage(reader.ReadBytes(Length), stream);
+                byte[] MaskData = stream.ToArray();
+                stream.Close();
+
+                SaveTextureInMainThread(fileName2, MaskWidth, MaskHeight, MaskData);
+            }
+            else
+            {
+                reader.ReadBytes(12);
+                reader.ReadBytes(Length);
+                Debug.Log(fileName2 + " 已存在");
+            }
         }
     }
 
@@ -764,7 +784,7 @@ public static class TextureRequestMgr
 
     public static void Update()
     {
-        if (MLibraryEditor.tokenSource.IsCancellationRequested)
+        if (MLibraryEditor.tokenSource == null || MLibraryEditor.tokenSource.IsCancellationRequested)
         {
             mItemList.Clear();
             return;

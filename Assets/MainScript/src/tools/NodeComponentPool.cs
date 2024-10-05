@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class NodeComponentPool<T> where T : Component
 {
-    public readonly TSArray<T> pool = new TSArray<T>();
-    public readonly TSArray<T> usedArray = new TSArray<T>();
+    public readonly Queue<T> pool = new Queue<T>();
+    public readonly List<T> usedArray = new List<T>();
 
     private GameObject mItemPrefab;
     private Transform ItemParent;
@@ -38,20 +38,20 @@ public class NodeComponentPool<T> where T : Component
     {
         int nIndex = this.usedArray.IndexOf(obj);
         PrintTool.Assert(nIndex >= 0, "recyleObj 000 Error: ", nIndex);
-        this.usedArray.splice(nIndex, 1);
+        this.usedArray.RemoveAt(nIndex);
         nIndex = this.usedArray.IndexOf(obj);
         PrintTool.Assert(nIndex == -1, "recyleObj 111 Error");
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(ItemParent, false);
-        this.pool.push(obj);
+        this.pool.Enqueue(obj);
     }
 
     public T popObj()
     {
         T mItem = null;
-        if (this.pool.length > 0)
+        if (this.pool.Count > 0)
         {
-            mItem = this.pool.pop();
+            mItem = this.pool.Dequeue();
         }
         else
         {
@@ -59,9 +59,9 @@ public class NodeComponentPool<T> where T : Component
         }
 
         mItem.gameObject.SetActive(true);
-        this.usedArray.push(mItem);
+        this.usedArray.Add(mItem);
 
-        if (this.nMaxCapicity > 0 && this.usedArray.length + this.pool.length > this.nMaxCapicity)
+        if (this.nMaxCapicity > 0 && this.usedArray.Count + this.pool.Count > this.nMaxCapicity)
         {
             PrintTool.LogError("超出最大容量限制： ", this.nMaxCapicity);
         }
@@ -88,7 +88,7 @@ public class NodeComponentPool<T> where T : Component
         int nNowCount = this.GetSumCount();
         for (int j = nNowCount; j < nMaxCount; j++)
         {
-            this.pool.push(this.InnerCreateItem());
+            this.pool.Enqueue(this.InnerCreateItem());
         }
     }
 
@@ -110,7 +110,7 @@ public class NodeComponentPool<T> where T : Component
                     }
                     break;
                 }
-                this.pool.push(this.InnerCreateItem());
+                this.pool.Enqueue(this.InnerCreateItem());
             }
         };
 

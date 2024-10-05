@@ -6,8 +6,8 @@ using System;
 //Object 池子
 public class ObjectPool<T> where T : class, new()
 {
-	readonly TSArray<T> mObjectPool = new TSArray<T>();
-	readonly TSArray<T> mUsedObjectPool = new TSArray<T>();
+	readonly Queue<T> mObjectPool = new Queue<T>();
+	readonly List<T> mUsedObjectPool = new List<T>();
 
 	public int Count()
 	{
@@ -19,7 +19,7 @@ public class ObjectPool<T> where T : class, new()
 		for(int i = 0; i < count; i++)
         {
 			T t = new T();
-			mObjectPool.push(t);
+			mObjectPool.Enqueue(t);
         }
     }
 
@@ -28,7 +28,7 @@ public class ObjectPool<T> where T : class, new()
 		T mItem = null;
 		if (mObjectPool.Count > 0)
 		{
-			mItem = mObjectPool.pop();
+			mItem = mObjectPool.Dequeue();
 		}
 		else
 		{
@@ -40,7 +40,7 @@ public class ObjectPool<T> where T : class, new()
 			PrintTool.Assert(!mUsedObjectPool.Contains(mItem));
 		}
 
-		mUsedObjectPool.push(mItem);
+		mUsedObjectPool.Add(mItem);
 		return mItem;
 	}
 
@@ -48,7 +48,7 @@ public class ObjectPool<T> where T : class, new()
 	{
 		for(int i = 0; i < mUsedObjectPool.Count; i++)
         {
-			mObjectPool.push(mUsedObjectPool[i]);
+			mObjectPool.Enqueue(mUsedObjectPool[i]);
         }
 		mUsedObjectPool.Clear();
 	}

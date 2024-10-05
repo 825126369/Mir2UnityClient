@@ -1,23 +1,24 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioController : SingleTonMonoBehaviour<AudioController>
 {
-    public TSArray<AudioSource> audioSourcePool = new TSArray<AudioSource>();
+    public List<AudioSource> audioSourcePool = new List<AudioSource>();
     private AudioSource bgAudioSource;
 
     public void Init()
-    {        
-        this.audioSourcePool = new TSArray<AudioSource>();         
+    {
+        this.audioSourcePool = new List<AudioSource>();
         for (int index = 0; index < 5; index++)
         {
-            var audioSource = gameObject.AddComponent<AudioSource>(); 
-            this.SetAudiioSourceDefaultValue(audioSource);  
-            this.audioSourcePool.push(audioSource);
+            var audioSource = gameObject.AddComponent<AudioSource>();
+            this.SetAudiioSourceDefaultValue(audioSource);
+            this.audioSourcePool.Add(audioSource);
         }
-        
+
         bgAudioSource = gameObject.AddComponent<AudioSource>();
-        this.SetAudiioSourceDefaultValue(bgAudioSource);  
+        this.SetAudiioSourceDefaultValue(bgAudioSource);
     }
 
     public void SetAudiioSourceDefaultValue(AudioSource audioSource)
@@ -38,13 +39,13 @@ public class AudioController : SingleTonMonoBehaviour<AudioController>
                 this.SetAudiioSourceDefaultValue(audioSource);
                 return audioSource;
             }
-         }
+        }
 
         var newAudioSource = gameObject.AddComponent<AudioSource>();
         this.SetAudiioSourceDefaultValue(newAudioSource);
-        audioSourcePool.push(newAudioSource);
+        audioSourcePool.Add(newAudioSource);
         PrintTool.Log("audioSource： ", audioSourcePool.Count);
- 	    return newAudioSource;
+        return newAudioSource;
     }
 
     private AudioClip GetAudioClip(string audioName)

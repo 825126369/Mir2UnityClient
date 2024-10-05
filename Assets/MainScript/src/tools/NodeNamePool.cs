@@ -6,28 +6,28 @@ using UnityEngine.UI;
 
 public class NodeNamePool
 {
-    public readonly TSMap<string, NodePool> mapNamePool = new TSMap<string, NodePool>();
+    public readonly Dictionary<string, NodePool> mapNamePool = new Dictionary<string, NodePool>();
 
     public NodePool GetNodePool(string name)
     {
-        return mapNamePool.get(name);
+        return mapNamePool[name];
     }
 
     public NodePool PreLoadPool(int nInitCount, GameObject goPrefab, string prefabName = null)
     {
-        if(string.IsNullOrWhiteSpace(prefabName))
+        if (string.IsNullOrWhiteSpace(prefabName))
         {
             prefabName = goPrefab.name;
         }
 
-        NodePool mNodePool = mapNamePool.get(prefabName);
-        if (mNodePool == null)
+        NodePool mNodePool = null;
+        if (!mapNamePool.TryGetValue(prefabName, out mNodePool))
         {
             mNodePool = new NodePool();
             mNodePool.Init(goPrefab, nInitCount);
-            mapNamePool.set(prefabName, mNodePool);
+            mapNamePool[prefabName] = mNodePool;
         }
-        
+
         mNodePool.preLoadObj(nInitCount);
         return mNodePool;
     }

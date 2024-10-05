@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -79,18 +80,50 @@ public class FileToolEditor
 
         return null;
     }
-
-    public static string GetParentDirName(string path)
+    
+    public static string GetParentDirName(string path, string rootDir = null)
     {
         if (File.Exists(path))
         {
-            path = path.Substring(0, path.LastIndexOf("/"));
-            int nIndex = path.LastIndexOf("/");
-            return path.Substring(nIndex + 1);
+            path = Path.GetDirectoryName(path) + "/";
+            path = ChangePathSeparator(path);
+            rootDir = ChangePathSeparator(rootDir);
+            
+            if (rootDir == null)
+            {
+                path = path.Substring(0, path.LastIndexOf("/"));
+                int nIndex = path.LastIndexOf("/");
+                return path.Substring(nIndex + 1);
+            }
+            else
+            {
+                int nIndex = path.IndexOf(rootDir);
+                if (nIndex >= 0)
+                {
+                    path = path.Substring(nIndex + rootDir.Length);
+                    return path;
+                }else
+                {
+                    Debug.LogError($"GetParentDirName: path: {path} ");
+                    Debug.LogError($"GetParentDirName: rootDir: {rootDir} 不存在");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError($"GetParentDirName: path: {path} 不存在");
         }
 
         return null;
     }
+
+    private static string ChangePathSeparator(string path)
+    {
+        path = path.Replace("\\\\", "/");
+        path = path.Replace("\\", "/");
+        return path;
+    }
+
 
     private static void CopyDir(string origin, string target)
     {

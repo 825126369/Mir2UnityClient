@@ -2,12 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NodePool
 {
-    public readonly TSArray<GameObject> pool = new TSArray<GameObject>();
-    public readonly TSArray<GameObject> usedArray = new TSArray<GameObject>();
+    public readonly Queue<GameObject> pool = new Queue<GameObject>();
+    public readonly List<GameObject> usedArray = new List<GameObject>();
 
     private GameObject mItemPrefab;
     private Transform ItemParent;
@@ -30,26 +29,26 @@ public class NodePool
         go.SetActive(false);
         return go;
     }
-    
+
     public void recycleObj(GameObject obj)
     {
         obj.transform.SetParent(this.ItemParent, false);
 
         int nIndex = this.usedArray.IndexOf(obj);
         PrintTool.Assert(nIndex >= 0, "recyleObj 000 Error: ", nIndex);
-        this.usedArray.splice(nIndex, 1);
+        this.usedArray.RemoveAt(nIndex);
         nIndex = this.usedArray.IndexOf(obj);
         PrintTool.Assert(nIndex == -1, "recyleObj 111 Error");
         obj.gameObject.SetActive(false);
-        this.pool.push(obj);
+        this.pool.Enqueue(obj);
     }
 
     public GameObject popObj()
     {
         GameObject mItem = null;
-        if (this.pool.length > 0)
+        if (this.pool.Count > 0)
         {
-            mItem = this.pool.pop();
+            mItem = this.pool.Dequeue();
         }
         else
         {
@@ -57,9 +56,9 @@ public class NodePool
         }
 
         mItem.gameObject.SetActive(true);
-        this.usedArray.push(mItem);
+        this.usedArray.Add(mItem);
 
-        if (this.nMaxCapicity > 0 && this.usedArray.length + this.pool.length > this.nMaxCapicity)
+        if (this.nMaxCapicity > 0 && this.usedArray.Count + this.pool.Count > this.nMaxCapicity)
         {
             PrintTool.LogError("超出最大容量限制： ", this.nMaxCapicity);
         }
@@ -86,7 +85,7 @@ public class NodePool
         int nNowCount = this.GetSumCount();
         for (int j = nNowCount; j < nMaxCount; j++)
         {
-            this.pool.push(this.InnerCreateItem());
+            this.pool.Enqueue(this.InnerCreateItem());
         }
     }
 
@@ -108,7 +107,7 @@ public class NodePool
                     }
                     break;
                 }
-                this.pool.push(this.InnerCreateItem());
+                this.pool.Enqueue(this.InnerCreateItem());
             }
             yield return null;
         }
@@ -132,7 +131,7 @@ public class NodePool
                     }
                     break;
                 }
-                this.pool.push(this.InnerCreateItem());
+                this.pool.Enqueue(this.InnerCreateItem());
             }
         };
 

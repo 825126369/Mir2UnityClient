@@ -48,17 +48,14 @@ public class i18nController : SingleTonMonoBehaviour<i18nController>
         {
             if(Application.isPlaying)
             {
-                string data = ResCenter.readOnlyInstance.mBundleGameAllRes.FindTextAsset("I18n").text;
-                data = AESUtils.Instance.Decrypt(data);  
+                string data = ResCenter.readOnlyInstance.mBundleGameAllRes.FindTextAsset("I18n").text; 
                 mConfigDic = JsonTool.FromJson<Dictionary<string, Dictionary<string, string>>>(data);
                 PrintTool.Assert(mConfigDic != null, "mConfigDic == null");
             }
             else
             {
 #if UNITY_EDITOR
-                AESUtils.Instance.InitEncryptKey("BJJH2sOLITAIREGA"); 
                 string data = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>("Assets/GameAssets/game/Configs/I18n.json").text;
-                data = AESUtils.Instance.Decrypt(data);  
                 mConfigDic = JsonTool.FromJson<Dictionary<string, Dictionary<string, string>>>(data);
                 PrintTool.Assert(mConfigDic != null, "mConfigDic == null");
 #endif

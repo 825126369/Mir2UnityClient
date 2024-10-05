@@ -9,7 +9,6 @@ public class TestItem
     public TestItem()
     {
         nId = nCount++;
-        onFire.Instance.emit("AAAA", nId);
     }
     
     public void Update()
