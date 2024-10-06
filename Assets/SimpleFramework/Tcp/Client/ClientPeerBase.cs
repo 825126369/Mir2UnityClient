@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf;
 
-namespace xk_System.Net.TCP
+namespace xk_System.Net.TCP.Client
 {
     public class ClientPeerBase
 	{

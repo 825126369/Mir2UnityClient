@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xk_System.Net.TCP
+namespace xk_System.Net.TCP.Client
 {
     public class NetPackage
 	{

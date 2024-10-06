@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Text;
 
-namespace xk_System.DataStructure
+namespace xk_System.Net.TCP.Client
 {
 	/// <summary>
 	/// 适用于 频繁的修改数组

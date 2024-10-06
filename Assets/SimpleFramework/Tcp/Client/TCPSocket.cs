@@ -2,7 +2,6 @@
 using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
-using xk_System.DataStructure;
 
 namespace xk_System.Net.TCP.Client
 {

@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using xk_System.DataStructure;
 
-namespace xk_System.Net.TCP
+namespace xk_System.Net.TCP.Client
 {
     /// <summary>
     /// 把数据拿出来
