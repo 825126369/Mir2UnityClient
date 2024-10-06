@@ -5,8 +5,10 @@ using UnityEditor;
 public class ProtoBufEditor
 {
     private const string ProtocPath = "Assets/SimpleFramework/Tcp/protoc-28.2-win64/bin/protoc.exe";
-    private const string ProtocolPath = "Assets/Protobuf/";
+    private const string ProtocolPath = "Assets/Protobuf";
     private const string ProtocolCSPath = "Assets/Protobuf/Out/";
+
+    private const string NetInnerProtocolPath = "Assets/SimpleFramework/Tcp/Protobuf/";
 
     [MenuItem("Tools/Protobuf Gen")]
     private static void Do()
@@ -29,6 +31,35 @@ public class ProtoBufEditor
         
         RunCmd(Path.GetFullPath(ProtocPath), Path.GetFullPath(ProtocolPath), arg);
 
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    //[MenuItem("Tools/Protobuf Gen 2")]
+    private static void Do2()
+    {
+        if (!Directory.Exists(ProtocolPath))
+        {
+            Directory.CreateDirectory(ProtocolPath);
+        }
+        if (!Directory.Exists(ProtocolCSPath))
+        {
+            Directory.CreateDirectory(ProtocolCSPath);
+        }
+        
+        string arg = $"--csharp_out={Path.GetFullPath(ProtocolCSPath)}";
+        arg += " --proto_path=" + Path.GetFullPath(ProtocolPath);
+        arg += " --proto_path=" + Path.GetFullPath(NetInnerProtocolPath);
+        foreach (string v in Directory.GetFiles(ProtocolPath, "*.proto", SearchOption.TopDirectoryOnly))
+        {
+            arg += " " + Path.GetFileName(v);
+        }
+        foreach (string v in Directory.GetFiles(NetInnerProtocolPath, "*.proto", SearchOption.TopDirectoryOnly))
+        {
+            arg += " " + Path.GetFileName(v);
+        }
+
+        RunCmd(Path.GetFullPath(ProtocPath), null, arg);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
