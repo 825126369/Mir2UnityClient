@@ -1989,7 +1989,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1024, y: 768}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -2599,7 +2599,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 116b75b356084bb4a8e28e32934e3d63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f0280f29ffd62744805547547d3b28d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 033a95d9398eaf74fb1ab51581016a0e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6b589f91e096d1e489855ba47da71724, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

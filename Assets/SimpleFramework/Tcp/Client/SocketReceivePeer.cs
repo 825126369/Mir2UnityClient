@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace xk_System.Net.TCP.Client
+namespace Net.TCP.Client
 {
     //和线程打交道
     public class SocketReceivePeer : ClientPeerBase

@@ -1,3 +1,4 @@
+using Net.TCP.Client;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -66,6 +67,13 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 
         DataCenter.Instance.Init();
         UIMgr.Instance.Init();
+        NetClientMgr.Instance.Init();
+
+        while (NetClientMgr.Instance.mNetClient.GetSocketState() == SOCKETPEERSTATE.CONNECTING)
+        {
+            yield return null;
+        }
+
         this.LoadLobby();
         StartCoroutine(WaitToDestroyInitScene());
     }

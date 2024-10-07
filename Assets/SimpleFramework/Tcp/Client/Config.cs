@@ -1,4 +1,4 @@
-﻿namespace xk_System.Net.TCP
+﻿namespace Net.TCP
 {
     public class Config
 	{

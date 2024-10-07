@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Sockets;
 using UnityEngine;
 
-namespace xk_System.Net.TCP.Client
+namespace Net.TCP.Client
 {
     public class TcpSocket : SocketReceivePeer
 	{

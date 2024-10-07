@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 
-namespace xk_System.Net.TCP
+namespace Net.TCP
 {
     public class BufferManager
 	{

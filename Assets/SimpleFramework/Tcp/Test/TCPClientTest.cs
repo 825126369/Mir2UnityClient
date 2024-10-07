@@ -4,8 +4,8 @@ using UnityEngine;
 using System;
 using Google.Protobuf;
 using System.IO;
-using xk_System.Net.TCP.Client;
-using xk_System.Net.TCP;
+using Net.TCP.Client;
+using Net.TCP;
 using TcpProtocol;
 
 public class TCPClientTest : MonoBehaviour

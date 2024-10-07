@@ -4,7 +4,7 @@ using Google.Protobuf;
 using ProtobufHelper;
 using UnityEngine;
 
-namespace xk_System.Net.TCP.Client
+namespace Net.TCP.Client
 {
     public class Protocol3Utility1
 	{

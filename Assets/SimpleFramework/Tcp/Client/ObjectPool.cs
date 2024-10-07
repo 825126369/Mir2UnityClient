@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 //Object 池子
-namespace xk_System.Net.TCP.Client
+namespace Net.TCP.Client
 {
 	public class ObjectPool<T> where T : class, new()
 	{

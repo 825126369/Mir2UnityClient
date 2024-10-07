@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-namespace xk_System.Net.TCP
+namespace Net.TCP
 {
     public class ReadWriteIOContextPool
     {

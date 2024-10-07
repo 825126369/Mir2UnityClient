@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace xk_System.Net.TCP.Client
+namespace Net.TCP.Client
 {
 	public class NetClient : ClientPeer
 	{
