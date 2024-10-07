@@ -1,15 +1,15 @@
 syntax = "proto3";
-package NetProtocols.Login;
+package NetProtocols.Gate;
 
 //------------------------------------------- 逻辑 --------------------------------------------
-message packet_cs_Login
+message packet_cs_request_ServerList
 {
 	string account = 1;
 	string password = 2;
 	string nLoginType = 3;
 }
 
-message packet_sc_Login_Result
+message packet_sc_ServerList_Result
 {
 	uint32 nErrorCode = 1;
 	string gateServerIp = 2;

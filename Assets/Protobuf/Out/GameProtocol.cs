@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace Internet.NetProtocols.Theme.Landlord {
+namespace NetProtocols.Game {
 
   /// <summary>Holder for reflection information generated from GameProtocol.proto</summary>
   public static partial class GameProtocolReflection {
@@ -24,239 +24,224 @@ namespace Internet.NetProtocols.Theme.Landlord {
     static GameProtocolReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJHYW1lUHJvdG9jb2wucHJvdG8SJEludGVybmV0Lk5ldFByb3RvY29scy5U",
-            "aGVtZS5MYW5kbG9yZCL9AQoZcGFja2V0X2RhdGFfUm9vbUVudHJ5SW5mbxIP",
-            "CgduUm9vbUlkGAEgASgNEhMKC25DcmVhdGVUaW1lGAIgASgNEhIKCm5Sb29t",
-            "U3RhdGUYAyABKA0SFAoMYlJvYm90Q3JlYXRlGAQgASgIEhMKC3N0clJvb21O",
-            "YW1lGAUgASgJEhMKC3N0clBhc3N3b3JkGAYgASgJEhQKDG5NaW5CZXRDb3Vu",
-            "dBgHIAEoDRIXCg9uUm9vbUZpZ2h0Q291bnQYCCABKA0SGgoSblJvb21GaWdo",
-            "dE1heENvdW50GAkgASgNEhsKE25Sb29tU3BlY3RhdG9yQ291bnQYCiABKA0i",
-            "owEKHXBhY2tldF9kYXRhX1Jvb21FbnRyeUxpc3RJbmZvEhIKCm5QYWdlSW5k",
-            "ZXgYASABKA0SEAoIbk1heFBhZ2UYAiABKA0SXAoTbV9Sb29tRW50cnlJbmZv",
-            "TGlzdBgDIAMoCzI/LkludGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5k",
-            "bG9yZC5wYWNrZXRfZGF0YV9Sb29tRW50cnlJbmZvIu4BChZwYWNrZXRfZGF0",
-            "YV9wbGF5ZXJJbmZvEg8KB25Vc2VySWQYASABKA0SEgoKbkxvZ2luVHlwZRgC",
-            "IAEoDRIYChBVbmlxdWVJZGVudGlmaWVyGAMgASgJEg8KB3N0ck5hbWUYBCAB",
-            "KAkSEgoKbkdvbGRDb3VudBgFIAEoDRIOCgZuTGV2ZWwYBiABKA0SEQoJbkxl",
-            "dmVsRXhwGAcgASgNEhEKCW5WaXBMZXZlbBgIIAEoDRITCgtuSGVhZEljb25J",
-            "ZBgJIAEoDRIRCgluV2luQ291bnQYCiABKA0SEgoKbkxvc2VDb3VudBgLIAEo",
-            "DSJZChRwYWNrZXRfZGF0YV9kZXNrSW5mbxIPCgduRGVza0lkGAEgASgNEg8K",
-            "B25Vc2VySWQYAiABKA0SEAoIYlByZXBhcmUYAyABKAgSDQoFYkhhbmcYBCAB",
-            "KAgiPQoYcGFja2V0X2RhdGFfZGVza2NhcmRJbmZvEg8KB25EZXNrSWQYASAB",
-            "KA0SEAoIY2FyZExpc3QYAiADKA0icwoacGFja2V0X2RhdGFfQmFzaWNfUm9v",
-            "bUluZm8SEwoLc3RyUm9vbU5hbWUYASABKAkSEwoLc3RyUGFzc3dvcmQYAiAB",
-            "KAkSFQoNbk1heERlc2tDb3VudBgDIAEoDRIUCgxuTWluQmV0Q291bnQYBCAB",
-            "KA0i7wIKG3BhY2tldF9kYXRhX0RldGFpbF9Sb29tSW5mbxIPCgduUm9vbUlk",
-            "GAEgASgNEhIKCm5Sb29tU3RhdGUYAiABKA0SFgoOblJvb21DcmVhdG9ySWQY",
-            "AyABKA0SEQoJbk15RGVza0lkGAQgASgNElgKDm1Sb29tQmFzaWNJbmZvGAUg",
-            "ASgLMkAuSW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBh",
-            "Y2tldF9kYXRhX0Jhc2ljX1Jvb21JbmZvElQKDnBsYXllckluZm9MaXN0GAYg",
-            "AygLMjwuSW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBh",
-            "Y2tldF9kYXRhX3BsYXllckluZm8SUAoMZGVza0luZm9MaXN0GAcgAygLMjou",
-            "SW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBhY2tldF9k",
-            "YXRhX2Rlc2tJbmZvIt0BChlwYWNrZXRfZGF0YV9HYW1lU3RhcnRJbmZvEhEK",
-            "CW5PcGVuQ2FyZBgBIAEoDRIdChVuV2hvR2V0T3BlbkNhcmREZXNrSWQYAiAB",
-            "KA0SHwoXbldob0ZpcnN0R2V0UG9rZXJEZXNrSWQYAyABKA0SFwoPbkxlZnRQ",
-            "b2tlckNvdW50GAQgASgNElQKDGRlc2tDYXJkTGlzdBgFIAMoCzI+LkludGVy",
-            "bmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9k",
-            "ZXNrY2FyZEluZm8irAQKHHBhY2tldF9kYXRhX1JlY292ZXJTY2VuZUluZm8S",
-            "FAoMblBsYXllclN0YXRlGAEgASgNEhIKCm5Sb29tU3RhdGUYAiABKA0SEgoK",
-            "bkdhbWVTdGF0ZRgDIAEoDRJUCgltUm9vbUluZm8YBCABKAsyQS5JbnRlcm5l",
-            "dC5OZXRQcm90b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFfRGV0",
-            "YWlsX1Jvb21JbmZvElcKDm1HYW1lU3RhcnRJbmZvGAUgASgLMj8uSW50ZXJu",
-            "ZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBhY2tldF9kYXRhX0dh",
-            "bWVTdGFydEluZm8SFgoOZlJlY292ZXJDZFRpbWUYBiABKAESEwoLbkxhbmRs",
-            "b3JkSWQYByABKA0SHAoUbldob1JvYkxhbmRsb3JkaW5nSWQYCCABKA0SHgoW",
-            "cmVtYWluTGFuZGxvcmRDYXJkTGlzdBgJIAMoDRIZChFuRmluYWxBZGRNdWx0",
-            "dWlsZRgKIAEoDRIkChxuQ3VycmVudEJldEFkZE11bHR1aWxlRGVza0lkGAsg",
-            "ASgNElgKEGxhc3RQbGF5SGFuZEluZm8YDCABKAsyPi5JbnRlcm5ldC5OZXRQ",
-            "cm90b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFfZGVza2NhcmRJ",
-            "bmZvEhkKEW5XaG9QbGF5aGFuZGluZ0lkGA0gASgNImoKFnBhY2tldF9jc19D",
-            "b25uZWN0TG9iYnkSUAoKbUNyZWF0ZXJEQhgBIAEoCzI8LkludGVybmV0Lk5l",
-            "dFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9wbGF5ZXJJ",
-            "bmZvIvQBCh1wYWNrZXRfc2NfQ29ubmVjdExvYmJ5X1Jlc3VsdBISCgpuRXJy",
-            "b3JDb2RlGAEgASgNEmAKE21fUm9vbUVudHJ5TGlzdEluZm8YAiABKAsyQy5J",
-            "bnRlcm5ldC5OZXRQcm90b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2Rh",
-            "dGFfUm9vbUVudHJ5TGlzdEluZm8SXQoRbVJlY292ZXJTY2VuZUluZm8YAyAB",
-            "KAsyQi5JbnRlcm5ldC5OZXRQcm90b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFj",
-            "a2V0X2RhdGFfUmVjb3ZlclNjZW5lSW5mbyIbChlwYWNrZXRfY3NfRGlzQ29u",
-            "bmVjdExvYmJ5IjYKIHBhY2tldF9zY19EaXNDb25uZWN0TG9iYnlfUmVzdWx0",
-            "EhIKCm5FcnJvckNvZGUYASABKA0iMQobcGFja2V0X2NzX1Jvb21FbnRyeUlu",
-            "Zm9QYWdlEhIKCm5QYWdlSW5kZXgYASABKA0ihgEKInBhY2tldF9zY19Sb29t",
-            "RW50cnlJbmZvUGFnZV9SZXN1bHQSYAoTbV9Sb29tRW50cnlMaXN0SW5mbxgB",
-            "IAEoCzJDLkludGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5w",
-            "YWNrZXRfZGF0YV9Sb29tRW50cnlMaXN0SW5mbyJrChhwYWNrZXRfY3NfVXBk",
-            "YXRlUGxheWVyRGISTwoJbVBsYXllckRCGAEgASgLMjwuSW50ZXJuZXQuTmV0",
-            "UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBhY2tldF9kYXRhX3BsYXllcklu",
-            "Zm8iNQofcGFja2V0X3NjX1VwZGF0ZVBsYXllckRiX1Jlc3VsdBISCgpuRXJy",
-            "b3JDb2RlGAEgASgNIsIBChRwYWNrZXRfY3NfQ3JlYXRlUm9vbRJYCg5tUm9v",
-            "bUJhc2ljSW5mbxgBIAEoCzJALkludGVybmV0Lk5ldFByb3RvY29scy5UaGVt",
-            "ZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9CYXNpY19Sb29tSW5mbxJQCgptQ3Jl",
-            "YXRlckRCGAIgASgLMjwuSW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxh",
-            "bmRsb3JkLnBhY2tldF9kYXRhX3BsYXllckluZm8i4wEKGnBhY2tldF9zY19D",
-            "cmVhdGVSb29tUmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0SDwoHblJvb21J",
-            "ZBgCIAEoDRJNCgltRGVza0luZm8YAyABKAsyOi5JbnRlcm5ldC5OZXRQcm90",
-            "b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFfZGVza0luZm8SUQoL",
-            "bVBsYXllckluZm8YBCABKAsyPC5JbnRlcm5ldC5OZXRQcm90b2NvbHMuVGhl",
-            "bWUuTGFuZGxvcmQucGFja2V0X2RhdGFfcGxheWVySW5mbyJwChRwYWNrZXRf",
-            "Y3NfTW9kaWZ5Um9vbRJYCg5tUm9vbUJhc2ljSW5mbxgBIAEoCzJALkludGVy",
-            "bmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9C",
-            "YXNpY19Sb29tSW5mbyIwChpwYWNrZXRfc2NfTW9kaWZ5Um9vbVJlc3VsdBIS",
-            "CgpuRXJyb3JDb2RlGAEgASgNIowBChNwYWNrZXRfY3NfRW50ZXJSb29tEg8K",
-            "B25Sb29tSWQYASABKA0SEwoLc3RyUGFzc3dvcmQYAiABKAkSTwoJbVBsYXll",
-            "ckRCGAMgASgLMjwuSW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRs",
-            "b3JkLnBhY2tldF9kYXRhX3BsYXllckluZm8iagoXcGFja2V0X2NzX1F1aWNr",
-            "Sm9pblJvb20STwoJbVBsYXllckRCGAEgASgLMjwuSW50ZXJuZXQuTmV0UHJv",
-            "dG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBhY2tldF9kYXRhX3BsYXllckluZm8i",
-            "jgEKGXBhY2tldF9zY19FbnRlclJvb21SZXN1bHQSEgoKbkVycm9yQ29kZRgB",
-            "IAEoDRJdChFtUmVjb3ZlclNjZW5lSW5mbxgCIAEoCzJCLkludGVybmV0Lk5l",
-            "dFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9SZWNvdmVy",
-            "U2NlbmVJbmZvIhUKE3BhY2tldF9jc19MZWF2ZVJvb20iLwoZcGFja2V0X3Nj",
-            "X0xlYXZlUm9vbVJlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNIiUKEnBhY2tl",
-            "dF9jc19hZGRSb2JvdBIPCgduRGVza0lkGAEgASgNIi4KGHBhY2tldF9zY19h",
-            "ZGRSb2JvdFJlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNIj0KGXBhY2tldF9j",
-            "c19TcGVjdGF0b3JUb0Rlc2sSDwoHblVzZXJJZBgBIAEoDRIPCgduRGVza0lk",
-            "GAIgASgNIjUKH3BhY2tldF9zY19TcGVjdGF0b3JUb0Rlc2tSZXN1bHQSEgoK",
-            "bkVycm9yQ29kZRgBIAEoDSIsChlwYWNrZXRfY3NfRGVza1RvU3BlY3RhdG9y",
-            "Eg8KB25EZXNrSWQYASABKA0iNQofcGFja2V0X3NjX0Rlc2tUb1NwZWN0YXRv",
-            "clJlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNIj8KG3BhY2tldF9jc19aaHVE",
-            "b25nU3dpdGNoRGVzaxIPCgduRGVza0lkGAEgASgNEg8KB25BY3Rpb24YAiAB",
-            "KA0iWQohcGFja2V0X3NjX1podURvbmdTd2l0Y2hEZXNrUmVzdWx0EhIKCm5F",
-            "cnJvckNvZGUYASABKA0SDwoHbkRlc2tJZBgCIAEoDRIPCgduQWN0aW9uGAMg",
-            "ASgNIjAKHXBhY2tldF9zY19XaG9XaXRoTWVjaGFuZ2VEZXNrEg8KB25EZXNr",
-            "SWQYASABKA0iOQoZcGFja2V0X2NzX2NoYW5nZURlc2tIdWlEYRIPCgduRGVz",
-            "a0lkGAEgASgNEgsKA2JPaxgCIAEoCCJECiRwYWNrZXRfc2NfU2h1YW5nRmFu",
-            "Z1N3aXRjaERlc2tSZXN1bHQSDwoHbkRlc2tJZBgBIAEoDRILCgNiT2sYAiAB",
-            "KAgiJwoUcGFja2V0X2NzX2tpY2hQbGF5ZXISDwoHblVzZXJJZBgBIAEoDSIw",
-            "ChpwYWNrZXRfc2Nfa2ljaFBsYXllclJlc3VsdBISCgpuRXJyb3JDb2RlGAEg",
-            "ASgNIicKE3BhY2tldF9jc19vclByZXBhcmUSEAoIYlByZXBhcmUYASABKAgi",
-            "QQoZcGFja2V0X3NjX29yUHJlcGFyZVJldXNsdBISCgpuRXJyb3JDb2RlGAEg",
-            "ASgNEhAKCGJQcmVwYXJlGAIgASgIIh8KDnBhY2tldF9jc19IYW5nEg0KBWJI",
-            "YW5nGAEgASgIIjkKFHBhY2tldF9zY19IYW5nUmVzdWx0EhIKCm5FcnJvckNv",
-            "ZGUYASABKA0SDQoFYkhhbmcYAiABKAgiKwoVcGFja2V0X2NzX3JvYkxhbmRs",
-            "b3JkEhIKCm5Sb2JBY3Rpb24YASABKA0iMgoccGFja2V0X3NjX3JvYkxhbmRs",
-            "b3JkX1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNIi0KGHBhY2tldF9jc19B",
-            "ZGRCZXRNdWx0dWlsZRIRCgluTXVsdHVpbGUYASABKA0iNQofcGFja2V0X3Nj",
-            "X0FkZEJldE11bHR1aWxlX1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNIiYK",
-            "EnBhY2tldF9jc19wbGF5aGFuZBIQCghjYXJkTGlzdBgBIAMoDSIvChlwYWNr",
-            "ZXRfc2NfcGxheWhhbmRfUmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0iagoj",
-            "cGFja2V0X3NjX25vdGljZV9PbmxpbmVfUGVvcGxlQ291bnQSFAoMblBlb3Bs",
-            "ZUNvdW50GAEgASgNEhMKC25Sb2JvdENvdW50GAIgASgNEhgKEG5SZWFsUGxh",
-            "eWVyQ291bnQYAyABKA0iiQEKJXBhY2tldF9zY19ub3RpY2VfUm9vbUVudHJ5",
-            "TGlzdF9DaGFuZ2USYAoTbV9Sb29tRW50cnlMaXN0SW5mbxgBIAEoCzJDLklu",
-            "dGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0",
-            "YV9Sb29tRW50cnlMaXN0SW5mbyKAAQokcGFja2V0X3NjX25vdGljZV9Sb29t",
-            "QmFzaWNJbmZvQ2hhbmdlElgKDm1Sb29tQmFzaWNJbmZvGAEgASgLMkAuSW50",
-            "ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRsb3JkLnBhY2tldF9kYXRh",
-            "X0Jhc2ljX1Jvb21JbmZvIm8KH3BhY2tldF9zY19ub3RpY2VfRGVza0luZm9D",
-            "aGFuZ2USTAoIZGVza0luZm8YASABKAsyOi5JbnRlcm5ldC5OZXRQcm90b2Nv",
-            "bHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFfZGVza0luZm8idQohcGFj",
-            "a2V0X3NjX25vdGljZV9QbGF5ZXJJbmZvQ2hhbmdlElAKCnBsYXllckluZm8Y",
-            "ASABKAsyPC5JbnRlcm5ldC5OZXRQcm90b2NvbHMuVGhlbWUuTGFuZGxvcmQu",
-            "cGFja2V0X2RhdGFfcGxheWVySW5mbyLGAQokcGFja2V0X3NjX25vdGljZV9Q",
-            "bGF5ZXJFbnRlclJvb21JbmZvElAKCnBsYXllckluZm8YASABKAsyPC5JbnRl",
-            "cm5ldC5OZXRQcm90b2NvbHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFf",
-            "cGxheWVySW5mbxJMCghkZXNrSW5mbxgCIAEoCzI6LkludGVybmV0Lk5ldFBy",
-            "b3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9kZXNrSW5mbyI3",
-            "CiRwYWNrZXRfc2Nfbm90aWNlX1BsYXllckxlYXZlUm9vbUluZm8SDwoHblVz",
-            "ZXJJZBgBIAEoDSJDCh9wYWNrZXRfc2Nfbm90aWNlX0tpY2hQbGF5ZXJJbmZv",
-            "Eg8KB25Vc2VySWQYASABKA0SDwoHblJlYXNvbhgCIAEoDSKmAgoicGFja2V0",
-            "X3NjX25vdGljZV9VcGRhdGVSb29tQWxsSW5mbxJYCg5tUm9vbUJhc2ljSW5m",
-            "bxgBIAEoCzJALkludGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9y",
-            "ZC5wYWNrZXRfZGF0YV9CYXNpY19Sb29tSW5mbxJUCg5wbGF5ZXJJbmZvTGlz",
-            "dBgCIAMoCzI8LkludGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9y",
-            "ZC5wYWNrZXRfZGF0YV9wbGF5ZXJJbmZvElAKDGRlc2tJbmZvTGlzdBgDIAMo",
-            "CzI6LkludGVybmV0Lk5ldFByb3RvY29scy5UaGVtZS5MYW5kbG9yZC5wYWNr",
-            "ZXRfZGF0YV9kZXNrSW5mbyJ1ChpwYWNrZXRfc2Nfbm90aWNlX2VudGVyZ2Ft",
-            "ZRJXCg5tR2FtZVN0YXJ0SW5mbxgBIAEoCzI/LkludGVybmV0Lk5ldFByb3Rv",
-            "Y29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9HYW1lU3RhcnRJbmZv",
-            "Ii8KHHBhY2tldF9zY19ub3RpY2Vfcm9iTGFuZGxvcmQSDwoHbkRlc2tJZBgB",
-            "IAEoDSJJCiJwYWNrZXRfc2Nfbm90aWNlX3JvYkxhbmRsb3JkUmVzdWx0Eg8K",
-            "B25EZXNrSWQYASABKA0SEgoKblJvYkFjdGlvbhgCIAEoDSJ/Ch1wYWNrZXRf",
-            "c2Nfbm90aWNlX1N1cmVMYW5kbG9yZBJeChZyZW1haW5MYW5kbG9yZENhcmRM",
-            "aXN0GAEgASgLMj4uSW50ZXJuZXQuTmV0UHJvdG9jb2xzLlRoZW1lLkxhbmRs",
-            "b3JkLnBhY2tldF9kYXRhX2Rlc2tjYXJkSW5mbyI2CiNwYWNrZXRfc2Nfbm90",
-            "aWNlX3dob19BZGRCZXRNdWx0dWlsZRIPCgduRGVza0lkGAEgASgNImYKJXBh",
-            "Y2tldF9zY19ub3RpY2VfQWRkQmV0TXVsdHVpbGVSZXN1bHQSDwoHbkRlc2tJ",
-            "ZBgBIAEoDRIRCgluTXVsdHVpbGUYAiABKA0SGQoRbkZpbmFsQWRkTXVsdHVp",
-            "bGUYAyABKA0iLwoccGFja2V0X3NjX25vdGljZV93aG9QbGF5aGFuZBIPCgdu",
-            "RGVza0lkGAEgASgNIngKIHBhY2tldF9zY19ub3RpY2VfcGxheWhhbmRfUmVz",
-            "dWx0ElQKDHBsYXlIYW5kTGlzdBgBIAEoCzI+LkludGVybmV0Lk5ldFByb3Rv",
-            "Y29scy5UaGVtZS5MYW5kbG9yZC5wYWNrZXRfZGF0YV9kZXNrY2FyZEluZm8i",
-            "ggEKGHBhY2tldF9zY19ub3RpY2Vfd2lubG9zZRIPCgduRGVza0lkGAEgASgN",
-            "ElUKDW90aGVyY2FyZExpc3QYAiADKAsyPi5JbnRlcm5ldC5OZXRQcm90b2Nv",
-            "bHMuVGhlbWUuTGFuZGxvcmQucGFja2V0X2RhdGFfZGVza2NhcmRJbmZvYgZw",
-            "cm90bzM="));
+            "ChJHYW1lUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYW1lIv0BChlw",
+            "YWNrZXRfZGF0YV9Sb29tRW50cnlJbmZvEg8KB25Sb29tSWQYASABKA0SEwoL",
+            "bkNyZWF0ZVRpbWUYAiABKA0SEgoKblJvb21TdGF0ZRgDIAEoDRIUCgxiUm9i",
+            "b3RDcmVhdGUYBCABKAgSEwoLc3RyUm9vbU5hbWUYBSABKAkSEwoLc3RyUGFz",
+            "c3dvcmQYBiABKAkSFAoMbk1pbkJldENvdW50GAcgASgNEhcKD25Sb29tRmln",
+            "aHRDb3VudBgIIAEoDRIaChJuUm9vbUZpZ2h0TWF4Q291bnQYCSABKA0SGwoT",
+            "blJvb21TcGVjdGF0b3JDb3VudBgKIAEoDSKQAQodcGFja2V0X2RhdGFfUm9v",
+            "bUVudHJ5TGlzdEluZm8SEgoKblBhZ2VJbmRleBgBIAEoDRIQCghuTWF4UGFn",
+            "ZRgCIAEoDRJJChNtX1Jvb21FbnRyeUluZm9MaXN0GAMgAygLMiwuTmV0UHJv",
+            "dG9jb2xzLkdhbWUucGFja2V0X2RhdGFfUm9vbUVudHJ5SW5mbyLuAQoWcGFj",
+            "a2V0X2RhdGFfcGxheWVySW5mbxIPCgduVXNlcklkGAEgASgNEhIKCm5Mb2dp",
+            "blR5cGUYAiABKA0SGAoQVW5pcXVlSWRlbnRpZmllchgDIAEoCRIPCgdzdHJO",
+            "YW1lGAQgASgJEhIKCm5Hb2xkQ291bnQYBSABKA0SDgoGbkxldmVsGAYgASgN",
+            "EhEKCW5MZXZlbEV4cBgHIAEoDRIRCgluVmlwTGV2ZWwYCCABKA0SEwoLbkhl",
+            "YWRJY29uSWQYCSABKA0SEQoJbldpbkNvdW50GAogASgNEhIKCm5Mb3NlQ291",
+            "bnQYCyABKA0iWQoUcGFja2V0X2RhdGFfZGVza0luZm8SDwoHbkRlc2tJZBgB",
+            "IAEoDRIPCgduVXNlcklkGAIgASgNEhAKCGJQcmVwYXJlGAMgASgIEg0KBWJI",
+            "YW5nGAQgASgIIj0KGHBhY2tldF9kYXRhX2Rlc2tjYXJkSW5mbxIPCgduRGVz",
+            "a0lkGAEgASgNEhAKCGNhcmRMaXN0GAIgAygNInMKGnBhY2tldF9kYXRhX0Jh",
+            "c2ljX1Jvb21JbmZvEhMKC3N0clJvb21OYW1lGAEgASgJEhMKC3N0clBhc3N3",
+            "b3JkGAIgASgJEhUKDW5NYXhEZXNrQ291bnQYAyABKA0SFAoMbk1pbkJldENv",
+            "dW50GAQgASgNIrYCChtwYWNrZXRfZGF0YV9EZXRhaWxfUm9vbUluZm8SDwoH",
+            "blJvb21JZBgBIAEoDRISCgpuUm9vbVN0YXRlGAIgASgNEhYKDm5Sb29tQ3Jl",
+            "YXRvcklkGAMgASgNEhEKCW5NeURlc2tJZBgEIAEoDRJFCg5tUm9vbUJhc2lj",
+            "SW5mbxgFIAEoCzItLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX0Jh",
+            "c2ljX1Jvb21JbmZvEkEKDnBsYXllckluZm9MaXN0GAYgAygLMikuTmV0UHJv",
+            "dG9jb2xzLkdhbWUucGFja2V0X2RhdGFfcGxheWVySW5mbxI9CgxkZXNrSW5m",
+            "b0xpc3QYByADKAsyJy5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9k",
+            "ZXNrSW5mbyLKAQoZcGFja2V0X2RhdGFfR2FtZVN0YXJ0SW5mbxIRCgluT3Bl",
+            "bkNhcmQYASABKA0SHQoVbldob0dldE9wZW5DYXJkRGVza0lkGAIgASgNEh8K",
+            "F25XaG9GaXJzdEdldFBva2VyRGVza0lkGAMgASgNEhcKD25MZWZ0UG9rZXJD",
+            "b3VudBgEIAEoDRJBCgxkZXNrQ2FyZExpc3QYBSADKAsyKy5OZXRQcm90b2Nv",
+            "bHMuR2FtZS5wYWNrZXRfZGF0YV9kZXNrY2FyZEluZm8i8wMKHHBhY2tldF9k",
+            "YXRhX1JlY292ZXJTY2VuZUluZm8SFAoMblBsYXllclN0YXRlGAEgASgNEhIK",
+            "Cm5Sb29tU3RhdGUYAiABKA0SEgoKbkdhbWVTdGF0ZRgDIAEoDRJBCgltUm9v",
+            "bUluZm8YBCABKAsyLi5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9E",
+            "ZXRhaWxfUm9vbUluZm8SRAoObUdhbWVTdGFydEluZm8YBSABKAsyLC5OZXRQ",
+            "cm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9HYW1lU3RhcnRJbmZvEhYKDmZS",
+            "ZWNvdmVyQ2RUaW1lGAYgASgBEhMKC25MYW5kbG9yZElkGAcgASgNEhwKFG5X",
+            "aG9Sb2JMYW5kbG9yZGluZ0lkGAggASgNEh4KFnJlbWFpbkxhbmRsb3JkQ2Fy",
+            "ZExpc3QYCSADKA0SGQoRbkZpbmFsQWRkTXVsdHVpbGUYCiABKA0SJAocbkN1",
+            "cnJlbnRCZXRBZGRNdWx0dWlsZURlc2tJZBgLIAEoDRJFChBsYXN0UGxheUhh",
+            "bmRJbmZvGAwgASgLMisuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFf",
+            "ZGVza2NhcmRJbmZvEhkKEW5XaG9QbGF5aGFuZGluZ0lkGA0gASgNIlcKFnBh",
+            "Y2tldF9jc19Db25uZWN0TG9iYnkSPQoKbUNyZWF0ZXJEQhgBIAEoCzIpLk5l",
+            "dFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX3BsYXllckluZm8izgEKHXBh",
+            "Y2tldF9zY19Db25uZWN0TG9iYnlfUmVzdWx0EhIKCm5FcnJvckNvZGUYASAB",
+            "KA0STQoTbV9Sb29tRW50cnlMaXN0SW5mbxgCIAEoCzIwLk5ldFByb3RvY29s",
+            "cy5HYW1lLnBhY2tldF9kYXRhX1Jvb21FbnRyeUxpc3RJbmZvEkoKEW1SZWNv",
+            "dmVyU2NlbmVJbmZvGAMgASgLMi8uTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0",
+            "X2RhdGFfUmVjb3ZlclNjZW5lSW5mbyIbChlwYWNrZXRfY3NfRGlzQ29ubmVj",
+            "dExvYmJ5IjYKIHBhY2tldF9zY19EaXNDb25uZWN0TG9iYnlfUmVzdWx0EhIK",
+            "Cm5FcnJvckNvZGUYASABKA0iMQobcGFja2V0X2NzX1Jvb21FbnRyeUluZm9Q",
+            "YWdlEhIKCm5QYWdlSW5kZXgYASABKA0icwoicGFja2V0X3NjX1Jvb21FbnRy",
+            "eUluZm9QYWdlX1Jlc3VsdBJNChNtX1Jvb21FbnRyeUxpc3RJbmZvGAEgASgL",
+            "MjAuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFfUm9vbUVudHJ5TGlz",
+            "dEluZm8iWAoYcGFja2V0X2NzX1VwZGF0ZVBsYXllckRiEjwKCW1QbGF5ZXJE",
+            "QhgBIAEoCzIpLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX3BsYXll",
+            "ckluZm8iNQofcGFja2V0X3NjX1VwZGF0ZVBsYXllckRiX1Jlc3VsdBISCgpu",
+            "RXJyb3JDb2RlGAEgASgNIpwBChRwYWNrZXRfY3NfQ3JlYXRlUm9vbRJFCg5t",
+            "Um9vbUJhc2ljSW5mbxgBIAEoCzItLk5ldFByb3RvY29scy5HYW1lLnBhY2tl",
+            "dF9kYXRhX0Jhc2ljX1Jvb21JbmZvEj0KCm1DcmVhdGVyREIYAiABKAsyKS5O",
+            "ZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9wbGF5ZXJJbmZvIr0BChpw",
+            "YWNrZXRfc2NfQ3JlYXRlUm9vbVJlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgN",
+            "Eg8KB25Sb29tSWQYAiABKA0SOgoJbURlc2tJbmZvGAMgASgLMicuTmV0UHJv",
+            "dG9jb2xzLkdhbWUucGFja2V0X2RhdGFfZGVza0luZm8SPgoLbVBsYXllcklu",
+            "Zm8YBCABKAsyKS5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9wbGF5",
+            "ZXJJbmZvIl0KFHBhY2tldF9jc19Nb2RpZnlSb29tEkUKDm1Sb29tQmFzaWNJ",
+            "bmZvGAEgASgLMi0uTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFfQmFz",
+            "aWNfUm9vbUluZm8iMAoacGFja2V0X3NjX01vZGlmeVJvb21SZXN1bHQSEgoK",
+            "bkVycm9yQ29kZRgBIAEoDSJ5ChNwYWNrZXRfY3NfRW50ZXJSb29tEg8KB25S",
+            "b29tSWQYASABKA0SEwoLc3RyUGFzc3dvcmQYAiABKAkSPAoJbVBsYXllckRC",
+            "GAMgASgLMikuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFfcGxheWVy",
+            "SW5mbyJXChdwYWNrZXRfY3NfUXVpY2tKb2luUm9vbRI8CgltUGxheWVyREIY",
+            "ASABKAsyKS5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9wbGF5ZXJJ",
+            "bmZvInsKGXBhY2tldF9zY19FbnRlclJvb21SZXN1bHQSEgoKbkVycm9yQ29k",
+            "ZRgBIAEoDRJKChFtUmVjb3ZlclNjZW5lSW5mbxgCIAEoCzIvLk5ldFByb3Rv",
+            "Y29scy5HYW1lLnBhY2tldF9kYXRhX1JlY292ZXJTY2VuZUluZm8iFQoTcGFj",
+            "a2V0X2NzX0xlYXZlUm9vbSIvChlwYWNrZXRfc2NfTGVhdmVSb29tUmVzdWx0",
+            "EhIKCm5FcnJvckNvZGUYASABKA0iJQoScGFja2V0X2NzX2FkZFJvYm90Eg8K",
+            "B25EZXNrSWQYASABKA0iLgoYcGFja2V0X3NjX2FkZFJvYm90UmVzdWx0EhIK",
+            "Cm5FcnJvckNvZGUYASABKA0iPQoZcGFja2V0X2NzX1NwZWN0YXRvclRvRGVz",
+            "axIPCgduVXNlcklkGAEgASgNEg8KB25EZXNrSWQYAiABKA0iNQofcGFja2V0",
+            "X3NjX1NwZWN0YXRvclRvRGVza1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgN",
+            "IiwKGXBhY2tldF9jc19EZXNrVG9TcGVjdGF0b3ISDwoHbkRlc2tJZBgBIAEo",
+            "DSI1Ch9wYWNrZXRfc2NfRGVza1RvU3BlY3RhdG9yUmVzdWx0EhIKCm5FcnJv",
+            "ckNvZGUYASABKA0iPwobcGFja2V0X2NzX1podURvbmdTd2l0Y2hEZXNrEg8K",
+            "B25EZXNrSWQYASABKA0SDwoHbkFjdGlvbhgCIAEoDSJZCiFwYWNrZXRfc2Nf",
+            "Wmh1RG9uZ1N3aXRjaERlc2tSZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDRIP",
+            "CgduRGVza0lkGAIgASgNEg8KB25BY3Rpb24YAyABKA0iMAodcGFja2V0X3Nj",
+            "X1dob1dpdGhNZWNoYW5nZURlc2sSDwoHbkRlc2tJZBgBIAEoDSI5ChlwYWNr",
+            "ZXRfY3NfY2hhbmdlRGVza0h1aURhEg8KB25EZXNrSWQYASABKA0SCwoDYk9r",
+            "GAIgASgIIkQKJHBhY2tldF9zY19TaHVhbmdGYW5nU3dpdGNoRGVza1Jlc3Vs",
+            "dBIPCgduRGVza0lkGAEgASgNEgsKA2JPaxgCIAEoCCInChRwYWNrZXRfY3Nf",
+            "a2ljaFBsYXllchIPCgduVXNlcklkGAEgASgNIjAKGnBhY2tldF9zY19raWNo",
+            "UGxheWVyUmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0iJwoTcGFja2V0X2Nz",
+            "X29yUHJlcGFyZRIQCghiUHJlcGFyZRgBIAEoCCJBChlwYWNrZXRfc2Nfb3JQ",
+            "cmVwYXJlUmV1c2x0EhIKCm5FcnJvckNvZGUYASABKA0SEAoIYlByZXBhcmUY",
+            "AiABKAgiHwoOcGFja2V0X2NzX0hhbmcSDQoFYkhhbmcYASABKAgiOQoUcGFj",
+            "a2V0X3NjX0hhbmdSZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDRINCgViSGFu",
+            "ZxgCIAEoCCIrChVwYWNrZXRfY3Nfcm9iTGFuZGxvcmQSEgoKblJvYkFjdGlv",
+            "bhgBIAEoDSIyChxwYWNrZXRfc2Nfcm9iTGFuZGxvcmRfUmVzdWx0EhIKCm5F",
+            "cnJvckNvZGUYASABKA0iLQoYcGFja2V0X2NzX0FkZEJldE11bHR1aWxlEhEK",
+            "CW5NdWx0dWlsZRgBIAEoDSI1Ch9wYWNrZXRfc2NfQWRkQmV0TXVsdHVpbGVf",
+            "UmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0iJgoScGFja2V0X2NzX3BsYXlo",
+            "YW5kEhAKCGNhcmRMaXN0GAEgAygNIi8KGXBhY2tldF9zY19wbGF5aGFuZF9S",
+            "ZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDSJqCiNwYWNrZXRfc2Nfbm90aWNl",
+            "X09ubGluZV9QZW9wbGVDb3VudBIUCgxuUGVvcGxlQ291bnQYASABKA0SEwoL",
+            "blJvYm90Q291bnQYAiABKA0SGAoQblJlYWxQbGF5ZXJDb3VudBgDIAEoDSJ2",
+            "CiVwYWNrZXRfc2Nfbm90aWNlX1Jvb21FbnRyeUxpc3RfQ2hhbmdlEk0KE21f",
+            "Um9vbUVudHJ5TGlzdEluZm8YASABKAsyMC5OZXRQcm90b2NvbHMuR2FtZS5w",
+            "YWNrZXRfZGF0YV9Sb29tRW50cnlMaXN0SW5mbyJtCiRwYWNrZXRfc2Nfbm90",
+            "aWNlX1Jvb21CYXNpY0luZm9DaGFuZ2USRQoObVJvb21CYXNpY0luZm8YASAB",
+            "KAsyLS5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9CYXNpY19Sb29t",
+            "SW5mbyJcCh9wYWNrZXRfc2Nfbm90aWNlX0Rlc2tJbmZvQ2hhbmdlEjkKCGRl",
+            "c2tJbmZvGAEgASgLMicuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFf",
+            "ZGVza0luZm8iYgohcGFja2V0X3NjX25vdGljZV9QbGF5ZXJJbmZvQ2hhbmdl",
+            "Ej0KCnBsYXllckluZm8YASABKAsyKS5OZXRQcm90b2NvbHMuR2FtZS5wYWNr",
+            "ZXRfZGF0YV9wbGF5ZXJJbmZvIqABCiRwYWNrZXRfc2Nfbm90aWNlX1BsYXll",
+            "ckVudGVyUm9vbUluZm8SPQoKcGxheWVySW5mbxgBIAEoCzIpLk5ldFByb3Rv",
+            "Y29scy5HYW1lLnBhY2tldF9kYXRhX3BsYXllckluZm8SOQoIZGVza0luZm8Y",
+            "AiABKAsyJy5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9kZXNrSW5m",
+            "byI3CiRwYWNrZXRfc2Nfbm90aWNlX1BsYXllckxlYXZlUm9vbUluZm8SDwoH",
+            "blVzZXJJZBgBIAEoDSJDCh9wYWNrZXRfc2Nfbm90aWNlX0tpY2hQbGF5ZXJJ",
+            "bmZvEg8KB25Vc2VySWQYASABKA0SDwoHblJlYXNvbhgCIAEoDSLtAQoicGFj",
+            "a2V0X3NjX25vdGljZV9VcGRhdGVSb29tQWxsSW5mbxJFCg5tUm9vbUJhc2lj",
+            "SW5mbxgBIAEoCzItLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX0Jh",
+            "c2ljX1Jvb21JbmZvEkEKDnBsYXllckluZm9MaXN0GAIgAygLMikuTmV0UHJv",
+            "dG9jb2xzLkdhbWUucGFja2V0X2RhdGFfcGxheWVySW5mbxI9CgxkZXNrSW5m",
+            "b0xpc3QYAyADKAsyJy5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9k",
+            "ZXNrSW5mbyJiChpwYWNrZXRfc2Nfbm90aWNlX2VudGVyZ2FtZRJECg5tR2Ft",
+            "ZVN0YXJ0SW5mbxgBIAEoCzIsLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9k",
+            "YXRhX0dhbWVTdGFydEluZm8iLwoccGFja2V0X3NjX25vdGljZV9yb2JMYW5k",
+            "bG9yZBIPCgduRGVza0lkGAEgASgNIkkKInBhY2tldF9zY19ub3RpY2Vfcm9i",
+            "TGFuZGxvcmRSZXN1bHQSDwoHbkRlc2tJZBgBIAEoDRISCgpuUm9iQWN0aW9u",
+            "GAIgASgNImwKHXBhY2tldF9zY19ub3RpY2VfU3VyZUxhbmRsb3JkEksKFnJl",
+            "bWFpbkxhbmRsb3JkQ2FyZExpc3QYASABKAsyKy5OZXRQcm90b2NvbHMuR2Ft",
+            "ZS5wYWNrZXRfZGF0YV9kZXNrY2FyZEluZm8iNgojcGFja2V0X3NjX25vdGlj",
+            "ZV93aG9fQWRkQmV0TXVsdHVpbGUSDwoHbkRlc2tJZBgBIAEoDSJmCiVwYWNr",
+            "ZXRfc2Nfbm90aWNlX0FkZEJldE11bHR1aWxlUmVzdWx0Eg8KB25EZXNrSWQY",
+            "ASABKA0SEQoJbk11bHR1aWxlGAIgASgNEhkKEW5GaW5hbEFkZE11bHR1aWxl",
+            "GAMgASgNIi8KHHBhY2tldF9zY19ub3RpY2Vfd2hvUGxheWhhbmQSDwoHbkRl",
+            "c2tJZBgBIAEoDSJlCiBwYWNrZXRfc2Nfbm90aWNlX3BsYXloYW5kX1Jlc3Vs",
+            "dBJBCgxwbGF5SGFuZExpc3QYASABKAsyKy5OZXRQcm90b2NvbHMuR2FtZS5w",
+            "YWNrZXRfZGF0YV9kZXNrY2FyZEluZm8ibwoYcGFja2V0X3NjX25vdGljZV93",
+            "aW5sb3NlEg8KB25EZXNrSWQYASABKA0SQgoNb3RoZXJjYXJkTGlzdBgCIAMo",
+            "CzIrLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX2Rlc2tjYXJkSW5m",
+            "b2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo.Parser, new[]{ "NRoomId", "NCreateTime", "NRoomState", "BRobotCreate", "StrRoomName", "StrPassword", "NMinBetCount", "NRoomFightCount", "NRoomFightMaxCount", "NRoomSpectatorCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo.Parser, new[]{ "NPageIndex", "NMaxPage", "MRoomEntryInfoList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo.Parser, new[]{ "NUserId", "NLoginType", "UniqueIdentifier", "StrName", "NGoldCount", "NLevel", "NLevelExp", "NVipLevel", "NHeadIconId", "NWinCount", "NLoseCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo.Parser, new[]{ "NDeskId", "NUserId", "BPrepare", "BHang" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo.Parser, new[]{ "NDeskId", "CardList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo.Parser, new[]{ "StrRoomName", "StrPassword", "NMaxDeskCount", "NMinBetCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo.Parser, new[]{ "NRoomId", "NRoomState", "NRoomCreatorId", "NMyDeskId", "MRoomBasicInfo", "PlayerInfoList", "DeskInfoList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo.Parser, new[]{ "NOpenCard", "NWhoGetOpenCardDeskId", "NWhoFirstGetPokerDeskId", "NLeftPokerCount", "DeskCardList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo), global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo.Parser, new[]{ "NPlayerState", "NRoomState", "NGameState", "MRoomInfo", "MGameStartInfo", "FRecoverCdTime", "NLandlordId", "NWhoRobLandlordingId", "RemainLandlordCardList", "NFinalAddMultuile", "NCurrentBetAddMultuileDeskId", "LastPlayHandInfo", "NWhoPlayhandingId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_ConnectLobby), global::Internet.NetProtocols.Theme.Landlord.packet_cs_ConnectLobby.Parser, new[]{ "MCreaterDB" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_ConnectLobby_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_ConnectLobby_Result.Parser, new[]{ "NErrorCode", "MRoomEntryListInfo", "MRecoverSceneInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_DisConnectLobby), global::Internet.NetProtocols.Theme.Landlord.packet_cs_DisConnectLobby.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_DisConnectLobby_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_DisConnectLobby_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_RoomEntryInfoPage), global::Internet.NetProtocols.Theme.Landlord.packet_cs_RoomEntryInfoPage.Parser, new[]{ "NPageIndex" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_RoomEntryInfoPage_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_RoomEntryInfoPage_Result.Parser, new[]{ "MRoomEntryListInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_UpdatePlayerDb), global::Internet.NetProtocols.Theme.Landlord.packet_cs_UpdatePlayerDb.Parser, new[]{ "MPlayerDB" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_UpdatePlayerDb_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_UpdatePlayerDb_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_CreateRoom), global::Internet.NetProtocols.Theme.Landlord.packet_cs_CreateRoom.Parser, new[]{ "MRoomBasicInfo", "MCreaterDB" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_CreateRoomResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_CreateRoomResult.Parser, new[]{ "NErrorCode", "NRoomId", "MDeskInfo", "MPlayerInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_ModifyRoom), global::Internet.NetProtocols.Theme.Landlord.packet_cs_ModifyRoom.Parser, new[]{ "MRoomBasicInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_ModifyRoomResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_ModifyRoomResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_EnterRoom), global::Internet.NetProtocols.Theme.Landlord.packet_cs_EnterRoom.Parser, new[]{ "NRoomId", "StrPassword", "MPlayerDB" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_QuickJoinRoom), global::Internet.NetProtocols.Theme.Landlord.packet_cs_QuickJoinRoom.Parser, new[]{ "MPlayerDB" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_EnterRoomResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_EnterRoomResult.Parser, new[]{ "NErrorCode", "MRecoverSceneInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_LeaveRoom), global::Internet.NetProtocols.Theme.Landlord.packet_cs_LeaveRoom.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_LeaveRoomResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_LeaveRoomResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_addRobot), global::Internet.NetProtocols.Theme.Landlord.packet_cs_addRobot.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_addRobotResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_addRobotResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_SpectatorToDesk), global::Internet.NetProtocols.Theme.Landlord.packet_cs_SpectatorToDesk.Parser, new[]{ "NUserId", "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_SpectatorToDeskResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_SpectatorToDeskResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_DeskToSpectator), global::Internet.NetProtocols.Theme.Landlord.packet_cs_DeskToSpectator.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_DeskToSpectatorResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_DeskToSpectatorResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_ZhuDongSwitchDesk), global::Internet.NetProtocols.Theme.Landlord.packet_cs_ZhuDongSwitchDesk.Parser, new[]{ "NDeskId", "NAction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_ZhuDongSwitchDeskResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_ZhuDongSwitchDeskResult.Parser, new[]{ "NErrorCode", "NDeskId", "NAction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_WhoWithMechangeDesk), global::Internet.NetProtocols.Theme.Landlord.packet_sc_WhoWithMechangeDesk.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_changeDeskHuiDa), global::Internet.NetProtocols.Theme.Landlord.packet_cs_changeDeskHuiDa.Parser, new[]{ "NDeskId", "BOk" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_ShuangFangSwitchDeskResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_ShuangFangSwitchDeskResult.Parser, new[]{ "NDeskId", "BOk" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_kichPlayer), global::Internet.NetProtocols.Theme.Landlord.packet_cs_kichPlayer.Parser, new[]{ "NUserId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_kichPlayerResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_kichPlayerResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_orPrepare), global::Internet.NetProtocols.Theme.Landlord.packet_cs_orPrepare.Parser, new[]{ "BPrepare" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_orPrepareReuslt), global::Internet.NetProtocols.Theme.Landlord.packet_sc_orPrepareReuslt.Parser, new[]{ "NErrorCode", "BPrepare" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_Hang), global::Internet.NetProtocols.Theme.Landlord.packet_cs_Hang.Parser, new[]{ "BHang" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_HangResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_HangResult.Parser, new[]{ "NErrorCode", "BHang" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_robLandlord), global::Internet.NetProtocols.Theme.Landlord.packet_cs_robLandlord.Parser, new[]{ "NRobAction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_robLandlord_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_robLandlord_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_AddBetMultuile), global::Internet.NetProtocols.Theme.Landlord.packet_cs_AddBetMultuile.Parser, new[]{ "NMultuile" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_AddBetMultuile_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_AddBetMultuile_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_cs_playhand), global::Internet.NetProtocols.Theme.Landlord.packet_cs_playhand.Parser, new[]{ "CardList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_playhand_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_playhand_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_Online_PeopleCount), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_Online_PeopleCount.Parser, new[]{ "NPeopleCount", "NRobotCount", "NRealPlayerCount" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_RoomEntryList_Change), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_RoomEntryList_Change.Parser, new[]{ "MRoomEntryListInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_RoomBasicInfoChange), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_RoomBasicInfoChange.Parser, new[]{ "MRoomBasicInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_DeskInfoChange), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_DeskInfoChange.Parser, new[]{ "DeskInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerInfoChange), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerInfoChange.Parser, new[]{ "PlayerInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerEnterRoomInfo), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerEnterRoomInfo.Parser, new[]{ "PlayerInfo", "DeskInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerLeaveRoomInfo), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_PlayerLeaveRoomInfo.Parser, new[]{ "NUserId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_KichPlayerInfo), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_KichPlayerInfo.Parser, new[]{ "NUserId", "NReason" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_UpdateRoomAllInfo), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_UpdateRoomAllInfo.Parser, new[]{ "MRoomBasicInfo", "PlayerInfoList", "DeskInfoList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_entergame), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_entergame.Parser, new[]{ "MGameStartInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_robLandlord), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_robLandlord.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_robLandlordResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_robLandlordResult.Parser, new[]{ "NDeskId", "NRobAction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_SureLandlord), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_SureLandlord.Parser, new[]{ "RemainLandlordCardList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_who_AddBetMultuile), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_who_AddBetMultuile.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_AddBetMultuileResult), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_AddBetMultuileResult.Parser, new[]{ "NDeskId", "NMultuile", "NFinalAddMultuile" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_whoPlayhand), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_whoPlayhand.Parser, new[]{ "NDeskId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_playhand_Result), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_playhand_Result.Parser, new[]{ "PlayHandList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_winlose), global::Internet.NetProtocols.Theme.Landlord.packet_sc_notice_winlose.Parser, new[]{ "NDeskId", "OthercardList" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_RoomEntryInfo), global::NetProtocols.Game.packet_data_RoomEntryInfo.Parser, new[]{ "NRoomId", "NCreateTime", "NRoomState", "BRobotCreate", "StrRoomName", "StrPassword", "NMinBetCount", "NRoomFightCount", "NRoomFightMaxCount", "NRoomSpectatorCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_RoomEntryListInfo), global::NetProtocols.Game.packet_data_RoomEntryListInfo.Parser, new[]{ "NPageIndex", "NMaxPage", "MRoomEntryInfoList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_playerInfo), global::NetProtocols.Game.packet_data_playerInfo.Parser, new[]{ "NUserId", "NLoginType", "UniqueIdentifier", "StrName", "NGoldCount", "NLevel", "NLevelExp", "NVipLevel", "NHeadIconId", "NWinCount", "NLoseCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_deskInfo), global::NetProtocols.Game.packet_data_deskInfo.Parser, new[]{ "NDeskId", "NUserId", "BPrepare", "BHang" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_deskcardInfo), global::NetProtocols.Game.packet_data_deskcardInfo.Parser, new[]{ "NDeskId", "CardList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_Basic_RoomInfo), global::NetProtocols.Game.packet_data_Basic_RoomInfo.Parser, new[]{ "StrRoomName", "StrPassword", "NMaxDeskCount", "NMinBetCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_Detail_RoomInfo), global::NetProtocols.Game.packet_data_Detail_RoomInfo.Parser, new[]{ "NRoomId", "NRoomState", "NRoomCreatorId", "NMyDeskId", "MRoomBasicInfo", "PlayerInfoList", "DeskInfoList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_GameStartInfo), global::NetProtocols.Game.packet_data_GameStartInfo.Parser, new[]{ "NOpenCard", "NWhoGetOpenCardDeskId", "NWhoFirstGetPokerDeskId", "NLeftPokerCount", "DeskCardList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_RecoverSceneInfo), global::NetProtocols.Game.packet_data_RecoverSceneInfo.Parser, new[]{ "NPlayerState", "NRoomState", "NGameState", "MRoomInfo", "MGameStartInfo", "FRecoverCdTime", "NLandlordId", "NWhoRobLandlordingId", "RemainLandlordCardList", "NFinalAddMultuile", "NCurrentBetAddMultuileDeskId", "LastPlayHandInfo", "NWhoPlayhandingId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_ConnectLobby), global::NetProtocols.Game.packet_cs_ConnectLobby.Parser, new[]{ "MCreaterDB" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_ConnectLobby_Result), global::NetProtocols.Game.packet_sc_ConnectLobby_Result.Parser, new[]{ "NErrorCode", "MRoomEntryListInfo", "MRecoverSceneInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_DisConnectLobby), global::NetProtocols.Game.packet_cs_DisConnectLobby.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_DisConnectLobby_Result), global::NetProtocols.Game.packet_sc_DisConnectLobby_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_RoomEntryInfoPage), global::NetProtocols.Game.packet_cs_RoomEntryInfoPage.Parser, new[]{ "NPageIndex" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_RoomEntryInfoPage_Result), global::NetProtocols.Game.packet_sc_RoomEntryInfoPage_Result.Parser, new[]{ "MRoomEntryListInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_UpdatePlayerDb), global::NetProtocols.Game.packet_cs_UpdatePlayerDb.Parser, new[]{ "MPlayerDB" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_UpdatePlayerDb_Result), global::NetProtocols.Game.packet_sc_UpdatePlayerDb_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_CreateRoom), global::NetProtocols.Game.packet_cs_CreateRoom.Parser, new[]{ "MRoomBasicInfo", "MCreaterDB" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_CreateRoomResult), global::NetProtocols.Game.packet_sc_CreateRoomResult.Parser, new[]{ "NErrorCode", "NRoomId", "MDeskInfo", "MPlayerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_ModifyRoom), global::NetProtocols.Game.packet_cs_ModifyRoom.Parser, new[]{ "MRoomBasicInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_ModifyRoomResult), global::NetProtocols.Game.packet_sc_ModifyRoomResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_EnterRoom), global::NetProtocols.Game.packet_cs_EnterRoom.Parser, new[]{ "NRoomId", "StrPassword", "MPlayerDB" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_QuickJoinRoom), global::NetProtocols.Game.packet_cs_QuickJoinRoom.Parser, new[]{ "MPlayerDB" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_EnterRoomResult), global::NetProtocols.Game.packet_sc_EnterRoomResult.Parser, new[]{ "NErrorCode", "MRecoverSceneInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_LeaveRoom), global::NetProtocols.Game.packet_cs_LeaveRoom.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_LeaveRoomResult), global::NetProtocols.Game.packet_sc_LeaveRoomResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_addRobot), global::NetProtocols.Game.packet_cs_addRobot.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_addRobotResult), global::NetProtocols.Game.packet_sc_addRobotResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_SpectatorToDesk), global::NetProtocols.Game.packet_cs_SpectatorToDesk.Parser, new[]{ "NUserId", "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_SpectatorToDeskResult), global::NetProtocols.Game.packet_sc_SpectatorToDeskResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_DeskToSpectator), global::NetProtocols.Game.packet_cs_DeskToSpectator.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_DeskToSpectatorResult), global::NetProtocols.Game.packet_sc_DeskToSpectatorResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_ZhuDongSwitchDesk), global::NetProtocols.Game.packet_cs_ZhuDongSwitchDesk.Parser, new[]{ "NDeskId", "NAction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_ZhuDongSwitchDeskResult), global::NetProtocols.Game.packet_sc_ZhuDongSwitchDeskResult.Parser, new[]{ "NErrorCode", "NDeskId", "NAction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_WhoWithMechangeDesk), global::NetProtocols.Game.packet_sc_WhoWithMechangeDesk.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_changeDeskHuiDa), global::NetProtocols.Game.packet_cs_changeDeskHuiDa.Parser, new[]{ "NDeskId", "BOk" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_ShuangFangSwitchDeskResult), global::NetProtocols.Game.packet_sc_ShuangFangSwitchDeskResult.Parser, new[]{ "NDeskId", "BOk" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_kichPlayer), global::NetProtocols.Game.packet_cs_kichPlayer.Parser, new[]{ "NUserId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_kichPlayerResult), global::NetProtocols.Game.packet_sc_kichPlayerResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_orPrepare), global::NetProtocols.Game.packet_cs_orPrepare.Parser, new[]{ "BPrepare" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_orPrepareReuslt), global::NetProtocols.Game.packet_sc_orPrepareReuslt.Parser, new[]{ "NErrorCode", "BPrepare" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_Hang), global::NetProtocols.Game.packet_cs_Hang.Parser, new[]{ "BHang" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_HangResult), global::NetProtocols.Game.packet_sc_HangResult.Parser, new[]{ "NErrorCode", "BHang" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_robLandlord), global::NetProtocols.Game.packet_cs_robLandlord.Parser, new[]{ "NRobAction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_robLandlord_Result), global::NetProtocols.Game.packet_sc_robLandlord_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_AddBetMultuile), global::NetProtocols.Game.packet_cs_AddBetMultuile.Parser, new[]{ "NMultuile" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_AddBetMultuile_Result), global::NetProtocols.Game.packet_sc_AddBetMultuile_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_playhand), global::NetProtocols.Game.packet_cs_playhand.Parser, new[]{ "CardList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_playhand_Result), global::NetProtocols.Game.packet_sc_playhand_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_Online_PeopleCount), global::NetProtocols.Game.packet_sc_notice_Online_PeopleCount.Parser, new[]{ "NPeopleCount", "NRobotCount", "NRealPlayerCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_RoomEntryList_Change), global::NetProtocols.Game.packet_sc_notice_RoomEntryList_Change.Parser, new[]{ "MRoomEntryListInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_RoomBasicInfoChange), global::NetProtocols.Game.packet_sc_notice_RoomBasicInfoChange.Parser, new[]{ "MRoomBasicInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_DeskInfoChange), global::NetProtocols.Game.packet_sc_notice_DeskInfoChange.Parser, new[]{ "DeskInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_PlayerInfoChange), global::NetProtocols.Game.packet_sc_notice_PlayerInfoChange.Parser, new[]{ "PlayerInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_PlayerEnterRoomInfo), global::NetProtocols.Game.packet_sc_notice_PlayerEnterRoomInfo.Parser, new[]{ "PlayerInfo", "DeskInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_PlayerLeaveRoomInfo), global::NetProtocols.Game.packet_sc_notice_PlayerLeaveRoomInfo.Parser, new[]{ "NUserId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_KichPlayerInfo), global::NetProtocols.Game.packet_sc_notice_KichPlayerInfo.Parser, new[]{ "NUserId", "NReason" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_UpdateRoomAllInfo), global::NetProtocols.Game.packet_sc_notice_UpdateRoomAllInfo.Parser, new[]{ "MRoomBasicInfo", "PlayerInfoList", "DeskInfoList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_entergame), global::NetProtocols.Game.packet_sc_notice_entergame.Parser, new[]{ "MGameStartInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_robLandlord), global::NetProtocols.Game.packet_sc_notice_robLandlord.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_robLandlordResult), global::NetProtocols.Game.packet_sc_notice_robLandlordResult.Parser, new[]{ "NDeskId", "NRobAction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_SureLandlord), global::NetProtocols.Game.packet_sc_notice_SureLandlord.Parser, new[]{ "RemainLandlordCardList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_who_AddBetMultuile), global::NetProtocols.Game.packet_sc_notice_who_AddBetMultuile.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_AddBetMultuileResult), global::NetProtocols.Game.packet_sc_notice_AddBetMultuileResult.Parser, new[]{ "NDeskId", "NMultuile", "NFinalAddMultuile" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_whoPlayhand), global::NetProtocols.Game.packet_sc_notice_whoPlayhand.Parser, new[]{ "NDeskId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_playhand_Result), global::NetProtocols.Game.packet_sc_notice_playhand_Result.Parser, new[]{ "PlayHandList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_notice_winlose), global::NetProtocols.Game.packet_sc_notice_winlose.Parser, new[]{ "NDeskId", "OthercardList" }, null, null, null, null)
           }));
     }
     #endregion
@@ -281,7 +266,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[0]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -836,7 +821,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[1]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -894,12 +879,12 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "m_RoomEntryInfoList" field.</summary>
     public const int MRoomEntryInfoListFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo> _repeated_mRoomEntryInfoList_codec
-        = pb::FieldCodec.ForMessage(26, global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo> mRoomEntryInfoList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_RoomEntryInfo> _repeated_mRoomEntryInfoList_codec
+        = pb::FieldCodec.ForMessage(26, global::NetProtocols.Game.packet_data_RoomEntryInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_RoomEntryInfo> mRoomEntryInfoList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_RoomEntryInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryInfo> MRoomEntryInfoList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_RoomEntryInfo> MRoomEntryInfoList {
       get { return mRoomEntryInfoList_; }
     }
 
@@ -1097,7 +1082,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[2]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1665,7 +1650,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[3]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1974,7 +1959,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[4]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2200,7 +2185,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[5]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2509,7 +2494,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[6]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -2595,10 +2580,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomBasicInfo" field.</summary>
     public const int MRoomBasicInfoFieldNumber = 5;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo mRoomBasicInfo_;
+    private global::NetProtocols.Game.packet_data_Basic_RoomInfo mRoomBasicInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo MRoomBasicInfo {
+    public global::NetProtocols.Game.packet_data_Basic_RoomInfo MRoomBasicInfo {
       get { return mRoomBasicInfo_; }
       set {
         mRoomBasicInfo_ = value;
@@ -2607,23 +2592,23 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "playerInfoList" field.</summary>
     public const int PlayerInfoListFieldNumber = 6;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> _repeated_playerInfoList_codec
-        = pb::FieldCodec.ForMessage(50, global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> playerInfoList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_playerInfo> _repeated_playerInfoList_codec
+        = pb::FieldCodec.ForMessage(50, global::NetProtocols.Game.packet_data_playerInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo> playerInfoList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> PlayerInfoList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo> PlayerInfoList {
       get { return playerInfoList_; }
     }
 
     /// <summary>Field number for the "deskInfoList" field.</summary>
     public const int DeskInfoListFieldNumber = 7;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> _repeated_deskInfoList_codec
-        = pb::FieldCodec.ForMessage(58, global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> deskInfoList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_deskInfo> _repeated_deskInfoList_codec
+        = pb::FieldCodec.ForMessage(58, global::NetProtocols.Game.packet_data_deskInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo> deskInfoList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> DeskInfoList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo> DeskInfoList {
       get { return deskInfoList_; }
     }
 
@@ -2788,7 +2773,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomBasicInfo_ != null) {
         if (mRoomBasicInfo_ == null) {
-          MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+          MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
         }
         MRoomBasicInfo.MergeFrom(other.MRoomBasicInfo);
       }
@@ -2831,7 +2816,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 42: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -2881,7 +2866,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 42: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -2916,7 +2901,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[7]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[7]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3012,12 +2997,12 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "deskCardList" field.</summary>
     public const int DeskCardListFieldNumber = 5;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> _repeated_deskCardList_codec
-        = pb::FieldCodec.ForMessage(42, global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> deskCardList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_deskcardInfo> _repeated_deskCardList_codec
+        = pb::FieldCodec.ForMessage(42, global::NetProtocols.Game.packet_data_deskcardInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo> deskCardList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> DeskCardList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo> DeskCardList {
       get { return deskCardList_; }
     }
 
@@ -3266,7 +3251,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[8]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[8]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3349,10 +3334,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomInfo" field.</summary>
     public const int MRoomInfoFieldNumber = 4;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo mRoomInfo_;
+    private global::NetProtocols.Game.packet_data_Detail_RoomInfo mRoomInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo MRoomInfo {
+    public global::NetProtocols.Game.packet_data_Detail_RoomInfo MRoomInfo {
       get { return mRoomInfo_; }
       set {
         mRoomInfo_ = value;
@@ -3361,10 +3346,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mGameStartInfo" field.</summary>
     public const int MGameStartInfoFieldNumber = 5;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo mGameStartInfo_;
+    private global::NetProtocols.Game.packet_data_GameStartInfo mGameStartInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo MGameStartInfo {
+    public global::NetProtocols.Game.packet_data_GameStartInfo MGameStartInfo {
       get { return mGameStartInfo_; }
       set {
         mGameStartInfo_ = value;
@@ -3456,13 +3441,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "lastPlayHandInfo" field.</summary>
     public const int LastPlayHandInfoFieldNumber = 12;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo lastPlayHandInfo_;
+    private global::NetProtocols.Game.packet_data_deskcardInfo lastPlayHandInfo_;
     /// <summary>
     ///上一次出牌信息
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo LastPlayHandInfo {
+    public global::NetProtocols.Game.packet_data_deskcardInfo LastPlayHandInfo {
       get { return lastPlayHandInfo_; }
       set {
         lastPlayHandInfo_ = value;
@@ -3728,13 +3713,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomInfo_ != null) {
         if (mRoomInfo_ == null) {
-          MRoomInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo();
+          MRoomInfo = new global::NetProtocols.Game.packet_data_Detail_RoomInfo();
         }
         MRoomInfo.MergeFrom(other.MRoomInfo);
       }
       if (other.mGameStartInfo_ != null) {
         if (mGameStartInfo_ == null) {
-          MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+          MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
         }
         MGameStartInfo.MergeFrom(other.MGameStartInfo);
       }
@@ -3756,7 +3741,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.lastPlayHandInfo_ != null) {
         if (lastPlayHandInfo_ == null) {
-          LastPlayHandInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+          LastPlayHandInfo = new global::NetProtocols.Game.packet_data_deskcardInfo();
         }
         LastPlayHandInfo.MergeFrom(other.LastPlayHandInfo);
       }
@@ -3796,14 +3781,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 34: {
             if (mRoomInfo_ == null) {
-              MRoomInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo();
+              MRoomInfo = new global::NetProtocols.Game.packet_data_Detail_RoomInfo();
             }
             input.ReadMessage(MRoomInfo);
             break;
           }
           case 42: {
             if (mGameStartInfo_ == null) {
-              MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+              MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
             }
             input.ReadMessage(MGameStartInfo);
             break;
@@ -3835,7 +3820,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 98: {
             if (lastPlayHandInfo_ == null) {
-              LastPlayHandInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              LastPlayHandInfo = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(LastPlayHandInfo);
             break;
@@ -3877,14 +3862,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 34: {
             if (mRoomInfo_ == null) {
-              MRoomInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Detail_RoomInfo();
+              MRoomInfo = new global::NetProtocols.Game.packet_data_Detail_RoomInfo();
             }
             input.ReadMessage(MRoomInfo);
             break;
           }
           case 42: {
             if (mGameStartInfo_ == null) {
-              MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+              MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
             }
             input.ReadMessage(MGameStartInfo);
             break;
@@ -3916,7 +3901,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 98: {
             if (lastPlayHandInfo_ == null) {
-              LastPlayHandInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              LastPlayHandInfo = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(LastPlayHandInfo);
             break;
@@ -3950,7 +3935,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[9]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3982,10 +3967,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mCreaterDB" field.</summary>
     public const int MCreaterDBFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mCreaterDB_;
+    private global::NetProtocols.Game.packet_data_playerInfo mCreaterDB_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MCreaterDB {
+    public global::NetProtocols.Game.packet_data_playerInfo MCreaterDB {
       get { return mCreaterDB_; }
       set {
         mCreaterDB_ = value;
@@ -4079,7 +4064,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mCreaterDB_ != null) {
         if (mCreaterDB_ == null) {
-          MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MCreaterDB.MergeFrom(other.MCreaterDB);
       }
@@ -4104,7 +4089,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mCreaterDB_ == null) {
-              MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MCreaterDB);
             break;
@@ -4130,7 +4115,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mCreaterDB_ == null) {
-              MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MCreaterDB);
             break;
@@ -4157,7 +4142,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[10]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4203,10 +4188,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "m_RoomEntryListInfo" field.</summary>
     public const int MRoomEntryListInfoFieldNumber = 2;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
+    private global::NetProtocols.Game.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo MRoomEntryListInfo {
+    public global::NetProtocols.Game.packet_data_RoomEntryListInfo MRoomEntryListInfo {
       get { return mRoomEntryListInfo_; }
       set {
         mRoomEntryListInfo_ = value;
@@ -4215,10 +4200,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRecoverSceneInfo" field.</summary>
     public const int MRecoverSceneInfoFieldNumber = 3;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo mRecoverSceneInfo_;
+    private global::NetProtocols.Game.packet_data_RecoverSceneInfo mRecoverSceneInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo MRecoverSceneInfo {
+    public global::NetProtocols.Game.packet_data_RecoverSceneInfo MRecoverSceneInfo {
       get { return mRecoverSceneInfo_; }
       set {
         mRecoverSceneInfo_ = value;
@@ -4341,13 +4326,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomEntryListInfo_ != null) {
         if (mRoomEntryListInfo_ == null) {
-          MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+          MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
         }
         MRoomEntryListInfo.MergeFrom(other.MRoomEntryListInfo);
       }
       if (other.mRecoverSceneInfo_ != null) {
         if (mRecoverSceneInfo_ == null) {
-          MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+          MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
         }
         MRecoverSceneInfo.MergeFrom(other.MRecoverSceneInfo);
       }
@@ -4376,14 +4361,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 18: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
           }
           case 26: {
             if (mRecoverSceneInfo_ == null) {
-              MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+              MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
             }
             input.ReadMessage(MRecoverSceneInfo);
             break;
@@ -4413,14 +4398,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 18: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
           }
           case 26: {
             if (mRecoverSceneInfo_ == null) {
-              MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+              MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
             }
             input.ReadMessage(MRecoverSceneInfo);
             break;
@@ -4447,7 +4432,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[11]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4608,7 +4593,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[12]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -4809,7 +4794,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[13]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5010,7 +4995,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[14]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5042,10 +5027,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "m_RoomEntryListInfo" field.</summary>
     public const int MRoomEntryListInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
+    private global::NetProtocols.Game.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo MRoomEntryListInfo {
+    public global::NetProtocols.Game.packet_data_RoomEntryListInfo MRoomEntryListInfo {
       get { return mRoomEntryListInfo_; }
       set {
         mRoomEntryListInfo_ = value;
@@ -5139,7 +5124,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomEntryListInfo_ != null) {
         if (mRoomEntryListInfo_ == null) {
-          MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+          MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
         }
         MRoomEntryListInfo.MergeFrom(other.MRoomEntryListInfo);
       }
@@ -5164,7 +5149,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
@@ -5190,7 +5175,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
@@ -5220,7 +5205,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[15]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5252,10 +5237,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mPlayerDB" field.</summary>
     public const int MPlayerDBFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mPlayerDB_;
+    private global::NetProtocols.Game.packet_data_playerInfo mPlayerDB_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MPlayerDB {
+    public global::NetProtocols.Game.packet_data_playerInfo MPlayerDB {
       get { return mPlayerDB_; }
       set {
         mPlayerDB_ = value;
@@ -5349,7 +5334,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mPlayerDB_ != null) {
         if (mPlayerDB_ == null) {
-          MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MPlayerDB.MergeFrom(other.MPlayerDB);
       }
@@ -5374,7 +5359,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -5400,7 +5385,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -5427,7 +5412,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[16]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5625,7 +5610,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[17]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5658,10 +5643,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomBasicInfo" field.</summary>
     public const int MRoomBasicInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo mRoomBasicInfo_;
+    private global::NetProtocols.Game.packet_data_Basic_RoomInfo mRoomBasicInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo MRoomBasicInfo {
+    public global::NetProtocols.Game.packet_data_Basic_RoomInfo MRoomBasicInfo {
       get { return mRoomBasicInfo_; }
       set {
         mRoomBasicInfo_ = value;
@@ -5670,10 +5655,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mCreaterDB" field.</summary>
     public const int MCreaterDBFieldNumber = 2;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mCreaterDB_;
+    private global::NetProtocols.Game.packet_data_playerInfo mCreaterDB_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MCreaterDB {
+    public global::NetProtocols.Game.packet_data_playerInfo MCreaterDB {
       get { return mCreaterDB_; }
       set {
         mCreaterDB_ = value;
@@ -5780,13 +5765,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomBasicInfo_ != null) {
         if (mRoomBasicInfo_ == null) {
-          MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+          MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
         }
         MRoomBasicInfo.MergeFrom(other.MRoomBasicInfo);
       }
       if (other.mCreaterDB_ != null) {
         if (mCreaterDB_ == null) {
-          MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MCreaterDB.MergeFrom(other.MCreaterDB);
       }
@@ -5811,14 +5796,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
           }
           case 18: {
             if (mCreaterDB_ == null) {
-              MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MCreaterDB);
             break;
@@ -5844,14 +5829,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
           }
           case 18: {
             if (mCreaterDB_ == null) {
-              MCreaterDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MCreaterDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MCreaterDB);
             break;
@@ -5878,7 +5863,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[18]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5937,10 +5922,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mDeskInfo" field.</summary>
     public const int MDeskInfoFieldNumber = 3;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo mDeskInfo_;
+    private global::NetProtocols.Game.packet_data_deskInfo mDeskInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo MDeskInfo {
+    public global::NetProtocols.Game.packet_data_deskInfo MDeskInfo {
       get { return mDeskInfo_; }
       set {
         mDeskInfo_ = value;
@@ -5949,10 +5934,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mPlayerInfo" field.</summary>
     public const int MPlayerInfoFieldNumber = 4;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mPlayerInfo_;
+    private global::NetProtocols.Game.packet_data_playerInfo mPlayerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MPlayerInfo {
+    public global::NetProtocols.Game.packet_data_playerInfo MPlayerInfo {
       get { return mPlayerInfo_; }
       set {
         mPlayerInfo_ = value;
@@ -6091,13 +6076,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mDeskInfo_ != null) {
         if (mDeskInfo_ == null) {
-          MDeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+          MDeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
         }
         MDeskInfo.MergeFrom(other.MDeskInfo);
       }
       if (other.mPlayerInfo_ != null) {
         if (mPlayerInfo_ == null) {
-          MPlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MPlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MPlayerInfo.MergeFrom(other.MPlayerInfo);
       }
@@ -6130,14 +6115,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 26: {
             if (mDeskInfo_ == null) {
-              MDeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              MDeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(MDeskInfo);
             break;
           }
           case 34: {
             if (mPlayerInfo_ == null) {
-              MPlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerInfo);
             break;
@@ -6171,14 +6156,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 26: {
             if (mDeskInfo_ == null) {
-              MDeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              MDeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(MDeskInfo);
             break;
           }
           case 34: {
             if (mPlayerInfo_ == null) {
-              MPlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerInfo);
             break;
@@ -6205,7 +6190,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[19]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6237,10 +6222,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomBasicInfo" field.</summary>
     public const int MRoomBasicInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo mRoomBasicInfo_;
+    private global::NetProtocols.Game.packet_data_Basic_RoomInfo mRoomBasicInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo MRoomBasicInfo {
+    public global::NetProtocols.Game.packet_data_Basic_RoomInfo MRoomBasicInfo {
       get { return mRoomBasicInfo_; }
       set {
         mRoomBasicInfo_ = value;
@@ -6334,7 +6319,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomBasicInfo_ != null) {
         if (mRoomBasicInfo_ == null) {
-          MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+          MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
         }
         MRoomBasicInfo.MergeFrom(other.MRoomBasicInfo);
       }
@@ -6359,7 +6344,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -6385,7 +6370,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -6412,7 +6397,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[20]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6610,7 +6595,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[21]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[21]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6668,10 +6653,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mPlayerDB" field.</summary>
     public const int MPlayerDBFieldNumber = 3;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mPlayerDB_;
+    private global::NetProtocols.Game.packet_data_playerInfo mPlayerDB_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MPlayerDB {
+    public global::NetProtocols.Game.packet_data_playerInfo MPlayerDB {
       get { return mPlayerDB_; }
       set {
         mPlayerDB_ = value;
@@ -6797,7 +6782,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mPlayerDB_ != null) {
         if (mPlayerDB_ == null) {
-          MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MPlayerDB.MergeFrom(other.MPlayerDB);
       }
@@ -6830,7 +6815,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 26: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -6864,7 +6849,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 26: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -6891,7 +6876,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[22]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[22]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6923,10 +6908,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mPlayerDB" field.</summary>
     public const int MPlayerDBFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo mPlayerDB_;
+    private global::NetProtocols.Game.packet_data_playerInfo mPlayerDB_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo MPlayerDB {
+    public global::NetProtocols.Game.packet_data_playerInfo MPlayerDB {
       get { return mPlayerDB_; }
       set {
         mPlayerDB_ = value;
@@ -7020,7 +7005,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mPlayerDB_ != null) {
         if (mPlayerDB_ == null) {
-          MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         MPlayerDB.MergeFrom(other.MPlayerDB);
       }
@@ -7045,7 +7030,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -7071,7 +7056,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mPlayerDB_ == null) {
-              MPlayerDB = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              MPlayerDB = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(MPlayerDB);
             break;
@@ -7098,7 +7083,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[23]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[23]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7143,10 +7128,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRecoverSceneInfo" field.</summary>
     public const int MRecoverSceneInfoFieldNumber = 2;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo mRecoverSceneInfo_;
+    private global::NetProtocols.Game.packet_data_RecoverSceneInfo mRecoverSceneInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo MRecoverSceneInfo {
+    public global::NetProtocols.Game.packet_data_RecoverSceneInfo MRecoverSceneInfo {
       get { return mRecoverSceneInfo_; }
       set {
         mRecoverSceneInfo_ = value;
@@ -7256,7 +7241,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRecoverSceneInfo_ != null) {
         if (mRecoverSceneInfo_ == null) {
-          MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+          MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
         }
         MRecoverSceneInfo.MergeFrom(other.MRecoverSceneInfo);
       }
@@ -7285,7 +7270,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 18: {
             if (mRecoverSceneInfo_ == null) {
-              MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+              MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
             }
             input.ReadMessage(MRecoverSceneInfo);
             break;
@@ -7315,7 +7300,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
           }
           case 18: {
             if (mRecoverSceneInfo_ == null) {
-              MRecoverSceneInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RecoverSceneInfo();
+              MRecoverSceneInfo = new global::NetProtocols.Game.packet_data_RecoverSceneInfo();
             }
             input.ReadMessage(MRecoverSceneInfo);
             break;
@@ -7342,7 +7327,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[24]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[24]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7503,7 +7488,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[25]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[25]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7704,7 +7689,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[26]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[26]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7908,7 +7893,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[27]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[27]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8109,7 +8094,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[28]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[28]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8344,7 +8329,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[29]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[29]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8545,7 +8530,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[30]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[30]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8743,7 +8728,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[31]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[31]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8944,7 +8929,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[32]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[32]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9185,7 +9170,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[33]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[33]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9463,7 +9448,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[34]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[34]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9667,7 +9652,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[35]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[35]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -9908,7 +9893,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[36]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[36]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10152,7 +10137,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[37]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[37]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10353,7 +10338,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[38]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[38]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10554,7 +10539,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[39]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[39]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10755,7 +10740,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[40]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[40]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -10996,7 +10981,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[41]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[41]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11197,7 +11182,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[42]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[42]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11435,7 +11420,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[43]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[43]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11636,7 +11621,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[44]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[44]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -11837,7 +11822,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[45]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[45]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12038,7 +12023,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[46]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[46]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12239,7 +12224,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[47]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[47]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12428,7 +12413,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[48]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[48]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12630,7 +12615,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[49]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[49]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12902,7 +12887,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[50]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[50]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -12934,10 +12919,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "m_RoomEntryListInfo" field.</summary>
     public const int MRoomEntryListInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
+    private global::NetProtocols.Game.packet_data_RoomEntryListInfo mRoomEntryListInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo MRoomEntryListInfo {
+    public global::NetProtocols.Game.packet_data_RoomEntryListInfo MRoomEntryListInfo {
       get { return mRoomEntryListInfo_; }
       set {
         mRoomEntryListInfo_ = value;
@@ -13031,7 +13016,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomEntryListInfo_ != null) {
         if (mRoomEntryListInfo_ == null) {
-          MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+          MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
         }
         MRoomEntryListInfo.MergeFrom(other.MRoomEntryListInfo);
       }
@@ -13056,7 +13041,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
@@ -13082,7 +13067,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomEntryListInfo_ == null) {
-              MRoomEntryListInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_RoomEntryListInfo();
+              MRoomEntryListInfo = new global::NetProtocols.Game.packet_data_RoomEntryListInfo();
             }
             input.ReadMessage(MRoomEntryListInfo);
             break;
@@ -13112,7 +13097,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[51]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[51]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13144,10 +13129,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomBasicInfo" field.</summary>
     public const int MRoomBasicInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo mRoomBasicInfo_;
+    private global::NetProtocols.Game.packet_data_Basic_RoomInfo mRoomBasicInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo MRoomBasicInfo {
+    public global::NetProtocols.Game.packet_data_Basic_RoomInfo MRoomBasicInfo {
       get { return mRoomBasicInfo_; }
       set {
         mRoomBasicInfo_ = value;
@@ -13241,7 +13226,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomBasicInfo_ != null) {
         if (mRoomBasicInfo_ == null) {
-          MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+          MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
         }
         MRoomBasicInfo.MergeFrom(other.MRoomBasicInfo);
       }
@@ -13266,7 +13251,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -13292,7 +13277,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -13322,7 +13307,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[52]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[52]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13354,10 +13339,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "deskInfo" field.</summary>
     public const int DeskInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo deskInfo_;
+    private global::NetProtocols.Game.packet_data_deskInfo deskInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo DeskInfo {
+    public global::NetProtocols.Game.packet_data_deskInfo DeskInfo {
       get { return deskInfo_; }
       set {
         deskInfo_ = value;
@@ -13451,7 +13436,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.deskInfo_ != null) {
         if (deskInfo_ == null) {
-          DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+          DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
         }
         DeskInfo.MergeFrom(other.DeskInfo);
       }
@@ -13476,7 +13461,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (deskInfo_ == null) {
-              DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(DeskInfo);
             break;
@@ -13502,7 +13487,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (deskInfo_ == null) {
-              DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(DeskInfo);
             break;
@@ -13532,7 +13517,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[53]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[53]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13564,10 +13549,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "playerInfo" field.</summary>
     public const int PlayerInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo playerInfo_;
+    private global::NetProtocols.Game.packet_data_playerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo PlayerInfo {
+    public global::NetProtocols.Game.packet_data_playerInfo PlayerInfo {
       get { return playerInfo_; }
       set {
         playerInfo_ = value;
@@ -13661,7 +13646,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.playerInfo_ != null) {
         if (playerInfo_ == null) {
-          PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         PlayerInfo.MergeFrom(other.PlayerInfo);
       }
@@ -13686,7 +13671,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playerInfo_ == null) {
-              PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(PlayerInfo);
             break;
@@ -13712,7 +13697,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playerInfo_ == null) {
-              PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(PlayerInfo);
             break;
@@ -13742,7 +13727,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[54]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[54]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -13775,10 +13760,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "playerInfo" field.</summary>
     public const int PlayerInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo playerInfo_;
+    private global::NetProtocols.Game.packet_data_playerInfo playerInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo PlayerInfo {
+    public global::NetProtocols.Game.packet_data_playerInfo PlayerInfo {
       get { return playerInfo_; }
       set {
         playerInfo_ = value;
@@ -13787,10 +13772,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "deskInfo" field.</summary>
     public const int DeskInfoFieldNumber = 2;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo deskInfo_;
+    private global::NetProtocols.Game.packet_data_deskInfo deskInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo DeskInfo {
+    public global::NetProtocols.Game.packet_data_deskInfo DeskInfo {
       get { return deskInfo_; }
       set {
         deskInfo_ = value;
@@ -13897,13 +13882,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.playerInfo_ != null) {
         if (playerInfo_ == null) {
-          PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+          PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
         }
         PlayerInfo.MergeFrom(other.PlayerInfo);
       }
       if (other.deskInfo_ != null) {
         if (deskInfo_ == null) {
-          DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+          DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
         }
         DeskInfo.MergeFrom(other.DeskInfo);
       }
@@ -13928,14 +13913,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playerInfo_ == null) {
-              PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(PlayerInfo);
             break;
           }
           case 18: {
             if (deskInfo_ == null) {
-              DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(DeskInfo);
             break;
@@ -13961,14 +13946,14 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playerInfo_ == null) {
-              PlayerInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo();
+              PlayerInfo = new global::NetProtocols.Game.packet_data_playerInfo();
             }
             input.ReadMessage(PlayerInfo);
             break;
           }
           case 18: {
             if (deskInfo_ == null) {
-              DeskInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo();
+              DeskInfo = new global::NetProtocols.Game.packet_data_deskInfo();
             }
             input.ReadMessage(DeskInfo);
             break;
@@ -13998,7 +13983,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[55]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[55]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14199,7 +14184,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[56]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[56]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14440,7 +14425,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[57]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[57]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14474,10 +14459,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mRoomBasicInfo" field.</summary>
     public const int MRoomBasicInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo mRoomBasicInfo_;
+    private global::NetProtocols.Game.packet_data_Basic_RoomInfo mRoomBasicInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo MRoomBasicInfo {
+    public global::NetProtocols.Game.packet_data_Basic_RoomInfo MRoomBasicInfo {
       get { return mRoomBasicInfo_; }
       set {
         mRoomBasicInfo_ = value;
@@ -14486,23 +14471,23 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "playerInfoList" field.</summary>
     public const int PlayerInfoListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> _repeated_playerInfoList_codec
-        = pb::FieldCodec.ForMessage(18, global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> playerInfoList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_playerInfo> _repeated_playerInfoList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_playerInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo> playerInfoList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_playerInfo> PlayerInfoList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_playerInfo> PlayerInfoList {
       get { return playerInfoList_; }
     }
 
     /// <summary>Field number for the "deskInfoList" field.</summary>
     public const int DeskInfoListFieldNumber = 3;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> _repeated_deskInfoList_codec
-        = pb::FieldCodec.ForMessage(26, global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> deskInfoList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_deskInfo> _repeated_deskInfoList_codec
+        = pb::FieldCodec.ForMessage(26, global::NetProtocols.Game.packet_data_deskInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo> deskInfoList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskInfo> DeskInfoList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskInfo> DeskInfoList {
       get { return deskInfoList_; }
     }
 
@@ -14603,7 +14588,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mRoomBasicInfo_ != null) {
         if (mRoomBasicInfo_ == null) {
-          MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+          MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
         }
         MRoomBasicInfo.MergeFrom(other.MRoomBasicInfo);
       }
@@ -14630,7 +14615,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -14664,7 +14649,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mRoomBasicInfo_ == null) {
-              MRoomBasicInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_Basic_RoomInfo();
+              MRoomBasicInfo = new global::NetProtocols.Game.packet_data_Basic_RoomInfo();
             }
             input.ReadMessage(MRoomBasicInfo);
             break;
@@ -14702,7 +14687,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[58]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[58]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -14734,10 +14719,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "mGameStartInfo" field.</summary>
     public const int MGameStartInfoFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo mGameStartInfo_;
+    private global::NetProtocols.Game.packet_data_GameStartInfo mGameStartInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo MGameStartInfo {
+    public global::NetProtocols.Game.packet_data_GameStartInfo MGameStartInfo {
       get { return mGameStartInfo_; }
       set {
         mGameStartInfo_ = value;
@@ -14831,7 +14816,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.mGameStartInfo_ != null) {
         if (mGameStartInfo_ == null) {
-          MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+          MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
         }
         MGameStartInfo.MergeFrom(other.MGameStartInfo);
       }
@@ -14856,7 +14841,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mGameStartInfo_ == null) {
-              MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+              MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
             }
             input.ReadMessage(MGameStartInfo);
             break;
@@ -14882,7 +14867,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (mGameStartInfo_ == null) {
-              MGameStartInfo = new global::Internet.NetProtocols.Theme.Landlord.packet_data_GameStartInfo();
+              MGameStartInfo = new global::NetProtocols.Game.packet_data_GameStartInfo();
             }
             input.ReadMessage(MGameStartInfo);
             break;
@@ -14912,7 +14897,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[59]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[59]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15113,7 +15098,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[60]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[60]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15354,7 +15339,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[61]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[61]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15386,10 +15371,10 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "remainLandlordCardList" field.</summary>
     public const int RemainLandlordCardListFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo remainLandlordCardList_;
+    private global::NetProtocols.Game.packet_data_deskcardInfo remainLandlordCardList_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo RemainLandlordCardList {
+    public global::NetProtocols.Game.packet_data_deskcardInfo RemainLandlordCardList {
       get { return remainLandlordCardList_; }
       set {
         remainLandlordCardList_ = value;
@@ -15483,7 +15468,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.remainLandlordCardList_ != null) {
         if (remainLandlordCardList_ == null) {
-          RemainLandlordCardList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+          RemainLandlordCardList = new global::NetProtocols.Game.packet_data_deskcardInfo();
         }
         RemainLandlordCardList.MergeFrom(other.RemainLandlordCardList);
       }
@@ -15508,7 +15493,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (remainLandlordCardList_ == null) {
-              RemainLandlordCardList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              RemainLandlordCardList = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(RemainLandlordCardList);
             break;
@@ -15534,7 +15519,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (remainLandlordCardList_ == null) {
-              RemainLandlordCardList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              RemainLandlordCardList = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(RemainLandlordCardList);
             break;
@@ -15564,7 +15549,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[62]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[62]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -15765,7 +15750,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[63]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[63]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16040,7 +16025,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[64]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[64]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16241,7 +16226,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[65]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[65]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16273,13 +16258,13 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "playHandList" field.</summary>
     public const int PlayHandListFieldNumber = 1;
-    private global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo playHandList_;
+    private global::NetProtocols.Game.packet_data_deskcardInfo playHandList_;
     /// <summary>
     /// 某个玩家的出牌信息
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo PlayHandList {
+    public global::NetProtocols.Game.packet_data_deskcardInfo PlayHandList {
       get { return playHandList_; }
       set {
         playHandList_ = value;
@@ -16373,7 +16358,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
       }
       if (other.playHandList_ != null) {
         if (playHandList_ == null) {
-          PlayHandList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+          PlayHandList = new global::NetProtocols.Game.packet_data_deskcardInfo();
         }
         PlayHandList.MergeFrom(other.PlayHandList);
       }
@@ -16398,7 +16383,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playHandList_ == null) {
-              PlayHandList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              PlayHandList = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(PlayHandList);
             break;
@@ -16424,7 +16409,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
             break;
           case 10: {
             if (playHandList_ == null) {
-              PlayHandList = new global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo();
+              PlayHandList = new global::NetProtocols.Game.packet_data_deskcardInfo();
             }
             input.ReadMessage(PlayHandList);
             break;
@@ -16454,7 +16439,7 @@ namespace Internet.NetProtocols.Theme.Landlord {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Internet.NetProtocols.Theme.Landlord.GameProtocolReflection.Descriptor.MessageTypes[66]; }
+      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[66]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -16502,15 +16487,15 @@ namespace Internet.NetProtocols.Theme.Landlord {
 
     /// <summary>Field number for the "othercardList" field.</summary>
     public const int OthercardListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> _repeated_othercardList_codec
-        = pb::FieldCodec.ForMessage(18, global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo.Parser);
-    private readonly pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> othercardList_ = new pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo>();
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_deskcardInfo> _repeated_othercardList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_deskcardInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo> othercardList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo>();
     /// <summary>
     /// 其他玩家剩余的牌的信息	
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Internet.NetProtocols.Theme.Landlord.packet_data_deskcardInfo> OthercardList {
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_deskcardInfo> OthercardList {
       get { return othercardList_; }
     }
 
