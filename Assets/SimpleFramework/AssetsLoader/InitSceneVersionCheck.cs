@@ -4,7 +4,6 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-
 public class VersionConfig
 {
     public string minVersion = string.Empty;
@@ -82,6 +81,7 @@ public static class InitSceneVersionCheck
 
     public static bool orTestUser()
     {
+        if (mWWWConfig == null) return false;
         return mWWWConfig.testUserId.Contains(TestUserManager.GetId());
     }
 }

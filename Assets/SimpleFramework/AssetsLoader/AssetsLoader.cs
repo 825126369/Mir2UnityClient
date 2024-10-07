@@ -3,15 +3,112 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-
 public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
 {
-    private Dictionary<string, UnityEngine.Object> mAssetDic = new Dictionary<string, UnityEngine.Object>();
+    private readonly Dictionary<string, UnityEngine.Object> mAssetDic = new Dictionary<string, UnityEngine.Object>();
+    private readonly Dictionary<string, List<string>> LabelDic = new Dictionary<string, List<string>>();
+
+    #region 下载特定Label的资源
+    public void OnlyDownloadAssetList(List<string> mNeedDownloadKey, Action<DownloadStatus> UpdateEvent = null, Action<bool> mFinishEvent = null)
+    {
+        StartCoroutine(AsyncOnlyDownloadAssetList(mNeedDownloadKey, UpdateEvent = null, mFinishEvent = null));
+    }
+
+    public IEnumerator AsyncOnlyDownloadAssetList(List<string> mNeedDownloadKey, Action<DownloadStatus> UpdateEvent, Action<bool> mFinishEvent)
+    {
+        //开始下载
+        var mKeys = mNeedDownloadKey as List<string>;
+        for (int i = 0; i < mKeys.Count; i++)
+        {
+            mKeys[i] = mKeys[i].ToLower();
+        }
+        AsyncOperationHandle _downloadHandle = Addressables.DownloadDependenciesAsync(mKeys, Addressables.MergeMode.Union, false);
+
+        UpdateEvent?.Invoke(_downloadHandle.GetDownloadStatus());
+        while (!_downloadHandle.IsDone)
+        {
+            yield return null;
+            UpdateEvent?.Invoke(_downloadHandle.GetDownloadStatus());
+        }
+
+        UpdateEvent?.Invoke(_downloadHandle.GetDownloadStatus());
+        if (_downloadHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            Debug.Log("总共下载的Bundle大小：" + GameTools.GetDownLoadSizeStr(_downloadHandle.GetDownloadStatus().TotalBytes));
+            mFinishEvent?.Invoke(true);
+        }
+        else
+        {
+            mFinishEvent?.Invoke(false);
+        }
+
+        Addressables.Release(_downloadHandle);
+    }
+    
+    public void DownloadAndLoadAssets(List<string> mNeedLoadLableList, Action<DownloadStatus> UpdateEvent, Action<bool> mFinishEvent)
+    {
+        foreach(var v in mNeedLoadLableList)
+        {
+            Debug.Log("DownloadAndLoadAssets: " + v);
+        }
+
+        StartCoroutine(AsyncDownloadAndLoadAssets(mNeedLoadLableList, UpdateEvent, mFinishEvent));
+    }
+
+    public IEnumerator AsyncDownloadAndLoadAssets(List<string> mNeedLoadLableList, Action<DownloadStatus> UpdateEvent, Action<bool> mFinishEvent)
+    {
+        if (!GameConst.orUseAssetBundle())
+        {
+            yield return new WaitForSeconds(0.5f);
+            UpdateEvent?.Invoke(new DownloadStatus() { IsDone = true });
+            mFinishEvent?.Invoke(true);
+            yield break;
+        }
+
+        for (int i = 0; i < mNeedLoadLableList.Count; i++)
+        {
+            mNeedLoadLableList[i] = mNeedLoadLableList[i].ToLower();
+        }
+
+        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(mNeedLoadLableList, Addressables.MergeMode.Union);
+        yield return mResLocListHandle;
+        var mResLocList = mResLocListHandle.Result;
+        Addressables.Release(mResLocListHandle);
+
+        AsyncOperationHandle<IList<UnityEngine.Object>> mAssetListHandle = Addressables.LoadAssetsAsync<UnityEngine.Object>(mResLocList, null);
+
+        UpdateEvent?.Invoke(mAssetListHandle.GetDownloadStatus());
+        while (!mAssetListHandle.IsDone)
+        {
+            yield return null;
+            UpdateEvent?.Invoke(mAssetListHandle.GetDownloadStatus());
+        }
+        UpdateEvent?.Invoke(mAssetListHandle.GetDownloadStatus());
+
+        if (mAssetListHandle.Status == AsyncOperationStatus.Succeeded)
+        {
+            var mAssetList = mAssetListHandle.Result;
+            for (int i = 0; i < mResLocList.Count; i++)
+            {
+                string assetPath = mResLocList[i].PrimaryKey;
+                var obj = mAssetList[i];
+                AddAsset(assetPath, obj);
+            }
+
+            mFinishEvent?.Invoke(true);
+        }
+        else
+        {
+            mFinishEvent?.Invoke(false);
+            Addressables.Release(mAssetListHandle);
+        }
+    }
+    #endregion
+
 
     public void LoadSingleAssetCallBack(string assetPath, Action mFunc = null)
     {
@@ -67,7 +164,7 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
             assetPaths[i] = assetPaths[i].ToLower();
         }
 
-        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(assetPaths, Addressables.MergeMode.UseFirst);
+        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(assetPaths, Addressables.MergeMode.Union);
         yield return mResLocListHandle;
         var mResLocList = mResLocListHandle.Result;
         Addressables.Release(mResLocListHandle);
@@ -86,41 +183,6 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
         mFunc?.Invoke();
     }
 
-    public IEnumerator AsyncDownloadAnLoadAssetsByLabel(string label, Action<float> mUpdateFunc = null, Action mFinishFunc = null)
-    {
-        if (!GameConst.orUseAssetBundle())
-        {
-            yield return new WaitForSeconds(1.0f);
-            mUpdateFunc(1f);
-            mFinishFunc?.Invoke();
-            yield break;
-        }
-
-        label = label.ToLower();
-        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(label, typeof(UnityEngine.Object));
-        yield return mResLocListHandle;
-        var mResLocList = mResLocListHandle.Result;
-        Addressables.Release(mResLocListHandle);
-
-        int nAddAssetCount = 0;
-        AsyncOperationHandle<IList<UnityEngine.Object>> mAssetListHandle = Addressables.LoadAssetsAsync<UnityEngine.Object>(label, (UnityEngine.Object obj)=>
-        {
-            nAddAssetCount++;
-            float fPercent = nAddAssetCount / (float)mResLocList.Count;
-            mUpdateFunc(fPercent);
-        });
-        yield return mAssetListHandle;
-
-        var mAssetList = mAssetListHandle.Result;
-        for (int i = 0; i < mResLocList.Count; i++)
-        {
-            string assetPath = mResLocList[i].PrimaryKey;
-            var obj = mAssetList[i];
-            AddAsset(assetPath, obj);
-        }
-        mFinishFunc?.Invoke();
-    }
-
     public IEnumerator AsyncLoadManyAssetsByLabel(string label, Action mFunc = null)
     {
         if (!GameConst.orUseAssetBundle())
@@ -132,7 +194,7 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
 
         label = label.ToLower();
 
-        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(label, typeof(UnityEngine.Object));
+        var mResLocListHandle = Addressables.LoadResourceLocationsAsync(label);
         yield return mResLocListHandle;
         var mResLocList = mResLocListHandle.Result;
         Addressables.Release(mResLocListHandle);
@@ -148,6 +210,28 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
             AddAsset(assetPath, obj);
         }
         mFunc?.Invoke();
+    }
+
+    private void AddLableToResultDic(string assetPath)
+    {
+        string[] splitArray = assetPath.Split('/');
+        string labelName = null;
+        if (splitArray[2] == "theme")
+        {
+            labelName = splitArray[2] + splitArray[3];
+        }
+        else
+        {
+            labelName = splitArray[2];
+        }
+
+        List<string> mAssetList = null;
+        if (!LabelDic.TryGetValue(labelName, out mAssetList))
+        {
+            mAssetList = new List<string>();
+            LabelDic[labelName] = mAssetList;
+        }
+        mAssetList.Add(assetPath.ToLower());
     }
 
     private void AddAsset(string assetPath, UnityEngine.Object asset)
@@ -169,6 +253,7 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
         if (!orExistAsset(assetPath))
         {
             mAssetDic[assetPath] = asset;
+            AddLableToResultDic(assetPath);
         }
     }
 
@@ -181,7 +266,7 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
         }
         else
         {
-            return true;
+            return EditorLoadAsset(assetPath) != null;
         }
     }
 
@@ -226,9 +311,45 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
         }
     }
 
+    public void RemoveAssetByLabel(string label)
+    {
+        label = label.ToLower();
+        if (LabelDic.ContainsKey(label))
+        {
+            List<string> mAssetList = LabelDic[label];
+            foreach (var v in mAssetList)
+            {
+                RemoveAsset(v);
+            }
+            LabelDic.Remove(label);
+        }
+        else
+        {
+            if (label.StartsWith("theme"))
+            {
+                label = "theme/" + label.Substring(5);
+            }
+
+            string assetPathPrefix = GameConst.ResRootDirLower + label;
+            List<string> mAssetList = new List<string>();
+            foreach (var v in mAssetDic)
+            {
+                if (v.Key.StartsWith(assetPathPrefix))
+                {
+                    mAssetList.Add(v.Key);
+                }
+            }
+
+            foreach (var v in mAssetList)
+            {
+                RemoveAsset(v);
+            }
+        }
+    }
+
     // 暂时释放资源情况良好
     Dictionary<object, AsyncOperationHandle> m_resultToHandle_Value = null;
-    List<object> releaseKeyList = new List<object>();
+    readonly List<object> releaseKeyList = new List<object>();
     private void RelaseByReflection(UnityEngine.Object obj)
     {
         if (m_resultToHandle_Value == null)
@@ -275,7 +396,7 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
         {
             foreach (var v in releaseKeyList)
             {
-                Debug.Log("RelaseByReflection finalKey: " + v?.GetType().Name + " | " + obj.name);
+                PrintTool.LogWithColor("RelaseByReflection finalKey: " + v?.GetType().Name + " | " + obj.name);
                 Addressables.Release(v);
             }
 
@@ -297,7 +418,9 @@ public class AssetsLoader : SingleTonMonoBehaviour<AssetsLoader>
     private UnityEngine.Object EditorLoadAsset(string assetPath)
     {
 #if UNITY_EDITOR
-        return UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath);
+        var mAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetPath);
+        //Debug.Assert(mAsset != null, assetPath);
+        return mAsset;
 #endif
         Debug.LogError("错误的使用 Editor方法");
         return null;

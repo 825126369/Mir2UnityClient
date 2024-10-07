@@ -34,8 +34,6 @@ public static class AddressablesRedirectManager
             if (_bundleCacheList == null)
             {
                 Debug.LogError("_bundleCacheList Local Error: " + url);
-                
-                
             }
         }
 
@@ -69,6 +67,8 @@ public static class AddressablesRedirectManager
 
     private static void Do1()
     {
+        //Addressable 首先会在 Caching中判断是否有缓存，如果有缓存，他就不走这个了
+        //这个是需要通过互联网下载的时候用到
         Addressables.InternalIdTransformFunc = (IResourceLocation location) =>
         {
             string InternalId = location.InternalId;
@@ -76,6 +76,7 @@ public static class AddressablesRedirectManager
 
             if (location.Data is AssetBundleRequestOptions)
             {
+                AssetBundleRequestOptions mOption = location.Data as AssetBundleRequestOptions;
                 if (InternalId.StartsWith("http://") || InternalId.StartsWith("https://"))
                 {
                     if (InitSceneVersionCheck.orTestUser())
@@ -96,5 +97,10 @@ public static class AddressablesRedirectManager
 
             return InternalId;
         };
+    }
+
+    public static bool IsVersionCached(this AssetBundleRequestOptions mOption, IResourceLocation location)
+    {
+        return mOption.ComputeSize(location, null) == 0;
     }
 }

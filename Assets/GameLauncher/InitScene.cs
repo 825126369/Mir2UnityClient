@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class InitScene : SingleTonMonoBehaviour<InitScene>
 {
@@ -48,7 +49,7 @@ public class InitScene : SingleTonMonoBehaviour<InitScene>
         StartCoroutine(mInitSceneHotUpdateManager.CheckHotUpdate());
     }
 
-    public void UpdateDownloadAssetsProgress(DownloadProgressInfo mInfo)
+    public void UpdateDownloadAssetsProgress(DownloadStatus mInfo)
     {
         mInitSceneView.UpdateRealProgress(mInfo);
     }

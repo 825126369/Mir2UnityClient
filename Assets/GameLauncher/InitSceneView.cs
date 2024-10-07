@@ -23,7 +23,7 @@ public class InitSceneView : MonoBehaviour
     private float fAniMaxTime = 0.0f;
 
     Action mFinishAction;
-    private DownloadProgressInfo mInfo;
+    private DownloadStatus mInfo;
 
     public void Awake()
     {
@@ -120,7 +120,7 @@ public class InitSceneView : MonoBehaviour
     //    }
     //}
 
-    public void UpdateRealProgress(DownloadProgressInfo mInfo)
+    public void UpdateRealProgress(DownloadStatus mInfo)
     {
         this.fNowMaxProgress = mInfo.Percent;
         this.mInfo = mInfo;
