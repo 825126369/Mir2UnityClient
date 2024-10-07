@@ -6,14 +6,14 @@ using UnityEngine.U2D;
 
 public class CommonResSerialization : MonoBehaviour
 {
-    public List<GameObject> m_PrefabList = new List<GameObject>();
-    public List<SpriteAtlas> m_AtlasList = new List<SpriteAtlas>();
-    public List<Sprite> m_SpriteList = new List<Sprite>();
-    public List<Texture> m_TextureList = new List<Texture>();
-    public List<AudioClip> m_AudoClipList = new List<AudioClip>();
-    public List<Shader> m_ShaderList = new List<Shader>();
-    public List<Material> m_MaterialList = new List<Material>();
-    public List<TextAsset> m_TextAssetList = new List<TextAsset>();
+    [SerializeField] public List<GameObject> m_PrefabList = new List<GameObject>();
+    [SerializeField] public List<SpriteAtlas> m_AtlasList = new List<SpriteAtlas>();
+    [SerializeField] public List<Sprite> m_SpriteList = new List<Sprite>();
+    [SerializeField] public List<Texture> m_TextureList = new List<Texture>();
+    [SerializeField] public List<AudioClip> m_AudoClipList = new List<AudioClip>();
+    [SerializeField] public List<Shader> m_ShaderList = new List<Shader>();
+    [SerializeField] public List<Material> m_MaterialList = new List<Material>();
+    [SerializeField] public List<TextAsset> m_TextAssetList = new List<TextAsset>();
 
     public TextAsset FindTextAsset(string name)
     {
@@ -65,7 +65,7 @@ public class CommonResSerialization : MonoBehaviour
         return GetAtlas(atlasName).GetSprite(spriteName);
     }
 
-    //-----------------------------------Editor 相关-----------------------------------------
-
+    //----------------------------------Editor 相关-----------------------------------------
     [HideInInspector] public string mResFolder = string.Empty;
+    [HideInInspector] public string mResSuffix = string.Empty;
 }

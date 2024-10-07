@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Reflection;
 using UnityEditor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -10,6 +8,8 @@ using UnityEngine.U2D;
 public class CommonResSerializationEditor : Editor
 {
 	private CommonResSerialization mTarget;
+	private static int tab=0;
+
 	private void OnEnable()
 	{
 		mTarget = target as CommonResSerialization;
@@ -30,18 +30,129 @@ public class CommonResSerializationEditor : Editor
 
 	private void DrawMyInspector()
 	{
-		EditorGUILayout.Space();
-		EditorGUILayout.BeginHorizontal();
-		EditorGUILayout.LabelField("Asset Folder: ");
-		mTarget.mResFolder = EditorGUILayout.TextField(mTarget.mResFolder);
-		EditorGUILayout.EndHorizontal();
-		
-		if(string.IsNullOrWhiteSpace(mTarget.mResFolder))
-		{
-			mTarget.mResFolder = Path.GetDirectoryName(AssetDatabase.GetAssetPath(mTarget));
-		}
+        var mNowPath = AssetDatabase.GetAssetPath(mTarget);
+        if(string.IsNullOrWhiteSpace(mNowPath))
+        {
+            return;
+        }
 
-		if (GUILayout.Button("一键绑定 GameObject"))
+        if (string.IsNullOrWhiteSpace(mTarget.mResFolder))
+        {
+            mTarget.mResFolder = Path.GetDirectoryName(mNowPath);
+        }
+
+        if (string.IsNullOrWhiteSpace(mTarget.mResSuffix))
+        {
+            mTarget.mResSuffix = ".prefab;";
+        }
+
+        EditorGUILayout.Space();
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Asset Folder: ");
+        mTarget.mResFolder = EditorGUILayout.TextField(mTarget.mResFolder);
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Asset Suffix: ");
+        mTarget.mResSuffix = EditorGUILayout.TextField(mTarget.mResSuffix);
+        EditorGUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Add Asset From Folder Path"))
+        {
+            var suffixArray = mTarget.mResSuffix.Split(";");
+            foreach (var v in Directory.GetFiles(mTarget.mResFolder, "*", SearchOption.AllDirectories))
+			{
+                string extention = Path.GetExtension(v);
+                if (!v.EndsWith(".meta") && (string.IsNullOrWhiteSpace(mTarget.mResSuffix) || Array.IndexOf(suffixArray, extention) >= 0))
+				{
+					var obj = AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(v);
+					if (obj is GameObject)
+					{
+						var obj1 = obj as GameObject;
+						if (obj1 != mTarget.gameObject)
+						{
+							if (!mTarget.m_PrefabList.Contains(obj1))
+							{
+								mTarget.m_PrefabList.Add(obj1);
+							}
+						}
+					}
+                    else if (obj is SpriteAtlas)
+                    {
+                        var obj1 = obj as SpriteAtlas;
+                        if (!mTarget.m_AtlasList.Contains(obj1))
+                        {
+                            mTarget.m_AtlasList.Add(obj1);
+                        }
+                    }
+                    else if (obj is Texture)
+                    {
+                        var obj1 = obj as Texture;
+
+						var obj2 = AssetDatabase.LoadAllAssetsAtPath(v);
+						if (obj2.Length > 1)
+						{
+							foreach (var v2 in obj2)
+							{
+								if (v2 is Sprite)
+								{
+									var obj3 = v2 as Sprite;
+									if (!mTarget.m_SpriteList.Contains(obj3))
+									{
+										mTarget.m_SpriteList.Add(obj3);
+									}
+								}
+                            }
+						}
+						else
+						{
+							if (!mTarget.m_TextureList.Contains(obj1))
+							{
+								mTarget.m_TextureList.Add(obj1);
+							}
+						}
+                    }
+                    else if (obj is AudioClip)
+                    {
+                        var obj1 = obj as AudioClip;
+                        if (!mTarget.m_AudoClipList.Contains(obj1))
+                        {
+                            mTarget.m_AudoClipList.Add(obj1);
+                        }
+                    }
+                    else if (obj is Shader)
+                    {
+                        var obj1 = obj as Shader;
+                        if (!mTarget.m_ShaderList.Contains(obj1))
+                        {
+                            mTarget.m_ShaderList.Add(obj1);
+                        }
+                    }
+                    else if (obj is Material)
+                    {
+                        var obj1 = obj as Material;
+                        if (!mTarget.m_MaterialList.Contains(obj1))
+                        {
+                            mTarget.m_MaterialList.Add(obj1);
+                        }
+                    }
+                    else if (obj is TextAsset)
+                    {
+                        var obj1 = obj as TextAsset;
+                        if (!mTarget.m_TextAssetList.Contains(obj1))
+                        {
+                            mTarget.m_TextAssetList.Add(obj1);
+                        }
+                    }
+                }
+            }
+
+            EditorUtility.SetDirty(mTarget);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+
+        if (GUILayout.Button("一键绑定 GameObject"))
 		{
 			foreach (var v in Directory.GetFiles(mTarget.mResFolder, "*", SearchOption.AllDirectories))
 			{
@@ -117,7 +228,7 @@ public class CommonResSerializationEditor : Editor
             AssetDatabase.Refresh();
         }
 
-
+        
         if (GUILayout.Button("一键绑定 Text/Json"))
         {
             foreach (var v in Directory.GetFiles(mTarget.mResFolder, "*", SearchOption.AllDirectories))
@@ -136,7 +247,5 @@ public class CommonResSerializationEditor : Editor
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
-
     }
-
 }

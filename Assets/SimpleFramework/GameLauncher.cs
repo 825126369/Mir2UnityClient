@@ -67,25 +67,14 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 
         DataCenter.Instance.Init();
         UIMgr.Instance.Init();
-        NetClientMgr.Instance.Init();
+        NetClientMgr.Instance.InitLoginServerClient();
 
-        while (NetClientMgr.Instance.mNetClient.GetSocketState() == SOCKETPEERSTATE.CONNECTING)
+        while (NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() == SOCKETPEERSTATE.CONNECTING)
         {
             yield return null;
         }
 
-        this.LoadLobby();
-        StartCoroutine(WaitToDestroyInitScene());
-    }
-
-    private IEnumerator WaitToDestroyInitScene()
-    {
-        while(!InitScene.readOnlyInstance.bProgressFull)
-        {
-            yield return null;
-        }
-        Destroy(InitScene.readOnlyInstance.mInitSceneView.gameObject);
-        Destroy(InitScene.readOnlyInstance.gameObject);
+        SceneMgr.Instance.LoadSceneAsync(SceneNames.Login);
     }
 
     private void LoadLobby()

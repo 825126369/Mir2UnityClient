@@ -28,7 +28,7 @@ public class GameWinUI : MonoBehaviour
         LeanTween.delayedCall(3.0f, () =>
         {
             this.Hide();
-            MainGame.readOnlyInstance.GameBegin();
+            //MainGame.readOnlyInstance.GameBegin();
         });
 
     }

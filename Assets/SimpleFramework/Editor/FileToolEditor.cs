@@ -65,6 +65,22 @@ public class FileToolEditor
         }
     }
 
+    public static string GetDirName(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            if (path.EndsWith("/"))
+            {
+                path = path.Substring(0, path.Length - 1);
+            }
+
+            int nIndex = path.LastIndexOf("/");
+            return path.Substring(nIndex + 1);
+        }
+
+        return null;
+    }
+
     public static string GetDirParentDir(string path)
     {
         if (Directory.Exists(path))
@@ -123,6 +139,7 @@ public class FileToolEditor
         path = path.Replace("\\", "/");
         return path;
     }
+
 
 
     private static void CopyDir(string origin, string target)

@@ -15,50 +15,11 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using static UnityEngine.GraphicsBuffer;
 
-public class AddressableCreateGroupEditor
+public class AddressableGroupStructEditor
 {
-    //[MenuItem("AddressableEditor/自动创建Addressable目录")]
-    public static void Do()
+    public static void DoSettingStruct()
     {
-        SetSetting();
-        CreateGroupContent2();
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-    }
-
-    private static void CreateGroupContent2()
-    {
-        List<string> mBundleFolderNameList = new List<string>();
-        foreach (var v in Directory.GetDirectories(GameConst.ResRootDir))
-        {
-            mBundleFolderNameList.Add(v);
-        }
-        
-        foreach (var dirPath in mBundleFolderNameList)
-        {
-            string bundleName = dirPath.Substring(dirPath.LastIndexOf("/") + 1).ToLower();
-            AddressableAssetGroup group = CreateGroup(bundleName);
-            string[] allFiles = Directory.GetFiles(dirPath, "*", SearchOption.AllDirectories);
-            foreach (string filePath in allFiles)
-            {
-                Debug.Assert(filePath.StartsWith("Assets/"));
-                if (Path.GetExtension(filePath) == ".prefab")
-                {
-                    string guid = AssetDatabase.AssetPathToGUID(filePath);  //要打包的资产条目   将路径转成guid
-                    AddressableAssetEntry entry = settings.CreateOrMoveEntry(guid, group, false, true);//要打包的资产条目   会将要打包的路径移动到group节点下
-                    if (entry != null)
-                    {
-                        entry.SetLabel(bundleName, true, true, true);//第一个参数是创建这个标签  第二个是 是否开启标签
-                        entry.SetAddress(entry.AssetPath.ToLower());
-                    }
-                }
-            }
-        }
-    }
-
-    private static void SetSetting()
-    {
-        if (AddressableBuildContentEditor.bLocalPackage)
+        if (GameConst.bHotUpdate == false)
         {
             settings.BuildRemoteCatalog = false;
             settings.CertificateHandlerType = typeof(WebRequestCertificateHandler);
@@ -73,9 +34,10 @@ public class AddressableCreateGroupEditor
             settings.RemoteCatalogLoadPath.SetVariableByName(settings, AddressableProfileEditor.kRemoteLoadPath);
         }
     }
-    
-    private static AddressableAssetGroup CreateGroup(string bundleName)
+
+    public static AddressableAssetGroup CreateGroup(string bundleName, bool bLocalPackage = false)
     {
+        bundleName = bundleName.ToLower();
         AddressableAssetGroup group = FindGroup(bundleName);
         if (group == null)
         {
@@ -85,7 +47,7 @@ public class AddressableCreateGroupEditor
         var mSchema = group.GetSchema<BundledAssetGroupSchema>();
         mSchema.BundleNaming = BundledAssetGroupSchema.BundleNamingStyle.AppendHash;
 
-        if (AddressableBuildContentEditor.bLocalPackage)
+        if (GameConst.bHotUpdate == false || bLocalPackage)
         {
             mSchema.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
             mSchema.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
@@ -95,8 +57,43 @@ public class AddressableCreateGroupEditor
             mSchema.BuildPath.SetVariableByName(settings, AddressableProfileEditor.kRemoteBuildPath);
             mSchema.LoadPath.SetVariableByName(settings, AddressableProfileEditor.kRemoteLoadPath);
         }
+        
+        bool bRemove = true;
+        while(bRemove)
+        {   
+            bRemove = false;
+            foreach(var v in group.entries)
+            {
+                if(AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(v.AssetPath) == null)
+                {
+                    group.RemoveAssetEntry(v, true);
+                    bRemove = true;
+                    break;
+                }
+            }
+        }
 
         return group;
+    }
+
+    public static void SetGroupEntry(AddressableAssetGroup group, string filePath)
+    {
+        var fielName = Path.GetFileName(filePath);
+        string guid = AssetDatabase.AssetPathToGUID(filePath);  //要打包的资产条目   将路径转成guid
+        AddressableAssetEntry entry = settings.CreateOrMoveEntry(guid, group, false, true);//要打包的资产条目   会将要打包的路径移动到group节点下
+        if (entry != null)
+        {
+            if (fielName.EndsWith(".prefab") ||
+                fielName.EndsWith(".unity"))
+            {
+                entry.SetLabel(group.Name.ToLower(), true, true);
+            }
+            else
+            {
+                entry.SetLabel(group.Name.ToLower(), false, true);
+            }
+            entry.SetAddress(entry.AssetPath.ToLower());
+        }
     }
     
     private static AddressableAssetGroup FindGroup(string groupName)

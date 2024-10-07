@@ -57,6 +57,6 @@ public class SymbolItemData
     public void Init(int nIconIndex)
     {
         this.nIconIndex = nIconIndex;
-        id = MainGame.readOnlyInstance.nSymbolId++;
+        //id = MainGame.readOnlyInstance.nSymbolId++;
     }
 }

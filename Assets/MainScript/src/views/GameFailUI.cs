@@ -23,7 +23,7 @@ public class GameFailUI : MonoBehaviour
         mReStartBtn.onClick.AddListener(() =>
         {
             this.Hide();
-            MainGame.readOnlyInstance.GameBegin();
+            //MainGame.readOnlyInstance.GameBegin();
         });
     }
 

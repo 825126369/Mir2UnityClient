@@ -1,5 +1,13 @@
 ﻿using System;
 
+public static class SceneNames
+{
+    public const string Boot = "Boot";
+    public const string Login = "Login";
+    public const string Select = "Select";
+    public const string Game = "Game";
+}
+
 public static class Sounds
 {
     public const string battle_win = "battle_win";

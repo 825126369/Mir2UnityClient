@@ -14,29 +14,31 @@ using UnityEngine.AddressableAssets;
 
 public class AddressableBuildContentEditor : MonoBehaviour
 {
-    [MenuItem("热更新/Clear Addressables/确定? ")]
-    private static void ClearAddressableAA()
-    {
-        AddressableAssetSettings.CleanPlayerContent();
-    }
-
-    public static bool bLocalPackage = false;
-    [MenuItem("热更新/一键打包-不热更/确定? ")]
-    public static void Do1()
-    {
-        bLocalPackage = true;
-        LuaCopyEditor.Do();
-        AddressableCreateGroupEditor.Do();
-        BuildContent();
-    }
-
-    [MenuItem("热更新/一键打包-热更")]
+    [MenuItem("热更新/AssetBundle 一键打包/确定？")]
     public static void Do()
     {
-        bLocalPackage = false;
-        LuaCopyEditor.Do();
-        AddressableCreateGroupEditor.Do();
-        
+        if (GameConst.bHotUpdate)
+        {
+            Do2();
+        }
+        else
+        {
+            Do1();
+        }
+    }
+
+    public static void Do1()
+    {
+        //LuaBundleEditor.CopyLua();
+        AddressableGroupContentEditor.Do();
+        BuildContent();
+    }
+    
+    public static void Do2()
+    {
+        //LuaBundleEditor.CopyLua();
+        AddressableGroupContentEditor.Do();
+
         CheckBuildError();
         ClearOutFolder();
         if (orExistBinFile())
@@ -51,37 +53,48 @@ public class AddressableBuildContentEditor : MonoBehaviour
         MoveToOutFolder();
     }
 
-    public static string GetBuildRooFolder()
+    public static bool orMuBao()
+    {
+        return orExistBinFile() == false;
+    }
+
+    public static string GetRemoteBuildDir()
     {
         var RemoteBuildPath = settings.profileSettings.GetValueByName(settings.activeProfileId, AddressableProfileEditor.kRemoteBuildPath);
         RemoteBuildPath = settings.profileSettings.EvaluateString(settings.activeProfileId, RemoteBuildPath);
         return RemoteBuildPath;
     }
 
+    public static string GetRemoteRootDir()
+    {
+        var RemoteBuildPath = GetRemoteBuildDir();
+        string outRootDir = FileToolEditor.GetDirParentDir(RemoteBuildPath);
+        return outRootDir;
+    }
+
     private static void ClearOutFolder()
     {
-        string RemoteBuildPath = GetBuildRooFolder();
-        var outDirRoot = FileToolEditor.GetDirParentDir(RemoteBuildPath);
-        
+        var RemoteBuildPath = GetRemoteBuildDir();
+        string outRootDir = GetRemoteRootDir();
         FileToolEditor.DeleteFolder(RemoteBuildPath);
-        FileToolEditor.DeleteFolder(outDirRoot + "/" + PlayerSettings.bundleVersion + "/");
+        FileToolEditor.DeleteFolder(outRootDir + "/" + VersionTool.GetBigVersionNumber(PlayerSettings.bundleVersion) + "/");
     }
 
     private static void MoveToOutFolder()
     {
-        string RemoteBuildPath = GetBuildRooFolder();
-        var outDirRoot = FileToolEditor.GetDirParentDir(RemoteBuildPath);
-        FileToolEditor.CopyFolder(RemoteBuildPath, outDirRoot + "/" + "AllUpdate_GameRes/");
-        FileToolEditor.CopyFolder(RemoteBuildPath, outDirRoot + "/" + PlayerSettings.bundleVersion + "/");
+        var RemoteBuildPath = GetRemoteBuildDir();
+        string outRootDir = GetRemoteRootDir();
 
+        FileToolEditor.CopyFolder(RemoteBuildPath, outRootDir + "/" + "AllUpdate_GameRes/");
+        FileToolEditor.CopyFolder(RemoteBuildPath, outRootDir + "/" + VersionTool.GetBigVersionNumber(PlayerSettings.bundleVersion) + "/");
+        VersionUpdateTimeCheckEditor.CopyToOutDir(outRootDir);
         StreamingAssetCopyEditor.DoCopy(RemoteBuildPath);
-        VersionUpdateTimeCheckEditor.CopyToOutDir(outDirRoot);
     }
 
     private static void CheckBuildError()
     {
         Debug.Log("Application.version: " + Application.version);
-        Debug.Log("RemoteUrl: " + GameConst.GetEditorRemoteResUrl());
+        Debug.Log("RemoteUrl: " + GameConst.GetRemoteResUrl());
 
         // 有时候打包会发现 这个文件丢失的情况
         var mBuildScriptPackedMode = BuildScriptPackedMode.CreateInstance<BuildScriptPackedMode>();

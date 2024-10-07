@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class VersionUpdateTimeCheckEditor
 {
-    const string filePath = "Assets/GameLauncher/Resources/" + GameConst.versionUpdateTimeCheckFileName;
+    const string filePath = "Assets/MyScripts/Resources/" + GameConst.versionUpdateTimeCheckFileName;
     private static void CreateFile()
     {
         if (!File.Exists(filePath))
@@ -21,6 +21,7 @@ public class VersionUpdateTimeCheckEditor
         Debug.Log($"{GameConst.versionUpdateTimeCheckFileName}: {filePath}");
     }
 
+    [MenuItem("热更新/生成 VersionUpdateTimeCheck 文件/确定? ")]
     private static void SetDaBaoTime()
     {
         CreateFile();

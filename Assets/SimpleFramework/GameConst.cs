@@ -1,28 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using System.IO;
 
-public class GameConst:Singleton<GameConst>
+public static class GameConst
 {
-    public const string ResRootDir = "Assets/GameAssets/";
+    public const bool bHotUpdate = false;
+    public const string ResRootDir = "Assets/ResourceABs/";
     public static readonly string ResRootDirLower = ResRootDir.ToLower();
-    public const string feishuURL = "";
+    public const string feishuURL = "https://open.feishu.cn/open-apis/bot/v2/hook/e6665d6e-eea6-42b4-948b-01a4b1c8c631";
+    public const string PlayFabId = "D706A";
+
+    public const string spriteAtlasExtention = ".spriteatlasv2";
+    //´ò°ü
     public const string buildResPath = "/../APK/Android";
     public const string versionFileName = "version.json";
-    public const string versionUpdateTimeCheckFileName = "versionUpdateTimeCheck.json";
     public const string StreamingAsset_CacheBundleDir = "CustomLocalCache/";
     public const string StreamingAsset_CacheBundleJsonFileName = "CustomLocalCache.json";
-    public const string remoteResUrlPrefix = "https://storage.googleapis.com/sgame/JTest/template_Test";
+    public const string versionUpdateTimeCheckFileName = "versionUpdateTimeCheck.json";
+    public const string remoteResUrlPrefix = "https://youxi.blob.core.windows.net/funofpoker-android";
 
-    public const string AdsAppKey = "9uHgeBwag3NXva9MC23ToO3q11Ve59bF1uwg4qGltdGmCQ7OSByFZ_3b1ZF7krMlkHQo5gXzIokVDsvg1rwbr-";
-
-#if UNITY_EDITOR
-    public static string GetEditorRemoteResUrl()
+    public static string GetRemoteResUrl()
     {
-        return $"{remoteResUrlPrefix}/{UnityEditor.PlayerSettings.bundleVersion}";
+        return $"{remoteResUrlPrefix}/{VersionTool.GetBigVersionNumber(Application.version)}";
     }
-#endif
 
     public static string GetTestUserRemoteResUrl()
     {
@@ -59,9 +60,43 @@ public class GameConst:Singleton<GameConst>
 #endif
         return bUseBundle;
     }
-    
+
     public static bool isMobilePlatform()
     {
         return Application.isMobilePlatform;
     }
+
+    public static string getStreamingAssetsPathUrl(string subFilePath)
+    {
+        string url = "";
+        string path = Path.Combine(Application.streamingAssetsPath, subFilePath);
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            url = path;
+        }
+        else
+        {
+            url = "file://" + Path.GetFullPath(path);
+        }
+
+        return url;
+    }
+
+#if UNITY_EDITOR
+    public const bool PLATFORM_EDITOR = true;
+#else
+	public const bool PLATFORM_EDITOR = false;
+#endif
+
+#if UNITY_ANDROID
+	public const bool PLATFORM_ANDROID = true;
+#else
+    public const bool PLATFORM_ANDROID = false;
+#endif
+
+#if UNITY_IOS
+	public const bool PLATFORM_IOS = true;
+#else
+    public const bool PLATFORM_IOS = false;
+#endif
 }

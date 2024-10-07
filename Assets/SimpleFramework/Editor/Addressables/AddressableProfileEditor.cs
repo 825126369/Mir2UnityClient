@@ -15,7 +15,7 @@ public static class AddressableProfileEditor
     {
         settings.profileSettings.CreateValue(kRemoteBuildPath, AddressableAssetSettings.kRemoteBuildPathValue);
         settings.profileSettings.CreateValue(kRemoteLoadPath, AddressableAssetSettings.kRemoteLoadPathValue);
-        settings.profileSettings.SetValue(settings.activeProfileId, kRemoteLoadPath, GameConst.GetEditorRemoteResUrl());
+        settings.profileSettings.SetValue(settings.activeProfileId, kRemoteLoadPath, GameConst.GetRemoteResUrl());
     }
 
     private static AddressableAssetSettings settings

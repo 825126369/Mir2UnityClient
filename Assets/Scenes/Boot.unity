@@ -133,8 +133,6 @@ GameObject:
   - component: {fileID: 39163439}
   - component: {fileID: 39163440}
   - component: {fileID: 39163444}
-  - component: {fileID: 39163445}
-  - component: {fileID: 39163448}
   - component: {fileID: 39163446}
   m_Layer: 0
   m_Name: GameLauncher
@@ -188,18 +186,6 @@ MonoBehaviour:
   gameCanDebug: 1
   bRobotPlay: 0
   ABTest: 1
---- !u!114 &39163445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39163438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9530c096bcc46f4b6ce5491e2f90cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &39163446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,18 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   default_lang: 2
---- !u!114 &39163448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39163438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78dc18d508b844e538a0541b3db057d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &376921257
 GameObject:
   m_ObjectHideFlags: 0

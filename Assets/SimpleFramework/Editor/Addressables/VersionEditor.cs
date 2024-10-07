@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class VersionEditor
 {
-    const string filePath = "Assets/GameLauncher/Resources/" + GameConst.versionFileName;
+    const string filePath = "Assets/MyScripts/Resources/" + GameConst.versionFileName;
 
     [MenuItem("热更新/生成 Version文件/确定? ")]
     public static void CreateFile()

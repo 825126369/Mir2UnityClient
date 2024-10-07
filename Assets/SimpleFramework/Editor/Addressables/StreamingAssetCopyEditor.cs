@@ -11,7 +11,7 @@ using UnityEngine.AddressableAssets;
 
 public static class StreamingAssetCopyEditor
 {
-    static string GetOutDir()
+    public static string GetOutDir()
     {
         return $"{Application.streamingAssetsPath}/{GameConst.StreamingAsset_CacheBundleDir}";
     }
@@ -23,14 +23,23 @@ public static class StreamingAssetCopyEditor
 
     private static List<string> GetNeedCopyFileList(string buildRootDir)
     {
+        List<string> mKeyList = new List<string>();
+        mKeyList.Add("initscene");
+        mKeyList.Add("lobby");
+        mKeyList.Add("themecommon");
+
         List<string> mList = new List<string>();
-        mList.Add("lua");
-
-
         foreach (var filePath in Directory.GetFiles(buildRootDir, "*.bundle", SearchOption.AllDirectories))
         {
             string fileName = Path.GetFileName(filePath);
-            mList.Add(fileName);
+            foreach (string v in mKeyList)
+            {
+                if (fileName.Contains(v))
+                {
+                    mList.Add(fileName);
+                    break;
+                }
+            }
         }
         return mList;
     }
@@ -52,6 +61,8 @@ public static class StreamingAssetCopyEditor
     public static void ClearCache()
     {
         FileToolEditor.DeleteFolder(GetOutDir());
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
     /// <summary>
@@ -60,6 +71,8 @@ public static class StreamingAssetCopyEditor
     /// <param name="result"></param>
     public static void DoCopy(string buildRootDir)
     {
+        ClearCache();
+
         var destDir = GetOutDir();
         if(!Directory.Exists(destDir))
         {

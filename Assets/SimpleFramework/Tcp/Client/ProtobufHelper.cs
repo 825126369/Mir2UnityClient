@@ -20,13 +20,18 @@ namespace ProtobufHelper
 			MessageParser<T> t = null;
 			if (!mObjectPool.TryDequeue(out t))
 			{
-				t = new MessageParser<T>(() => IMessagePool<T>.Pop());
+				t = new MessageParser<T>(factory);
 			}
 
 			return t;
 		}
 
-		public static void recycle(MessageParser<T> t)
+        private static T factory()
+        {
+            return IMessagePool<T>.Pop();
+        }
+
+        public static void recycle(MessageParser<T> t)
 		{
 			mObjectPool.Enqueue(t);
 		}
