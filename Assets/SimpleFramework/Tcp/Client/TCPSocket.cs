@@ -331,17 +331,24 @@ namespace Net.TCP.Client
 		{
 			lock (lock_mSocket_object)
 			{
-				if (mSocket != null)
-				{
-					try
-					{
-						mSocket.Close();
+                if (mSocket != null)
+                {
+                    try
+                    {
+                        mSocket.Shutdown(SocketShutdown.Both);
                     }
-                    catch { }
+                    catch (Exception ex)
+                    {
+                        //PrintTool.LogError("Error shutting down socket: " + ex.Message);
+                    }
+                    finally
+                    {
+                        mSocket.Close();
+                    }
 
-					mSocket = null;
-				}
-			}
+                    mSocket = null;
+                }
+            }
 		}
 
         public override void Reset()
