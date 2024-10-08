@@ -6,7 +6,7 @@ using System.IO;
 public static class GameConst
 {
     public const bool bHotUpdate = false;
-    public const string ResRootDir = "Assets/ResourceABs/";
+    public const string ResRootDir = "Assets/GameAssets/";
     public static readonly string ResRootDirLower = ResRootDir.ToLower();
     public const string feishuURL = "https://open.feishu.cn/open-apis/bot/v2/hook/e6665d6e-eea6-42b4-948b-01a4b1c8c631";
     public const string PlayFabId = "D706A";

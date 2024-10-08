@@ -5,6 +5,7 @@ using Net.TCP.Client;
 using NetProtocols.Login;
 using ProtobufHelper;
 using TcpProtocol;
+using UnityEngine;
 
 public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
 {
@@ -12,18 +13,13 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
     public void InitLoginServerClient()
     {
         LoginServer_NetClient = new NetClient();
-        LoginServer_NetClient.ConnectServer("127.0.0.1", 8000);
-
-        LoginServer_NetClient.addNetListenFun(LoginServer_NetCommand.SC_REQUEST_LOGIN_RESULT, receive_scChat);
+        LoginServer_NetClient.ConnectServer("127.0.0.1", 9000);
         LoginServer_NetClient.addNetListenFun(LoginServer_NetCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
     }
 
-    private void receive_scChat(ClientPeerBase clientPeer, NetPackage package)
+    private void Update()
     {
-        TESTChatMessage mSendMsg = Protocol3Utility1.getData<TESTChatMessage>(package);
-        clientPeer.SendNetData(TcpNetCommand.COMMAND_TESTCHAT, mSendMsg);
-        mSendMsg.Reset();
-        IMessagePool<TESTChatMessage>.recycle(mSendMsg);
+        LoginServer_NetClient.Update(Time.deltaTime);
     }
 
     void receive_scRequestLogin(ClientPeerBase clientPeer, NetPackage mNetPackage)

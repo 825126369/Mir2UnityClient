@@ -7,14 +7,14 @@ namespace Net.TCP.Client
     public class SocketReceivePeer : ClientPeerBase
 	{
 		protected CircularBuffer<byte> mReceiveStreamList = null;
-		protected PackageManager mPackageManager = null;
-		protected ObjectPoolManager mObjectPoolManager = null;
+		protected readonly PackageManager mPackageManager = null;
+		protected readonly NetPackage mNetPackage = null;
 
-		private object lock_mReceiveStreamList_object = new object();
+		private readonly object lock_mReceiveStreamList_object = new object();
 
 		public SocketReceivePeer()
 		{
-			mObjectPoolManager = new ObjectPoolManager();
+            mNetPackage = new NetPackage();
 			mPackageManager = new PackageManager();
 			mReceiveStreamList = new CircularBuffer<byte>(Config.nBufferInitLength);
 		}
@@ -85,14 +85,12 @@ namespace Net.TCP.Client
 
 		private bool NetPackageExecute()
 		{
-			NetPackage mNetPackage = null;
 			bool bSuccess = false;
 
 			lock (lock_mReceiveStreamList_object)
 			{
 				if (mReceiveStreamList.Length > 0)
 				{
-					mNetPackage = mObjectPoolManager.mPackagePool.popObj();
 					bSuccess = NetPackageEncryption.DeEncryption(mReceiveStreamList, mNetPackage);
 				}
 			}
@@ -100,11 +98,6 @@ namespace Net.TCP.Client
 			if (bSuccess)
 			{
 				mPackageManager.NetPackageExecute(this, mNetPackage);
-			}
-
-			if (mNetPackage != null)
-			{
-				mObjectPoolManager.mPackagePool.recycle(mNetPackage);
 			}
 
 			return bSuccess;

@@ -135,7 +135,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 200
   m_TargetDisplay: 0
 --- !u!114 &4616080168666964312
 MonoBehaviour:
@@ -340,7 +340,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 200
+  m_SortingOrder: 300
   m_TargetDisplay: 0
 --- !u!114 &1183347356234504349
 MonoBehaviour:
@@ -394,8 +394,8 @@ RectTransform:
   - {fileID: 3971556234544896601}
   - {fileID: 9068964025418683653}
   - {fileID: 7169330631573214947}
-  - {fileID: 9011764471162182016}
   - {fileID: 7512960406167079856}
+  - {fileID: 9011764471162182016}
   m_Father: {fileID: 8642042832514711335}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -97,7 +97,7 @@ public class FlyingCoinsView : MonoBehaviour
    this.random2_x = coinStyleValue*50;
 
    this.coinscount = coinscount;
-   AudioController.Instance.playSound(Sounds.coin_get, 1);
+   AudioMgr.Instance.playSound(Sounds.coin_get, 1);
 
    Vector3 tempPlayer = fromPt;
     for (int i = 0; i < this.coinscount; i++)

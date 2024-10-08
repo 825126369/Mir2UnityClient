@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImageAnimation : MonoBehaviour
+public class ImageAnimationEditor : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioController : SingleTonMonoBehaviour<AudioController>
+public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
 {
     public List<AudioSource> audioSourcePool = new List<AudioSource>();
     private AudioSource bgAudioSource;
@@ -70,7 +70,7 @@ public class AudioController : SingleTonMonoBehaviour<AudioController>
         }
         else
         {
-            PrintTool.LogError("Not Exist audioName: ", audioName);
+            PrintTool.Log("Not Exist audioName: ", audioName);
         }
         return null;
     }

@@ -5,21 +5,20 @@ public static class IMessageExtention
 {
     public static void Reset(this TESTChatMessage message)
     {
-        message.Id = default;
+        message.Id = 0;
         message.TalkMsg = string.Empty;
     }
 
     public static void Reset(this packet_cs_Login message)
     {
-        message.Account = default;
-        message.Password = default;
-        message.NLoginType = default;
+        message.Account = string.Empty;
+        message.Password = string.Empty;
+        message.NLoginType = 0;
     }
 
     public static void Reset(this packet_sc_Login_Result message)
     {
-        message.NErrorCode = default;
-        message.GateServerIp = default;
-        message.Port = default;
+        message.NErrorCode = 0;
+        message.GateServerIp = string.Empty;
     }
 }

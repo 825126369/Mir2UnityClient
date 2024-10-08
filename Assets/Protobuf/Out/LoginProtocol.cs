@@ -26,14 +26,14 @@ namespace NetProtocols.Login {
           string.Concat(
             "ChNMb2dpblByb3RvY29sLnByb3RvEhJOZXRQcm90b2NvbHMuTG9naW4iSAoP",
             "cGFja2V0X2NzX0xvZ2luEg8KB2FjY291bnQYASABKAkSEAoIcGFzc3dvcmQY",
-            "AiABKAkSEgoKbkxvZ2luVHlwZRgDIAEoCSJQChZwYWNrZXRfc2NfTG9naW5f",
+            "AiABKAkSEgoKbkxvZ2luVHlwZRgDIAEoDSJCChZwYWNrZXRfc2NfTG9naW5f",
             "UmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0SFAoMZ2F0ZVNlcnZlcklwGAIg",
-            "ASgJEgwKBHBvcnQYAyABKA1iBnByb3RvMw=="));
+            "ASgJYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_cs_Login), global::NetProtocols.Login.packet_cs_Login.Parser, new[]{ "Account", "Password", "NLoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_sc_Login_Result), global::NetProtocols.Login.packet_sc_Login_Result.Parser, new[]{ "NErrorCode", "GateServerIp", "Port" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_sc_Login_Result), global::NetProtocols.Login.packet_sc_Login_Result.Parser, new[]{ "NErrorCode", "GateServerIp" }, null, null, null, null)
           }));
     }
     #endregion
@@ -116,13 +116,13 @@ namespace NetProtocols.Login {
 
     /// <summary>Field number for the "nLoginType" field.</summary>
     public const int NLoginTypeFieldNumber = 3;
-    private string nLoginType_ = "";
+    private uint nLoginType_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string NLoginType {
+    public uint NLoginType {
       get { return nLoginType_; }
       set {
-        nLoginType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        nLoginType_ = value;
       }
     }
 
@@ -153,7 +153,7 @@ namespace NetProtocols.Login {
       int hash = 1;
       if (Account.Length != 0) hash ^= Account.GetHashCode();
       if (Password.Length != 0) hash ^= Password.GetHashCode();
-      if (NLoginType.Length != 0) hash ^= NLoginType.GetHashCode();
+      if (NLoginType != 0) hash ^= NLoginType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -180,9 +180,9 @@ namespace NetProtocols.Login {
         output.WriteRawTag(18);
         output.WriteString(Password);
       }
-      if (NLoginType.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(NLoginType);
+      if (NLoginType != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(NLoginType);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -202,9 +202,9 @@ namespace NetProtocols.Login {
         output.WriteRawTag(18);
         output.WriteString(Password);
       }
-      if (NLoginType.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(NLoginType);
+      if (NLoginType != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(NLoginType);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -222,8 +222,8 @@ namespace NetProtocols.Login {
       if (Password.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
       }
-      if (NLoginType.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(NLoginType);
+      if (NLoginType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NLoginType);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -243,7 +243,7 @@ namespace NetProtocols.Login {
       if (other.Password.Length != 0) {
         Password = other.Password;
       }
-      if (other.NLoginType.Length != 0) {
+      if (other.NLoginType != 0) {
         NLoginType = other.NLoginType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -273,8 +273,8 @@ namespace NetProtocols.Login {
             Password = input.ReadString();
             break;
           }
-          case 26: {
-            NLoginType = input.ReadString();
+          case 24: {
+            NLoginType = input.ReadUInt32();
             break;
           }
         }
@@ -304,8 +304,8 @@ namespace NetProtocols.Login {
             Password = input.ReadString();
             break;
           }
-          case 26: {
-            NLoginType = input.ReadString();
+          case 24: {
+            NLoginType = input.ReadUInt32();
             break;
           }
         }
@@ -352,7 +352,6 @@ namespace NetProtocols.Login {
     public packet_sc_Login_Result(packet_sc_Login_Result other) : this() {
       nErrorCode_ = other.nErrorCode_;
       gateServerIp_ = other.gateServerIp_;
-      port_ = other.port_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -386,18 +385,6 @@ namespace NetProtocols.Login {
       }
     }
 
-    /// <summary>Field number for the "port" field.</summary>
-    public const int PortFieldNumber = 3;
-    private uint port_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Port {
-      get { return port_; }
-      set {
-        port_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -415,7 +402,6 @@ namespace NetProtocols.Login {
       }
       if (NErrorCode != other.NErrorCode) return false;
       if (GateServerIp != other.GateServerIp) return false;
-      if (Port != other.Port) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -425,7 +411,6 @@ namespace NetProtocols.Login {
       int hash = 1;
       if (NErrorCode != 0) hash ^= NErrorCode.GetHashCode();
       if (GateServerIp.Length != 0) hash ^= GateServerIp.GetHashCode();
-      if (Port != 0) hash ^= Port.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -452,10 +437,6 @@ namespace NetProtocols.Login {
         output.WriteRawTag(18);
         output.WriteString(GateServerIp);
       }
-      if (Port != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(Port);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -474,10 +455,6 @@ namespace NetProtocols.Login {
         output.WriteRawTag(18);
         output.WriteString(GateServerIp);
       }
-      if (Port != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(Port);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -493,9 +470,6 @@ namespace NetProtocols.Login {
       }
       if (GateServerIp.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(GateServerIp);
-      }
-      if (Port != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Port);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -514,9 +488,6 @@ namespace NetProtocols.Login {
       }
       if (other.GateServerIp.Length != 0) {
         GateServerIp = other.GateServerIp;
-      }
-      if (other.Port != 0) {
-        Port = other.Port;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -545,10 +516,6 @@ namespace NetProtocols.Login {
             GateServerIp = input.ReadString();
             break;
           }
-          case 24: {
-            Port = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -574,10 +541,6 @@ namespace NetProtocols.Login {
           }
           case 18: {
             GateServerIp = input.ReadString();
-            break;
-          }
-          case 24: {
-            Port = input.ReadUInt32();
             break;
           }
         }

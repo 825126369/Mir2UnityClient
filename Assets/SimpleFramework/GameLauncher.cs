@@ -74,7 +74,14 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             yield return null;
         }
 
+        if(NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() != SOCKETPEERSTATE.CONNECTED)
+        {
+            UIMgr.Instance.CommonDialogView.ShowOk("提示", "连接服务器失败！！！");
+            yield break;
+        }
+
         SceneMgr.Instance.LoadSceneAsync(SceneNames.Login);
+        yield return WaitToDestroyInitScene();
     }
 
     private void LoadLobby()
@@ -83,6 +90,16 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         var go = Instantiate<GameObject>(goPrefab) as GameObject;
         go.transform.SetParent(mUIRoot.mCanvas_Game, false);
         go.SetActive(true);
+    }
+
+    private IEnumerator WaitToDestroyInitScene()
+    {
+        while (!InitScene.readOnlyInstance.bProgressFull)
+        {
+            yield return null;
+        }
+        Destroy(InitScene.readOnlyInstance.mInitSceneView.gameObject);
+        Destroy(InitScene.readOnlyInstance.gameObject);
     }
 
     private void YourTest()
