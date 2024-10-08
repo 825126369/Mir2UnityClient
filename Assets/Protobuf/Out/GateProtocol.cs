@@ -24,16 +24,20 @@ namespace NetProtocols.Gate {
     static GateProtocolReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJHYXRlUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYXRlIlUKHHBh",
-            "Y2tldF9jc19yZXF1ZXN0X1NlcnZlckxpc3QSDwoHYWNjb3VudBgBIAEoCRIQ",
-            "CghwYXNzd29yZBgCIAEoCRISCgpuTG9naW5UeXBlGAMgASgJIlUKG3BhY2tl",
-            "dF9zY19TZXJ2ZXJMaXN0X1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEhQK",
-            "DGdhdGVTZXJ2ZXJJcBgCIAEoCRIMCgRwb3J0GAMgASgNYgZwcm90bzM="));
+            "ChJHYXRlUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYXRlIn0KInBh",
+            "Y2tldF9HYW1lU2VydmVyVG9HYXRlU2VydmVyX0RhdGESEAoIc2VydmVySXAY",
+            "ASABKAkSEgoKc2VydmVyTmFtZRgCIAEoCRIZChFvbmxpbmVQbGF5ZXJDb3Vu",
+            "dBgDIAEoDRIWCg5hbGxQbGF5ZXJDb3VudBgEIAEoDSIeChxwYWNrZXRfY3Nf",
+            "cmVxdWVzdF9TZXJ2ZXJMaXN0In0KG3BhY2tldF9zY19TZXJ2ZXJMaXN0X1Jl",
+            "c3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEkoKC21TZXJ2ZXJMaXN0GAIgAygL",
+            "MjUuTmV0UHJvdG9jb2xzLkdhdGUucGFja2V0X0dhbWVTZXJ2ZXJUb0dhdGVT",
+            "ZXJ2ZXJfRGF0YWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_cs_request_ServerList), global::NetProtocols.Gate.packet_cs_request_ServerList.Parser, new[]{ "Account", "Password", "NLoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_sc_ServerList_Result), global::NetProtocols.Gate.packet_sc_ServerList_Result.Parser, new[]{ "NErrorCode", "GateServerIp", "Port" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_GameServerToGateServer_Data), global::NetProtocols.Gate.packet_GameServerToGateServer_Data.Parser, new[]{ "ServerIp", "ServerName", "OnlinePlayerCount", "AllPlayerCount" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_cs_request_ServerList), global::NetProtocols.Gate.packet_cs_request_ServerList.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_sc_ServerList_Result), global::NetProtocols.Gate.packet_sc_ServerList_Result.Parser, new[]{ "NErrorCode", "MServerList" }, null, null, null, null)
           }));
     }
     #endregion
@@ -44,16 +48,16 @@ namespace NetProtocols.Gate {
   ///------------------------------------------- 逻辑 --------------------------------------------
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_request_ServerList : pb::IMessage<packet_cs_request_ServerList>
+  public sealed partial class packet_GameServerToGateServer_Data : pb::IMessage<packet_GameServerToGateServer_Data>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
   {
-    private static readonly pb::MessageParser<packet_cs_request_ServerList> _parser = new pb::MessageParser<packet_cs_request_ServerList>(() => new packet_cs_request_ServerList());
+    private static readonly pb::MessageParser<packet_GameServerToGateServer_Data> _parser = new pb::MessageParser<packet_GameServerToGateServer_Data>(() => new packet_GameServerToGateServer_Data());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<packet_cs_request_ServerList> Parser { get { return _parser; } }
+    public static pb::MessageParser<packet_GameServerToGateServer_Data> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -69,7 +73,7 @@ namespace NetProtocols.Gate {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public packet_cs_request_ServerList() {
+    public packet_GameServerToGateServer_Data() {
       OnConstruction();
     }
 
@@ -77,73 +81,87 @@ namespace NetProtocols.Gate {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public packet_cs_request_ServerList(packet_cs_request_ServerList other) : this() {
-      account_ = other.account_;
-      password_ = other.password_;
-      nLoginType_ = other.nLoginType_;
+    public packet_GameServerToGateServer_Data(packet_GameServerToGateServer_Data other) : this() {
+      serverIp_ = other.serverIp_;
+      serverName_ = other.serverName_;
+      onlinePlayerCount_ = other.onlinePlayerCount_;
+      allPlayerCount_ = other.allPlayerCount_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public packet_cs_request_ServerList Clone() {
-      return new packet_cs_request_ServerList(this);
+    public packet_GameServerToGateServer_Data Clone() {
+      return new packet_GameServerToGateServer_Data(this);
     }
 
-    /// <summary>Field number for the "account" field.</summary>
-    public const int AccountFieldNumber = 1;
-    private string account_ = "";
+    /// <summary>Field number for the "serverIp" field.</summary>
+    public const int ServerIpFieldNumber = 1;
+    private string serverIp_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Account {
-      get { return account_; }
+    public string ServerIp {
+      get { return serverIp_; }
       set {
-        account_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        serverIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "password" field.</summary>
-    public const int PasswordFieldNumber = 2;
-    private string password_ = "";
+    /// <summary>Field number for the "serverName" field.</summary>
+    public const int ServerNameFieldNumber = 2;
+    private string serverName_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string Password {
-      get { return password_; }
+    public string ServerName {
+      get { return serverName_; }
       set {
-        password_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        serverName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "nLoginType" field.</summary>
-    public const int NLoginTypeFieldNumber = 3;
-    private string nLoginType_ = "";
+    /// <summary>Field number for the "onlinePlayerCount" field.</summary>
+    public const int OnlinePlayerCountFieldNumber = 3;
+    private uint onlinePlayerCount_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string NLoginType {
-      get { return nLoginType_; }
+    public uint OnlinePlayerCount {
+      get { return onlinePlayerCount_; }
       set {
-        nLoginType_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        onlinePlayerCount_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "allPlayerCount" field.</summary>
+    public const int AllPlayerCountFieldNumber = 4;
+    private uint allPlayerCount_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint AllPlayerCount {
+      get { return allPlayerCount_; }
+      set {
+        allPlayerCount_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
-      return Equals(other as packet_cs_request_ServerList);
+      return Equals(other as packet_GameServerToGateServer_Data);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(packet_cs_request_ServerList other) {
+    public bool Equals(packet_GameServerToGateServer_Data other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Account != other.Account) return false;
-      if (Password != other.Password) return false;
-      if (NLoginType != other.NLoginType) return false;
+      if (ServerIp != other.ServerIp) return false;
+      if (ServerName != other.ServerName) return false;
+      if (OnlinePlayerCount != other.OnlinePlayerCount) return false;
+      if (AllPlayerCount != other.AllPlayerCount) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -151,9 +169,10 @@ namespace NetProtocols.Gate {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Account.Length != 0) hash ^= Account.GetHashCode();
-      if (Password.Length != 0) hash ^= Password.GetHashCode();
-      if (NLoginType.Length != 0) hash ^= NLoginType.GetHashCode();
+      if (ServerIp.Length != 0) hash ^= ServerIp.GetHashCode();
+      if (ServerName.Length != 0) hash ^= ServerName.GetHashCode();
+      if (OnlinePlayerCount != 0) hash ^= OnlinePlayerCount.GetHashCode();
+      if (AllPlayerCount != 0) hash ^= AllPlayerCount.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -172,17 +191,21 @@ namespace NetProtocols.Gate {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Account.Length != 0) {
+      if (ServerIp.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Account);
+        output.WriteString(ServerIp);
       }
-      if (Password.Length != 0) {
+      if (ServerName.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Password);
+        output.WriteString(ServerName);
       }
-      if (NLoginType.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(NLoginType);
+      if (OnlinePlayerCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(OnlinePlayerCount);
+      }
+      if (AllPlayerCount != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(AllPlayerCount);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -194,17 +217,21 @@ namespace NetProtocols.Gate {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Account.Length != 0) {
+      if (ServerIp.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteString(Account);
+        output.WriteString(ServerIp);
       }
-      if (Password.Length != 0) {
+      if (ServerName.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Password);
+        output.WriteString(ServerName);
       }
-      if (NLoginType.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(NLoginType);
+      if (OnlinePlayerCount != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(OnlinePlayerCount);
+      }
+      if (AllPlayerCount != 0) {
+        output.WriteRawTag(32);
+        output.WriteUInt32(AllPlayerCount);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -216,14 +243,17 @@ namespace NetProtocols.Gate {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Account.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Account);
+      if (ServerIp.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ServerIp);
       }
-      if (Password.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Password);
+      if (ServerName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(ServerName);
       }
-      if (NLoginType.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(NLoginType);
+      if (OnlinePlayerCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(OnlinePlayerCount);
+      }
+      if (AllPlayerCount != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(AllPlayerCount);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -233,18 +263,21 @@ namespace NetProtocols.Gate {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(packet_cs_request_ServerList other) {
+    public void MergeFrom(packet_GameServerToGateServer_Data other) {
       if (other == null) {
         return;
       }
-      if (other.Account.Length != 0) {
-        Account = other.Account;
+      if (other.ServerIp.Length != 0) {
+        ServerIp = other.ServerIp;
       }
-      if (other.Password.Length != 0) {
-        Password = other.Password;
+      if (other.ServerName.Length != 0) {
+        ServerName = other.ServerName;
       }
-      if (other.NLoginType.Length != 0) {
-        NLoginType = other.NLoginType;
+      if (other.OnlinePlayerCount != 0) {
+        OnlinePlayerCount = other.OnlinePlayerCount;
+      }
+      if (other.AllPlayerCount != 0) {
+        AllPlayerCount = other.AllPlayerCount;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -266,15 +299,19 @@ namespace NetProtocols.Gate {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Account = input.ReadString();
+            ServerIp = input.ReadString();
             break;
           }
           case 18: {
-            Password = input.ReadString();
+            ServerName = input.ReadString();
             break;
           }
-          case 26: {
-            NLoginType = input.ReadString();
+          case 24: {
+            OnlinePlayerCount = input.ReadUInt32();
+            break;
+          }
+          case 32: {
+            AllPlayerCount = input.ReadUInt32();
             break;
           }
         }
@@ -297,17 +334,182 @@ namespace NetProtocols.Gate {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            Account = input.ReadString();
+            ServerIp = input.ReadString();
             break;
           }
           case 18: {
-            Password = input.ReadString();
+            ServerName = input.ReadString();
             break;
           }
-          case 26: {
-            NLoginType = input.ReadString();
+          case 24: {
+            OnlinePlayerCount = input.ReadUInt32();
             break;
           }
+          case 32: {
+            AllPlayerCount = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class packet_cs_request_ServerList : pb::IMessage<packet_cs_request_ServerList>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<packet_cs_request_ServerList> _parser = new pb::MessageParser<packet_cs_request_ServerList>(() => new packet_cs_request_ServerList());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<packet_cs_request_ServerList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_cs_request_ServerList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_cs_request_ServerList(packet_cs_request_ServerList other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_cs_request_ServerList Clone() {
+      return new packet_cs_request_ServerList(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as packet_cs_request_ServerList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(packet_cs_request_ServerList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(packet_cs_request_ServerList other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
         }
       }
     }
@@ -330,7 +532,7 @@ namespace NetProtocols.Gate {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[1]; }
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -351,8 +553,7 @@ namespace NetProtocols.Gate {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_sc_ServerList_Result(packet_sc_ServerList_Result other) : this() {
       nErrorCode_ = other.nErrorCode_;
-      gateServerIp_ = other.gateServerIp_;
-      port_ = other.port_;
+      mServerList_ = other.mServerList_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -374,28 +575,15 @@ namespace NetProtocols.Gate {
       }
     }
 
-    /// <summary>Field number for the "gateServerIp" field.</summary>
-    public const int GateServerIpFieldNumber = 2;
-    private string gateServerIp_ = "";
+    /// <summary>Field number for the "mServerList" field.</summary>
+    public const int MServerListFieldNumber = 2;
+    private static readonly pb::FieldCodec<global::NetProtocols.Gate.packet_GameServerToGateServer_Data> _repeated_mServerList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Gate.packet_GameServerToGateServer_Data.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Gate.packet_GameServerToGateServer_Data> mServerList_ = new pbc::RepeatedField<global::NetProtocols.Gate.packet_GameServerToGateServer_Data>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string GateServerIp {
-      get { return gateServerIp_; }
-      set {
-        gateServerIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "port" field.</summary>
-    public const int PortFieldNumber = 3;
-    private uint port_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint Port {
-      get { return port_; }
-      set {
-        port_ = value;
-      }
+    public pbc::RepeatedField<global::NetProtocols.Gate.packet_GameServerToGateServer_Data> MServerList {
+      get { return mServerList_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -414,8 +602,7 @@ namespace NetProtocols.Gate {
         return true;
       }
       if (NErrorCode != other.NErrorCode) return false;
-      if (GateServerIp != other.GateServerIp) return false;
-      if (Port != other.Port) return false;
+      if(!mServerList_.Equals(other.mServerList_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -424,8 +611,7 @@ namespace NetProtocols.Gate {
     public override int GetHashCode() {
       int hash = 1;
       if (NErrorCode != 0) hash ^= NErrorCode.GetHashCode();
-      if (GateServerIp.Length != 0) hash ^= GateServerIp.GetHashCode();
-      if (Port != 0) hash ^= Port.GetHashCode();
+      hash ^= mServerList_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -448,14 +634,7 @@ namespace NetProtocols.Gate {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(GateServerIp);
-      }
-      if (Port != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(Port);
-      }
+      mServerList_.WriteTo(output, _repeated_mServerList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -470,14 +649,7 @@ namespace NetProtocols.Gate {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(GateServerIp);
-      }
-      if (Port != 0) {
-        output.WriteRawTag(24);
-        output.WriteUInt32(Port);
-      }
+      mServerList_.WriteTo(ref output, _repeated_mServerList_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -491,12 +663,7 @@ namespace NetProtocols.Gate {
       if (NErrorCode != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(GateServerIp);
-      }
-      if (Port != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Port);
-      }
+      size += mServerList_.CalculateSize(_repeated_mServerList_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -512,12 +679,7 @@ namespace NetProtocols.Gate {
       if (other.NErrorCode != 0) {
         NErrorCode = other.NErrorCode;
       }
-      if (other.GateServerIp.Length != 0) {
-        GateServerIp = other.GateServerIp;
-      }
-      if (other.Port != 0) {
-        Port = other.Port;
-      }
+      mServerList_.Add(other.mServerList_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -542,11 +704,7 @@ namespace NetProtocols.Gate {
             break;
           }
           case 18: {
-            GateServerIp = input.ReadString();
-            break;
-          }
-          case 24: {
-            Port = input.ReadUInt32();
+            mServerList_.AddEntriesFrom(input, _repeated_mServerList_codec);
             break;
           }
         }
@@ -573,11 +731,7 @@ namespace NetProtocols.Gate {
             break;
           }
           case 18: {
-            GateServerIp = input.ReadString();
-            break;
-          }
-          case 24: {
-            Port = input.ReadUInt32();
+            mServerList_.AddEntriesFrom(ref input, _repeated_mServerList_codec);
             break;
           }
         }

@@ -50,7 +50,7 @@ namespace Net.TCP.Client
 
 		private void ReceiveHeartBeatPackage(ClientPeerBase clientPeer, NetPackage mNetPackage)
 		{
-            Debug.Log("心跳包");
+            //Debug.Log("心跳包");
         }
 
 		private void ReceiveConnectFullPackage(ClientPeerBase clientPeer, NetPackage mNetPackage)
