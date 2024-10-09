@@ -1,4 +1,3 @@
-using Net.TCP.Client;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -69,12 +68,12 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         UIMgr.Instance.Init();
         NetClientMgr.Instance.InitLoginServerClient();
 
-        while (NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() == SOCKETPEERSTATE.CONNECTING)
+        while (NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() == XKNet.Common.CLIENT_SOCKET_PEER_STATE.CONNECTING)
         {
             yield return null;
         }
 
-        if(NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() != SOCKETPEERSTATE.CONNECTED)
+        if(NetClientMgr.Instance.LoginServer_NetClient.GetSocketState() != XKNet.Common.CLIENT_SOCKET_PEER_STATE.CONNECTED)
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "连接服务器失败！！！");
             yield break;

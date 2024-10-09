@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using System;
-using Google.Protobuf;
-using System.IO;
-using Net.TCP.Client;
-using Net.TCP;
 using TcpProtocol;
+using UnityEngine;
+using XKNet.Common;
+using XKNet.Tcp.Client;
+using XKNet.Tcp.Common;
 
 public class TCPClientTest : MonoBehaviour
 {
@@ -19,13 +17,13 @@ public class TCPClientTest : MonoBehaviour
 	
 	public int nClientCount = 30;
 	public int nPackageCount = 10;
-	List<NetClient> mClientList = new List<NetClient>();
+	List<TcpNetClientMain> mClientList = new List<TcpNetClientMain>();
 
 	private void Start()
 	{
 		for (int i = 0; i < nClientCount; i++)
 		{
-			NetClient mNetSystem = new NetClient();
+            TcpNetClientMain mNetSystem = new TcpNetClientMain();
 			mNetSystem.addNetListenFun(TcpNetCommand.COMMAND_TESTCHAT, Receive_ServerSenddata);
 			mClientList.Add(mNetSystem);
 
@@ -38,7 +36,7 @@ public class TCPClientTest : MonoBehaviour
 	{
 		for (int i = 0; i < nClientCount; i++)
 		{
-			NetClient mNetSystem = mClientList[i];
+            TcpNetClientMain mNetSystem = mClientList[i];
 			mNetSystem.Update(Time.deltaTime);
 		}
 	}
@@ -46,7 +44,7 @@ public class TCPClientTest : MonoBehaviour
 	private static int nSendCount = 0;
 	private static int nReceiveCount = 0;
 
-	IEnumerator Run(NetClient mNetSystem, int nIndex)
+	IEnumerator Run(TcpNetClientMain mNetSystem, int nIndex)
 	{
 		while (true)
 		{
@@ -61,9 +59,9 @@ public class TCPClientTest : MonoBehaviour
 		}
 	}
 
-	public void request_ClientSendData(NetClient mNetSystem, int channelId)
+	public void request_ClientSendData(TcpNetClientMain mNetSystem, int channelId)
 	{
-		TESTChatMessage mdata = ProtobufHelper.IMessagePool<TESTChatMessage>.Pop();
+		TESTChatMessage mdata = IMessagePool<TESTChatMessage>.Pop();
 		mdata.Id = 0;
 		mdata.TalkMsg = string.Empty;
 
@@ -139,17 +137,17 @@ public class TCPClientTest : MonoBehaviour
 		
 		mdata.Id = 0;
 		mdata.TalkMsg = string.Empty;
-		ProtobufHelper.IMessagePool<TESTChatMessage>.recycle(mdata);
+		IMessagePool<TESTChatMessage>.recycle(mdata);
 
 		nSendCount++;
 	}
 
 	private void Receive_ServerSenddata(ClientPeerBase clientPeer, NetPackage package)
 	{
-        TESTChatMessage mdata = Protocol3Utility1.getData<TESTChatMessage>(package);
+        TESTChatMessage mdata = Protocol3Utility.getData<TESTChatMessage>(package);
         nReceiveCount++;
         Debug.Log("Client 接受 渠道ID " + mdata.Id + " | " + package.mBufferSegment.Count + " | " + nReceiveCount);
-        ProtobufHelper.IMessagePool<TESTChatMessage>.recycle(mdata);
+        IMessagePool<TESTChatMessage>.recycle(mdata);
     }
 
 }
