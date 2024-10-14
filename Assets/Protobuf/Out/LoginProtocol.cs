@@ -12,7 +12,7 @@ using scg = global::System.Collections.Generic;
 namespace NetProtocols.Login {
 
   /// <summary>Holder for reflection information generated from LoginProtocol.proto</summary>
-  public static partial class LoginProtocolReflection {
+  internal static partial class LoginProtocolReflection {
 
     #region Descriptor
     /// <summary>File descriptor for LoginProtocol.proto</summary>
@@ -44,7 +44,7 @@ namespace NetProtocols.Login {
   ///------------------------------------------- 逻辑 --------------------------------------------
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_Login : pb::IMessage<packet_cs_Login>
+  internal sealed partial class packet_cs_Login : pb::IMessage<packet_cs_Login>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -316,7 +316,7 @@ namespace NetProtocols.Login {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_Login_Result : pb::IMessage<packet_sc_Login_Result>
+  internal sealed partial class packet_sc_Login_Result : pb::IMessage<packet_sc_Login_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif

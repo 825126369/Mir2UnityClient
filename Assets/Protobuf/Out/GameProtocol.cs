@@ -12,7 +12,7 @@ using scg = global::System.Collections.Generic;
 namespace NetProtocols.Game {
 
   /// <summary>Holder for reflection information generated from GameProtocol.proto</summary>
-  public static partial class GameProtocolReflection {
+  internal static partial class GameProtocolReflection {
 
     #region Descriptor
     /// <summary>File descriptor for GameProtocol.proto</summary>
@@ -252,7 +252,7 @@ namespace NetProtocols.Game {
   ///SC 单个 游戏主题
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_RoomEntryInfo : pb::IMessage<packet_data_RoomEntryInfo>
+  internal sealed partial class packet_data_RoomEntryInfo : pb::IMessage<packet_data_RoomEntryInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -807,7 +807,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_RoomEntryListInfo : pb::IMessage<packet_data_RoomEntryListInfo>
+  internal sealed partial class packet_data_RoomEntryListInfo : pb::IMessage<packet_data_RoomEntryListInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -1068,7 +1068,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_playerInfo : pb::IMessage<packet_data_playerInfo>
+  internal sealed partial class packet_data_playerInfo : pb::IMessage<packet_data_playerInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -1636,7 +1636,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_deskInfo : pb::IMessage<packet_data_deskInfo>
+  internal sealed partial class packet_data_deskInfo : pb::IMessage<packet_data_deskInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -1945,7 +1945,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_deskcardInfo : pb::IMessage<packet_data_deskcardInfo>
+  internal sealed partial class packet_data_deskcardInfo : pb::IMessage<packet_data_deskcardInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -2171,7 +2171,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_Basic_RoomInfo : pb::IMessage<packet_data_Basic_RoomInfo>
+  internal sealed partial class packet_data_Basic_RoomInfo : pb::IMessage<packet_data_Basic_RoomInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -2480,7 +2480,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_Detail_RoomInfo : pb::IMessage<packet_data_Detail_RoomInfo>
+  internal sealed partial class packet_data_Detail_RoomInfo : pb::IMessage<packet_data_Detail_RoomInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -2887,7 +2887,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_GameStartInfo : pb::IMessage<packet_data_GameStartInfo>
+  internal sealed partial class packet_data_GameStartInfo : pb::IMessage<packet_data_GameStartInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -3237,7 +3237,7 @@ namespace NetProtocols.Game {
   ///恢复 场景信息
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_data_RecoverSceneInfo : pb::IMessage<packet_data_RecoverSceneInfo>
+  internal sealed partial class packet_data_RecoverSceneInfo : pb::IMessage<packet_data_RecoverSceneInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -3921,7 +3921,7 @@ namespace NetProtocols.Game {
   ///------------------------------------------- 逻辑 --------------------------------------------
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_ConnectLobby : pb::IMessage<packet_cs_ConnectLobby>
+  internal sealed partial class packet_cs_ConnectLobby : pb::IMessage<packet_cs_ConnectLobby>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -4128,7 +4128,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_ConnectLobby_Result : pb::IMessage<packet_sc_ConnectLobby_Result>
+  internal sealed partial class packet_sc_ConnectLobby_Result : pb::IMessage<packet_sc_ConnectLobby_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -4418,7 +4418,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_DisConnectLobby : pb::IMessage<packet_cs_DisConnectLobby>
+  internal sealed partial class packet_cs_DisConnectLobby : pb::IMessage<packet_cs_DisConnectLobby>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -4579,7 +4579,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_DisConnectLobby_Result : pb::IMessage<packet_sc_DisConnectLobby_Result>
+  internal sealed partial class packet_sc_DisConnectLobby_Result : pb::IMessage<packet_sc_DisConnectLobby_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -4780,7 +4780,7 @@ namespace NetProtocols.Game {
   /// CS 请求 游戏主题 入口列表
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_RoomEntryInfoPage : pb::IMessage<packet_cs_RoomEntryInfoPage>
+  internal sealed partial class packet_cs_RoomEntryInfoPage : pb::IMessage<packet_cs_RoomEntryInfoPage>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -4981,7 +4981,7 @@ namespace NetProtocols.Game {
   ///SC 游戏主题 入口列表
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_RoomEntryInfoPage_Result : pb::IMessage<packet_sc_RoomEntryInfoPage_Result>
+  internal sealed partial class packet_sc_RoomEntryInfoPage_Result : pb::IMessage<packet_sc_RoomEntryInfoPage_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -5191,7 +5191,7 @@ namespace NetProtocols.Game {
   ///请求 更新 自身数据
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_UpdatePlayerDb : pb::IMessage<packet_cs_UpdatePlayerDb>
+  internal sealed partial class packet_cs_UpdatePlayerDb : pb::IMessage<packet_cs_UpdatePlayerDb>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -5398,7 +5398,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_UpdatePlayerDb_Result : pb::IMessage<packet_sc_UpdatePlayerDb_Result>
+  internal sealed partial class packet_sc_UpdatePlayerDb_Result : pb::IMessage<packet_sc_UpdatePlayerDb_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -5596,7 +5596,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_CreateRoom : pb::IMessage<packet_cs_CreateRoom>
+  internal sealed partial class packet_cs_CreateRoom : pb::IMessage<packet_cs_CreateRoom>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -5849,7 +5849,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_CreateRoomResult : pb::IMessage<packet_sc_CreateRoomResult>
+  internal sealed partial class packet_sc_CreateRoomResult : pb::IMessage<packet_sc_CreateRoomResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -6176,7 +6176,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_ModifyRoom : pb::IMessage<packet_cs_ModifyRoom>
+  internal sealed partial class packet_cs_ModifyRoom : pb::IMessage<packet_cs_ModifyRoom>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -6383,7 +6383,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_ModifyRoomResult : pb::IMessage<packet_sc_ModifyRoomResult>
+  internal sealed partial class packet_sc_ModifyRoomResult : pb::IMessage<packet_sc_ModifyRoomResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -6581,7 +6581,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_EnterRoom : pb::IMessage<packet_cs_EnterRoom>
+  internal sealed partial class packet_cs_EnterRoom : pb::IMessage<packet_cs_EnterRoom>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -6862,7 +6862,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_QuickJoinRoom : pb::IMessage<packet_cs_QuickJoinRoom>
+  internal sealed partial class packet_cs_QuickJoinRoom : pb::IMessage<packet_cs_QuickJoinRoom>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -7069,7 +7069,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_EnterRoomResult : pb::IMessage<packet_sc_EnterRoomResult>
+  internal sealed partial class packet_sc_EnterRoomResult : pb::IMessage<packet_sc_EnterRoomResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -7313,7 +7313,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_LeaveRoom : pb::IMessage<packet_cs_LeaveRoom>
+  internal sealed partial class packet_cs_LeaveRoom : pb::IMessage<packet_cs_LeaveRoom>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -7474,7 +7474,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_LeaveRoomResult : pb::IMessage<packet_sc_LeaveRoomResult>
+  internal sealed partial class packet_sc_LeaveRoomResult : pb::IMessage<packet_sc_LeaveRoomResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -7675,7 +7675,7 @@ namespace NetProtocols.Game {
   ///请求 添加机器人
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_addRobot : pb::IMessage<packet_cs_addRobot>
+  internal sealed partial class packet_cs_addRobot : pb::IMessage<packet_cs_addRobot>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -7879,7 +7879,7 @@ namespace NetProtocols.Game {
   ///请求 添加机器人 返回
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_addRobotResult : pb::IMessage<packet_sc_addRobotResult>
+  internal sealed partial class packet_sc_addRobotResult : pb::IMessage<packet_sc_addRobotResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -8080,7 +8080,7 @@ namespace NetProtocols.Game {
   ///请求 添加围观者 上凳子
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_SpectatorToDesk : pb::IMessage<packet_cs_SpectatorToDesk>
+  internal sealed partial class packet_cs_SpectatorToDesk : pb::IMessage<packet_cs_SpectatorToDesk>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -8315,7 +8315,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_SpectatorToDeskResult : pb::IMessage<packet_sc_SpectatorToDeskResult>
+  internal sealed partial class packet_sc_SpectatorToDeskResult : pb::IMessage<packet_sc_SpectatorToDeskResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -8516,7 +8516,7 @@ namespace NetProtocols.Game {
   ///请求 Desk 下凳子 成为围观者
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_DeskToSpectator : pb::IMessage<packet_cs_DeskToSpectator>
+  internal sealed partial class packet_cs_DeskToSpectator : pb::IMessage<packet_cs_DeskToSpectator>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -8714,7 +8714,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_DeskToSpectatorResult : pb::IMessage<packet_sc_DeskToSpectatorResult>
+  internal sealed partial class packet_sc_DeskToSpectatorResult : pb::IMessage<packet_sc_DeskToSpectatorResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -8915,7 +8915,7 @@ namespace NetProtocols.Game {
   ///主动 请求 换个凳子
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_ZhuDongSwitchDesk : pb::IMessage<packet_cs_ZhuDongSwitchDesk>
+  internal sealed partial class packet_cs_ZhuDongSwitchDesk : pb::IMessage<packet_cs_ZhuDongSwitchDesk>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -9156,7 +9156,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_ZhuDongSwitchDeskResult : pb::IMessage<packet_sc_ZhuDongSwitchDeskResult>
+  internal sealed partial class packet_sc_ZhuDongSwitchDeskResult : pb::IMessage<packet_sc_ZhuDongSwitchDeskResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -9434,7 +9434,7 @@ namespace NetProtocols.Game {
   ///告诉 某个凳子 某人要和你换位置了
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_WhoWithMechangeDesk : pb::IMessage<packet_sc_WhoWithMechangeDesk>
+  internal sealed partial class packet_sc_WhoWithMechangeDesk : pb::IMessage<packet_sc_WhoWithMechangeDesk>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -9638,7 +9638,7 @@ namespace NetProtocols.Game {
   ///回答 请求换个凳子
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_changeDeskHuiDa : pb::IMessage<packet_cs_changeDeskHuiDa>
+  internal sealed partial class packet_cs_changeDeskHuiDa : pb::IMessage<packet_cs_changeDeskHuiDa>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -9879,7 +9879,7 @@ namespace NetProtocols.Game {
   /// 双方交换凳子的结果
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_ShuangFangSwitchDeskResult : pb::IMessage<packet_sc_ShuangFangSwitchDeskResult>
+  internal sealed partial class packet_sc_ShuangFangSwitchDeskResult : pb::IMessage<packet_sc_ShuangFangSwitchDeskResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -10123,7 +10123,7 @@ namespace NetProtocols.Game {
   ///房主 请求 踢出房间
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_kichPlayer : pb::IMessage<packet_cs_kichPlayer>
+  internal sealed partial class packet_cs_kichPlayer : pb::IMessage<packet_cs_kichPlayer>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -10324,7 +10324,7 @@ namespace NetProtocols.Game {
   /// 房主 请求 踢出房间 返回
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_kichPlayerResult : pb::IMessage<packet_sc_kichPlayerResult>
+  internal sealed partial class packet_sc_kichPlayerResult : pb::IMessage<packet_sc_kichPlayerResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -10525,7 +10525,7 @@ namespace NetProtocols.Game {
   ///请求 是否准备(房主的话，就是开始游戏)
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_orPrepare : pb::IMessage<packet_cs_orPrepare>
+  internal sealed partial class packet_cs_orPrepare : pb::IMessage<packet_cs_orPrepare>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -10726,7 +10726,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_orPrepareReuslt : pb::IMessage<packet_sc_orPrepareReuslt>
+  internal sealed partial class packet_sc_orPrepareReuslt : pb::IMessage<packet_sc_orPrepareReuslt>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -10967,7 +10967,7 @@ namespace NetProtocols.Game {
   ///请求托管
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_Hang : pb::IMessage<packet_cs_Hang>
+  internal sealed partial class packet_cs_Hang : pb::IMessage<packet_cs_Hang>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -11168,7 +11168,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_HangResult : pb::IMessage<packet_sc_HangResult>
+  internal sealed partial class packet_sc_HangResult : pb::IMessage<packet_sc_HangResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -11406,7 +11406,7 @@ namespace NetProtocols.Game {
   ///CS 请求 抢地主
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_robLandlord : pb::IMessage<packet_cs_robLandlord>
+  internal sealed partial class packet_cs_robLandlord : pb::IMessage<packet_cs_robLandlord>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -11607,7 +11607,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_robLandlord_Result : pb::IMessage<packet_sc_robLandlord_Result>
+  internal sealed partial class packet_sc_robLandlord_Result : pb::IMessage<packet_sc_robLandlord_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -11808,7 +11808,7 @@ namespace NetProtocols.Game {
   /// CS 请求 加倍
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_AddBetMultuile : pb::IMessage<packet_cs_AddBetMultuile>
+  internal sealed partial class packet_cs_AddBetMultuile : pb::IMessage<packet_cs_AddBetMultuile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -12009,7 +12009,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_AddBetMultuile_Result : pb::IMessage<packet_sc_AddBetMultuile_Result>
+  internal sealed partial class packet_sc_AddBetMultuile_Result : pb::IMessage<packet_sc_AddBetMultuile_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -12210,7 +12210,7 @@ namespace NetProtocols.Game {
   ///CS 请求出牌
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_cs_playhand : pb::IMessage<packet_cs_playhand>
+  internal sealed partial class packet_cs_playhand : pb::IMessage<packet_cs_playhand>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -12399,7 +12399,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_playhand_Result : pb::IMessage<packet_sc_playhand_Result>
+  internal sealed partial class packet_sc_playhand_Result : pb::IMessage<packet_sc_playhand_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -12601,7 +12601,7 @@ namespace NetProtocols.Game {
   ///通知 在线人数
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_Online_PeopleCount : pb::IMessage<packet_sc_notice_Online_PeopleCount>
+  internal sealed partial class packet_sc_notice_Online_PeopleCount : pb::IMessage<packet_sc_notice_Online_PeopleCount>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -12873,7 +12873,7 @@ namespace NetProtocols.Game {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_RoomEntryList_Change : pb::IMessage<packet_sc_notice_RoomEntryList_Change>
+  internal sealed partial class packet_sc_notice_RoomEntryList_Change : pb::IMessage<packet_sc_notice_RoomEntryList_Change>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -13083,7 +13083,7 @@ namespace NetProtocols.Game {
   ///通知 房间基本信息 改变
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_RoomBasicInfoChange : pb::IMessage<packet_sc_notice_RoomBasicInfoChange>
+  internal sealed partial class packet_sc_notice_RoomBasicInfoChange : pb::IMessage<packet_sc_notice_RoomBasicInfoChange>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -13293,7 +13293,7 @@ namespace NetProtocols.Game {
   ///通知 房间内 玩家Desk信息
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_DeskInfoChange : pb::IMessage<packet_sc_notice_DeskInfoChange>
+  internal sealed partial class packet_sc_notice_DeskInfoChange : pb::IMessage<packet_sc_notice_DeskInfoChange>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -13503,7 +13503,7 @@ namespace NetProtocols.Game {
   ///通知 玩家信息 改变
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_PlayerInfoChange : pb::IMessage<packet_sc_notice_PlayerInfoChange>
+  internal sealed partial class packet_sc_notice_PlayerInfoChange : pb::IMessage<packet_sc_notice_PlayerInfoChange>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -13713,7 +13713,7 @@ namespace NetProtocols.Game {
   ///通知 有人进入房间
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_PlayerEnterRoomInfo : pb::IMessage<packet_sc_notice_PlayerEnterRoomInfo>
+  internal sealed partial class packet_sc_notice_PlayerEnterRoomInfo : pb::IMessage<packet_sc_notice_PlayerEnterRoomInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -13969,7 +13969,7 @@ namespace NetProtocols.Game {
   ///通知 有人离开房间
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_PlayerLeaveRoomInfo : pb::IMessage<packet_sc_notice_PlayerLeaveRoomInfo>
+  internal sealed partial class packet_sc_notice_PlayerLeaveRoomInfo : pb::IMessage<packet_sc_notice_PlayerLeaveRoomInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -14170,7 +14170,7 @@ namespace NetProtocols.Game {
   ///通知 踢人信息
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_KichPlayerInfo : pb::IMessage<packet_sc_notice_KichPlayerInfo>
+  internal sealed partial class packet_sc_notice_KichPlayerInfo : pb::IMessage<packet_sc_notice_KichPlayerInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -14411,7 +14411,7 @@ namespace NetProtocols.Game {
   ///通知 更新所有内部房间信息 
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_UpdateRoomAllInfo : pb::IMessage<packet_sc_notice_UpdateRoomAllInfo>
+  internal sealed partial class packet_sc_notice_UpdateRoomAllInfo : pb::IMessage<packet_sc_notice_UpdateRoomAllInfo>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -14673,7 +14673,7 @@ namespace NetProtocols.Game {
   ///通知进入游戏
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_entergame : pb::IMessage<packet_sc_notice_entergame>
+  internal sealed partial class packet_sc_notice_entergame : pb::IMessage<packet_sc_notice_entergame>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -14883,7 +14883,7 @@ namespace NetProtocols.Game {
   ///通知 某人抢地主啦
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_robLandlord : pb::IMessage<packet_sc_notice_robLandlord>
+  internal sealed partial class packet_sc_notice_robLandlord : pb::IMessage<packet_sc_notice_robLandlord>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -15084,7 +15084,7 @@ namespace NetProtocols.Game {
   ///通知 所有人抢地主的结果 （如果信息有误，则只传递给抢地主者）
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_robLandlordResult : pb::IMessage<packet_sc_notice_robLandlordResult>
+  internal sealed partial class packet_sc_notice_robLandlordResult : pb::IMessage<packet_sc_notice_robLandlordResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -15325,7 +15325,7 @@ namespace NetProtocols.Game {
   /// 抢地主结束后 确认一个地主
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_SureLandlord : pb::IMessage<packet_sc_notice_SureLandlord>
+  internal sealed partial class packet_sc_notice_SureLandlord : pb::IMessage<packet_sc_notice_SureLandlord>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -15535,7 +15535,7 @@ namespace NetProtocols.Game {
   /// 通知 该谁 加倍
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_who_AddBetMultuile : pb::IMessage<packet_sc_notice_who_AddBetMultuile>
+  internal sealed partial class packet_sc_notice_who_AddBetMultuile : pb::IMessage<packet_sc_notice_who_AddBetMultuile>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -15736,7 +15736,7 @@ namespace NetProtocols.Game {
   /// 通知 加倍 结果
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_AddBetMultuileResult : pb::IMessage<packet_sc_notice_AddBetMultuileResult>
+  internal sealed partial class packet_sc_notice_AddBetMultuileResult : pb::IMessage<packet_sc_notice_AddBetMultuileResult>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -16011,7 +16011,7 @@ namespace NetProtocols.Game {
   ///通知谁出牌
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_whoPlayhand : pb::IMessage<packet_sc_notice_whoPlayhand>
+  internal sealed partial class packet_sc_notice_whoPlayhand : pb::IMessage<packet_sc_notice_whoPlayhand>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -16212,7 +16212,7 @@ namespace NetProtocols.Game {
   ///通知 所有人  某个人的出牌信息（如果信息有误，则只传递给发牌者）
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_playhand_Result : pb::IMessage<packet_sc_notice_playhand_Result>
+  internal sealed partial class packet_sc_notice_playhand_Result : pb::IMessage<packet_sc_notice_playhand_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -16425,7 +16425,7 @@ namespace NetProtocols.Game {
   ///通知 胜负
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  public sealed partial class packet_sc_notice_winlose : pb::IMessage<packet_sc_notice_winlose>
+  internal sealed partial class packet_sc_notice_winlose : pb::IMessage<packet_sc_notice_winlose>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif

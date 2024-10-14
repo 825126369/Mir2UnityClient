@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TcpProtocol;
+using TestProtocol;
 using UnityEngine;
 using XKNet.Common;
 using XKNet.Tcp.Client;
-using XKNet.Tcp.Common;
 
 public class TCPClientTest : MonoBehaviour
 {
@@ -13,7 +12,7 @@ public class TCPClientTest : MonoBehaviour
 	//string Ip = "40.73.126.219";
 	//string Ip = "127.0.0.1";
 	string Ip = "192.168.1.2";
-	int port = 10002;
+	ushort port = 10002;
 	
 	public int nClientCount = 30;
 	public int nPackageCount = 10;
@@ -24,7 +23,7 @@ public class TCPClientTest : MonoBehaviour
 		for (int i = 0; i < nClientCount; i++)
 		{
             TcpNetClientMain mNetSystem = new TcpNetClientMain();
-			mNetSystem.addNetListenFun(TcpNetCommand.COMMAND_TESTCHAT, Receive_ServerSenddata);
+			//mNetSystem.addNetListenFun(TcpNetCommand.COMMAND_TESTCHAT, Receive_ServerSenddata);
 			mClientList.Add(mNetSystem);
 
 			mNetSystem.ConnectServer(Ip, port);
@@ -133,21 +132,21 @@ public class TCPClientTest : MonoBehaviour
 				"sfsfsfsdfsd09035923-940592394523096-548623489510948920384*((*&^&%^$%$$%#sfsfd ==End==";
 		}
 
-		mNetSystem.SendNetData(TcpNetCommand.COMMAND_TESTCHAT, mdata);
+		//mNetSystem.SendNetData(TcpNetCommand.COMMAND_TESTCHAT, mdata);
 		
 		mdata.Id = 0;
 		mdata.TalkMsg = string.Empty;
-		IMessagePool<TESTChatMessage>.recycle(mdata);
+		//IMessagePool<TESTChatMessage>.recycle(mdata);
 
 		nSendCount++;
 	}
 
 	private void Receive_ServerSenddata(ClientPeerBase clientPeer, NetPackage package)
 	{
-        TESTChatMessage mdata = Protocol3Utility.getData<TESTChatMessage>(package);
+        //TESTChatMessage mdata = Protocol3Utility.getData<TESTChatMessage>(package);
         nReceiveCount++;
-        Debug.Log("Client 接受 渠道ID " + mdata.Id + " | " + package.mBufferSegment.Count + " | " + nReceiveCount);
-        IMessagePool<TESTChatMessage>.recycle(mdata);
+       // Debug.Log("Client 接受 渠道ID " + mdata.Id + " | " + package.GetMsgSpin().Length + " | " + nReceiveCount);
+       // IMessagePool<TESTChatMessage>.recycle(mdata);
     }
 
 }

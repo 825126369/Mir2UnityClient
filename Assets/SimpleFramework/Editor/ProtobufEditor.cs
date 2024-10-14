@@ -4,14 +4,38 @@ using UnityEditor;
 
 public class ProtoBufEditor
 {
-    private const string ProtocPath = "Assets/SimpleFramework/Tcp/protoc-28.2-win64/bin/protoc.exe";
+    private const string ProtocPath = "Assets/protoc-28.2-win64/bin/protoc.exe";
     private const string ProtocolPath = "Assets/Protobuf";
     private const string ProtocolCSPath = "Assets/Protobuf/Out/";
 
     private const string NetInnerProtocolPath = "Assets/SimpleFramework/Tcp/Protobuf/";
 
-    [MenuItem("Tools/Protobuf Gen")]
-    private static void Do()
+    [MenuItem("Tools/Protobuf Gen => public class")]
+    private static void DoPublic()
+    {
+        if (!Directory.Exists(ProtocolPath))
+        {
+            Directory.CreateDirectory(ProtocolPath);
+        }
+        if (!Directory.Exists(ProtocolCSPath))
+        {
+            Directory.CreateDirectory(ProtocolCSPath);
+        }
+        
+        string arg = $"--csharp_out={Path.GetRelativePath(ProtocolPath, ProtocolCSPath)} ";
+        foreach (string v in Directory.GetFiles(ProtocolPath, "*.proto", SearchOption.TopDirectoryOnly))
+        {
+            arg += " " + Path.GetFileName(v);
+        }
+
+        RunCmd(Path.GetFullPath(ProtocPath), Path.GetFullPath(ProtocolPath), arg);
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+    }
+
+    [MenuItem("Tools/Protobuf Gen => Internal class")]
+    private static void DoInternal()
     {
         if (!Directory.Exists(ProtocolPath))
         {
@@ -22,13 +46,13 @@ public class ProtoBufEditor
             Directory.CreateDirectory(ProtocolCSPath);
         }
 
-
         string arg = $"--csharp_out={Path.GetRelativePath(ProtocolPath, ProtocolCSPath)} ";
+        arg += " --csharp_opt=internal_access";
         foreach (string v in Directory.GetFiles(ProtocolPath, "*.proto", SearchOption.TopDirectoryOnly))
         {
             arg += " " + Path.GetFileName(v);
         }
-        
+
         RunCmd(Path.GetFullPath(ProtocPath), Path.GetFullPath(ProtocolPath), arg);
 
         AssetDatabase.SaveAssets();
