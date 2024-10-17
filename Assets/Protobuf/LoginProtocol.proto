@@ -6,6 +6,7 @@ message packet_cs_Login
 {
 	string account = 1;
 	string password = 2;
+	bytes Salt = 3;
 	uint32 nLoginType = 3;
 }
 
@@ -13,4 +14,6 @@ message packet_sc_Login_Result
 {
 	uint32 nErrorCode = 1;
 	string gateServerIp = 2;
+	string BanReason = 3;
+	uint64 ExpiryDate = 4;
 }
