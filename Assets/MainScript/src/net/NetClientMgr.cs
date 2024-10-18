@@ -26,6 +26,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             UIMgr.Instance.CommonTipPoolView.Show("登录成功");
+            UIMgr.Instance.LoginView.Hide();
         }
         else
         {
@@ -42,11 +43,11 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             UIMgr.Instance.CommonTipPoolView.Show("注册账号成功");
+            UIMgr.Instance.RegisterView.Hide();
         }
         else
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
-            UIMgr.Instance.RegisterView.Hide();
         }
 
         mReceiveMsg.Reset();
@@ -59,11 +60,11 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             UIMgr.Instance.CommonTipPoolView.Show("修改密码成功");
+            UIMgr.Instance.ChangePasswordView.Hide();
         }
         else
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
-            UIMgr.Instance.RegisterView.Hide();
         }
 
         mReceiveMsg.Reset();

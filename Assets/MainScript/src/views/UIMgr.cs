@@ -10,6 +10,7 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
     public RegisterView RegisterView;
     public SafeView SafeView;
     public ChangePasswordView ChangePasswordView;
+    public SelectView SelectView;
     public void Init()
     {
         Init_Global_WindowLoading();
@@ -114,6 +115,22 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
         else
         {
             SafeView.Show();
+        }
+    }
+
+    public void Show_SelectView()
+    {
+        if (SelectView == null)
+        {
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("SelectView");
+            GameObject goView = Instantiate<GameObject>(goPrefab);
+            goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
+            SelectView = goView.GetComponent<SelectView>();
+            SelectView.Show();
+        }
+        else
+        {
+            SelectView.Show();
         }
     }
 
