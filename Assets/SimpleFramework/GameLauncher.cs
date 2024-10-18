@@ -79,7 +79,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             yield break;
         }
 
-        SceneMgr.Instance.LoadSceneAsync(SceneNames.Login);
+        UIMgr.Instance.Show_LoginView();
         yield return WaitToDestroyInitScene();
     }
 

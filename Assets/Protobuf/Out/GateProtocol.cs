@@ -12,7 +12,7 @@ using scg = global::System.Collections.Generic;
 namespace NetProtocols.Gate {
 
   /// <summary>Holder for reflection information generated from GateProtocol.proto</summary>
-  internal static partial class GateProtocolReflection {
+  public static partial class GateProtocolReflection {
 
     #region Descriptor
     /// <summary>File descriptor for GateProtocol.proto</summary>
@@ -48,7 +48,7 @@ namespace NetProtocols.Gate {
   ///------------------------------------------- 逻辑 --------------------------------------------
   /// </summary>
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  internal sealed partial class packet_GameServerToGateServer_Data : pb::IMessage<packet_GameServerToGateServer_Data>
+  public sealed partial class packet_GameServerToGateServer_Data : pb::IMessage<packet_GameServerToGateServer_Data>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -357,7 +357,7 @@ namespace NetProtocols.Gate {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  internal sealed partial class packet_cs_request_ServerList : pb::IMessage<packet_cs_request_ServerList>
+  public sealed partial class packet_cs_request_ServerList : pb::IMessage<packet_cs_request_ServerList>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif
@@ -518,7 +518,7 @@ namespace NetProtocols.Gate {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
-  internal sealed partial class packet_sc_ServerList_Result : pb::IMessage<packet_sc_ServerList_Result>
+  public sealed partial class packet_sc_ServerList_Result : pb::IMessage<packet_sc_ServerList_Result>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
   #endif

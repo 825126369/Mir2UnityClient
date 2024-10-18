@@ -6,12 +6,10 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
     public CommonDialogView CommonDialogView;
     public CommonWindowLoading CommonWindowLoading;
 
-
-    public GameBeginUI mGameBeginUI;
-    public GameFailUI mGameFailUI;
-    public GameFail_Resurrection mGameFail_Resurrection;
-    public GameWinUI mGameWinUI;
-
+    public LoginView LoginView;
+    public RegisterView RegisterView;
+    public SafeView SafeView;
+    public ChangePasswordView ChangePasswordView;
     public void Init()
     {
         Init_Global_WindowLoading();
@@ -55,69 +53,70 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
         }
     }
 
-    public void Show_GameBeginView()
+    public void Show_LoginView()
     {
-        if (mGameBeginUI == null)
+        if (LoginView == null)
         {
-            GameObject goPrefab = AssetsLoader.Instance.GetAsset("Assets/GameAssets/game/prefabs/GameBegin.prefab") as GameObject;
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("LoginView");
             GameObject goView = Instantiate<GameObject>(goPrefab);
             goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
-            mGameBeginUI = goView.GetComponent<GameBeginUI>();
-            mGameBeginUI.Show();
+            LoginView = goView.GetComponent<LoginView>();
+            LoginView.Show();
         }
         else
         {
-            mGameBeginUI.Show();
+            LoginView.Show();
         }
     }
 
-    public void Show_GameFail_Resurrection()
+    public void Show_RegisterView()
     {
-        if (mGameFail_Resurrection == null)
+        if (RegisterView == null)
         {
-            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("GameFail_Resurrection.prefab") as GameObject;
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("RegisterView");
             GameObject goView = Instantiate<GameObject>(goPrefab);
             goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
-            mGameFail_Resurrection = goView.GetComponent<GameFail_Resurrection>();
-            mGameFail_Resurrection.Show();
+            RegisterView = goView.GetComponent<RegisterView>();
+            RegisterView.Show();
         }
         else
         {
-            mGameFail_Resurrection.Show();
+            RegisterView.Show();
         }
     }
 
-    public void Show_GameFailUI()
+    public void Show_ChangePasswordView()
     {
-        if (mGameFailUI == null)
+        if (ChangePasswordView == null)
         {
-            GameObject goPrefab = AssetsLoader.Instance.GetAsset("Assets/GameAssets/game/prefabs/GameFailEnd.prefab") as GameObject;
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("ChangePasswordView");
             GameObject goView = Instantiate<GameObject>(goPrefab);
             goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
-            mGameFailUI = goView.GetComponent<GameFailUI>();
-            mGameFailUI.Show();
+            ChangePasswordView = goView.GetComponent<ChangePasswordView>();
+            ChangePasswordView.Show();
         }
         else
         {
-            mGameFailUI.Show();
+            ChangePasswordView.Show();
         }
     }
 
-    public void Show_GameWinUI()
+    public void Show_SafeView()
     {
-        if (mGameWinUI == null)
+        if (SafeView == null)
         {
-            GameObject goPrefab = AssetsLoader.Instance.GetAsset("Assets/GameAssets/game/prefabs/GameWinEnd.prefab") as GameObject;
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("SafeView");
             GameObject goView = Instantiate<GameObject>(goPrefab);
             goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
-            mGameWinUI = goView.GetComponent<GameWinUI>();
-            mGameWinUI.Show();
+            SafeView = goView.GetComponent<SafeView>();
+            SafeView.Show();
         }
         else
         {
-            mGameWinUI.Show();
+            SafeView.Show();
         }
     }
+
 }
 
 

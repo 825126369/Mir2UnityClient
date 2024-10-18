@@ -56,6 +56,10 @@ MonoBehaviour:
   - {fileID: 7438398531397572692, guid: ffdc3e6c78d9341ff8172ee9e6d0f230, type: 3}
   - {fileID: 2507528527836899778, guid: 64ebb8aa86c654cbf9197496bc43cc4e, type: 3}
   - {fileID: 3985957719657636594, guid: 2b6dc7058c0dc47f7943a12f53466356, type: 3}
+  - {fileID: 1518590868899698943, guid: 55136beb6eb4a294aaa7042292b9a357, type: 3}
+  - {fileID: 843317779405844366, guid: dd2ebd59f60081f42b7f0ae30dd01820, type: 3}
+  - {fileID: 1847196029530716806, guid: 5a88c3c707a9bb94b8d20f7747c5e1f5, type: 3}
+  - {fileID: 7102425970005702814, guid: 38bae1adaf524594f99790d2c08e023a, type: 3}
   m_AtlasList: []
   m_SpriteList: []
   m_TextureList: []
