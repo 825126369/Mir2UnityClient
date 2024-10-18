@@ -20,17 +20,21 @@ public class LoginView : MonoBehaviour
 
         LoginBtn.onClick.AddListener(() =>
         {
-            if (!string.IsNullOrWhiteSpace(AccountInputField.text) && !string.IsNullOrWhiteSpace(PasswordInputField.text))
+            if (string.IsNullOrWhiteSpace(AccountInputField.text))
             {
-                packet_cs_Login mData = new packet_cs_Login();
-                mData.Account = AccountInputField.text;
-                mData.Password = PasswordInputField.text;
-                NetClientMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_LOGIN, mData);
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号不能为空");
+                return;
             }
-            else
+            else if (string.IsNullOrWhiteSpace(PasswordInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号密码输入不正确");
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码不能为空");
+                return;
             }
+
+            packet_cs_Login mData = new packet_cs_Login();
+            mData.Account = AccountInputField.text;
+            mData.Password = PasswordInputField.text;
+            NetClientMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_LOGIN, mData);
         });
 
         RegisterBtn.onClick.AddListener(() =>
@@ -44,7 +48,6 @@ public class LoginView : MonoBehaviour
             this.Hide();
             UIMgr.Instance.Show_ChangePasswordView();
         });
-
     }
     
     public void Show()

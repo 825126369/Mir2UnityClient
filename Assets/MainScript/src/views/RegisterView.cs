@@ -63,6 +63,11 @@ public class RegisterView : MonoBehaviour
                 UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码由字母、数字组合而成，8~20位之间");
                 return;
             }
+            else if (!DataCenter.Instance.mMailRegex.IsMatch(EmailInputField.text))
+            {
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "这不是一个有效的邮箱");
+                return;
+            }
 
             var mData = new packet_cs_Register();
             mData.Account = AccountInputField.text;

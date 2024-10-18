@@ -41,7 +41,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
-            UIMgr.Instance.CommonTipPoolView.Show("登录成功");
+            UIMgr.Instance.CommonTipPoolView.Show("注册账号成功");
         }
         else
         {
@@ -57,7 +57,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
-            UIMgr.Instance.CommonTipPoolView.Show("登录成功");
+            UIMgr.Instance.CommonTipPoolView.Show("修改密码成功");
         }
         else
         {

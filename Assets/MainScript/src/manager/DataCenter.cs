@@ -13,6 +13,7 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
 
     public readonly Regex mAccountRegex = new Regex(@"^[A-Za-z0-9]{8,20}$");
     public readonly Regex mPasswordRegex = new Regex(@"^[A-Za-z0-9]{8,20}$");
+    public readonly Regex mMailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
 
     public void Init()
     {
