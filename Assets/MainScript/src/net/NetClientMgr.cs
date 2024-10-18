@@ -26,7 +26,13 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             UIMgr.Instance.CommonTipPoolView.Show("µÇÂ¼³É¹¦");
-            UIMgr.Instance.LoginView.Hide();
+            if (UIMgr.Instance.LoginView != null)
+            {
+                Destroy(UIMgr.Instance.LoginView.gameObject);
+                UIMgr.Instance.LoginView = null;
+            }
+
+            UIMgr.Instance.Show_SelectView();
         }
         else
         {

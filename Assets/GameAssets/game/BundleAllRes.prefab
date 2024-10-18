@@ -60,6 +60,7 @@ MonoBehaviour:
   - {fileID: 843317779405844366, guid: dd2ebd59f60081f42b7f0ae30dd01820, type: 3}
   - {fileID: 1847196029530716806, guid: 5a88c3c707a9bb94b8d20f7747c5e1f5, type: 3}
   - {fileID: 7102425970005702814, guid: 38bae1adaf524594f99790d2c08e023a, type: 3}
+  - {fileID: 4234031542185924324, guid: df1dfd3829274a4408ec77dad0cc58c4, type: 3}
   m_AtlasList: []
   m_SpriteList: []
   m_TextureList: []

@@ -68,5 +68,6 @@ public class ChangePasswordView : MonoBehaviour
     public void Hide()
     {
         gameObject.SetActive(false);
+        UIMgr.Instance.Show_LoginView();
     }
 }

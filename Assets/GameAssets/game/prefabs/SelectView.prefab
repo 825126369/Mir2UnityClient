@@ -814,7 +814,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 645001210746291134}
-  - component: {fileID: 2790595134195294456}
+  - component: {fileID: -6846312822194084428}
   m_Layer: 5
   m_Name: SelectView
   m_TagString: Untagged
@@ -852,7 +852,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2790595134195294456
+--- !u!114 &-6846312822194084428
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -861,15 +861,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4234031542185924324}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0b0b8cced74d8544a5c511ac77c5698, type: 3}
+  m_Script: {fileID: 11500000, guid: b745a7862bae16c468779b75dd0a9dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoginBtn: {fileID: 3981618673430000685}
-  RegisterBtn: {fileID: 8074145319580119389}
-  changePasswordBtn: {fileID: 332771716858906178}
-  SaftBtn: {fileID: 3846568285845234750}
-  AccountInputField: {fileID: 403622179637261759}
-  PasswordInputField: {fileID: 1673972867044659819}
 --- !u!1 &4467898578661259437
 GameObject:
   m_ObjectHideFlags: 0
