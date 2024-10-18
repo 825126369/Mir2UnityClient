@@ -23,9 +23,29 @@ public class RegisterView : MonoBehaviour
 
         OkBtn.onClick.AddListener(() =>
         {
-            if (string.IsNullOrWhiteSpace(AccountInputField.text) || string.IsNullOrWhiteSpace(PasswordInputField.text))
+            if (string.IsNullOrWhiteSpace(AccountInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号密码输入不正确");
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号不能为空");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(PasswordInputField.text))
+            {
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码不能为空");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(SecretQuestionInputField.text))
+            {
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "安全问题不能为空");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(AnswerInputField.text))
+            {
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "安全回答不能为空");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(EmailInputField.text))
+            {
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "邮箱不能为空");
                 return;
             }
             else if (PasswordInputField.text != ConfirmPasswordInputField.text)
@@ -35,17 +55,12 @@ public class RegisterView : MonoBehaviour
             }
             else if (!DataCenter.Instance.mAccountRegex.IsMatch(AccountInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "输入的两次密码不一样");
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号由字母、数字组合而成，8~20位之间");
                 return;
             }
             else if (!DataCenter.Instance.mPasswordRegex.IsMatch(PasswordInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "输入的两次密码不一样");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(SecretQuestionInputField.text) || string.IsNullOrWhiteSpace(AnswerInputField.text))
-            {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "安全输入回答不正确");
+                UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码由字母、数字组合而成，8~20位之间");
                 return;
             }
 
@@ -56,6 +71,7 @@ public class RegisterView : MonoBehaviour
             mData.SecretAnswer = AnswerInputField.text;
             mData.EMailAddress = EmailInputField.text;
             NetClientMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_REGISTER, mData);
+
         });
 
         CancelBtn.onClick.AddListener(() =>
