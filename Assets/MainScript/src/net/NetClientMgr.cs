@@ -46,6 +46,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         else
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.Instance.RegisterView.Hide();
         }
 
         mReceiveMsg.Reset();
@@ -62,6 +63,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
         else
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.Instance.RegisterView.Hide();
         }
 
         mReceiveMsg.Reset();
