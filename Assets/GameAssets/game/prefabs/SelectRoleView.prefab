@@ -816,7 +816,7 @@ GameObject:
   - component: {fileID: 645001210746291134}
   - component: {fileID: -6846312822194084428}
   m_Layer: 5
-  m_Name: SelectView
+  m_Name: SelectRoleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

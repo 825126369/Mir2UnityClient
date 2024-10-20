@@ -10,7 +10,10 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
     public RegisterView RegisterView;
     public SafeView SafeView;
     public ChangePasswordView ChangePasswordView;
-    public SelectView SelectView;
+
+    public SelectServerView SelectServerView;
+
+    public SelectRoleView SelectRoleView;
     public void Init()
     {
         Init_Global_WindowLoading();
@@ -118,19 +121,35 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
         }
     }
 
-    public void Show_SelectView()
+    public void Show_SelectServerView()
     {
-        if (SelectView == null)
+        if (SelectServerView == null)
         {
-            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("SelectView");
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("SelectServerView");
             GameObject goView = Instantiate<GameObject>(goPrefab);
             goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
-            SelectView = goView.GetComponent<SelectView>();
-            SelectView.Show();
+            SelectServerView = goView.GetComponent<SelectServerView>();
+            SelectServerView.Show();
         }
         else
         {
-            SelectView.Show();
+            SelectServerView.Show();
+        }
+    }
+
+    public void Show_SelectRoleView()
+    {
+        if (SelectRoleView == null)
+        {
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("SelectRoleView");
+            GameObject goView = Instantiate<GameObject>(goPrefab);
+            goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
+            SelectRoleView = goView.GetComponent<SelectRoleView>();
+            SelectRoleView.Show();
+        }
+        else
+        {
+            SelectRoleView.Show();
         }
     }
 

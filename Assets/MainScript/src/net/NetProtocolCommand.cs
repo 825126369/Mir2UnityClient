@@ -9,9 +9,11 @@
     public const ushort CS_REQUEST_CHANGE_PASSWORD = 1004; //--修改密码
     public const ushort SC_REQUEST_CHANGE_PASSWORD_RESULT = 1005;
 
-    public const ushort SToGS_SEND_SERVER_INFO = 1006; //--发送给网关服务器信息
-    public const ushort CS_REQUEST_SERVER_LIST = 1007; //--客户端请求服务器列表
-    public const ushort SC_REQUEST_SERVER_LIST_RESULT = 1008; //--客户端请求服务器列表
+    public const ushort GSG_SERVER_INFO = 1006; //--发送给【选择网关】服务器信息
+    public const ushort SGG_SERVER_INFO = 1007; //--【选择网关】发送给【网关】服务器信息
+
+    public const ushort CS_REQUEST_SERVER_LIST = 1008; //--客户端请求服务器列表
+    public const ushort SC_REQUEST_SERVER_LIST_RESULT = 1009; //--客户端请求服务器列表
 
     //---------------广播协议---------------------
     //public const ushort SC_NOTICE_ONLINE_PLAYER_COUNT = 1100; // 通知 玩家在线人数

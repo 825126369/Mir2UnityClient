@@ -49,7 +49,7 @@ public class ChangePasswordView : MonoBehaviour
             mData.Account = AccountInputField.text;
             mData.CurrentPassword = CurrentPasswordInputField.text;
             mData.NewPassword = NewPasswordInputField.text;
-            NetClientMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_CHANGE_PASSWORD, mData);
+            NetClientLoginMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_CHANGE_PASSWORD, mData);
         });
 
         CancelBtn.onClick.AddListener(() =>

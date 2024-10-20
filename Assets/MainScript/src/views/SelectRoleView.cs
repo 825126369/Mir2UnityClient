@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SelectView : MonoBehaviour
+public class SelectRoleView : MonoBehaviour
 {
     private bool bInit = false;
     private void Init()

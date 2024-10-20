@@ -3,13 +3,13 @@ using UnityEngine;
 using XKNet.Common;
 using XKNet.Tcp.Client;
 
-public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
+public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 {
     public TcpNetClientMain LoginServer_NetClient = null;
     public void InitLoginServerClient()
     {
         LoginServer_NetClient = new TcpNetClientMain();
-        LoginServer_NetClient.ConnectServer("127.0.0.1", 9000);
+        LoginServer_NetClient.ConnectServer("127.0.0.1", 9001);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
@@ -30,9 +30,8 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
             {
                 Destroy(UIMgr.Instance.LoginView.gameObject);
                 UIMgr.Instance.LoginView = null;
+                NetClientSelectServerMgr.Instance.Init();
             }
-
-            UIMgr.Instance.Show_SelectView();
         }
         else
         {
