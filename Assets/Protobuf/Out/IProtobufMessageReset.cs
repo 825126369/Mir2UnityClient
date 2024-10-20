@@ -1,4 +1,87 @@
 using XKNet.Common;
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = 0;
+			ServerConnectStr = string.Empty;
+			OnlinePlayerCount = 0;
+			CreatedPlayerCount = 0;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_SelectGateServerToGateServer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = 0;
+			DataBaseConnectStr = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_SelectGateServerToPlayer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = 0;
+			ServerConnectStr = string.Empty;
+			ServerName = string.Empty;
+			NState = 0;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_gsg_SendServerInfo : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			IMessagePool<NetProtocols.SelectGate.packet_GateServerToSelectGateServer_Data>.recycle(MServerInfo);
+			MServerInfo = null;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_sgg_SendServerInfo_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToGateServer_Data>.recycle(MServerInfo);
+			MServerInfo = null;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_cs_request_ServerList : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_sc_ServerList_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+			foreach(var v in MServerInfoList)
+			{
+				IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToPlayer_Data>.recycle(v);
+			}
+			MServerInfoList.Clear();
+		}
+	}
+}
 namespace NetProtocols.Login
 {
 	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
@@ -68,89 +151,6 @@ namespace NetProtocols.Login
 		public void Reset()
 		{
 			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = 0;
-			ServerConnectStr = string.Empty;
-			OnlinePlayerCount = 0;
-			CreatedPlayerCount = 0;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_SelectGateServerToGateServer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = 0;
-			DataBaseConnectStr = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_SelectGateServerToPlayer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = 0;
-			ServerConnectStr = string.Empty;
-			ServerName = string.Empty;
-			NState = 0;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_gsg_SendServerInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			MServerInfo.Reset();
-			MServerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_sgg_SendServerInfo_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			MServerInfo.Reset();
-			MServerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_cs_request_ServerList : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_sc_ServerList_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			foreach(var v in MServerInfoList)
-			{
-				IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToPlayer_Data>.recycle(v);
-			}
-			MServerInfoList.Clear();
 		}
 	}
 }
@@ -256,7 +256,7 @@ namespace NetProtocols.Game
 			NRoomState = 0;
 			NRoomCreatorId = 0;
 			NMyDeskId = 0;
-			MRoomBasicInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
 			MRoomBasicInfo = null;
 			foreach(var v in PlayerInfoList)
 			{
@@ -298,9 +298,9 @@ namespace NetProtocols.Game
 			NPlayerState = 0;
 			NRoomState = 0;
 			NGameState = 0;
-			MRoomInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Detail_RoomInfo>.recycle(MRoomInfo);
 			MRoomInfo = null;
-			MGameStartInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_GameStartInfo>.recycle(MGameStartInfo);
 			MGameStartInfo = null;
 			FRecoverCdTime = 0;
 			NLandlordId = 0;
@@ -308,7 +308,7 @@ namespace NetProtocols.Game
 			RemainLandlordCardList.Clear();
 			NFinalAddMultuile = 0;
 			NCurrentBetAddMultuileDeskId = 0;
-			LastPlayHandInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(LastPlayHandInfo);
 			LastPlayHandInfo = null;
 			NWhoPlayhandingId = 0;
 		}
@@ -320,7 +320,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MCreaterDB.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MCreaterDB);
 			MCreaterDB = null;
 		}
 	}
@@ -332,9 +332,9 @@ namespace NetProtocols.Game
 		public void Reset()
 		{
 			NErrorCode = 0;
-			MRoomEntryListInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
 			MRoomEntryListInfo = null;
-			MRecoverSceneInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_RecoverSceneInfo>.recycle(MRecoverSceneInfo);
 			MRecoverSceneInfo = null;
 		}
 	}
@@ -374,7 +374,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomEntryListInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
 			MRoomEntryListInfo = null;
 		}
 	}
@@ -385,7 +385,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MPlayerDB.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
 			MPlayerDB = null;
 		}
 	}
@@ -406,9 +406,9 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomBasicInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
 			MRoomBasicInfo = null;
-			MCreaterDB.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MCreaterDB);
 			MCreaterDB = null;
 		}
 	}
@@ -421,9 +421,9 @@ namespace NetProtocols.Game
 		{
 			NErrorCode = 0;
 			NRoomId = 0;
-			MDeskInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(MDeskInfo);
 			MDeskInfo = null;
-			MPlayerInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerInfo);
 			MPlayerInfo = null;
 		}
 	}
@@ -434,7 +434,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomBasicInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
 			MRoomBasicInfo = null;
 		}
 	}
@@ -457,7 +457,7 @@ namespace NetProtocols.Game
 		{
 			NRoomId = 0;
 			StrPassword = string.Empty;
-			MPlayerDB.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
 			MPlayerDB = null;
 		}
 	}
@@ -468,7 +468,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MPlayerDB.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
 			MPlayerDB = null;
 		}
 	}
@@ -480,7 +480,7 @@ namespace NetProtocols.Game
 		public void Reset()
 		{
 			NErrorCode = 0;
-			MRecoverSceneInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_RecoverSceneInfo>.recycle(MRecoverSceneInfo);
 			MRecoverSceneInfo = null;
 		}
 	}
@@ -760,7 +760,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomEntryListInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
 			MRoomEntryListInfo = null;
 		}
 	}
@@ -771,7 +771,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomBasicInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
 			MRoomBasicInfo = null;
 		}
 	}
@@ -782,7 +782,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			DeskInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(DeskInfo);
 			DeskInfo = null;
 		}
 	}
@@ -793,7 +793,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			PlayerInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(PlayerInfo);
 			PlayerInfo = null;
 		}
 	}
@@ -804,9 +804,9 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			PlayerInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(PlayerInfo);
 			PlayerInfo = null;
-			DeskInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(DeskInfo);
 			DeskInfo = null;
 		}
 	}
@@ -838,7 +838,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MRoomBasicInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
 			MRoomBasicInfo = null;
 			foreach(var v in PlayerInfoList)
 			{
@@ -859,7 +859,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MGameStartInfo.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_GameStartInfo>.recycle(MGameStartInfo);
 			MGameStartInfo = null;
 		}
 	}
@@ -891,7 +891,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			RemainLandlordCardList.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(RemainLandlordCardList);
 			RemainLandlordCardList = null;
 		}
 	}
@@ -934,7 +934,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			PlayHandList.Reset();
+			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(PlayHandList);
 			PlayHandList = null;
 		}
 	}

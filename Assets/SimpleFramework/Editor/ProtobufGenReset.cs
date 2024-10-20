@@ -72,7 +72,7 @@ public class ProtobufGenReset
                         }
                         else if (v2.PropertyType.IsClass && !v2.PropertyType.IsGenericType) //¿‡
                         {
-                            mStaticFunc += $"\t\t\tmessage.{v2.Name}.{ResetFuncName}();\n";
+                            mStaticFunc += $"\t\t\tIMessagePool<{GetClassFullName(v2.PropertyType)}>.recycle({v2.Name});\n";
                             mStaticFunc += $"\t\t\tmessage.{v2.Name} = null;\n";
                         }
                         else
@@ -153,7 +153,7 @@ public class ProtobufGenReset
                         }
                         else if(v2.PropertyType.IsClass && !v2.PropertyType.IsGenericType) //¿‡
                         {
-                            mStaticFunc += $"\t\t\t{v2.Name}.{ResetFuncName}();\n";
+                            mStaticFunc += $"\t\t\tIMessagePool<{GetClassFullName(v2.PropertyType)}>.recycle({v2.Name});\n";
                             mStaticFunc += $"\t\t\t{v2.Name} = null;\n";
                         }
                         else
