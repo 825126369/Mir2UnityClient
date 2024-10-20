@@ -39,7 +39,7 @@ public class NetClientMgr : SingleTonMonoBehaviour<NetClientMgr>
             UIMgr.Instance.CommonDialogView.ShowOk("ÌבÊ¾", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
 
-        mReceiveMsg.Reset();
+        //mReceiveMsg.Reset();
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 

@@ -2,21 +2,25 @@ syntax = "proto3";
 package NetProtocols.Gate;
 
 //------------------------------------------- 逻辑 --------------------------------------------
-message packet_GameServerToGateServer_Data
-{
-	string serverIp = 1;
-	string serverName = 2;
-	uint32 onlinePlayerCount = 3;
-	uint32 allPlayerCount = 4;
-}
+// message packet_GateServerToSelectGateServer_Data
+// {
+// 	uint32 nServeerId = 1;
+// 	string ServerConnectStr = 2;
+// 	uint32 onlinePlayerCount = 3;
+// 	uint32 createdPlayerCount = 4;
+// }
 
-message packet_cs_request_ServerList
-{
+// message packet_gsg_SendServerInfo
+// {
+// 	packet_GateServerToSelectGateServer_Data mServerInfo = 1;
+// }
+
+// message packet_cs_request_ServerList
+// {
 	
-}
+// }
 
-message packet_sc_ServerList_Result
-{
-	uint32 nErrorCode = 1;
-	repeated packet_GameServerToGateServer_Data mServerList = 2;
-}
+// message packet_sc_ServerList_Result
+// {
+// 	uint32 nErrorCode = 1;
+// }

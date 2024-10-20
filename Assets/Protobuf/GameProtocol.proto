@@ -98,7 +98,7 @@ message packet_data_RecoverSceneInfo
 	packet_data_Detail_RoomInfo mRoomInfo = 4;
 	packet_data_GameStartInfo mGameStartInfo = 5;
 	
-	double fRecoverCdTime = 6; //cd时间
+	uint32 fRecoverCdTime = 6; //cd时间
 	uint32 nLandlordId = 7;//谁是地主
 	uint32 nWhoRobLandlordingId = 8;//当前谁在抢地主
 	repeated uint32 remainLandlordCardList = 9;

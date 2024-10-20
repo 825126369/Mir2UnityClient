@@ -62,7 +62,7 @@ namespace NetProtocols.Game {
             "bUluZm8YBCABKAsyLi5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9E",
             "ZXRhaWxfUm9vbUluZm8SRAoObUdhbWVTdGFydEluZm8YBSABKAsyLC5OZXRQ",
             "cm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9HYW1lU3RhcnRJbmZvEhYKDmZS",
-            "ZWNvdmVyQ2RUaW1lGAYgASgBEhMKC25MYW5kbG9yZElkGAcgASgNEhwKFG5X",
+            "ZWNvdmVyQ2RUaW1lGAYgASgNEhMKC25MYW5kbG9yZElkGAcgASgNEhwKFG5X",
             "aG9Sb2JMYW5kbG9yZGluZ0lkGAggASgNEh4KFnJlbWFpbkxhbmRsb3JkQ2Fy",
             "ZExpc3QYCSADKA0SGQoRbkZpbmFsQWRkTXVsdHVpbGUYCiABKA0SJAocbkN1",
             "cnJlbnRCZXRBZGRNdWx0dWlsZURlc2tJZBgLIAEoDRJFChBsYXN0UGxheUhh",
@@ -3358,13 +3358,13 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "fRecoverCdTime" field.</summary>
     public const int FRecoverCdTimeFieldNumber = 6;
-    private double fRecoverCdTime_;
+    private uint fRecoverCdTime_;
     /// <summary>
     ///cd时间
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public double FRecoverCdTime {
+    public uint FRecoverCdTime {
       get { return fRecoverCdTime_; }
       set {
         fRecoverCdTime_ = value;
@@ -3489,7 +3489,7 @@ namespace NetProtocols.Game {
       if (NGameState != other.NGameState) return false;
       if (!object.Equals(MRoomInfo, other.MRoomInfo)) return false;
       if (!object.Equals(MGameStartInfo, other.MGameStartInfo)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.Equals(FRecoverCdTime, other.FRecoverCdTime)) return false;
+      if (FRecoverCdTime != other.FRecoverCdTime) return false;
       if (NLandlordId != other.NLandlordId) return false;
       if (NWhoRobLandlordingId != other.NWhoRobLandlordingId) return false;
       if(!remainLandlordCardList_.Equals(other.remainLandlordCardList_)) return false;
@@ -3509,7 +3509,7 @@ namespace NetProtocols.Game {
       if (NGameState != 0) hash ^= NGameState.GetHashCode();
       if (mRoomInfo_ != null) hash ^= MRoomInfo.GetHashCode();
       if (mGameStartInfo_ != null) hash ^= MGameStartInfo.GetHashCode();
-      if (FRecoverCdTime != 0D) hash ^= pbc::ProtobufEqualityComparers.BitwiseDoubleEqualityComparer.GetHashCode(FRecoverCdTime);
+      if (FRecoverCdTime != 0) hash ^= FRecoverCdTime.GetHashCode();
       if (NLandlordId != 0) hash ^= NLandlordId.GetHashCode();
       if (NWhoRobLandlordingId != 0) hash ^= NWhoRobLandlordingId.GetHashCode();
       hash ^= remainLandlordCardList_.GetHashCode();
@@ -3555,9 +3555,9 @@ namespace NetProtocols.Game {
         output.WriteRawTag(42);
         output.WriteMessage(MGameStartInfo);
       }
-      if (FRecoverCdTime != 0D) {
-        output.WriteRawTag(49);
-        output.WriteDouble(FRecoverCdTime);
+      if (FRecoverCdTime != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(FRecoverCdTime);
       }
       if (NLandlordId != 0) {
         output.WriteRawTag(56);
@@ -3614,9 +3614,9 @@ namespace NetProtocols.Game {
         output.WriteRawTag(42);
         output.WriteMessage(MGameStartInfo);
       }
-      if (FRecoverCdTime != 0D) {
-        output.WriteRawTag(49);
-        output.WriteDouble(FRecoverCdTime);
+      if (FRecoverCdTime != 0) {
+        output.WriteRawTag(48);
+        output.WriteUInt32(FRecoverCdTime);
       }
       if (NLandlordId != 0) {
         output.WriteRawTag(56);
@@ -3668,8 +3668,8 @@ namespace NetProtocols.Game {
       if (mGameStartInfo_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(MGameStartInfo);
       }
-      if (FRecoverCdTime != 0D) {
-        size += 1 + 8;
+      if (FRecoverCdTime != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(FRecoverCdTime);
       }
       if (NLandlordId != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NLandlordId);
@@ -3723,7 +3723,7 @@ namespace NetProtocols.Game {
         }
         MGameStartInfo.MergeFrom(other.MGameStartInfo);
       }
-      if (other.FRecoverCdTime != 0D) {
+      if (other.FRecoverCdTime != 0) {
         FRecoverCdTime = other.FRecoverCdTime;
       }
       if (other.NLandlordId != 0) {
@@ -3793,8 +3793,8 @@ namespace NetProtocols.Game {
             input.ReadMessage(MGameStartInfo);
             break;
           }
-          case 49: {
-            FRecoverCdTime = input.ReadDouble();
+          case 48: {
+            FRecoverCdTime = input.ReadUInt32();
             break;
           }
           case 56: {
@@ -3874,8 +3874,8 @@ namespace NetProtocols.Game {
             input.ReadMessage(MGameStartInfo);
             break;
           }
-          case 49: {
-            FRecoverCdTime = input.ReadDouble();
+          case 48: {
+            FRecoverCdTime = input.ReadUInt32();
             break;
           }
           case 56: {

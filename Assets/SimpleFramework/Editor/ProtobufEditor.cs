@@ -34,7 +34,7 @@ public class ProtoBufEditor
         AssetDatabase.Refresh();
     }
 
-    [MenuItem("Tools/Protobuf Gen => Internal class")]
+    //[MenuItem("Tools/Protobuf Gen => Internal class")]
     private static void DoInternal()
     {
         if (!Directory.Exists(ProtocolPath))
