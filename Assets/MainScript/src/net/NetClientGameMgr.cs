@@ -8,15 +8,20 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     public TcpNetClientMain mNetClient = null;
     public void Init()
     {
+        ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
+
         mNetClient = new TcpNetClientMain();
-        mNetClient.ConnectServer("127.0.0.1", 9100);
-        //mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
+        if (IPAddressHelper.TryParseConnectStr(mData.ServerConnectStr, out string Ip, out ushort nPort))
+        {
+            mNetClient.ConnectServer(Ip, nPort);
+            //mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
+        }
     }
 
     private void Start()
     {
-       // var mSendMsg = IMessagePool<packet_cs_request_ServerList>.Pop();
-       // mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SERVER_LIST, mSendMsg);
+        //var mSendMsg = IMessagePool<packet_cs_request_ServerList>.Pop();
+        //mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SERVER_LIST, mSendMsg);
         //IMessagePool<packet_cs_request_ServerList>.recycle(mSendMsg);
     }
 

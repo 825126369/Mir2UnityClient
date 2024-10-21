@@ -70,6 +70,13 @@ public static class PrintTool
         Debug.Log(content);
     }
 
+    public static void LogWarning(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    {
+        if (!GameLauncher.Instance.m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        Debug.LogWarning(content);
+    }
+
     public static void LogError(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
     {
         if (!GameLauncher.Instance.m_PrintToolLog) return;
