@@ -154,803 +154,115 @@ namespace NetProtocols.Login
 		}
 	}
 }
-namespace NetProtocols.Game
+namespace NetProtocols.Gate
 {
-	public sealed partial class packet_data_RoomEntryInfo : IProtobufResetInterface
+	public sealed partial class packet_IG_Register : IProtobufResetInterface
 	{
 		public void Reset()
 		{
-			NRoomId = 0;
-			NCreateTime = 0;
-			NRoomState = 0;
-			BRobotCreate = false;
-			StrRoomName = string.Empty;
-			StrPassword = string.Empty;
-			NMinBetCount = 0;
-			NRoomFightCount = 0;
-			NRoomFightMaxCount = 0;
-			NRoomSpectatorCount = 0;
+			NServerType = 0;
+			ServerConnectStr = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Gate
+{
+	public sealed partial class packet_GI_RegisterResult : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
 		}
 	}
 }
 namespace NetProtocols.Game
 {
-	public sealed partial class packet_data_RoomEntryListInfo : IProtobufResetInterface
+	public sealed partial class packet_data_SelectRole_RoleInfo : IProtobufResetInterface
 	{
 		public void Reset()
 		{
-			NPageIndex = 0;
-			NMaxPage = 0;
-			foreach(var v in MRoomEntryInfoList)
+			NRoleIndex = 0;
+			Name = string.Empty;
+			Gender = 0;
+			Class = 0;
+			Level = 0;
+			LastAccess = 0;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_AllRoleInfo : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_request_AllRoleInfo_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+			foreach(var v in MRoleList)
 			{
-				IMessagePool<NetProtocols.Game.packet_data_RoomEntryInfo>.recycle(v);
+				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
-			MRoomEntryInfoList.Clear();
+			MRoleList.Clear();
 		}
 	}
 }
 namespace NetProtocols.Game
 {
-	public sealed partial class packet_data_playerInfo : IProtobufResetInterface
+	public sealed partial class packet_cs_request_CreateRole : IProtobufResetInterface
 	{
 		public void Reset()
 		{
-			NUserId = 0;
-			NLoginType = 0;
-			UniqueIdentifier = string.Empty;
-			StrName = string.Empty;
-			NGoldCount = 0;
-			NLevel = 0;
-			NLevelExp = 0;
-			NVipLevel = 0;
-			NHeadIconId = 0;
-			NWinCount = 0;
-			NLoseCount = 0;
+			Name = string.Empty;
+			Gender = 0;
+			Class = 0;
 		}
 	}
 }
 namespace NetProtocols.Game
 {
-	public sealed partial class packet_data_deskInfo : IProtobufResetInterface
+	public sealed partial class packet_sc_request_CreateRole_Result : IProtobufResetInterface
 	{
 		public void Reset()
 		{
-			NDeskId = 0;
-			NUserId = 0;
-			BPrepare = false;
-			BHang = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_deskcardInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			CardList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_Basic_RoomInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			StrRoomName = string.Empty;
-			StrPassword = string.Empty;
-			NMaxDeskCount = 0;
-			NMinBetCount = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_Detail_RoomInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NRoomId = 0;
-			NRoomState = 0;
-			NRoomCreatorId = 0;
-			NMyDeskId = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
-			MRoomBasicInfo = null;
-			foreach(var v in PlayerInfoList)
+			NErrorCode = 0;
+			foreach(var v in MRoleList)
 			{
-				IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(v);
+				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
-			PlayerInfoList.Clear();
-			foreach(var v in DeskInfoList)
+			MRoleList.Clear();
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_DeleteRole : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NRoleIndex = 0;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_request_DeleteRole_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+			foreach(var v in MRoleList)
 			{
-				IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(v);
+				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
-			DeskInfoList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_GameStartInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NOpenCard = 0;
-			NWhoGetOpenCardDeskId = 0;
-			NWhoFirstGetPokerDeskId = 0;
-			NLeftPokerCount = 0;
-			foreach(var v in DeskCardList)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(v);
-			}
-			DeskCardList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_RecoverSceneInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NPlayerState = 0;
-			NRoomState = 0;
-			NGameState = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Detail_RoomInfo>.recycle(MRoomInfo);
-			MRoomInfo = null;
-			IMessagePool<NetProtocols.Game.packet_data_GameStartInfo>.recycle(MGameStartInfo);
-			MGameStartInfo = null;
-			FRecoverCdTime = 0;
-			NLandlordId = 0;
-			NWhoRobLandlordingId = 0;
-			RemainLandlordCardList.Clear();
-			NFinalAddMultuile = 0;
-			NCurrentBetAddMultuileDeskId = 0;
-			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(LastPlayHandInfo);
-			LastPlayHandInfo = null;
-			NWhoPlayhandingId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_ConnectLobby : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MCreaterDB);
-			MCreaterDB = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_ConnectLobby_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
-			MRoomEntryListInfo = null;
-			IMessagePool<NetProtocols.Game.packet_data_RecoverSceneInfo>.recycle(MRecoverSceneInfo);
-			MRecoverSceneInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_DisConnectLobby : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_DisConnectLobby_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_RoomEntryInfoPage : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NPageIndex = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_RoomEntryInfoPage_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
-			MRoomEntryListInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_UpdatePlayerDb : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
-			MPlayerDB = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_UpdatePlayerDb_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_CreateRoom : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
-			MRoomBasicInfo = null;
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MCreaterDB);
-			MCreaterDB = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_CreateRoomResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			NRoomId = 0;
-			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(MDeskInfo);
-			MDeskInfo = null;
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerInfo);
-			MPlayerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_ModifyRoom : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
-			MRoomBasicInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_ModifyRoomResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_EnterRoom : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NRoomId = 0;
-			StrPassword = string.Empty;
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
-			MPlayerDB = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_QuickJoinRoom : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(MPlayerDB);
-			MPlayerDB = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_EnterRoomResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			IMessagePool<NetProtocols.Game.packet_data_RecoverSceneInfo>.recycle(MRecoverSceneInfo);
-			MRecoverSceneInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_LeaveRoom : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_LeaveRoomResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_addRobot : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_addRobotResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_SpectatorToDesk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NUserId = 0;
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_SpectatorToDeskResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_DeskToSpectator : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_DeskToSpectatorResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_ZhuDongSwitchDesk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			NAction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_ZhuDongSwitchDeskResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			NDeskId = 0;
-			NAction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_WhoWithMechangeDesk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_changeDeskHuiDa : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			BOk = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_ShuangFangSwitchDeskResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			BOk = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_kichPlayer : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NUserId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_kichPlayerResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_orPrepare : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			BPrepare = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_orPrepareReuslt : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			BPrepare = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_Hang : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			BHang = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_HangResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			BHang = false;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_robLandlord : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NRobAction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_robLandlord_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_AddBetMultuile : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NMultuile = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_AddBetMultuile_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_playhand : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			CardList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_playhand_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_Online_PeopleCount : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NPeopleCount = 0;
-			NRobotCount = 0;
-			NRealPlayerCount = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_RoomEntryList_Change : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_RoomEntryListInfo>.recycle(MRoomEntryListInfo);
-			MRoomEntryListInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_RoomBasicInfoChange : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
-			MRoomBasicInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_DeskInfoChange : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(DeskInfo);
-			DeskInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_PlayerInfoChange : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(PlayerInfo);
-			PlayerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_PlayerEnterRoomInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(PlayerInfo);
-			PlayerInfo = null;
-			IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(DeskInfo);
-			DeskInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_PlayerLeaveRoomInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NUserId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_KichPlayerInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NUserId = 0;
-			NReason = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_UpdateRoomAllInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_Basic_RoomInfo>.recycle(MRoomBasicInfo);
-			MRoomBasicInfo = null;
-			foreach(var v in PlayerInfoList)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_playerInfo>.recycle(v);
-			}
-			PlayerInfoList.Clear();
-			foreach(var v in DeskInfoList)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_deskInfo>.recycle(v);
-			}
-			DeskInfoList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_entergame : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_GameStartInfo>.recycle(MGameStartInfo);
-			MGameStartInfo = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_robLandlord : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_robLandlordResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			NRobAction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_SureLandlord : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(RemainLandlordCardList);
-			RemainLandlordCardList = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_who_AddBetMultuile : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_AddBetMultuileResult : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			NMultuile = 0;
-			NFinalAddMultuile = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_whoPlayhand : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_playhand_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(PlayHandList);
-			PlayHandList = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_notice_winlose : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NDeskId = 0;
-			foreach(var v in OthercardList)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_deskcardInfo>.recycle(v);
-			}
-			OthercardList.Clear();
+			MRoleList.Clear();
 		}
 	}
 }

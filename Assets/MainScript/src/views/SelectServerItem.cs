@@ -16,8 +16,15 @@ public class SelectServerItem : MonoBehaviour
         mClickBtn.onClick.AddListener(() =>
         {
             PrintTool.Log(mData);
-            DataCenter.Instance.currentSelectServerItemData = mData;
-            NetClientGameMgr.Instance.Init();
+            if (mData.nState != EServerState.Maintenance)
+            {
+                DataCenter.Instance.currentSelectServerItemData = mData;
+                NetClientGameMgr.Instance.Init();
+            }
+            else
+            {
+                PrintTool.Log("服务器在维护！！");
+            }
         });
     }
 

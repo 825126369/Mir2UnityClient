@@ -1,4 +1,3 @@
-using NetProtocols.Login;
 using NetProtocols.SelectGate;
 using UnityEngine;
 using XKNet.Common;
@@ -10,8 +9,8 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
     public void Init()
     {
         mNetClient = new TcpNetClientMain();
-        mNetClient.ConnectServer("127.0.0.1", 9100);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
+        mNetClient.ConnectServer("127.0.0.1", 9100);
     }
 
     private void Start()
