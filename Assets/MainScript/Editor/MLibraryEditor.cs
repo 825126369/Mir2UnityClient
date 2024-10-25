@@ -13,7 +13,7 @@ using static UnityEditor.AddressableAssets.Build.BuildPipelineTasks.GenerateLoca
 
 public static class MLibraryEditor
 {
-    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client6/";
+    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client8/";
     public const string RootDir = "D:/Me/MyProject/CrystalMir2/Client/";
 
     public const string DataPath = RootDir + "Data/",
@@ -839,10 +839,21 @@ public static class TextureRequestMgr
                 UnityEngine.Color color1 = texture.GetPixel(x, y);
                 UnityEngine.Color color2 = texture.GetPixel(x, nHeight - 1 - y);
 
-                texture.SetPixel(x, y, color2);
-                texture.SetPixel(x, nHeight - 1 - y, color1);
+                //r,g,b,a
+                //a,r,g,b
+
+               // texture.SetPixel(x, y, color2);
+                //texture.SetPixel(x, nHeight - 1 - y, color1);
+
+                texture.SetPixel(x, y, new UnityEngine.Color(color2.r + 100, color2.g, color2.b, color2.a));
+                texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.r + 100, color1.g, color1.b, color1.a));
+
+                //texture.SetPixel(x, y, new UnityEngine.Color(color2.a, color2.r, color2.g, color2.b));
+                //texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.a, color1.r, color1.g, color1.r));
             }
         }
+
+        //texture.Apply();
         Data = texture.EncodeToPNG();
         File.WriteAllBytes(outPath, Data);
         UnityEngine.Object.DestroyImmediate(texture);

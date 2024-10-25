@@ -15,7 +15,7 @@ public static class IPAddressHelper
         }
         catch (Exception e)
         {
-            PrintTool.LogError(e);
+            PrintTool.LogError(e.Message + " | " + e.StackTrace);
         }
         return false;
     }

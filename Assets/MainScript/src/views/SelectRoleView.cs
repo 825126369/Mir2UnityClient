@@ -20,4 +20,9 @@ public class SelectRoleView : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void RefreshView()
+    {
+
+    }
+
 }

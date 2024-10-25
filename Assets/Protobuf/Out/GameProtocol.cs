@@ -24,32 +24,32 @@ namespace NetProtocols.Game {
     static GameProtocolReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJHYW1lUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYW1lIoUBCh9w",
-            "YWNrZXRfZGF0YV9TZWxlY3RSb2xlX1JvbGVJbmZvEhIKCm5Sb2xlSW5kZXgY",
-            "ASABKA0SDAoETmFtZRgCIAEoCRIOCgZHZW5kZXIYAyABKA0SDQoFQ2xhc3MY",
-            "BCABKA0SDQoFTGV2ZWwYBSABKA0SEgoKTGFzdEFjY2VzcxgGIAEoDSIfCh1w",
-            "YWNrZXRfY3NfcmVxdWVzdF9BbGxSb2xlSW5mbyKBAQokcGFja2V0X3NjX3Jl",
-            "cXVlc3RfQWxsUm9sZUluZm9fUmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0S",
-            "RQoJbVJvbGVMaXN0GAIgAygLMjIuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0",
-            "X2RhdGFfU2VsZWN0Um9sZV9Sb2xlSW5mbyJLChxwYWNrZXRfY3NfcmVxdWVz",
-            "dF9DcmVhdGVSb2xlEgwKBE5hbWUYASABKAkSDgoGR2VuZGVyGAIgASgNEg0K",
-            "BUNsYXNzGAMgASgNIoABCiNwYWNrZXRfc2NfcmVxdWVzdF9DcmVhdGVSb2xl",
-            "X1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEkUKCW1Sb2xlTGlzdBgCIAMo",
-            "CzIyLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX1NlbGVjdFJvbGVf",
-            "Um9sZUluZm8iMgoccGFja2V0X2NzX3JlcXVlc3RfRGVsZXRlUm9sZRISCgpu",
-            "Um9sZUluZGV4GAEgASgNIoABCiNwYWNrZXRfc2NfcmVxdWVzdF9EZWxldGVS",
-            "b2xlX1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEkUKCW1Sb2xlTGlzdBgC",
-            "IAMoCzIyLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX1NlbGVjdFJv",
-            "bGVfUm9sZUluZm9iBnByb3RvMw=="));
+            "ChJHYW1lUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYW1lInEKH3Bh",
+            "Y2tldF9kYXRhX1NlbGVjdFJvbGVfUm9sZUluZm8SEgoKblJvbGVJbmRleBgB",
+            "IAEoDRIMCgROYW1lGAIgASgJEg4KBkdlbmRlchgDIAEoDRINCgVDbGFzcxgE",
+            "IAEoDRINCgVMZXZlbBgFIAEoDSIzCh1wYWNrZXRfY3NfcmVxdWVzdF9BbGxS",
+            "b2xlSW5mbxISCgpuQWNjb3VudElkGAEgASgNIoEBCiRwYWNrZXRfc2NfcmVx",
+            "dWVzdF9BbGxSb2xlSW5mb19SZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDRJF",
+            "CgltUm9sZUxpc3QYAiADKAsyMi5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRf",
+            "ZGF0YV9TZWxlY3RSb2xlX1JvbGVJbmZvIl8KHHBhY2tldF9jc19yZXF1ZXN0",
+            "X0NyZWF0ZVJvbGUSEgoKbkFjY291bnRJZBgBIAEoDRIMCgROYW1lGAIgASgJ",
+            "Eg4KBkdlbmRlchgDIAEoDRINCgVDbGFzcxgEIAEoDSKAAQojcGFja2V0X3Nj",
+            "X3JlcXVlc3RfQ3JlYXRlUm9sZV9SZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEo",
+            "DRJFCgltUm9sZUxpc3QYAiADKAsyMi5OZXRQcm90b2NvbHMuR2FtZS5wYWNr",
+            "ZXRfZGF0YV9TZWxlY3RSb2xlX1JvbGVJbmZvIjEKHHBhY2tldF9jc19yZXF1",
+            "ZXN0X0RlbGV0ZVJvbGUSEQoJblBsYXllcklkGAEgASgNIoABCiNwYWNrZXRf",
+            "c2NfcmVxdWVzdF9EZWxldGVSb2xlX1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEg",
+            "ASgNEkUKCW1Sb2xlTGlzdBgCIAMoCzIyLk5ldFByb3RvY29scy5HYW1lLnBh",
+            "Y2tldF9kYXRhX1NlbGVjdFJvbGVfUm9sZUluZm9iBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_SelectRole_RoleInfo), global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser, new[]{ "NRoleIndex", "Name", "Gender", "Class", "Level", "LastAccess" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_AllRoleInfo), global::NetProtocols.Game.packet_cs_request_AllRoleInfo.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_SelectRole_RoleInfo), global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser, new[]{ "NRoleIndex", "Name", "Gender", "Class", "Level" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_AllRoleInfo), global::NetProtocols.Game.packet_cs_request_AllRoleInfo.Parser, new[]{ "NAccountId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_AllRoleInfo_Result), global::NetProtocols.Game.packet_sc_request_AllRoleInfo_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_CreateRole), global::NetProtocols.Game.packet_cs_request_CreateRole.Parser, new[]{ "Name", "Gender", "Class" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_CreateRole), global::NetProtocols.Game.packet_cs_request_CreateRole.Parser, new[]{ "NAccountId", "Name", "Gender", "Class" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_CreateRole_Result), global::NetProtocols.Game.packet_sc_request_CreateRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_DeleteRole), global::NetProtocols.Game.packet_cs_request_DeleteRole.Parser, new[]{ "NRoleIndex" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_DeleteRole), global::NetProtocols.Game.packet_cs_request_DeleteRole.Parser, new[]{ "NPlayerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_DeleteRole_Result), global::NetProtocols.Game.packet_sc_request_DeleteRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null)
           }));
     }
@@ -100,7 +100,6 @@ namespace NetProtocols.Game {
       gender_ = other.gender_;
       class_ = other.class_;
       level_ = other.level_;
-      lastAccess_ = other.lastAccess_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -170,18 +169,6 @@ namespace NetProtocols.Game {
       }
     }
 
-    /// <summary>Field number for the "LastAccess" field.</summary>
-    public const int LastAccessFieldNumber = 6;
-    private uint lastAccess_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint LastAccess {
-      get { return lastAccess_; }
-      set {
-        lastAccess_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -202,7 +189,6 @@ namespace NetProtocols.Game {
       if (Gender != other.Gender) return false;
       if (Class != other.Class) return false;
       if (Level != other.Level) return false;
-      if (LastAccess != other.LastAccess) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -215,7 +201,6 @@ namespace NetProtocols.Game {
       if (Gender != 0) hash ^= Gender.GetHashCode();
       if (Class != 0) hash ^= Class.GetHashCode();
       if (Level != 0) hash ^= Level.GetHashCode();
-      if (LastAccess != 0) hash ^= LastAccess.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -254,10 +239,6 @@ namespace NetProtocols.Game {
         output.WriteRawTag(40);
         output.WriteUInt32(Level);
       }
-      if (LastAccess != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(LastAccess);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -288,10 +269,6 @@ namespace NetProtocols.Game {
         output.WriteRawTag(40);
         output.WriteUInt32(Level);
       }
-      if (LastAccess != 0) {
-        output.WriteRawTag(48);
-        output.WriteUInt32(LastAccess);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -316,9 +293,6 @@ namespace NetProtocols.Game {
       }
       if (Level != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Level);
-      }
-      if (LastAccess != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(LastAccess);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -346,9 +320,6 @@ namespace NetProtocols.Game {
       }
       if (other.Level != 0) {
         Level = other.Level;
-      }
-      if (other.LastAccess != 0) {
-        LastAccess = other.LastAccess;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -389,10 +360,6 @@ namespace NetProtocols.Game {
             Level = input.ReadUInt32();
             break;
           }
-          case 48: {
-            LastAccess = input.ReadUInt32();
-            break;
-          }
         }
       }
     #endif
@@ -430,10 +397,6 @@ namespace NetProtocols.Game {
           }
           case 40: {
             Level = input.ReadUInt32();
-            break;
-          }
-          case 48: {
-            LastAccess = input.ReadUInt32();
             break;
           }
         }
@@ -482,6 +445,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_cs_request_AllRoleInfo(packet_cs_request_AllRoleInfo other) : this() {
+      nAccountId_ = other.nAccountId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -489,6 +453,18 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_cs_request_AllRoleInfo Clone() {
       return new packet_cs_request_AllRoleInfo(this);
+    }
+
+    /// <summary>Field number for the "nAccountId" field.</summary>
+    public const int NAccountIdFieldNumber = 1;
+    private uint nAccountId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint NAccountId {
+      get { return nAccountId_; }
+      set {
+        nAccountId_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -506,6 +482,7 @@ namespace NetProtocols.Game {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (NAccountId != other.NAccountId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -513,6 +490,7 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (NAccountId != 0) hash ^= NAccountId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -531,6 +509,10 @@ namespace NetProtocols.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (NAccountId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NAccountId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -541,6 +523,10 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (NAccountId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NAccountId);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -551,6 +537,9 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (NAccountId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NAccountId);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -562,6 +551,9 @@ namespace NetProtocols.Game {
     public void MergeFrom(packet_cs_request_AllRoleInfo other) {
       if (other == null) {
         return;
+      }
+      if (other.NAccountId != 0) {
+        NAccountId = other.NAccountId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -582,6 +574,10 @@ namespace NetProtocols.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            NAccountId = input.ReadUInt32();
+            break;
+          }
         }
       }
     #endif
@@ -601,6 +597,10 @@ namespace NetProtocols.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            NAccountId = input.ReadUInt32();
+            break;
+          }
         }
       }
     }
@@ -870,6 +870,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_cs_request_CreateRole(packet_cs_request_CreateRole other) : this() {
+      nAccountId_ = other.nAccountId_;
       name_ = other.name_;
       gender_ = other.gender_;
       class_ = other.class_;
@@ -882,8 +883,20 @@ namespace NetProtocols.Game {
       return new packet_cs_request_CreateRole(this);
     }
 
+    /// <summary>Field number for the "nAccountId" field.</summary>
+    public const int NAccountIdFieldNumber = 1;
+    private uint nAccountId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint NAccountId {
+      get { return nAccountId_; }
+      set {
+        nAccountId_ = value;
+      }
+    }
+
     /// <summary>Field number for the "Name" field.</summary>
-    public const int NameFieldNumber = 1;
+    public const int NameFieldNumber = 2;
     private string name_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -895,7 +908,7 @@ namespace NetProtocols.Game {
     }
 
     /// <summary>Field number for the "Gender" field.</summary>
-    public const int GenderFieldNumber = 2;
+    public const int GenderFieldNumber = 3;
     private uint gender_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -907,7 +920,7 @@ namespace NetProtocols.Game {
     }
 
     /// <summary>Field number for the "Class" field.</summary>
-    public const int ClassFieldNumber = 3;
+    public const int ClassFieldNumber = 4;
     private uint class_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -933,6 +946,7 @@ namespace NetProtocols.Game {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (NAccountId != other.NAccountId) return false;
       if (Name != other.Name) return false;
       if (Gender != other.Gender) return false;
       if (Class != other.Class) return false;
@@ -943,6 +957,7 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (NAccountId != 0) hash ^= NAccountId.GetHashCode();
       if (Name.Length != 0) hash ^= Name.GetHashCode();
       if (Gender != 0) hash ^= Gender.GetHashCode();
       if (Class != 0) hash ^= Class.GetHashCode();
@@ -964,16 +979,20 @@ namespace NetProtocols.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (NAccountId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NAccountId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(Name);
       }
       if (Gender != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteUInt32(Gender);
       }
       if (Class != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteUInt32(Class);
       }
       if (_unknownFields != null) {
@@ -986,16 +1005,20 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (NAccountId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NAccountId);
+      }
       if (Name.Length != 0) {
-        output.WriteRawTag(10);
+        output.WriteRawTag(18);
         output.WriteString(Name);
       }
       if (Gender != 0) {
-        output.WriteRawTag(16);
+        output.WriteRawTag(24);
         output.WriteUInt32(Gender);
       }
       if (Class != 0) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(32);
         output.WriteUInt32(Class);
       }
       if (_unknownFields != null) {
@@ -1008,6 +1031,9 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (NAccountId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NAccountId);
+      }
       if (Name.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Name);
       }
@@ -1028,6 +1054,9 @@ namespace NetProtocols.Game {
     public void MergeFrom(packet_cs_request_CreateRole other) {
       if (other == null) {
         return;
+      }
+      if (other.NAccountId != 0) {
+        NAccountId = other.NAccountId;
       }
       if (other.Name.Length != 0) {
         Name = other.Name;
@@ -1057,15 +1086,19 @@ namespace NetProtocols.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 10: {
+          case 8: {
+            NAccountId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
             Name = input.ReadString();
             break;
           }
-          case 16: {
+          case 24: {
             Gender = input.ReadUInt32();
             break;
           }
-          case 24: {
+          case 32: {
             Class = input.ReadUInt32();
             break;
           }
@@ -1088,15 +1121,19 @@ namespace NetProtocols.Game {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 10: {
+          case 8: {
+            NAccountId = input.ReadUInt32();
+            break;
+          }
+          case 18: {
             Name = input.ReadString();
             break;
           }
-          case 16: {
+          case 24: {
             Gender = input.ReadUInt32();
             break;
           }
-          case 24: {
+          case 32: {
             Class = input.ReadUInt32();
             break;
           }
@@ -1369,7 +1406,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_cs_request_DeleteRole(packet_cs_request_DeleteRole other) : this() {
-      nRoleIndex_ = other.nRoleIndex_;
+      nPlayerId_ = other.nPlayerId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1379,15 +1416,15 @@ namespace NetProtocols.Game {
       return new packet_cs_request_DeleteRole(this);
     }
 
-    /// <summary>Field number for the "nRoleIndex" field.</summary>
-    public const int NRoleIndexFieldNumber = 1;
-    private uint nRoleIndex_;
+    /// <summary>Field number for the "nPlayerId" field.</summary>
+    public const int NPlayerIdFieldNumber = 1;
+    private uint nPlayerId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public uint NRoleIndex {
-      get { return nRoleIndex_; }
+    public uint NPlayerId {
+      get { return nPlayerId_; }
       set {
-        nRoleIndex_ = value;
+        nPlayerId_ = value;
       }
     }
 
@@ -1406,7 +1443,7 @@ namespace NetProtocols.Game {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (NRoleIndex != other.NRoleIndex) return false;
+      if (NPlayerId != other.NPlayerId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1414,7 +1451,7 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (NRoleIndex != 0) hash ^= NRoleIndex.GetHashCode();
+      if (NPlayerId != 0) hash ^= NPlayerId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1433,9 +1470,9 @@ namespace NetProtocols.Game {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (NRoleIndex != 0) {
+      if (NPlayerId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(NRoleIndex);
+        output.WriteUInt32(NPlayerId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -1447,9 +1484,9 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (NRoleIndex != 0) {
+      if (NPlayerId != 0) {
         output.WriteRawTag(8);
-        output.WriteUInt32(NRoleIndex);
+        output.WriteUInt32(NPlayerId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1461,8 +1498,8 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (NRoleIndex != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NRoleIndex);
+      if (NPlayerId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NPlayerId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1476,8 +1513,8 @@ namespace NetProtocols.Game {
       if (other == null) {
         return;
       }
-      if (other.NRoleIndex != 0) {
-        NRoleIndex = other.NRoleIndex;
+      if (other.NPlayerId != 0) {
+        NPlayerId = other.NPlayerId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1499,7 +1536,7 @@ namespace NetProtocols.Game {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            NRoleIndex = input.ReadUInt32();
+            NPlayerId = input.ReadUInt32();
             break;
           }
         }
@@ -1522,7 +1559,7 @@ namespace NetProtocols.Game {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 8: {
-            NRoleIndex = input.ReadUInt32();
+            NPlayerId = input.ReadUInt32();
             break;
           }
         }

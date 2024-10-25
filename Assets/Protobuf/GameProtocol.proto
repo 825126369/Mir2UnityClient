@@ -9,14 +9,13 @@ message packet_data_SelectRole_RoleInfo
 	uint32 Gender = 3;
 	uint32 Class = 4;
 	uint32 Level = 5;
-	uint32 LastAccess = 6;
 }
 
 //-----------------------------消息-------------------
 //选人界面，请求所有角色信息
 message packet_cs_request_AllRoleInfo
 {
-	
+	uint32 nAccountId = 1;
 }
 
 message packet_sc_request_AllRoleInfo_Result
@@ -28,9 +27,10 @@ message packet_sc_request_AllRoleInfo_Result
 //选人界面，创建角色
 message packet_cs_request_CreateRole
 {
-	string Name = 1;
-	uint32 Gender = 2;
-	uint32 Class = 3;
+	uint32 nAccountId = 1;
+	string Name = 2;
+	uint32 Gender = 3;
+	uint32 Class = 4;
 }
 
 message packet_sc_request_CreateRole_Result
@@ -42,7 +42,7 @@ message packet_sc_request_CreateRole_Result
 //选人界面， 删除角色
 message packet_cs_request_DeleteRole
 {
-	uint32 nRoleIndex = 1;
+	uint32 nPlayerId = 1;
 }
 
 message packet_sc_request_DeleteRole_Result

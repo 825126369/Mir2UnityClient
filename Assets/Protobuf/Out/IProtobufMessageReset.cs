@@ -1,4 +1,77 @@
 using XKNet.Common;
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+			NAccountId = 0;
+			SelectGateServerConnectStr = string.Empty;
+			BanReason = string.Empty;
+			ExpiryDate = 0;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_Login : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			Password = string.Empty;
+			NLoginType = 0;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_Register : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			Password = string.Empty;
+			NLoginType = 0;
+			SecretQuestion = string.Empty;
+			SecretAnswer = string.Empty;
+			EMailAddress = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_Register_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_ChangePassword : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			CurrentPassword = string.Empty;
+			NewPassword = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_ChangePassword_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+		}
+	}
+}
 namespace NetProtocols.SelectGate
 {
 	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
@@ -82,78 +155,6 @@ namespace NetProtocols.SelectGate
 		}
 	}
 }
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-			GateServerIp = string.Empty;
-			BanReason = string.Empty;
-			ExpiryDate = 0;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_Login : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			Password = string.Empty;
-			NLoginType = 0;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_Register : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			Password = string.Empty;
-			NLoginType = 0;
-			SecretQuestion = string.Empty;
-			SecretAnswer = string.Empty;
-			EMailAddress = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_Register_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_ChangePassword : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			CurrentPassword = string.Empty;
-			NewPassword = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_ChangePassword_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
 namespace NetProtocols.Gate
 {
 	public sealed partial class packet_IG_Register : IProtobufResetInterface
@@ -186,7 +187,6 @@ namespace NetProtocols.Game
 			Gender = 0;
 			Class = 0;
 			Level = 0;
-			LastAccess = 0;
 		}
 	}
 }
@@ -196,6 +196,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
+			NAccountId = 0;
 		}
 	}
 }
@@ -220,6 +221,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
+			NAccountId = 0;
 			Name = string.Empty;
 			Gender = 0;
 			Class = 0;
@@ -247,7 +249,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NRoleIndex = 0;
+			NPlayerId = 0;
 		}
 	}
 }

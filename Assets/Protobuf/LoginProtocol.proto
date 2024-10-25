@@ -12,9 +12,10 @@ message packet_cs_Login
 message packet_sc_Login_Result
 {
 	uint32 nErrorCode = 1;
-	string gateServerIp = 2;
-	string BanReason = 3;
-	uint64 ExpiryDate = 4;
+	uint32 nAccountId = 2;
+	string selectGateServerConnectStr = 3;
+	string BanReason = 4;
+	uint64 ExpiryDate = 5;
 }
 
 message packet_cs_Register

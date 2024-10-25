@@ -26,22 +26,23 @@ namespace NetProtocols.Login {
           string.Concat(
             "ChNMb2dpblByb3RvY29sLnByb3RvEhJOZXRQcm90b2NvbHMuTG9naW4iSAoP",
             "cGFja2V0X2NzX0xvZ2luEg8KB2FjY291bnQYASABKAkSEAoIcGFzc3dvcmQY",
-            "AiABKAkSEgoKbkxvZ2luVHlwZRgDIAEoDSJpChZwYWNrZXRfc2NfTG9naW5f",
-            "UmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0SFAoMZ2F0ZVNlcnZlcklwGAIg",
-            "ASgJEhEKCUJhblJlYXNvbhgDIAEoCRISCgpFeHBpcnlEYXRlGAQgASgEIo8B",
-            "ChJwYWNrZXRfY3NfUmVnaXN0ZXISDwoHYWNjb3VudBgBIAEoCRIQCghwYXNz",
-            "d29yZBgCIAEoCRISCgpuTG9naW5UeXBlGAMgASgNEhYKDlNlY3JldFF1ZXN0",
-            "aW9uGAQgASgJEhQKDFNlY3JldEFuc3dlchgFIAEoCRIUCgxFTWFpbEFkZHJl",
-            "c3MYBiABKAkiLwoZcGFja2V0X3NjX1JlZ2lzdGVyX1Jlc3VsdBISCgpuRXJy",
-            "b3JDb2RlGAEgASgNIlkKGHBhY2tldF9jc19DaGFuZ2VQYXNzd29yZBIPCgdh",
-            "Y2NvdW50GAEgASgJEhcKD0N1cnJlbnRQYXNzd29yZBgCIAEoCRITCgtOZXdQ",
-            "YXNzd29yZBgDIAEoCSI1Ch9wYWNrZXRfc2NfQ2hhbmdlUGFzc3dvcmRfUmVz",
-            "dWx0EhIKCm5FcnJvckNvZGUYASABKA1iBnByb3RvMw=="));
+            "AiABKAkSEgoKbkxvZ2luVHlwZRgDIAEoDSKLAQoWcGFja2V0X3NjX0xvZ2lu",
+            "X1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEhIKCm5BY2NvdW50SWQYAiAB",
+            "KA0SIgoac2VsZWN0R2F0ZVNlcnZlckNvbm5lY3RTdHIYAyABKAkSEQoJQmFu",
+            "UmVhc29uGAQgASgJEhIKCkV4cGlyeURhdGUYBSABKAQijwEKEnBhY2tldF9j",
+            "c19SZWdpc3RlchIPCgdhY2NvdW50GAEgASgJEhAKCHBhc3N3b3JkGAIgASgJ",
+            "EhIKCm5Mb2dpblR5cGUYAyABKA0SFgoOU2VjcmV0UXVlc3Rpb24YBCABKAkS",
+            "FAoMU2VjcmV0QW5zd2VyGAUgASgJEhQKDEVNYWlsQWRkcmVzcxgGIAEoCSIv",
+            "ChlwYWNrZXRfc2NfUmVnaXN0ZXJfUmVzdWx0EhIKCm5FcnJvckNvZGUYASAB",
+            "KA0iWQoYcGFja2V0X2NzX0NoYW5nZVBhc3N3b3JkEg8KB2FjY291bnQYASAB",
+            "KAkSFwoPQ3VycmVudFBhc3N3b3JkGAIgASgJEhMKC05ld1Bhc3N3b3JkGAMg",
+            "ASgJIjUKH3BhY2tldF9zY19DaGFuZ2VQYXNzd29yZF9SZXN1bHQSEgoKbkVy",
+            "cm9yQ29kZRgBIAEoDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_cs_Login), global::NetProtocols.Login.packet_cs_Login.Parser, new[]{ "Account", "Password", "NLoginType" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_sc_Login_Result), global::NetProtocols.Login.packet_sc_Login_Result.Parser, new[]{ "NErrorCode", "GateServerIp", "BanReason", "ExpiryDate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_sc_Login_Result), global::NetProtocols.Login.packet_sc_Login_Result.Parser, new[]{ "NErrorCode", "NAccountId", "SelectGateServerConnectStr", "BanReason", "ExpiryDate" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_cs_Register), global::NetProtocols.Login.packet_cs_Register.Parser, new[]{ "Account", "Password", "NLoginType", "SecretQuestion", "SecretAnswer", "EMailAddress" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_sc_Register_Result), global::NetProtocols.Login.packet_sc_Register_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Login.packet_cs_ChangePassword), global::NetProtocols.Login.packet_cs_ChangePassword.Parser, new[]{ "Account", "CurrentPassword", "NewPassword" }, null, null, null, null),
@@ -363,7 +364,8 @@ namespace NetProtocols.Login {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_sc_Login_Result(packet_sc_Login_Result other) : this() {
       nErrorCode_ = other.nErrorCode_;
-      gateServerIp_ = other.gateServerIp_;
+      nAccountId_ = other.nAccountId_;
+      selectGateServerConnectStr_ = other.selectGateServerConnectStr_;
       banReason_ = other.banReason_;
       expiryDate_ = other.expiryDate_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -387,20 +389,32 @@ namespace NetProtocols.Login {
       }
     }
 
-    /// <summary>Field number for the "gateServerIp" field.</summary>
-    public const int GateServerIpFieldNumber = 2;
-    private string gateServerIp_ = "";
+    /// <summary>Field number for the "nAccountId" field.</summary>
+    public const int NAccountIdFieldNumber = 2;
+    private uint nAccountId_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string GateServerIp {
-      get { return gateServerIp_; }
+    public uint NAccountId {
+      get { return nAccountId_; }
       set {
-        gateServerIp_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        nAccountId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "selectGateServerConnectStr" field.</summary>
+    public const int SelectGateServerConnectStrFieldNumber = 3;
+    private string selectGateServerConnectStr_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string SelectGateServerConnectStr {
+      get { return selectGateServerConnectStr_; }
+      set {
+        selectGateServerConnectStr_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
     /// <summary>Field number for the "BanReason" field.</summary>
-    public const int BanReasonFieldNumber = 3;
+    public const int BanReasonFieldNumber = 4;
     private string banReason_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -412,7 +426,7 @@ namespace NetProtocols.Login {
     }
 
     /// <summary>Field number for the "ExpiryDate" field.</summary>
-    public const int ExpiryDateFieldNumber = 4;
+    public const int ExpiryDateFieldNumber = 5;
     private ulong expiryDate_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -439,7 +453,8 @@ namespace NetProtocols.Login {
         return true;
       }
       if (NErrorCode != other.NErrorCode) return false;
-      if (GateServerIp != other.GateServerIp) return false;
+      if (NAccountId != other.NAccountId) return false;
+      if (SelectGateServerConnectStr != other.SelectGateServerConnectStr) return false;
       if (BanReason != other.BanReason) return false;
       if (ExpiryDate != other.ExpiryDate) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -450,7 +465,8 @@ namespace NetProtocols.Login {
     public override int GetHashCode() {
       int hash = 1;
       if (NErrorCode != 0) hash ^= NErrorCode.GetHashCode();
-      if (GateServerIp.Length != 0) hash ^= GateServerIp.GetHashCode();
+      if (NAccountId != 0) hash ^= NAccountId.GetHashCode();
+      if (SelectGateServerConnectStr.Length != 0) hash ^= SelectGateServerConnectStr.GetHashCode();
       if (BanReason.Length != 0) hash ^= BanReason.GetHashCode();
       if (ExpiryDate != 0UL) hash ^= ExpiryDate.GetHashCode();
       if (_unknownFields != null) {
@@ -475,16 +491,20 @@ namespace NetProtocols.Login {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(GateServerIp);
+      if (NAccountId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(NAccountId);
+      }
+      if (SelectGateServerConnectStr.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(SelectGateServerConnectStr);
       }
       if (BanReason.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(BanReason);
       }
       if (ExpiryDate != 0UL) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteUInt64(ExpiryDate);
       }
       if (_unknownFields != null) {
@@ -501,16 +521,20 @@ namespace NetProtocols.Login {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(GateServerIp);
+      if (NAccountId != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(NAccountId);
+      }
+      if (SelectGateServerConnectStr.Length != 0) {
+        output.WriteRawTag(26);
+        output.WriteString(SelectGateServerConnectStr);
       }
       if (BanReason.Length != 0) {
-        output.WriteRawTag(26);
+        output.WriteRawTag(34);
         output.WriteString(BanReason);
       }
       if (ExpiryDate != 0UL) {
-        output.WriteRawTag(32);
+        output.WriteRawTag(40);
         output.WriteUInt64(ExpiryDate);
       }
       if (_unknownFields != null) {
@@ -526,8 +550,11 @@ namespace NetProtocols.Login {
       if (NErrorCode != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NErrorCode);
       }
-      if (GateServerIp.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(GateServerIp);
+      if (NAccountId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NAccountId);
+      }
+      if (SelectGateServerConnectStr.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(SelectGateServerConnectStr);
       }
       if (BanReason.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(BanReason);
@@ -550,8 +577,11 @@ namespace NetProtocols.Login {
       if (other.NErrorCode != 0) {
         NErrorCode = other.NErrorCode;
       }
-      if (other.GateServerIp.Length != 0) {
-        GateServerIp = other.GateServerIp;
+      if (other.NAccountId != 0) {
+        NAccountId = other.NAccountId;
+      }
+      if (other.SelectGateServerConnectStr.Length != 0) {
+        SelectGateServerConnectStr = other.SelectGateServerConnectStr;
       }
       if (other.BanReason.Length != 0) {
         BanReason = other.BanReason;
@@ -582,15 +612,19 @@ namespace NetProtocols.Login {
             NErrorCode = input.ReadUInt32();
             break;
           }
-          case 18: {
-            GateServerIp = input.ReadString();
+          case 16: {
+            NAccountId = input.ReadUInt32();
             break;
           }
           case 26: {
+            SelectGateServerConnectStr = input.ReadString();
+            break;
+          }
+          case 34: {
             BanReason = input.ReadString();
             break;
           }
-          case 32: {
+          case 40: {
             ExpiryDate = input.ReadUInt64();
             break;
           }
@@ -617,15 +651,19 @@ namespace NetProtocols.Login {
             NErrorCode = input.ReadUInt32();
             break;
           }
-          case 18: {
-            GateServerIp = input.ReadString();
+          case 16: {
+            NAccountId = input.ReadUInt32();
             break;
           }
           case 26: {
+            SelectGateServerConnectStr = input.ReadString();
+            break;
+          }
+          case 34: {
             BanReason = input.ReadString();
             break;
           }
-          case 32: {
+          case 40: {
             ExpiryDate = input.ReadUInt64();
             break;
           }

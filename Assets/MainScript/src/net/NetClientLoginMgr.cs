@@ -9,10 +9,14 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
     public void InitLoginServerClient()
     {
         LoginServer_NetClient = new TcpNetClientMain();
-        LoginServer_NetClient.ConnectServer("127.0.0.1", 9001);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
         LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
+
+        if (IPAddressHelper.TryParseConnectStr(DataCenter.LoginServerConnectStr, out string Ip, out ushort nPort))
+        {
+            LoginServer_NetClient.ConnectServer(Ip, nPort);
+        }
     }
 
     private void Update()
@@ -30,6 +34,9 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
             {
                 Destroy(UIMgr.Instance.LoginView.gameObject);
                 UIMgr.Instance.LoginView = null;
+
+                DataCenter.Instance.selectGateServerConnectStr = mReceiveMsg.SelectGateServerConnectStr;
+                DataCenter.Instance.nAccountId = mReceiveMsg.NAccountId;
                 NetClientSelectServerMgr.Instance.Init();
             }
         }
@@ -38,7 +45,6 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
 
-        //mReceiveMsg.Reset();
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 
@@ -54,8 +60,7 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-
-        mReceiveMsg.Reset();
+        
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 
@@ -71,8 +76,6 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-
-        mReceiveMsg.Reset();
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 }

@@ -10,7 +10,10 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
     {
         mNetClient = new TcpNetClientMain();
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
-        mNetClient.ConnectServer("127.0.0.1", 9100);
+        if (IPAddressHelper.TryParseConnectStr(DataCenter.Instance.selectGateServerConnectStr, out string Ip, out ushort nPort))
+        {
+            mNetClient.ConnectServer(Ip, nPort);
+        }
     }
 
     private void Start()
