@@ -34,7 +34,7 @@ public class LoginView : MonoBehaviour
             packet_cs_Login mData = new packet_cs_Login();
             mData.Account = AccountInputField.text;
             mData.Password = PasswordInputField.text;
-            NetClientLoginMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_LOGIN, mData);
+            NetClientLoginMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_LOGIN, mData);
         });
 
         RegisterBtn.onClick.AddListener(() =>

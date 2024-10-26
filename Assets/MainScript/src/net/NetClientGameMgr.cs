@@ -6,12 +6,15 @@ using XKNet.Tcp.Client;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {
-    public TcpNetClientMain mNetClient = null;
+    public TcpNetClientMain mNetClient = new TcpNetClientMain();
+    private bool bInit = false;
     public void Init()
     {
-        ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
+        if (bInit) return;
+        bInit = true;
 
-        mNetClient = new TcpNetClientMain();
+        ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
+        mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
         mNetClient.addNetListenFun(NetProtocolCommand.GC_INNER_SERVER_NET_ERROR, receive_gc_innerServer_Error_Result);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
@@ -23,7 +26,22 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
     }
 
-    private void Start()
+    public void Release()
+    {
+        mNetClient.Release();
+        mNetClient = null;
+        Destroy(this.gameObject);
+    }
+
+    private void ListenClientPeerState(ClientPeerBase mClientPeer)
+    {
+        if (mClientPeer.GetSocketState() == SOCKET_PEER_STATE.CONNECTED)
+        {
+            SendFirstMsg();
+        }
+    }
+    
+    private void SendFirstMsg()
     {
         var mSendMsg = IMessagePool<packet_cs_request_AllRoleInfo>.Pop();
         mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
@@ -48,6 +66,20 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("创建角色 成功");
+            List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
+            mList.Sort((x, y) =>
+            {
+                if (x.NCreateTime < y.NCreateTime)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            });
+            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
+            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
         }
         else
         {
@@ -62,6 +94,20 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("删除角色 成功");
+            List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
+            mList.Sort((x, y) =>
+            {
+                if (x.NCreateTime < y.NCreateTime)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            });
+            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
+            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
         }
         else
         {
@@ -88,9 +134,10 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
                     return 1;
                 }
             });
-
             DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
             DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
+
+            UIMgr.Instance.Show_SelectRoleView();
         }
         else
         {

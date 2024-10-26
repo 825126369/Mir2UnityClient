@@ -5,23 +5,30 @@ using XKNet.Tcp.Client;
 
 public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 {
-    public TcpNetClientMain LoginServer_NetClient = null;
+    public TcpNetClientMain mNetClient = null;
     public void InitLoginServerClient()
     {
-        LoginServer_NetClient = new TcpNetClientMain();
-        LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
-        LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
-        LoginServer_NetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
+        mNetClient = new TcpNetClientMain();
+        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
+        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
+        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
 
         if (IPAddressHelper.TryParseConnectStr(DataCenter.LoginServerConnectStr, out string Ip, out ushort nPort))
         {
-            LoginServer_NetClient.ConnectServer(Ip, nPort);
+            mNetClient.ConnectServer(Ip, nPort);
         }
+    }
+
+    public void Release()
+    {
+        mNetClient.Release();
+        mNetClient = null;
+        Destroy(this.gameObject);
     }
 
     private void Update()
     {
-        LoginServer_NetClient.Update(Time.deltaTime);
+        mNetClient.Update(Time.deltaTime);
     }
 
     void receive_scRequestLogin(ClientPeerBase clientPeer, NetPackage mNetPackage)
@@ -38,6 +45,7 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
                 DataCenter.Instance.selectGateServerConnectStr = mReceiveMsg.SelectGateServerConnectStr;
                 DataCenter.Instance.nAccountId = mReceiveMsg.NAccountId;
                 NetClientSelectServerMgr.Instance.Init();
+                this.mNetClient.Release();
             }
         }
         else

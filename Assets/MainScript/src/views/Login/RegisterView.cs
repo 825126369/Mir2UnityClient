@@ -75,7 +75,7 @@ public class RegisterView : MonoBehaviour
             mData.SecretQuestion = SecretQuestionInputField.text;
             mData.SecretAnswer = AnswerInputField.text;
             mData.EMailAddress = EmailInputField.text;
-            NetClientLoginMgr.Instance.LoginServer_NetClient.SendNetData(NetProtocolCommand.CS_REQUEST_REGISTER, mData);
+            NetClientLoginMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_REGISTER, mData);
 
         });
 

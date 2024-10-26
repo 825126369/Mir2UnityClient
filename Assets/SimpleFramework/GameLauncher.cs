@@ -91,12 +91,12 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         UIMgr.Instance.Init();
         NetClientLoginMgr.Instance.InitLoginServerClient();
 
-        while (NetClientLoginMgr.Instance.LoginServer_NetClient.GetSocketState() == XKNet.Common.SOCKET_PEER_STATE.CONNECTING)
+        while (NetClientLoginMgr.Instance.mNetClient.GetSocketState() == XKNet.Common.SOCKET_PEER_STATE.CONNECTING)
         {
             yield return null;
         }
 
-        if(NetClientLoginMgr.Instance.LoginServer_NetClient.GetSocketState() != XKNet.Common.SOCKET_PEER_STATE.CONNECTED)
+        if(NetClientLoginMgr.Instance.mNetClient.GetSocketState() != XKNet.Common.SOCKET_PEER_STATE.CONNECTED)
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "连接服务器失败！！！");
             yield break;

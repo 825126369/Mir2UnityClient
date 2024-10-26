@@ -25,7 +25,7 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
     public const string AssassinDescription = "刺客是一个秘密组织的成员，他们的历史相对不为人知。他们能够隐藏自己并进行攻击”+\r\n在别人看不见的情况下，这自然使他们擅长快速杀戮。他们有必要避免与之交战+\r\n“由于生命力和力量薄弱，敌人众多。";
     public const string ArcherDescription = "弓箭手是一个具有极高精准度和力量的职业，他们利用弓的强大技能在远距离造成非凡的伤害。就像+\r\n“巫师，他们依靠敏锐的直觉躲避迎面而来的攻击，因为他们倾向于让自己暴露在正面攻击之下。然而，他们的”+\r\n“身体力量和致命的目标使他们能够向任何被击中的人灌输恐惧。";
 
-    public const string LoginServerConnectStr = "192.168.0.157:33957";
+    public const string LoginServerConnectStr = "192.168.0.157:8010";
     public string selectGateServerConnectStr = string.Empty;
     public string GateServerConnectStr = string.Empty;
     public uint nAccountId = 0;

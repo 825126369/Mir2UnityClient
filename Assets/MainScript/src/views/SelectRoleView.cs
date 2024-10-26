@@ -46,6 +46,19 @@ public class SelectRoleView : MonoBehaviour
 
     public void RefreshView(List<packet_data_SelectRole_RoleInfo> mRoleList)
     {
+        if (nSelectRoleId == 0)
+        {
+            ulong nMaxLoginTime = 0;
+            foreach (var v in mRoleList)
+            {
+                if (nMaxLoginTime < v.NLastLoginTime)
+                {
+                    nMaxLoginTime = v.NLastLoginTime;
+                    nSelectRoleId = v.NRoleId;
+                }
+            }
+        }
+
         mItemPrefab.gameObject.SetActive(false);
         for (int i = 0; i < mRoleList.Count; i++)
         {
@@ -67,6 +80,7 @@ public class SelectRoleView : MonoBehaviour
             mItem.gameObject.SetActive(true);
             var mData = mRoleList[i];
             mItem.Refresh(mData);
+            mItem.OnSelect(this.nSelectRoleId);
         }
 
         for (int i = mRoleList.Count; i < mItemList.Count; i++)
@@ -74,84 +88,74 @@ public class SelectRoleView : MonoBehaviour
             mItemList[i].gameObject.SetActive(false);
         }
 
-        if (nSelectRoleId == 0)
+        if (mRoleList.Count > 0)
         {
-            ulong nMaxLoginTime = 0;
-            foreach (var v in mRoleList)
+            roleDisplay.gameObject.SetActive(true);
+            packet_data_SelectRole_RoleInfo mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
+            lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.NLastLoginTime).ToLongTimeString();
+            if (mSelectRoleInfo.Class == (uint)MirClass.Warrior)
             {
-                if (nMaxLoginTime < v.NLastLoginTime)
+                if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    nMaxLoginTime = v.NLastLoginTime;
-                    nSelectRoleId = v.NRoleId;
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_zhanshi_ani");
+                }
+                else
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_zhanshi_ani");
                 }
             }
-        }
-
-        packet_data_SelectRole_RoleInfo mSelectRoleInfo = mRoleList.Find((x)=>x.NRoleId == nSelectRoleId);
-        lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.NLastLoginTime).ToLongTimeString();
-        foreach (var item in mItemList)
-        {
-            item.OnSelect(this.nSelectRoleId);
-        }
-
-        if (mSelectRoleInfo.Class == (uint)MirClass.Warrior)
-        {
-            if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
+            else if (mSelectRoleInfo.Class == (uint)MirClass.Wizard)
             {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_zhanshi_ani");
+                if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_fashi_ani");
+                }
+                else
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_fashi_ani");
+                }
+            }
+            else if (mSelectRoleInfo.Class == (uint)MirClass.Taoist)
+            {
+                if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_daoshi_ani");
+                }
+                else
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_daoshi_ani");
+                }
+            }
+            else if (mSelectRoleInfo.Class == (uint)MirClass.Assassin)
+            {
+                if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_cike_ani");
+                }
+                else
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_cike_ani");
+                }
+            }
+            else if (mSelectRoleInfo.Class == (uint)MirClass.Archer)
+            {
+                if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_sheshou_ani");
+                }
+                else
+                {
+                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_sheshou_ani");
+                }
             }
             else
             {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_zhanshi_ani");
-            }
-        }
-        else if (mSelectRoleInfo.Class == (uint)MirClass.Wizard)
-        {
-            if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_fashi_ani");
-            }
-            else
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_fashi_ani");
-            }
-        }
-        else if (mSelectRoleInfo.Class == (uint)MirClass.Taoist)
-        {
-            if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_daoshi_ani");
-            }
-            else
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_daoshi_ani");
-            }
-        }
-        else if (mSelectRoleInfo.Class == (uint)MirClass.Assassin)
-        {
-            if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_cike_ani");
-            }
-            else
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_cike_ani");
-            }
-        }
-        else if (mSelectRoleInfo.Class == (uint)MirClass.Archer)
-        {
-            if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_sheshou_ani");
-            }
-            else
-            {
-                roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_sheshou_ani");
+                PrintTool.Assert(false);
             }
         }
         else
         {
-            PrintTool.Assert(false);
+            roleDisplay.gameObject.SetActive(false);
         }
     }
 

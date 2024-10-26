@@ -16,6 +16,13 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
         }
     }
 
+    public void Release()
+    {
+        mNetClient.Release();
+        mNetClient = null;
+        Destroy(this.gameObject);
+    }
+
     private void Start()
     {
         var mSendMsg = IMessagePool<packet_cs_request_ServerList>.Pop();
