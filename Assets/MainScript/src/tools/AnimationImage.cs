@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class AnimationImage : MonoBehaviour
 {
     public SpriteAtlas mSpriteAtlas = null;
-    public string PrefixName = "";
+    public string PrefixName = string.Empty;
     public int nBeginIndex = 940;
     public int nCount = 10;
     public float fInternalTime = 0.03f;
 
+    private int nEndIndex = 0;
     private int nAniIndex = 0;
     private float mLastAniDrawTime;
     private Image mImage;
@@ -19,7 +20,8 @@ public class AnimationImage : MonoBehaviour
     private void Start()
     {
         mImage = GetComponent<Image>();
-        nAniIndex = 0;
+        nEndIndex = nBeginIndex + nCount - 1;
+        nAniIndex = nBeginIndex;
         DrawNext();
         mLastAniDrawTime = Time.time;
     }
@@ -37,7 +39,7 @@ public class AnimationImage : MonoBehaviour
     {
         mImage.sprite = mSpriteAtlas.GetSprite(PrefixName + nAniIndex);
         nAniIndex++;
-        if (nAniIndex >= nCount)
+        if (nAniIndex > nEndIndex)
         {
             nAniIndex = nBeginIndex;
         }

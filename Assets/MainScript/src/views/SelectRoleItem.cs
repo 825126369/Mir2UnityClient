@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SelectRoleItem : MonoBehaviour
 {
+    public GameObject goHaveRole;
     public Button mClickBtn;
 
     public Text textName;
@@ -36,7 +37,6 @@ public class SelectRoleItem : MonoBehaviour
         this.mManager = mManager;
         mClickBtn.onClick.AddListener(() =>
         {
-            PrintTool.Log(mData);
             mManager.OnSelectRoldId(this.mData.NRoleId);
         });
     }
@@ -83,42 +83,50 @@ public class SelectRoleItem : MonoBehaviour
     public void Refresh(packet_data_SelectRole_RoleInfo mData)
     {
         this.mData = mData;
-        textName.text = mData.Name;
-        textLevel.text = mData.Level.ToString();
+        if (this.mData != null)
+        {
+            goHaveRole.SetActive(true);
+            textName.text = mData.Name;
+            textLevel.text = mData.Level.ToString();
 
-        goZhanShi.SetActive(false);
-        goFaShi.SetActive(false);
-        goDaoShi.SetActive(false);
-        goCiKe.SetActive(false);
-        goSheShou.SetActive(false);
-        if (mData.Class == (uint)MirClass.Warrior)
-        {
-            goZhanShi.SetActive(true);
-            textClass.text = "战士";
-        }
-        else if (mData.Class == (uint)MirClass.Wizard)
-        {
-            goFaShi.SetActive(true);
-            textClass.text = "法师";
-        }
-        else if (mData.Class == (uint)MirClass.Taoist)
-        {
-            goDaoShi.SetActive(true);
-            textClass.text = "道士";
-        }
-        else if (mData.Class == (uint)MirClass.Assassin)
-        {
-            goCiKe.SetActive(true);
-            textClass.text = "刺客";
-        }
-        else if (mData.Class == (uint)MirClass.Archer)
-        {
-            goSheShou.SetActive(true);
-            textClass.text = "射手";
+            goZhanShi.SetActive(false);
+            goFaShi.SetActive(false);
+            goDaoShi.SetActive(false);
+            goCiKe.SetActive(false);
+            goSheShou.SetActive(false);
+            if (mData.Class == (uint)MirClass.Warrior)
+            {
+                goZhanShi.SetActive(true);
+                textClass.text = "战士";
+            }
+            else if (mData.Class == (uint)MirClass.Wizard)
+            {
+                goFaShi.SetActive(true);
+                textClass.text = "法师";
+            }
+            else if (mData.Class == (uint)MirClass.Taoist)
+            {
+                goDaoShi.SetActive(true);
+                textClass.text = "道士";
+            }
+            else if (mData.Class == (uint)MirClass.Assassin)
+            {
+                goCiKe.SetActive(true);
+                textClass.text = "刺客";
+            }
+            else if (mData.Class == (uint)MirClass.Archer)
+            {
+                goSheShou.SetActive(true);
+                textClass.text = "射手";
+            }
+            else
+            {
+                PrintTool.Assert(false);
+            }
         }
         else
         {
-            PrintTool.Assert(false);
+            goHaveRole.SetActive(false);
         }
     }
 }

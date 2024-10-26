@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 using UnityEngine.UI;
+using XKNet.Common;
 
 public class SelectRoleView : MonoBehaviour
 {
     public SelectRoleItem mItemPrefab;
     public Image roleDisplay;
     public Text lastRefreshTime;
+    public Button createBtn;
+    public Button deleteBtn;
+    public Button startBtn;
 
     private uint nSelectRoleId = 0;
     private readonly List<SelectRoleItem> mItemList = new List<SelectRoleItem>();
@@ -19,9 +23,49 @@ public class SelectRoleView : MonoBehaviour
         if (bInit) return;
         bInit = true;
 
+        for (int i = 0; i < 5; i++)
+        {
+            var go = Instantiate(mItemPrefab.gameObject) as GameObject;
+            go.transform.SetParent(mItemPrefab.transform.parent);
+            go.transform.localScale = Vector3.one;
+            var mItem = go.GetComponent<SelectRoleItem>();
+            mItem.Init(this);
+            mItemList.Add(mItem);
+            mItem.gameObject.SetActive(false);
+        }
+
         DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.addDataBind(RefreshView);
+
+        createBtn.onClick.AddListener(() =>
+        {
+            UIMgr.Instance.Show_CreateRoleView();
+        });
+
+        deleteBtn.onClick.AddListener(() =>
+        {
+            if(nSelectRoleId > 0)
+            {
+                var mSendMsg = IMessagePool<packet_cs_request_DeleteRole>.Pop();
+                mSendMsg.NPlayerId = nSelectRoleId;
+                NetClientGameMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_DELETE_ROLE, mSendMsg);
+                IMessagePool<packet_cs_request_DeleteRole>.recycle(mSendMsg);
+            }
+        });
+
+        startBtn.onClick.AddListener(() =>
+        {
+            if (nSelectRoleId > 0)
+            {
+                
+            }
+        });
     }
-    
+
+    private void OnDestroy()
+    {
+        DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.removeDataBind(RefreshView);
+    }
+
     public void Show()
     {
         Init();
@@ -85,7 +129,15 @@ public class SelectRoleView : MonoBehaviour
 
         for (int i = mRoleList.Count; i < mItemList.Count; i++)
         {
-            mItemList[i].gameObject.SetActive(false);
+            if (i < 5)
+            {
+                mItemList[i].gameObject.SetActive(true);
+                mItemList[i].Refresh(null);
+            }
+            else
+            {
+                mItemList[i].gameObject.SetActive(false);
+            }
         }
 
         if (mRoleList.Count > 0)
@@ -156,6 +208,7 @@ public class SelectRoleView : MonoBehaviour
         else
         {
             roleDisplay.gameObject.SetActive(false);
+            lastRefreshTime.text = string.Empty;
         }
     }
 

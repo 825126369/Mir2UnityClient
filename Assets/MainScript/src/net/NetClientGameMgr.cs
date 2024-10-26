@@ -6,7 +6,7 @@ using XKNet.Tcp.Client;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {
-    public TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public readonly TcpNetClientMain mNetClient = new TcpNetClientMain();
     private bool bInit = false;
     public void Init()
     {
@@ -29,7 +29,6 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     public void Release()
     {
         mNetClient.Release();
-        mNetClient = null;
         Destroy(this.gameObject);
     }
 

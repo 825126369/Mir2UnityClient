@@ -5,10 +5,14 @@ using XKNet.Tcp.Client;
 
 public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectServerMgr>
 {
-    public TcpNetClientMain mNetClient = null;
+    public readonly TcpNetClientMain mNetClient = new TcpNetClientMain();
+    private bool bInit = false;
     public void Init()
     {
-        mNetClient = new TcpNetClientMain();
+        if (bInit) return;
+        bInit = true;
+
+        mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
         if (IPAddressHelper.TryParseConnectStr(DataCenter.Instance.selectGateServerConnectStr, out string Ip, out ushort nPort))
         {
@@ -19,11 +23,18 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
     public void Release()
     {
         mNetClient.Release();
-        mNetClient = null;
         Destroy(this.gameObject);
     }
 
-    private void Start()
+    private void ListenClientPeerState(ClientPeerBase mClientPeer)
+    {
+        if (mClientPeer.GetSocketState() == SOCKET_PEER_STATE.CONNECTED)
+        {
+            SendFirstMsg();
+        }
+    }
+
+    private void SendFirstMsg()
     {
         var mSendMsg = IMessagePool<packet_cs_request_ServerList>.Pop();
         mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SERVER_LIST, mSendMsg);

@@ -5,10 +5,14 @@ using XKNet.Tcp.Client;
 
 public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 {
-    public TcpNetClientMain mNetClient = null;
+    public readonly TcpNetClientMain mNetClient = new TcpNetClientMain();
+    private bool bInit = false;
+
     public void InitLoginServerClient()
     {
-        mNetClient = new TcpNetClientMain();
+        if (bInit) return;
+        bInit = true;
+
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
@@ -22,7 +26,6 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
     public void Release()
     {
         mNetClient.Release();
-        mNetClient = null;
         Destroy(this.gameObject);
     }
 

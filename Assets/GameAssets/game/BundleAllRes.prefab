@@ -62,6 +62,7 @@ MonoBehaviour:
   - {fileID: 7102425970005702814, guid: 38bae1adaf524594f99790d2c08e023a, type: 3}
   - {fileID: 4234031542185924324, guid: df1dfd3829274a4408ec77dad0cc58c4, type: 3}
   - {fileID: 1302249635647192459, guid: 2c3f0ff3f11769e4bb8f2735b4a66adb, type: 3}
+  - {fileID: 3376305324775193286, guid: d406f881224df6f41955fa96cea8aa1d, type: 3}
   m_AtlasList:
   - {fileID: 100100200, guid: a262dae3899bd7b45b0edab2792690d8, type: 3}
   - {fileID: 100100200, guid: d9889873114ce4a4ab7f7648cf932571, type: 3}

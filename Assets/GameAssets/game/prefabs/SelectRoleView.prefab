@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d531be817fa5a104c8587ad8d0ba8e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goHaveRole: {fileID: 8867063153526033855}
   mClickBtn: {fileID: 5715607336039242530}
   textName: {fileID: 4857503223876251367}
   textLevel: {fileID: 681029153880636901}
@@ -1349,6 +1350,9 @@ MonoBehaviour:
   mItemPrefab: {fileID: 5433282784574342879}
   roleDisplay: {fileID: 7617227333860733955}
   lastRefreshTime: {fileID: 2838019150562541314}
+  createBtn: {fileID: 4553758701160931583}
+  deleteBtn: {fileID: 6008921626415330831}
+  startBtn: {fileID: 3981618673430000685}
 --- !u!1 &4318678995748316689
 GameObject:
   m_ObjectHideFlags: 0

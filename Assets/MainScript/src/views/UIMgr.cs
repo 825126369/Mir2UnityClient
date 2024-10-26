@@ -12,8 +12,8 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
     public ChangePasswordView ChangePasswordView;
 
     public SelectServerView SelectServerView;
-
     public SelectRoleView SelectRoleView;
+    public CreateRoleView CreateRoleView;
     public void Init()
     {
         Init_Global_WindowLoading();
@@ -150,6 +150,22 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
         else
         {
             SelectRoleView.Show();
+        }
+    }
+
+    public void Show_CreateRoleView()
+    {
+        if (CreateRoleView == null)
+        {
+            GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("CreateRoleView");
+            GameObject goView = Instantiate<GameObject>(goPrefab);
+            goView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Pop, false);
+            CreateRoleView = goView.GetComponent<CreateRoleView>();
+            CreateRoleView.Show();
+        }
+        else
+        {
+            CreateRoleView.Show();
         }
     }
 
