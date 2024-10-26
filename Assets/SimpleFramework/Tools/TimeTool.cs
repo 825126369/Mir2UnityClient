@@ -11,7 +11,8 @@ public static class TimeTool
 		return mTimeSpan.ToString(@"hh\:mm\:ss");
 	}
 
-	public static TimeSpan GetTimeSpanFromDateString(string timeStr)
+    //"yyyy/MM/dd HH:mm:ss"
+    public static TimeSpan GetTimeSpanFromDateString(string timeStr)
 	{
 		string dateFormatStr = "g";
 		TimeSpan mTimeSpan = TimeSpan.ParseExact(timeStr, dateFormatStr, System.Globalization.CultureInfo.InvariantCulture);

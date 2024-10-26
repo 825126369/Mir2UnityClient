@@ -79,12 +79,12 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             });
             DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
             DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
+            UIMgr.Instance.CreateRoleView.gameObject.SetActive(false);
         }
         else
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-        IMessagePool<packet_sc_request_CreateRole_Result>.recycle(mReceiveMsg);
     }
 
     void receive_sc_Request_selectRole_DeleteRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
@@ -112,7 +112,6 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         {
             UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-        IMessagePool<packet_sc_request_DeleteRole_Result>.recycle(mReceiveMsg);
     }
 
     void receive_sc_Request_selectRole_AllRoleInfo_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)

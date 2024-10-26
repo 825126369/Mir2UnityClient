@@ -1,7 +1,6 @@
 using NetProtocols.Game;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Analytics;
 using UnityEngine.UI;
 using XKNet.Common;
 
@@ -70,7 +69,6 @@ public class SelectRoleView : MonoBehaviour
     {
         Init();
         gameObject.SetActive(true);
-
         this.nSelectRoleId = 0;
         var mRoleList = DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData;
         RefreshView(mRoleList);
@@ -83,6 +81,7 @@ public class SelectRoleView : MonoBehaviour
 
     public void OnSelectRoldId(uint Id)
     {
+        PrintTool.Log("OnSelectRoldId: " + Id);
         this.nSelectRoleId = Id;
         var mRoleList = DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData;
         RefreshView(mRoleList);
@@ -90,8 +89,10 @@ public class SelectRoleView : MonoBehaviour
 
     public void RefreshView(List<packet_data_SelectRole_RoleInfo> mRoleList)
     {
-        if (nSelectRoleId == 0)
+        packet_data_SelectRole_RoleInfo mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
+        if (mSelectRoleInfo == null)
         {
+            nSelectRoleId = 0;
             ulong nMaxLoginTime = 0;
             foreach (var v in mRoleList)
             {
@@ -101,7 +102,16 @@ public class SelectRoleView : MonoBehaviour
                     nSelectRoleId = v.NRoleId;
                 }
             }
+
+            if (nSelectRoleId == 0)
+            {
+                if (mRoleList.Count > 0)
+                {
+                    nSelectRoleId = mRoleList[0].NRoleId;
+                }
+            }
         }
+        mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
 
         mItemPrefab.gameObject.SetActive(false);
         for (int i = 0; i < mRoleList.Count; i++)
@@ -143,61 +153,63 @@ public class SelectRoleView : MonoBehaviour
         if (mRoleList.Count > 0)
         {
             roleDisplay.gameObject.SetActive(true);
-            packet_data_SelectRole_RoleInfo mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
-            lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.NLastLoginTime).ToLongTimeString();
-            if (mSelectRoleInfo.Class == (uint)MirClass.Warrior)
+            lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.NLastLoginTime).ToString("yyyy/MM/dd HH:mm:ss");
+
+            var mAnimationImage = roleDisplay.GetComponent<AnimationImage>();
+            var mClass = mSelectRoleInfo.Class;
+            if (mClass == (uint)MirClass.Warrior)
             {
                 if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_zhanshi_ani");
+                    mAnimationImage.SetAniParam("boy_zhanshi_ani", 20, 16, 0.1f);
                 }
                 else
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_zhanshi_ani");
+                    mAnimationImage.SetAniParam("girl_zhanshi_ani", 300, 16, 0.1f);
                 }
             }
-            else if (mSelectRoleInfo.Class == (uint)MirClass.Wizard)
+            else if (mClass == (uint)MirClass.Wizard)
             {
                 if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_fashi_ani");
+                    mAnimationImage.SetAniParam("boy_fashi_ani", 40, 16, 0.1f);
                 }
                 else
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_fashi_ani");
+                    mAnimationImage.SetAniParam("girl_fashi_ani", 320, 16, 0.1f);
                 }
             }
-            else if (mSelectRoleInfo.Class == (uint)MirClass.Taoist)
+            else if (mClass == (uint)MirClass.Taoist)
             {
                 if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_daoshi_ani");
+                    mAnimationImage.SetAniParam("boy_daoshi_ani", 60, 16, 0.1f);
                 }
                 else
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_daoshi_ani");
+                    mAnimationImage.SetAniParam("girl_daoshi_ani", 340, 16, 0.1f);
                 }
             }
-            else if (mSelectRoleInfo.Class == (uint)MirClass.Assassin)
+            else if (mClass == (uint)MirClass.Assassin)
             {
                 if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_cike_ani");
+                    mAnimationImage.SetAniParam("boy_cike_ani", 80, 16, 0.1f);
                 }
                 else
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_cike_ani");
+                    mAnimationImage.SetAniParam("girl_cike_ani", 360, 16, 0.1f);
                 }
             }
-            else if (mSelectRoleInfo.Class == (uint)MirClass.Archer)
+            else if (mClass == (uint)MirClass.Archer)
             {
                 if (mSelectRoleInfo.Gender == (uint)MirGender.Male)
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("boy_sheshou_ani");
+                    mAnimationImage.SetAniParam("boy_sheshou_ani", 100, 16, 0.1f);
                 }
                 else
                 {
-                    roleDisplay.GetComponent<AnimationImage>().mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas("girl_sheshou_ani");
+                    mAnimationImage.SetAniParam("girl_sheshou_ani", 140, 16, 0.1f);
                 }
             }
             else

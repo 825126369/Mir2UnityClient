@@ -37,7 +37,7 @@ public class SelectRoleItem : MonoBehaviour
         this.mManager = mManager;
         mClickBtn.onClick.AddListener(() =>
         {
-            mManager.OnSelectRoldId(this.mData.NRoleId);
+            mManager.OnSelectRoldId(mData.NRoleId);
         });
     }
 
@@ -85,6 +85,7 @@ public class SelectRoleItem : MonoBehaviour
         this.mData = mData;
         if (this.mData != null)
         {
+            PrintTool.Log(gameObject.name + " | " + mData.NRoleId);
             goHaveRole.SetActive(true);
             textName.text = mData.Name;
             textLevel.text = mData.Level.ToString();

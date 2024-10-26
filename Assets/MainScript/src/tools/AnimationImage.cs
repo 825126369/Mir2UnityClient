@@ -19,11 +19,40 @@ public class AnimationImage : MonoBehaviour
 
     private void Start()
     {
+        InitAni();
+    }
+
+    public void SetAniParam(string atlasName, int nBeginIndex, int nCount, float fInternalTime)
+    {
+        this.mSpriteAtlas = ResCenter.Instance.mBundleGameAllRes.GetAtlas(atlasName);
+        if(this.mSpriteAtlas == null)
+        {
+            this.mSpriteAtlas = AssetsLoader.Instance.GetAsset($"{atlasName}{GameConst.spriteAtlasExtention}") as SpriteAtlas;
+        }
+
+        this.nBeginIndex = nBeginIndex;
+        this.nCount = nCount;
+        this.fInternalTime = fInternalTime;
+        InitAni();
+    }
+
+    public void SetAniParam(SpriteAtlas mSpriteAtlas, int nBeginIndex, int nCount, float fInternalTime)
+    {
+        this.mSpriteAtlas = mSpriteAtlas;
+        this.nBeginIndex = nBeginIndex;
+        this.nCount = nCount;
+        this.fInternalTime = fInternalTime;
+
+        InitAni();
+    }
+
+    private void InitAni()
+    {
         mImage = GetComponent<Image>();
         nEndIndex = nBeginIndex + nCount - 1;
         nAniIndex = nBeginIndex;
-        DrawNext();
         mLastAniDrawTime = Time.time;
+        DrawNext();
     }
 
     private void Update()
@@ -38,6 +67,7 @@ public class AnimationImage : MonoBehaviour
     private void DrawNext()
     {
         mImage.sprite = mSpriteAtlas.GetSprite(PrefixName + nAniIndex);
+        mImage.SetNativeSize();
         nAniIndex++;
         if (nAniIndex > nEndIndex)
         {
