@@ -4,11 +4,13 @@ package NetProtocols.Game;
 //-----------------------------数据-------------------
 message packet_data_SelectRole_RoleInfo
 {
-	uint32 nRoleIndex = 1;
+	uint32 nRoleId = 1;
 	string Name = 2;
 	uint32 Gender = 3;
 	uint32 Class = 4;
 	uint32 Level = 5;
+	uint64 nLastLoginTime = 6;
+	uint64 nCreateTime = 7;
 }
 
 //-----------------------------消息-------------------

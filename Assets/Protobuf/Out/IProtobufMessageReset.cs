@@ -1,4 +1,5 @@
 using XKNet.Common;
+using Google.Protobuf;
 namespace NetProtocols.Login
 {
 	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
@@ -176,17 +177,50 @@ namespace NetProtocols.Gate
 		}
 	}
 }
+namespace NetProtocols.Gate
+{
+	public sealed partial class packet_CG_Register : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NPlayerId = 0;
+		}
+	}
+}
+namespace NetProtocols.Gate
+{
+	public sealed partial class packet_GC_RegisterResult : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
+		}
+	}
+}
+namespace NetProtocols.Gate
+{
+	public sealed partial class packet_data_RelayMsg : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			IdList.Clear();
+			MMsg = ByteString.Empty;
+		}
+	}
+}
 namespace NetProtocols.Game
 {
 	public sealed partial class packet_data_SelectRole_RoleInfo : IProtobufResetInterface
 	{
 		public void Reset()
 		{
-			NRoleIndex = 0;
+			NRoleId = 0;
 			Name = string.Empty;
 			Gender = 0;
 			Class = 0;
 			Level = 0;
+			NLastLoginTime = 0;
+			NCreateTime = 0;
 		}
 	}
 }

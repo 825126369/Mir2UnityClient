@@ -12,3 +12,19 @@ message packet_GI_RegisterResult
 {
 	uint32 nErrorCode = 1;
 }
+
+message packet_CG_Register
+{
+	uint32 nPlayerId = 1;
+}
+
+message packet_GC_RegisterResult
+{
+	uint32 nErrorCode = 1;
+}
+
+message packet_data_RelayMsg
+{
+	repeated uint32 IdList = 1;
+	bytes mMsg = 2;
+}

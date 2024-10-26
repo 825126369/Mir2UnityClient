@@ -3,10 +3,10 @@ using System.Collections.Generic;
 
 public  class EventMgr : Singleton<EventMgr>
 {
-    public class Listener
+    public struct Listener
     {
         public Action<object> func;
-        public bool once = false;
+        public bool once;
     }
 
     private readonly Dictionary<string, List<Listener>> mEventDic = new Dictionary<string, List<Listener>>();

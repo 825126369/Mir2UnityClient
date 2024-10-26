@@ -22,6 +22,9 @@
     public const ushort GI_REGISTER_SERVER_INFO_RESULT = 1041;
     public const ushort GC_INNER_SERVER_NET_ERROR = 1042;
 
+    public const ushort CG_REGISTER_INFO = 1043; //这里相当于 断线重连后，请求服务器全部信息
+    public const ushort GC_REGISTER_INFO_RESULT = 1044;
+
     //游戏命令===========================================================================
     public const ushort CS_REQUEST_SELECTROLE_ALL_ROLEINFO = 1100; //-- 选择界面，请求所有角色信息
     public const ushort SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT = 1101; //--

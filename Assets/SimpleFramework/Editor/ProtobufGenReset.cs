@@ -1,3 +1,4 @@
+using Google.Protobuf;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -102,6 +103,7 @@ public class ProtobufGenReset
 
         string mContent = string.Empty;
         mContent += "using XKNet.Common;\n";
+        mContent += "using Google.Protobuf;\n";
 
         string mNameSpaceStr = string.Empty;
         Type[] mType = Assembly.LoadFile(Path.GetFullPath(assemblyFileRelativePath)).GetTypes();
@@ -139,9 +141,13 @@ public class ProtobufGenReset
                         {
                             mStaticFunc += $"\t\t\t{v2.Name} = string.Empty;\n";
                         }
+                        else if (v2.PropertyType == typeof(ByteString))
+                        {
+                            mStaticFunc += $"\t\t\t{v2.Name} = ByteString.Empty;\n";
+                        }
                         else if (v2.PropertyType.Name.Contains("RepeatedField"))
                         {
-                            if (v2.PropertyType.GenericTypeArguments[0].IsClass)
+                            if (v2.PropertyType.GenericTypeArguments[0].IsClass && v2.PropertyType.GenericTypeArguments[0] != typeof(string))
                             {
                                 mStaticFunc += $"\t\t\tforeach(var v in {v2.Name})\n";
                                 mStaticFunc += $"\t\t\t{{\n";

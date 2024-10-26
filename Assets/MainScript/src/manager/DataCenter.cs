@@ -1,3 +1,4 @@
+using NetProtocols.Game;
 using NetProtocols.SelectGate;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,9 +32,11 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
 
     public readonly List<ServerItemData> mServerItemDataList = new List<ServerItemData>();
     public ServerItemData currentSelectServerItemData = null;
+
+    public DataBind<List<packet_data_SelectRole_RoleInfo>> mDataBind_packet_data_SelectRole_RoleInfo;
     public void Init()
     {
-       
+        mDataBind_packet_data_SelectRole_RoleInfo = new DataBind<List<packet_data_SelectRole_RoleInfo>>();
     }
 
     public void OnNetSyncServerItemList(packet_sc_ServerList_Result mReceiveMsg)
