@@ -1,8 +1,8 @@
+using AKNet.Common;
+using AKNet.Tcp.Client;
 using NetProtocols.Game;
 using System.Collections.Generic;
 using UnityEngine;
-using XKNet.Common;
-using XKNet.Tcp.Client;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {

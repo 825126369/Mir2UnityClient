@@ -7,7 +7,6 @@ public class ProtoBufEditor
     private const string ProtocPath = "Assets/protoc-28.2-win64/bin/protoc.exe";
     private const string ProtocolPath = "Assets/Protobuf";
     private const string ProtocolCSPath = "Assets/Protobuf/Out/";
-
     private const string NetInnerProtocolPath = "Assets/SimpleFramework/Tcp/Protobuf/";
 
     [MenuItem("Tools/Protobuf Gen => public class")]
@@ -37,23 +36,25 @@ public class ProtoBufEditor
     //[MenuItem("Tools/Protobuf Gen => Internal class")]
     private static void DoInternal()
     {
-        if (!Directory.Exists(ProtocolPath))
+        const string ProtocolInternalPath = "Assets/Protobuf_Internal/";
+        const string ProtocolCSPath2 = "Assets/Protobuf_Internal/Out/";
+        if (!Directory.Exists(ProtocolInternalPath))
         {
-            Directory.CreateDirectory(ProtocolPath);
+            Directory.CreateDirectory(ProtocolInternalPath);
         }
-        if (!Directory.Exists(ProtocolCSPath))
+        if (!Directory.Exists(ProtocolCSPath2))
         {
-            Directory.CreateDirectory(ProtocolCSPath);
+            Directory.CreateDirectory(ProtocolCSPath2);
         }
 
-        string arg = $"--csharp_out={Path.GetRelativePath(ProtocolPath, ProtocolCSPath)} ";
+        string arg = $"--csharp_out={Path.GetRelativePath(ProtocolInternalPath, ProtocolCSPath2)} ";
         arg += " --csharp_opt=internal_access";
-        foreach (string v in Directory.GetFiles(ProtocolPath, "*.proto", SearchOption.TopDirectoryOnly))
+        foreach (string v in Directory.GetFiles(ProtocolInternalPath, "*.proto", SearchOption.TopDirectoryOnly))
         {
             arg += " " + Path.GetFileName(v);
         }
 
-        RunCmd(Path.GetFullPath(ProtocPath), Path.GetFullPath(ProtocolPath), arg);
+        RunCmd(Path.GetFullPath(ProtocPath), Path.GetFullPath(ProtocolInternalPath), arg);
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

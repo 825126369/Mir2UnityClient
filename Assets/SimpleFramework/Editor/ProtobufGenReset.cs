@@ -1,6 +1,5 @@
 using Google.Protobuf;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEditor;
@@ -27,7 +26,7 @@ public class ProtobufGenReset
         const string ResetFuncName = "Reset2";
 
         string mClassStr = string.Empty;
-        mClassStr += "namespace XKNet.Common\r\n{\n";
+        mClassStr += "namespace AKNet.Common\r\n{\n";
         mClassStr += "\tpublic static partial class IMessageExtention\r\n{\n";
 
         string mStaticFunc = string.Empty;
@@ -102,7 +101,7 @@ public class ProtobufGenReset
         const string ResetFuncName = "Reset";
 
         string mContent = string.Empty;
-        mContent += "using XKNet.Common;\n";
+        mContent += "using AKNet.Common;\n";
         mContent += "using Google.Protobuf;\n";
 
         string mNameSpaceStr = string.Empty;
