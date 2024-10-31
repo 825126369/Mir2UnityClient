@@ -179,6 +179,16 @@ namespace NetProtocols.Gate
 }
 namespace NetProtocols.Gate
 {
+	public sealed partial class packet_GIIG_ClientDisConnect : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NClientId = 0;
+		}
+	}
+}
+namespace NetProtocols.Gate
+{
 	public sealed partial class packet_CG_Register : IProtobufResetInterface
 	{
 		public void Reset()
@@ -205,6 +215,7 @@ namespace NetProtocols.Gate
 		{
 			IdList.Clear();
 			MMsg = ByteString.Empty;
+			DisConnected = false;
 		}
 	}
 }
@@ -299,6 +310,48 @@ namespace NetProtocols.Game
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
 			MRoleList.Clear();
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_chat : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NType = 0;
+			Message = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_chat : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NType = 0;
+			Message = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_StartGame : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NPlayerId = 0;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_request_StartGame_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = 0;
 		}
 	}
 }

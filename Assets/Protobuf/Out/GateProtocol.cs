@@ -27,18 +27,21 @@ namespace NetProtocols.Gate {
             "ChJHYXRlUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYXRlIkMKEnBh",
             "Y2tldF9JR19SZWdpc3RlchITCgtuU2VydmVyVHlwZRgBIAEoDRIYChBTZXJ2",
             "ZXJDb25uZWN0U3RyGAIgASgJIi4KGHBhY2tldF9HSV9SZWdpc3RlclJlc3Vs",
-            "dBISCgpuRXJyb3JDb2RlGAEgASgNIicKEnBhY2tldF9DR19SZWdpc3RlchIR",
-            "CgluUGxheWVySWQYASABKA0iLgoYcGFja2V0X0dDX1JlZ2lzdGVyUmVzdWx0",
-            "EhIKCm5FcnJvckNvZGUYASABKA0iNAoUcGFja2V0X2RhdGFfUmVsYXlNc2cS",
-            "DgoGSWRMaXN0GAEgAygNEgwKBG1Nc2cYAiABKAxiBnByb3RvMw=="));
+            "dBISCgpuRXJyb3JDb2RlGAEgASgNIjEKHHBhY2tldF9HSUlHX0NsaWVudERp",
+            "c0Nvbm5lY3QSEQoJbkNsaWVudElkGAEgASgNIicKEnBhY2tldF9DR19SZWdp",
+            "c3RlchIRCgluUGxheWVySWQYASABKA0iLgoYcGFja2V0X0dDX1JlZ2lzdGVy",
+            "UmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0iSgoUcGFja2V0X2RhdGFfUmVs",
+            "YXlNc2cSDgoGSWRMaXN0GAEgAygNEgwKBG1Nc2cYAiABKAwSFAoMRGlzQ29u",
+            "bmVjdGVkGAMgASgIYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_IG_Register), global::NetProtocols.Gate.packet_IG_Register.Parser, new[]{ "NServerType", "ServerConnectStr" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_GI_RegisterResult), global::NetProtocols.Gate.packet_GI_RegisterResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_GIIG_ClientDisConnect), global::NetProtocols.Gate.packet_GIIG_ClientDisConnect.Parser, new[]{ "NClientId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_CG_Register), global::NetProtocols.Gate.packet_CG_Register.Parser, new[]{ "NPlayerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_GC_RegisterResult), global::NetProtocols.Gate.packet_GC_RegisterResult.Parser, new[]{ "NErrorCode" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_data_RelayMsg), global::NetProtocols.Gate.packet_data_RelayMsg.Parser, new[]{ "IdList", "MMsg" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Gate.packet_data_RelayMsg), global::NetProtocols.Gate.packet_data_RelayMsg.Parser, new[]{ "IdList", "MMsg", "DisConnected" }, null, null, null, null)
           }));
     }
     #endregion
@@ -482,6 +485,204 @@ namespace NetProtocols.Gate {
   }
 
   [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class packet_GIIG_ClientDisConnect : pb::IMessage<packet_GIIG_ClientDisConnect>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<packet_GIIG_ClientDisConnect> _parser = new pb::MessageParser<packet_GIIG_ClientDisConnect>(() => new packet_GIIG_ClientDisConnect());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<packet_GIIG_ClientDisConnect> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_GIIG_ClientDisConnect() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_GIIG_ClientDisConnect(packet_GIIG_ClientDisConnect other) : this() {
+      nClientId_ = other.nClientId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_GIIG_ClientDisConnect Clone() {
+      return new packet_GIIG_ClientDisConnect(this);
+    }
+
+    /// <summary>Field number for the "nClientId" field.</summary>
+    public const int NClientIdFieldNumber = 1;
+    private uint nClientId_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint NClientId {
+      get { return nClientId_; }
+      set {
+        nClientId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as packet_GIIG_ClientDisConnect);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(packet_GIIG_ClientDisConnect other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (NClientId != other.NClientId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (NClientId != 0) hash ^= NClientId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (NClientId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (NClientId != 0) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(NClientId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (NClientId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NClientId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(packet_GIIG_ClientDisConnect other) {
+      if (other == null) {
+        return;
+      }
+      if (other.NClientId != 0) {
+        NClientId = other.NClientId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            NClientId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            NClientId = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
   public sealed partial class packet_CG_Register : pb::IMessage<packet_CG_Register>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -496,7 +697,7 @@ namespace NetProtocols.Gate {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[2]; }
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -694,7 +895,7 @@ namespace NetProtocols.Gate {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[3]; }
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -892,7 +1093,7 @@ namespace NetProtocols.Gate {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[4]; }
+      get { return global::NetProtocols.Gate.GateProtocolReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -914,6 +1115,7 @@ namespace NetProtocols.Gate {
     public packet_data_RelayMsg(packet_data_RelayMsg other) : this() {
       idList_ = other.idList_.Clone();
       mMsg_ = other.mMsg_;
+      disConnected_ = other.disConnected_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -946,6 +1148,18 @@ namespace NetProtocols.Gate {
       }
     }
 
+    /// <summary>Field number for the "DisConnected" field.</summary>
+    public const int DisConnectedFieldNumber = 3;
+    private bool disConnected_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool DisConnected {
+      get { return disConnected_; }
+      set {
+        disConnected_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -963,6 +1177,7 @@ namespace NetProtocols.Gate {
       }
       if(!idList_.Equals(other.idList_)) return false;
       if (MMsg != other.MMsg) return false;
+      if (DisConnected != other.DisConnected) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -972,6 +1187,7 @@ namespace NetProtocols.Gate {
       int hash = 1;
       hash ^= idList_.GetHashCode();
       if (MMsg.Length != 0) hash ^= MMsg.GetHashCode();
+      if (DisConnected != false) hash ^= DisConnected.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -995,6 +1211,10 @@ namespace NetProtocols.Gate {
         output.WriteRawTag(18);
         output.WriteBytes(MMsg);
       }
+      if (DisConnected != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(DisConnected);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1010,6 +1230,10 @@ namespace NetProtocols.Gate {
         output.WriteRawTag(18);
         output.WriteBytes(MMsg);
       }
+      if (DisConnected != false) {
+        output.WriteRawTag(24);
+        output.WriteBool(DisConnected);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1023,6 +1247,9 @@ namespace NetProtocols.Gate {
       size += idList_.CalculateSize(_repeated_idList_codec);
       if (MMsg.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeBytesSize(MMsg);
+      }
+      if (DisConnected != false) {
+        size += 1 + 1;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1039,6 +1266,9 @@ namespace NetProtocols.Gate {
       idList_.Add(other.idList_);
       if (other.MMsg.Length != 0) {
         MMsg = other.MMsg;
+      }
+      if (other.DisConnected != false) {
+        DisConnected = other.DisConnected;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1068,6 +1298,10 @@ namespace NetProtocols.Gate {
             MMsg = input.ReadBytes();
             break;
           }
+          case 24: {
+            DisConnected = input.ReadBool();
+            break;
+          }
         }
       }
     #endif
@@ -1094,6 +1328,10 @@ namespace NetProtocols.Gate {
           }
           case 18: {
             MMsg = input.ReadBytes();
+            break;
+          }
+          case 24: {
+            DisConnected = input.ReadBool();
             break;
           }
         }

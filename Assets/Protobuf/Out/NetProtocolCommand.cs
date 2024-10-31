@@ -20,10 +20,14 @@
     //网关命令===========================================================================
     public const ushort IG_REGISTER_SERVER_INFO = 1040; //--【内部】 发送给 【网关】的注册信息
     public const ushort GI_REGISTER_SERVER_INFO_RESULT = 1041;
-    public const ushort GC_INNER_SERVER_NET_ERROR = 1042;
 
-    public const ushort CG_REGISTER_INFO = 1043; //这里相当于 断线重连后，请求服务器全部信息
-    public const ushort GC_REGISTER_INFO_RESULT = 1044;
+    public const ushort IG_CLIENT_DISCONNECT = 1042; //-- 发送客户端断开连接信息
+    public const ushort GI_CLIENT_DISCONNECT = 1043; //-- 发送客户端断开连接信息
+
+    public const ushort GC_INNER_SERVER_NET_ERROR = 1044;
+
+    public const ushort CG_REGISTER_INFO = 1045; //这里相当于 断线重连后，请求服务器全部信息
+    public const ushort GC_REGISTER_INFO_RESULT = 1046;
 
     //游戏命令===========================================================================
     public const ushort CS_REQUEST_SELECTROLE_ALL_ROLEINFO = 1100; //-- 选择界面，请求所有角色信息

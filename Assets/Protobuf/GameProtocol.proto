@@ -54,6 +54,31 @@ message packet_sc_request_DeleteRole_Result
 }
 
 
+//聊天
+message packet_cs_chat
+{
+	uint32 nType = 1;
+	string Message = 2;
+}
+
+message packet_sc_chat
+{
+	uint32 nType = 1;
+	string Message = 2;
+}
+
+//开始游戏
+message packet_cs_request_StartGame
+{
+	uint32 nPlayerId = 1;
+}
+
+message packet_sc_request_StartGame_Result
+{
+	uint32 nErrorCode = 1;
+}
+
+
 
 
 
