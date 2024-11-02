@@ -19,7 +19,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
-
+        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
         if (IPAddressHelper.TryParseConnectStr(mData.ServerConnectStr, out string Ip, out ushort nPort))
         {
             mNetClient.ConnectServer(Ip, nPort);
@@ -120,6 +120,12 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("packet_sc_request_AllRoleInfo_Result 成功");
+            if (UIMgr.Instance.SelectServerView != null)
+            {
+                Destroy(UIMgr.Instance.SelectServerView);
+                UIMgr.Instance.SelectServerView = null;
+            }
+
             List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
             mList.Sort((x, y) =>
             {
@@ -136,6 +142,32 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
 
             UIMgr.Instance.Show_SelectRoleView();
+        }
+        else
+        {
+            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+        }
+    }
+
+    void receive_sc_Request_StartGame_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
+    {
+        var mReceiveMsg = Protocol3Utility.getData<packet_sc_request_StartGame_Result>(mNetPackage);
+
+        if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
+        {
+            PrintTool.Log("开始游戏 成功");
+            if (UIMgr.Instance.SelectRoleView != null)
+            {
+                Destroy(UIMgr.Instance.SelectRoleView);
+                UIMgr.Instance.SelectRoleView = null;
+            }
+            if (UIMgr.Instance.CreateRoleView != null)
+            {
+                Destroy(UIMgr.Instance.CreateRoleView);
+                UIMgr.Instance.CreateRoleView = null;
+            }
+
+            UIMgr.Instance.Show_MainUI();
         }
         else
         {

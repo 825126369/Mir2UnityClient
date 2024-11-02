@@ -40,16 +40,11 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             UIMgr.Instance.CommonTipPoolView.Show("µÇÂ¼³É¹¦");
-            if (UIMgr.Instance.LoginView != null)
-            {
-                Destroy(UIMgr.Instance.LoginView.gameObject);
-                UIMgr.Instance.LoginView = null;
+            this.mNetClient.Release();
 
-                DataCenter.Instance.selectGateServerConnectStr = mReceiveMsg.SelectGateServerConnectStr;
-                DataCenter.Instance.nAccountId = mReceiveMsg.NAccountId;
-                NetClientSelectServerMgr.Instance.Init();
-                this.mNetClient.Release();
-            }
+            DataCenter.Instance.selectGateServerConnectStr = mReceiveMsg.SelectGateServerConnectStr;
+            DataCenter.Instance.nAccountId = mReceiveMsg.NAccountId;
+            NetClientSelectServerMgr.Instance.Init();
         }
         else
         {

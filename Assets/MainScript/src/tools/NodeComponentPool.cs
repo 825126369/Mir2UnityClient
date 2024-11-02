@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class NodeComponentPool<T> where T : Component
 {
@@ -44,6 +42,14 @@ public class NodeComponentPool<T> where T : Component
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(ItemParent, false);
         this.pool.Enqueue(obj);
+    }
+
+    public void RecycleAll()
+    {
+        while (usedArray.Count > 0)
+        {
+            recycleObj(usedArray[usedArray.Count - 1]);
+        }
     }
 
     public T popObj()

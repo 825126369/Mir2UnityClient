@@ -76,6 +76,7 @@ message packet_cs_request_StartGame
 message packet_sc_request_StartGame_Result
 {
 	uint32 nErrorCode = 1;
+	uint32 
 }
 
 

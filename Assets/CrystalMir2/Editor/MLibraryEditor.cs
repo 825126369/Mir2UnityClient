@@ -714,7 +714,6 @@ public sealed class MImage
         else
         {
             reader.ReadBytes(Length);
-            Debug.Log(fileName1 + " 已存在");
         }
 
         if (HasMask)
@@ -735,7 +734,6 @@ public sealed class MImage
             {
                 reader.ReadBytes(12);
                 reader.ReadBytes(Length);
-                Debug.Log(fileName2 + " 已存在");
             }
         }
     }
@@ -845,8 +843,8 @@ public static class TextureRequestMgr
                // texture.SetPixel(x, y, color2);
                 //texture.SetPixel(x, nHeight - 1 - y, color1);
 
-                texture.SetPixel(x, y, new UnityEngine.Color(color2.r + 100, color2.g, color2.b, color2.a));
-                texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.r + 100, color1.g, color1.b, color1.a));
+                texture.SetPixel(x, y, new UnityEngine.Color(color2.b, color2.g, color2.r, color2.a));
+                texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.b, color1.g, color1.r, color1.a));
 
                 //texture.SetPixel(x, y, new UnityEngine.Color(color2.a, color2.r, color2.g, color2.b));
                 //texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.a, color1.r, color1.g, color1.r));

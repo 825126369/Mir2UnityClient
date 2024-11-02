@@ -38,7 +38,11 @@
 
     public const ushort CS_REQUEST_SELECTROLE_DELETE_ROLE = 1104; //-- 选择界面，删除角色
     public const ushort SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT = 1105; //
-    
+
+    public const ushort CS_REQUEST_STARTGAME = 1106; // 请求进入游戏
+    public const ushort SC_REQUEST_STARTGAME_RESULT = 1107; // 请求进入游戏结果
+
+
 }
 
 public static class NetErrorCode

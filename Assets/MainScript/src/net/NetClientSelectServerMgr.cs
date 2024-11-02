@@ -52,6 +52,12 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("receive_scServerList ³É¹¦");
+            if (UIMgr.Instance.LoginView != null)
+            {
+                Destroy(UIMgr.Instance.LoginView.gameObject);
+                UIMgr.Instance.LoginView = null;
+            }
+
             DataCenter.Instance.OnNetSyncServerItemList(mReceiveMsg);
             UIMgr.Instance.Show_SelectServerView();
         }
