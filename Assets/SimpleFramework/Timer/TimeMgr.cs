@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimeOutGenerator
 {
@@ -53,34 +50,36 @@ public class TimeOutGenerator
 
 public class TimeMgr:SingleTonMonoBehaviour<TimeMgr>
 {
-    readonly List<Action> mapUpdateFunc = new List<Action>();
+    event Action mapUpdateFunc;
     
     public void Update()
     {
-        int nUpdateCount = mapUpdateFunc.Count;
-        for(int i = 0; i < nUpdateCount; i++)
+        if (mapUpdateFunc != null)
         {
-            if(i < mapUpdateFunc.Count)
-            {
-                mapUpdateFunc[i]();
-            }
-            else
-            {
-                break;
-            }
+            mapUpdateFunc();
         }
     }
 
     public void AddListener(Action func)
     {
-        if (mapUpdateFunc.IndexOf(func) == -1)
+        if (CheckFunIsExist(func))
         {
-            mapUpdateFunc.Add(func);
+            PrintTool.LogError("AddListener Errir");
+        }
+        else
+        {
+            mapUpdateFunc += func;
         }
     }
 
     public void RemoveListener(Action func)
     {
-        this.mapUpdateFunc.Remove(func);
+        this.mapUpdateFunc -= func;
+    }
+
+    private bool CheckFunIsExist(Action fun)
+    {
+        Delegate[] mList = mapUpdateFunc.GetInvocationList();
+        return Array.Exists<Delegate>(mList, (x) => x.Equals(fun));
     }
 }

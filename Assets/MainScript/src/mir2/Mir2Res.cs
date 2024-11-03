@@ -93,37 +93,31 @@ public class Mir2Res:SingleTonMonoBehaviour<Mir2Res>
         path = Path.GetFullPath(path);
         string url = GetPathUrl(path);
 
-        Sprite mTargetSprite = null;
-        if (!mSpriteDic.TryGetValue(url, out mTargetSprite))
+        yield return SetWebSprite(url, (mTargetSprite) =>
         {
-            var www = UnityWebRequestTexture.GetTexture(url);
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                var mTexture = DownloadHandlerTexture.GetContent(www);
-                mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), Vector2.zero, 1);
-                mSpriteDic.Add(url, mTargetSprite);
-            }
-            else
-            {
-                Debug.LogError(www.result + " | " + www.error + " | " + url);
-            }
-        }
-        mSpriteRenderer.sprite = mTargetSprite;
+            mSpriteRenderer.sprite = mTargetSprite;
+        });
     }
 
-    public void SetMapSprite(RuleTile mSpriteRenderer, int nIndex, int nIndex2)
+    public void SetMapSprite(Tile mSpriteRenderer, int nIndex, int nIndex2)
     {
         StartCoroutine(SetMapSprite2(mSpriteRenderer, nIndex, nIndex2));
     }
 
-    public IEnumerator SetMapSprite2(RuleTile mSpriteRenderer, int nIndex, int nIndex2)
+    public IEnumerator SetMapSprite2(Tile mSpriteRenderer, int nIndex, int nIndex2)
     {
         string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
         path = Path.GetFullPath(path);
         string url = GetPathUrl(path);
 
+        yield return SetWebSprite(url, (mTargetSprite) =>
+        {
+            mSpriteRenderer.sprite = mTargetSprite;
+        });
+    }
+
+    public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent)
+    {
         Sprite mTargetSprite = null;
         if (!mSpriteDic.TryGetValue(url, out mTargetSprite))
         {
@@ -141,7 +135,7 @@ public class Mir2Res:SingleTonMonoBehaviour<Mir2Res>
                 Debug.LogError(www.result + " | " + www.error + " | " + url);
             }
         }
-        mSpriteRenderer.m_DefaultSprite = mTargetSprite;
+        mFinishEvent?.Invoke(mTargetSprite);
     }
 
     public string GetPathUrl(string filePath)

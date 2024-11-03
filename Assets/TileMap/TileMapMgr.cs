@@ -1,108 +1,181 @@
+using Client.MirObjects;
 using System.Collections;
-using System.IO;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileMapMgr : MonoBehaviour
+public class TileMapMgr : SingleTonMonoBehaviour<TileMapMgr>
 {
-    public RuleTile tilePrefab1; // 从Unity编辑器中拖拽进来的Tile预设体
-    public TileBase tilePrefab; // 从Unity编辑器中拖拽进来的Tile预设体
+    public const int CellWidth = 48;
+    public const int CellHeight = 32;
 
     public Tilemap Map_Back;
     public Tilemap Map_Middle; 
     public Tilemap Map_Front; 
-
     public int mapWidth = 1000; // 地图的宽度
     public int mapHeight = 1000; // 地图的高度
+    private MapReader mMapData;
 
-    private MapData mMapData;
-
+    readonly ScriptableObjectPool<Tile> mTilePool = new ScriptableObjectPool<Tile>();
+    private bool bInit =false;
+    private Vector3Int lastCenter;
+    readonly Vector3Int Range = new Vector3Int(10, 10, 0);
     private void Start()
     {
+        Init();
         LoadMap();
     }
 
-    public void LoadMap()
+    private void Init()
     {
-        string path = $"Assets/CrystalMir2/Map2/0.json";
-        string json = File.ReadAllText(path);
-        MapData mData = JsonTool.FromJson<MapData>(json);
-        mMapData = mData;
-        
-        StartCoroutine(DrawMapBack());
-        StartCoroutine(DrawMapMiddle());
-        StartCoroutine(DrawMapFront());
+        if (bInit) return;
+        bInit = true;
+        mTilePool.Init(1000);
     }
 
-    private IEnumerator DrawMapBack()
-    { 
-        for (int x = 0; x < mMapData.Width; x++)
-        {
-            for (int y = 0; y < mMapData.Height; y++)
-            {
-                // 计算Tile位置
-                Vector3Int tilePosition = new Vector3Int(x, y, 0);
+    public void LoadMap(string fileName = "0")
+    {
+        string path = $"D:/Me/MyProject/CrystalMir2/Client8/Map/" + fileName + ".map";
+        mMapData = new MapReader(path);
+        UpdateMap();
+    }
 
-                if (y % 2 == 0 && x % 2 == 0 && mMapData.MapCells[x, y].BackIndex >= 0 && mMapData.MapCells[x, y].BackImage >= 0)
+    public void UpdateMap()
+    {
+        Vector3Int center = Mir2Me.Instance.MapLocation;
+        ClearTile(center);
+        StartCoroutine(DrawMapBack(center, Range));
+        StartCoroutine(DrawMapMiddle(center, Range));
+        StartCoroutine(DrawMapFront(center, Range));
+        lastCenter = center;
+    }
+
+    private void ClearTile(Vector3Int center)
+    {
+        int nMinX = center.x - Range.x;
+        int nMaxX = center.x + Range.x;
+        int nMinY = center.y - Range.y;
+        int nMaxY = center.y + Range.y;
+
+        int nLastMinX = lastCenter.x - Range.x;
+        int nLastMaxX = lastCenter.x + Range.x;
+        int nLastMinY = lastCenter.y - Range.y;
+        int nLastMaxY = lastCenter.y + Range.y;
+
+        for (int x = nLastMinX; x <= nLastMaxX; x++)
+        {
+            for (int y = nLastMinY; y <= nLastMaxY; y++)
+            {
+                if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
                 {
-                    var tile = new RuleTile();
-                    yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].BackIndex, mMapData.MapCells[x, y].BackImage);
-                    // 为Tile位置设置Tile
-                    Map_Back.SetTile(tilePosition, tile);
+                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                    if (tilePosition.x < nMinX || tilePosition.x > nMaxX || tilePosition.y < nMinY || tilePosition.y > nMaxY)
+                    {
+                        PrintTool.Log("000000");
+                        RecycleTile(Map_Back, tilePosition);
+                        RecycleTile(Map_Middle, tilePosition);
+                        RecycleTile(Map_Front, tilePosition);
+                    }
+                }
+            }
+        }
+
+    }
+
+    private IEnumerator DrawMapBack(Vector3Int center, Vector3Int Range)
+    {
+        int nMinX = center.x - Range.x;
+        int nMaxX = center.x + Range.x;
+        int nMinY = center.y - Range.y;
+        int nMaxY = center.y + Range.y;
+
+        for (int x = nMinX; x <= nMaxX; x++)
+        {
+            for (int y = nMinY; y <= nMaxY; y++)
+            {
+                if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
+                {
+                    Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                    if (y % 2 == 0 && x % 2 == 0 && mMapData.MapCells[x, y].BackIndex >= 0 && mMapData.MapCells[x, y].BackImage >= 0)
+                    {
+                        Tile tile = GetTile(Map_Back, tilePosition);
+                        yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].BackIndex, mMapData.MapCells[x, y].BackImage);
+                        Map_Back.SetTile(tilePosition, tile);
+                    }
                 }
             }
         }
     }
 
-    private IEnumerator DrawMapMiddle()
+    private IEnumerator DrawMapMiddle(Vector3Int center, Vector3Int Range)
     {
-        for (int x = 0; x < mMapData.Width; x++)
+        int nMinX = center.x - Range.x;
+        int nMaxX = center.x + Range.x;
+        int nMinY = center.y - Range.y;
+        int nMaxY = center.y + Range.y;
+
+        for (int x = nMinX; x <= nMaxX; x++)
         {
-            for (int y = 0; y < mMapData.Height; y++)
+            for (int y = nMinY; y <= nMaxY; y++)
             {
-                // 计算Tile位置
-                Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                if (mMapData.MapCells[x, y].MiddleIndex >= 0 && mMapData.MapCells[x, y].MiddleImage >= 0)
+                if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
                 {
-                    var tile = new RuleTile();
-                    yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].MiddleIndex, mMapData.MapCells[x, y].MiddleImage);
-                    // 为Tile位置设置Tile
-                    Map_Middle.SetTile(tilePosition, tile);
+                    if (mMapData.MapCells[x, y].MiddleIndex >= 0 && mMapData.MapCells[x, y].MiddleImage >= 0)
+                    {
+                        Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                        Tile tile = GetTile(Map_Middle, tilePosition);
+                        yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].MiddleIndex, mMapData.MapCells[x, y].MiddleImage);
+                        Map_Middle.SetTile(tilePosition, tile);
+                    }
                 }
             }
         }
     }
 
-    private IEnumerator DrawMapFront()
+    private IEnumerator DrawMapFront(Vector3Int center, Vector3Int Range)
     {
-        for (int x = 0; x < mMapData.Width; x++)
+        int nMinX = center.x - Range.x;
+        int nMaxX = center.x + Range.x;
+        int nMinY = center.y - Range.y;
+        int nMaxY = center.y + Range.y;
+
+        for (int x = nMinX; x <= nMaxX; x++)
         {
-            for (int y = 0; y < mMapData.Height; y++)
+            for (int y = nMinY; y <= nMaxY; y++)
             {
-                // 计算Tile位置
-                Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                if (mMapData.MapCells[x, y].FrontIndex >= 0 && mMapData.MapCells[x, y].FrontImage >= 0)
+                if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
                 {
-                    var tile = new RuleTile();
-                    yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].FrontIndex, mMapData.MapCells[x, y].FrontImage);
-                    // 为Tile位置设置Tile
-                    Map_Front.SetTile(tilePosition, tile);
+                    if (mMapData.MapCells[x, y].FrontIndex >= 0 && mMapData.MapCells[x, y].FrontImage >= 0)
+                    {
+                        Vector3Int tilePosition = new Vector3Int(x, y, 0);
+                        Tile tile = GetTile(Map_Front, tilePosition);
+                        yield return Mir2Res.Instance.SetMapSprite2(tile, mMapData.MapCells[x, y].FrontIndex, mMapData.MapCells[x, y].FrontImage);
+                        Map_Front.SetTile(tilePosition, tile);
+                    }
                 }
             }
         }
     }
 
-    private void GenerateLegendMap()
+    private Tile GetTile(Tilemap mMap, Vector3Int position)
     {
-        for (int y = 0; y < mapHeight; y++)
+        Tile tile = mMap.GetTile<Tile>(position);
+        if (tile == null)
         {
-            for (int x = 0; x < mapWidth; x++)
-            {
-                // 计算Tile位置
-                Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                // 为Tile位置设置Tile
-                //tilemap.SetTile(tilePosition, tilePrefab1);
-            }
+            tile = mTilePool.popObj();
+        }
+        return tile;
+    }
+
+    private void RecycleTile(Tilemap mMap, Vector3Int position)
+    {
+        Tile tile = mMap.GetTile<Tile>(position);
+        if (tile != null)
+        {
+            mTilePool.recycleObj(tile);
+            mMap.SetTile(position, null);
+
+            PrintTool.Log("回收");
         }
     }
+
 }

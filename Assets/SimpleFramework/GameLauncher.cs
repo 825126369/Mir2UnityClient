@@ -7,8 +7,6 @@ using AKNet.Common;
 public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 {
     public bool m_PrintLog = true;
-    public bool m_PrintToolLog = true;
-
     public UIRoot mUIRoot;
     
     protected override void Awake()
@@ -23,7 +21,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         Debug.unityLogger.logEnabled = m_PrintLog;
         if (m_PrintLog == false)
         {
-            m_PrintToolLog = false;
+            PrintTool.m_PrintToolLog = false;
         }
 
         Application.targetFrameRate = 60;

@@ -1,27 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
 public static class PrintTool
 {
+    public static bool m_PrintToolLog = true;
     private static readonly StringBuilder mStringBuilder = new StringBuilder();
 
-    public static void LogWithColor(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    public static void LogWithColor(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
-        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        if (!m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6);
         Debug.Log($"<color=yellow>{content}</color>");
     }
-    
+
     public static void LogJsonObj(object data)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
+        if (!m_PrintToolLog) return;
         Debug.Log(JsonTool.ToJson(data));
     }
 
-    private static string GetStr(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    private static string GetStr(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
         mStringBuilder.Clear();
         if (data1 != null)
@@ -48,46 +46,34 @@ public static class PrintTool
         {
             mStringBuilder.Append(data6 + "___");
         }
-        if (data7 != null)
-        {
-            mStringBuilder.Append(data7 + "___");
-        }
-        if (data8 != null)
-        {
-            mStringBuilder.Append(data8 + "___");
-        }
-        if (data9 != null)
-        {
-            mStringBuilder.Append(data9 + "___");
-        }
         return mStringBuilder.ToString();
     }
 
-    public static void Log(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    public static void Log(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
-        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        if (!m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6);
         Debug.Log(content);
     }
 
-    public static void LogWarning(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    public static void LogWarning(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
-        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        if (!m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6);
         Debug.LogWarning(content);
     }
 
-    public static void LogError(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    public static void LogError(object data1, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
-        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        if (!m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6);
         Debug.LogError(content);
     }
 
-    public static void Assert(bool isTrue, object data1 = null, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null, object data7 = null, object data8 = null, object data9 = null)
+    public static void Assert(bool isTrue, object data1 = null, object data2 = null, object data3 = null, object data4 = null, object data5 = null, object data6 = null)
     {
-        if (!GameLauncher.Instance.m_PrintToolLog) return;
-        string content = GetStr(data1, data2, data3, data4, data5, data6, data7, data8, data9);
+        if (!m_PrintToolLog) return;
+        string content = GetStr(data1, data2, data3, data4, data5, data6);
         Debug.Assert(isTrue, content);
     }
 

@@ -3,6 +3,18 @@ using System.Drawing;
 using System.IO;
 using UnityEngine;
 
+public class MapJsonClass
+{
+    public int Width, Height;
+    public OkCell[,] Cells;
+}
+
+public class OkCell
+{
+    public CellAttribute Attribute;
+    public sbyte FishingAttribute = -1;
+}
+
 public class MapData
 {
     public string FileName;

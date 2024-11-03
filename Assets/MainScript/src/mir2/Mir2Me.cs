@@ -1,10 +1,10 @@
-using System.Drawing;
+using System;
 using UnityEngine;
 
 public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
 {
     public float fSpeed = 100f;
-    readonly TimeOutGenerator mTimeOut_MouseDown = TimeOutGenerator.New(0.5f);
+    TimeOutGenerator mTimeOut_MouseDown = null;
 
     public const int CellWidth = 48;
     public const int CellHeight = 32;
@@ -16,48 +16,54 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
     public static int ViewRangeY;
 
     bool bAtuoRun = false;
-
-    public Point CurrentLocation;
-    public Point MapLocation;
-    public Point Movement;
-    public Point OffSetMove;
+    
+    public Vector3Int MapLocation;
     public MirDirection Direction;
     public MirAction CurrentAction;
+
+    [NonSerialized]
+    public Vector3Int CurrentLocation;
 
     public MirGender Gender;
     public MirClass Class;
     public byte Hair;
     public ushort Level;
-
     public int FrameIndex;
 
+    private bool bInit = false;
     public void Init()
     {
-        OffSetX = Screen.width / 2 / CellWidth;
-        OffSetY = Screen.height / 2 / CellHeight - 1;
-        ViewRangeX = OffSetX + 6;
-        ViewRangeY = OffSetY + 6;
+        if (bInit) return;
+        bInit = true;
+        mTimeOut_MouseDown = TimeOutGenerator.New(0.5f);
+        CurrentLocation = new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, MapLocation.y * TileMapMgr.CellHeight, 0);
+        Direction = MirDirection.UpRight;
+        transform.position = CurrentLocation;
+    }
+
+
+    private void Awake()
+    {
+        Init();
     }
 
     private void Update()
     {
-        if (mTimeOut_MouseDown.orTimeOut())
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
         {
-            if (Input.GetMouseButtonDown(0))
+            bAtuoRun = false;
+            Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 dir = Vector3.Normalize(pos - transform.position);
+            Direction = GetDirection(dir);
+            CurrentAction = MirAction.Walking;
+            OnSimpleMove();
+
+            if (TileMapMgr.readOnlyInstance != null)
             {
-                bAtuoRun = false;
-                Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Vector3 dir = Vector3.Normalize(transform.position - pos);
-                Direction = GetDirection(dir);
-            }
-            else if (Input.GetMouseButtonDown(1))
-            {
-                bAtuoRun = true;
+                TileMapMgr.readOnlyInstance.UpdateMap();
             }
         }
 
-        UpdateFrame();
-        OnMove();
     }
 
     private MirDirection GetDirection(Vector3 dir)
@@ -79,8 +85,58 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
                 return MirDirection.UpLeft;
             return MirDirection.Left;
         }
-
         return dir.y < 0 ? MirDirection.Down : MirDirection.Up;
+    }
+
+    private Vector3Int GetDirOffset(MirDirection Direction)
+    {
+        Vector3Int targetPos = Vector3Int.zero;
+        if (Direction == MirDirection.Left)
+        {
+            targetPos = new Vector3Int(-1, 0, 0);
+        }
+        else if (Direction == MirDirection.Right)
+        {
+            targetPos = new Vector3Int(1, 0, 0);
+        }
+        else if (Direction == MirDirection.Up)
+        {
+            targetPos = new Vector3Int(0, 1, 0);
+        }
+        else if (Direction == MirDirection.Down)
+        {
+            targetPos = new Vector3Int(0, -1, 0);
+        }
+        else if (Direction == MirDirection.UpRight)
+        {
+            targetPos = new Vector3Int(1, 1, 0);
+        }
+        else if (Direction == MirDirection.DownRight)
+        {
+            targetPos = new Vector3Int(1, -1, 0);
+        }
+        else if (Direction == MirDirection.DownLeft)
+        {
+            targetPos = new Vector3Int(-1, -1, 0);
+        }
+        else if (Direction == MirDirection.UpLeft)
+        {
+            targetPos = new Vector3Int(-1, 1, 0);
+        }
+        else
+        {
+            PrintTool.Assert(false);
+        }
+
+       return targetPos;
+    }
+
+    private void OnSimpleMove()
+    {
+        Vector3Int targetPos = CurrentLocation + GetDirOffset(Direction);
+        CurrentLocation = targetPos;
+        MapLocation = new Vector3Int(CurrentLocation.x / TileMapMgr.CellWidth, CurrentLocation.y / TileMapMgr.CellHeight, 0);
+        transform.position = CurrentLocation;
     }
 
     private void UpdateFrame()
@@ -90,73 +146,6 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
         {
             FrameIndex = 0;
         }
-    }
-
-    private void OnMove()
-    {
-        switch (CurrentAction)
-        {
-            case MirAction.Walking:
-            case MirAction.Running:
-            case MirAction.MountWalking:
-            case MirAction.MountRunning:
-            case MirAction.Pushed:
-            case MirAction.DashL:
-            case MirAction.DashR:
-            case MirAction.Sneek:
-            case MirAction.Jump:
-            case MirAction.DashAttack:
-
-                int i = 0;
-                if (CurrentAction == MirAction.Running)
-                {
-                    i = 2;
-                }
-                else
-                {
-                    i = 1;
-                }
-                
-                int count = 3;
-                int index = FrameIndex;
-
-                Movement = Functions.PointMove(CurrentLocation, Direction, CurrentAction == MirAction.Pushed ? 0 : -i);
-                switch (Direction)
-                {
-                    case MirDirection.Up:
-                        OffSetMove = new Point(0, (int)((Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                    case MirDirection.UpRight:
-                        OffSetMove = new Point((int)((-Map.CellWidth * i / (float)(count)) * (index + 1)), (int)((Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                    case MirDirection.Right:
-                        OffSetMove = new Point((int)((-Map.CellWidth * i / (float)(count)) * (index + 1)), 0);
-                        break;
-                    case MirDirection.DownRight:
-                        OffSetMove = new Point((int)((-Map.CellWidth * i / (float)(count)) * (index + 1)), (int)((-Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                    case MirDirection.Down:
-                        OffSetMove = new Point(0, (int)((-Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                    case MirDirection.DownLeft:
-                        OffSetMove = new Point((int)((Map.CellWidth * i / (float)(count)) * (index + 1)), (int)((-Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                    case MirDirection.Left:
-                        OffSetMove = new Point((int)((Map.CellWidth * i / (float)(count)) * (index + 1)), 0);
-                        break;
-                    case MirDirection.UpLeft:
-                        OffSetMove = new Point((int)((Map.CellWidth * i / (float)(count)) * (index + 1)), (int)((Map.CellHeight * i / (float)(count)) * (index + 1)));
-                        break;
-                }
-
-                OffSetMove = new Point(OffSetMove.X % 2 + OffSetMove.X, OffSetMove.Y % 2 + OffSetMove.Y);
-                break;
-            default:
-                OffSetMove = Point.Empty;
-                Movement = CurrentLocation;
-                break;
-        }
-
     }
 }
 
