@@ -12,12 +12,12 @@
 
     //选择服务器===========================================================================
     public const ushort GSG_SERVER_INFO = 1020; //--【网关】发送给【选择网关】服务器信息
-    public const ushort SGG_SERVER_INFO_RESULT = 1021; 
+    public const ushort SGG_SERVER_INFO_RESULT = 1021;
 
     public const ushort CS_REQUEST_SERVER_LIST = 1022; //--客户端请求服务器列表
     public const ushort SC_REQUEST_SERVER_LIST_RESULT = 1023;
 
-    //网关命令===========================================================================
+    //网关服务器===========================================================================
     public const ushort IG_REGISTER_SERVER_INFO = 1040; //--【内部】 发送给 【网关】的注册信息
     public const ushort GI_REGISTER_SERVER_INFO_RESULT = 1041;
 
@@ -29,20 +29,22 @@
     public const ushort CG_REGISTER_INFO = 1045; //这里相当于 断线重连后，请求服务器全部信息
     public const ushort GC_REGISTER_INFO_RESULT = 1046;
 
-    //游戏命令===========================================================================
-    public const ushort CS_REQUEST_SELECTROLE_ALL_ROLEINFO = 1100; //-- 选择界面，请求所有角色信息
-    public const ushort SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT = 1101; //--
+    //游戏主服务器===========================================================================
+    public const ushort CS_REQUEST_SELECTROLE_ALL_ROLEINFO = 2000; //-- 选择界面，请求所有角色信息
+    public const ushort SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT = 2001; //--
 
-    public const ushort CS_REQUEST_SELECTROLE_CREATE_ROLE = 1102; //-- 选择界面，创建角色
-    public const ushort SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT = 1103; //
+    public const ushort CS_REQUEST_SELECTROLE_CREATE_ROLE = 2002; //-- 选择界面，创建角色
+    public const ushort SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT = 2003; //
 
-    public const ushort CS_REQUEST_SELECTROLE_DELETE_ROLE = 1104; //-- 选择界面，删除角色
-    public const ushort SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT = 1105; //
+    public const ushort CS_REQUEST_SELECTROLE_DELETE_ROLE = 2004; //-- 选择界面，删除角色
+    public const ushort SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT = 2005; //
 
-    public const ushort CS_REQUEST_STARTGAME = 1106; // 请求进入游戏
-    public const ushort SC_REQUEST_STARTGAME_RESULT = 1107; // 请求进入游戏结果
+    public const ushort CS_REQUEST_STARTGAME = 2006; // 请求进入游戏
+    public const ushort SC_REQUEST_STARTGAME_RESULT = 2007; // 请求进入游戏结果
 
-
+    //聊天服务器===========================================================================
+    public const ushort CS_SEND_CHAT_MSG = 3000;
+    public const ushort SC_SEND_CHAT_MSG = 3001;
 }
 
 public static class NetErrorCode

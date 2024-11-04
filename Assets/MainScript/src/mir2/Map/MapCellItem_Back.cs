@@ -1,5 +1,4 @@
 using Client.MirObjects;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
 
 public class MapCellItem_Back : MonoBehaviour
@@ -27,5 +26,4 @@ public class MapCellItem_Back : MonoBehaviour
             mSpriteRenderer.sprite = null;
         }
     }
-
 }

@@ -10,16 +10,18 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     private bool bInit = false;
     public void Init()
     {
-        if (bInit) return;
-        bInit = true;
+        if (!bInit)
+        {
+            bInit = true;
+            mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
+            mNetClient.addNetListenFun(NetProtocolCommand.GC_INNER_SERVER_NET_ERROR, receive_gc_innerServer_Error_Result);
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
+        }
 
         ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
-        mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
-        mNetClient.addNetListenFun(NetProtocolCommand.GC_INNER_SERVER_NET_ERROR, receive_gc_innerServer_Error_Result);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
         if (IPAddressHelper.TryParseConnectStr(mData.ServerConnectStr, out string Ip, out ushort nPort))
         {
             mNetClient.ConnectServer(Ip, nPort);
@@ -167,7 +169,13 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
                 UIMgr.Instance.CreateRoleView = null;
             }
 
-            UIMgr.Instance.Show_MainUI();
+            SceneMgr.Instance.LoadSceneAsync(SceneNames.Game, (fProgress) =>
+            {
+
+            }, () =>
+            {
+                UIMgr.Instance.Show_MainUI();
+            });
         }
         else
         {

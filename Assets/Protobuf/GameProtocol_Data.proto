@@ -1,0 +1,168 @@
+syntax = "proto3";
+package NetProtocols.Game;
+
+message packet_data_Vector3Int
+{
+	uint32 x = 1;
+	uint32 y = 2;
+	uint32 z = 3;
+}
+
+message packet_data_Color
+{
+	uint32 r = 1;
+	uint32 g = 2;
+	uint32 b = 3;
+	uint32 a = 4;
+}
+
+message packet_data_SelectRole_RoleInfo
+{
+	uint32 nRoleId = 1;
+	string Name = 2;
+	uint32 Gender = 3;
+	uint32 Class = 4;
+	uint32 Level = 5;
+	uint64 nLastLoginTime = 6;
+	uint64 nCreateTime = 7;
+}
+
+message packet_data_MapInfo
+{
+	uint32 MapIndex = 1;
+	string FileName = 2;
+	string Title = 3;
+	uint32 MiniMap = 4;
+	uint32 BigMap = 5;
+	uint32 Music = 6;
+	uint32 Lights = 7;
+	bool Lightning = 8;
+	bool Fire = 9;
+	uint32 MapDarkLight = 10;
+	uint32 WeatherParticles = 11;
+}
+
+message packet_data_ItemAtt
+{
+	uint32 nType = 1;
+	uint32 nValue = 2;
+	uint32 nMinValue = 3;
+	uint32 nMaxValue = 4;
+}
+
+message packet_data_ItemInfo
+{
+	uint32 nItemId = 1;
+	string Name = 2;
+	uint32 Type = 3;
+	uint32 Grade = 4;
+	uint32 RequiredType = 5;
+	uint32 RequiredClass = 6;
+	uint32 RequiredGender = 7;
+	uint32 Set = 8;
+	uint32 Shape = 9;
+	uint32 Weight = 10;
+	uint32 Light = 11;
+	uint32 RequiredAmount = 12;
+	uint32 Image = 13; 
+	uint32 Durability = 14;
+	uint32 Price = 15; 
+	uint32 StackSize = 16;
+	bool StartItem = 17;
+	uint32 Effect = 18;
+	bool NeedIdentify = 19; 
+	bool ShowGroupPickup = 20; 
+	bool GlobalDropNotify = 21;
+	bool ClassBased = 22;
+	bool LevelBased = 23;
+	bool CanMine = 24;
+	bool CanFastRun = 25;
+	bool CanAwakening = 26;
+	uint32 Bind = 27;
+	uint32 Unique = 28;
+	uint32 RandomStatsId = 29;
+	uint32 RandomStats = 30;
+	string ToolTip = 31;
+	uint32 Slots = 32;
+	repeated packet_data_ItemAtt Stats = 33;
+}
+
+message packet_data_UserItem
+{
+	packet_data_ItemInfo ItemInfo = 1;
+	uint32 Count = 2;
+	uint64 UniqueID = 3;
+	uint32 ItemIndex = 4;
+	uint32 CurrentDura = 5;
+	uint32 MaxDura = 6;
+	uint64 ExpiryDate = 7;
+	repeated packet_data_ItemAtt AddedStats = 8;
+}
+
+message packet_data_ClientMagic
+{
+    string Name = 1;
+    uint32 Spell = 2;
+    uint32 BaseCost = 3;
+	uint32 LevelCost = 4;
+	uint32 Icon = 5;
+    uint32 Level1 = 6;
+	uint32 Level2 = 7;
+	uint32 Level3 = 8;
+    uint32 Need1 = 9;
+	uint32 Need2 = 10; 
+	uint32 Need3 = 11;
+
+    uint32 Level = 12;
+	uint32 Key = 13;
+	uint32 Range = 14;
+    uint32 Experience = 15;
+
+    bool IsTempSpell = 16;
+    uint64 CastTime = 17;
+	uint64 Delay = 18;
+}
+
+message packet_data_UserInfo
+{
+	uint32 ObjectID = 1;
+	uint32 RealId = 2;
+	string Name = 3;
+	string GuildName = 4;
+	string GuildRank = 5;
+	packet_data_Color NameColour = 6;
+	uint32 Class = 7;
+	uint32 Gender = 8;
+	uint32 Level = 9;
+	packet_data_Vector3Int Location = 10;
+	uint32 Direction = 11;
+	uint32 Hair = 12;
+	uint32 HP = 13;
+	uint32 MP = 14;
+	uint64 Experience = 15;
+	uint64 MaxExperience = 16;
+	uint32 LevelEffects = 17;
+	bool HasHero = 18;
+	uint32 HeroBehaviour = 19;
+
+	repeated packet_data_UserItem Inventory = 20; 
+	repeated packet_data_UserItem Equipment = 21; 
+	repeated packet_data_UserItem QuestInventory = 22;
+	
+	uint32 Gold = 23;
+	uint32 Credit = 24;
+	bool HasExpandedStorage = 25;
+	uint64 ExpandedStorageExpiryTime = 26;
+	repeated packet_data_ClientMagic Magics = 27;
+	uint32 SummonedCreatureType = 28;
+	bool CreatureSummoned = 29;
+	bool AllowObserve = 30;
+	bool Observer = 31;
+}
+
+message packet_data_cs_ChatInfo
+{
+	uint64 UniqueID = 1;
+    string Title = 2;
+    uint32 Grid = 3;
+}

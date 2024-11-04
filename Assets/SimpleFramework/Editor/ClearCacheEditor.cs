@@ -35,5 +35,11 @@ public class ClearCacheEditor : MonoBehaviour
 	{
 		Process.Start(Application.persistentDataPath);
 	}
-	
+
+    [MenuItem("清理Cache工具/Open WWW Cache")]
+    private static void OpenWWWCachePath()
+    {
+		Process.Start(Caching.defaultCache.path);
+    }
+
 }

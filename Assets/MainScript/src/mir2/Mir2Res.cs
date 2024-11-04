@@ -116,7 +116,23 @@ public class Mir2Res:SingleTonMonoBehaviour<Mir2Res>
         });
     }
 
-    public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent)
+    public IEnumerator RequestMapSprite(int nIndex, int nIndex2)
+    {
+        string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
+        path = Path.GetFullPath(path);
+        string url = GetPathUrl(path);
+        yield return SetWebSprite(url);
+    }
+
+    public Sprite GetMapSprite(int nIndex, int nIndex2)
+    {
+        string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
+        path = Path.GetFullPath(path);
+        string url = GetPathUrl(path);
+        return mSpriteDic[url];
+    }
+
+    public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent = null)
     {
         Sprite mTargetSprite = null;
         if (!mSpriteDic.TryGetValue(url, out mTargetSprite))
@@ -128,12 +144,13 @@ public class Mir2Res:SingleTonMonoBehaviour<Mir2Res>
             {
                 var mTexture = DownloadHandlerTexture.GetContent(www);
                 mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), Vector2.zero, 1);
-                mSpriteDic.Add(url, mTargetSprite);
+                mSpriteDic[url] = mTargetSprite;
             }
             else
             {
                 Debug.LogError(www.result + " | " + www.error + " | " + url);
             }
+            www.Dispose();
         }
         mFinishEvent?.Invoke(mTargetSprite);
     }
