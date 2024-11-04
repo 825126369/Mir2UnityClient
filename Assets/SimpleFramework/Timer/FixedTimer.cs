@@ -28,7 +28,7 @@ public class FixedTimer
 	public void Start()
 	{
 		this.running = true;
-		TimeMgr.Instance.AddListener(this.Update);
+		UpdateMgr.Instance.AddListener(this.Update);
 	}
 
 	public void Reset(Action func, float duration, int loop = 1, bool unscaled = false)
@@ -43,7 +43,7 @@ public class FixedTimer
 	public void Stop()
 	{
 		this.running = false;
-		TimeMgr.Instance.RemoveListener(this.Update);
+		UpdateMgr.Instance.RemoveListener(this.Update);
 	}
 
 	private void Update()

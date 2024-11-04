@@ -38,14 +38,14 @@ public class FrameTimer
 
 	public void Start()
 	{
-		TimeMgr.Instance.AddListener(this.Update);
+		UpdateMgr.Instance.AddListener(this.Update);
 		this.running = true;
 	}
 
 	public void Stop()
 	{
 		this.running = false;
-		TimeMgr.Instance.RemoveListener(this.Update);
+		UpdateMgr.Instance.RemoveListener(this.Update);
 	}
 
 	public void Update()

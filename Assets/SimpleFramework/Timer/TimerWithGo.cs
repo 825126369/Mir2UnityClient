@@ -30,13 +30,13 @@ public class TimerWithGo
     public void Start()
     {
         this.running = true;
-        TimeMgr.Instance.AddListener(this.Update);
+        UpdateMgr.Instance.AddListener(this.Update);
     }
 
     public void Stop()
     {
         this.running = false;
-        TimeMgr.Instance.RemoveListener(this.Update);
+        UpdateMgr.Instance.RemoveListener(this.Update);
     }
 
     private void Update()
