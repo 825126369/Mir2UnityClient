@@ -147,7 +147,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             PrintTool.Log("packet_sc_request_AllRoleInfo_Result 成功");
             if (UIMgr.Instance.SelectServerView != null)
             {
-                Destroy(UIMgr.Instance.SelectServerView);
+                Destroy(UIMgr.Instance.SelectServerView.gameObject);
                 UIMgr.Instance.SelectServerView = null;
             }
 
@@ -184,12 +184,12 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             PrintTool.Log("开始游戏 成功");
             if (UIMgr.Instance.SelectRoleView != null)
             {
-                Destroy(UIMgr.Instance.SelectRoleView);
+                Destroy(UIMgr.Instance.SelectRoleView.gameObject);
                 UIMgr.Instance.SelectRoleView = null;
             }
             if (UIMgr.Instance.CreateRoleView != null)
             {
-                Destroy(UIMgr.Instance.CreateRoleView);
+                Destroy(UIMgr.Instance.CreateRoleView.gameObject);
                 UIMgr.Instance.CreateRoleView = null;
             }
 
