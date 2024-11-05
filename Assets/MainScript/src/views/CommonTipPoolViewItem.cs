@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,9 +26,9 @@ public class CommonTipPoolViewItem : MonoBehaviour
             }
             else
             {
-                if(UIMgr.Instance.CommonTipPoolView.nItemId != this.nOtherId)
+                if(UIMgr.CommonTipPoolView.nItemId != this.nOtherId)
                 {
-                    this.nOtherId = UIMgr.Instance.CommonTipPoolView.nItemId;
+                    this.nOtherId = UIMgr.CommonTipPoolView.nItemId;
                     this.DoMoveUpAni();
                 }
             }
@@ -55,7 +52,7 @@ public class CommonTipPoolViewItem : MonoBehaviour
     public void DoMoveUpAni()
     {
         float toY = 0;
-        toY = 120 * (UIMgr.Instance.CommonTipPoolView.nItemId - this.nMyId);
+        toY = 120 * (UIMgr.CommonTipPoolView.nItemId - this.nMyId);
         LeanTween.moveLocalY(this.gameObject, toY, 0.3f).setEase(LeanTweenType.easeOutSine);
     }
 
@@ -66,7 +63,7 @@ public class CommonTipPoolViewItem : MonoBehaviour
         float toY = Screen.height / 4f;
         toY = Mathf.Max(toY, this.transform.localPosition.y);
         LeanTween.moveLocalY(this.gameObject, toY, 0.3f).setEase(LeanTweenType.easeOutSine).setOnComplete(()=>{
-            UIMgr.Instance.CommonTipPoolView.RecycleItem(this);
+            UIMgr.CommonTipPoolView.RecycleItem(this);
         });
     }
 

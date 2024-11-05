@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class UIMgr : SingleTonMonoBehaviour<UIMgr>
 {
-    public CommonTipPoolView CommonTipPoolView;
-    public CommonDialogView CommonDialogView;
-    public CommonWindowLoading CommonWindowLoading;
+    public static CommonTipPoolView CommonTipPoolView;
+    public static CommonDialogView CommonDialogView;
+    public static CommonWindowLoading CommonWindowLoading;
 
     public LoginView LoginView;
     public RegisterView RegisterView;
@@ -23,39 +23,39 @@ public class UIMgr : SingleTonMonoBehaviour<UIMgr>
         Init_Global_CommonTipPoolView();
     }
 
-    public void Init_Global_WindowLoading()
+    public static void Init_Global_WindowLoading()
     {
-        if (this.CommonWindowLoading == null)
+        if (CommonWindowLoading == null)
         {
             GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("CommonWindowLoading");
             GameObject go = Instantiate<GameObject>(goPrefab);
-            this.CommonWindowLoading = go.GetComponent<CommonWindowLoading>();
-            this.CommonWindowLoading.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
-            this.CommonWindowLoading.gameObject.SetActive(false);
+            CommonWindowLoading = go.GetComponent<CommonWindowLoading>();
+            CommonWindowLoading.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
+            CommonWindowLoading.gameObject.SetActive(false);
         }
     }
 
-    public void Init_Global_CommonDialogView()
+    public static void Init_Global_CommonDialogView()
     {
-        if (this.CommonDialogView == null)
+        if (CommonDialogView == null)
         {
             GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("CommonDialogView");
             GameObject go = Instantiate<GameObject>(goPrefab);
-            this.CommonDialogView = go.GetComponent<CommonDialogView>();
-            this.CommonDialogView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
-            this.CommonDialogView.gameObject.SetActive(false);
+            CommonDialogView = go.GetComponent<CommonDialogView>();
+            CommonDialogView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
+            CommonDialogView.gameObject.SetActive(false);
         }
     }
 
     public void Init_Global_CommonTipPoolView()
     {
-        if (this.CommonTipPoolView == null)
+        if (CommonTipPoolView == null)
         {
             GameObject goPrefab = ResCenter.Instance.mBundleGameAllRes.FindPrefab("CommonTipPoolView");
             GameObject go = Instantiate<GameObject>(goPrefab);
-            this.CommonTipPoolView = go.GetComponent<CommonTipPoolView>();
-            this.CommonTipPoolView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
-            this.CommonTipPoolView.gameObject.SetActive(false);
+            CommonTipPoolView = go.GetComponent<CommonTipPoolView>();
+            CommonTipPoolView.transform.SetParent(GameLauncher.Instance.mUIRoot.mCanvas_Tip, false);
+            CommonTipPoolView.gameObject.SetActive(false);
         }
     }
 

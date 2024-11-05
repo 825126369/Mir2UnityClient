@@ -1,18 +1,19 @@
 using AKNet.Common;
 using AKNet.Tcp.Client;
+using Google.Protobuf;
 using NetProtocols.Login;
 using UnityEngine;
 
 public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 {
-    public readonly TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public static TcpNetClientMain mNetClient = new TcpNetClientMain();
     private bool bInit = false;
 
     public void InitLoginServerClient()
     {
         if (bInit) return;
         bInit = true;
-
+        mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
         mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
@@ -23,9 +24,26 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         }
     }
 
+    private void ListenClientPeerState(ClientPeerBase mClientPeer)
+    {
+        if (mClientPeer.GetSocketState() == SOCKET_PEER_STATE.DISCONNECTED)
+        {
+            UIMgr.CommonDialogView.ShowYesCancel("提示", "网络已断开, 是否重连?");
+        }
+        else if (mClientPeer.GetSocketState() != SOCKET_PEER_STATE.CONNECTED)
+        {
+            UIMgr.CommonWindowLoading.Show();
+        }
+        else
+        {
+            UIMgr.CommonWindowLoading.Hide();
+        }
+    }
+
     public void Release()
     {
         mNetClient.Release();
+        mNetClient = null;
         Destroy(this.gameObject);
     }
 
@@ -34,13 +52,20 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         mNetClient.Update(Time.deltaTime);
     }
 
+    public static void SendNetData(ushort nPackageId, IMessage msg)
+    {
+        mNetClient.SendNetData(nPackageId, msg);
+    }
+
     void receive_scRequestLogin(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
-            UIMgr.Instance.CommonTipPoolView.Show("登录成功");
-            this.mNetClient.Release();
+            UIMgr.CommonTipPoolView.Show("登录成功");
+            Release();
 
             DataCenter.Instance.selectGateServerConnectStr = mReceiveMsg.SelectGateServerConnectStr;
             DataCenter.Instance.nAccountId = mReceiveMsg.NAccountId;
@@ -48,7 +73,7 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
 
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
@@ -57,14 +82,16 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
     void receive_scRequestRegister(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
-            UIMgr.Instance.CommonTipPoolView.Show("注册账号成功");
+            UIMgr.CommonTipPoolView.Show("注册账号成功");
             UIMgr.Instance.RegisterView.Hide();
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
         
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
@@ -73,14 +100,16 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
     void receive_scChangePassword(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
-            UIMgr.Instance.CommonTipPoolView.Show("修改密码成功");
+            UIMgr.CommonTipPoolView.Show("修改密码成功");
             UIMgr.Instance.ChangePasswordView.Hide();
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
         IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }

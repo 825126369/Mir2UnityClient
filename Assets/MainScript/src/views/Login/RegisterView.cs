@@ -25,57 +25,58 @@ public class RegisterView : MonoBehaviour
         {
             if (string.IsNullOrWhiteSpace(AccountInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "账号不能为空");
                 return;
             }
             else if (string.IsNullOrWhiteSpace(PasswordInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "密码不能为空");
                 return;
             }
             else if (string.IsNullOrWhiteSpace(SecretQuestionInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "安全问题不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "安全问题不能为空");
                 return;
             }
             else if (string.IsNullOrWhiteSpace(AnswerInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "安全回答不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "安全回答不能为空");
                 return;
             }
             else if (string.IsNullOrWhiteSpace(EmailInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "邮箱不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "邮箱不能为空");
                 return;
             }
             else if (PasswordInputField.text != ConfirmPasswordInputField.text)
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "输入的两次密码不一样");
+                UIMgr.CommonDialogView.ShowOk("提示", "输入的两次密码不一样");
                 return;
             }
             else if (!DataCenter.Instance.mAccountRegex.IsMatch(AccountInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "账号由字母、数字组合而成，8~20位之间");
+                UIMgr.CommonDialogView.ShowOk("提示", "账号由字母、数字组合而成，8~20位之间");
                 return;
             }
             else if (!DataCenter.Instance.mPasswordRegex.IsMatch(PasswordInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "密码由字母、数字组合而成，8~20位之间");
+                UIMgr.CommonDialogView.ShowOk("提示", "密码由字母、数字组合而成，8~20位之间");
                 return;
             }
             else if (!DataCenter.Instance.mMailRegex.IsMatch(EmailInputField.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "这不是一个有效的邮箱");
+                UIMgr.CommonDialogView.ShowOk("提示", "这不是一个有效的邮箱");
                 return;
             }
 
+            UIMgr.CommonWindowLoading.Show();
             var mData = new packet_cs_Register();
             mData.Account = AccountInputField.text;
             mData.Password = PasswordInputField.text;
             mData.SecretQuestion = SecretQuestionInputField.text;
             mData.SecretAnswer = AnswerInputField.text;
             mData.EMailAddress = EmailInputField.text;
-            NetClientLoginMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_REGISTER, mData);
+            NetClientLoginMgr.SendNetData(NetProtocolCommand.CS_REQUEST_REGISTER, mData);
 
         });
 

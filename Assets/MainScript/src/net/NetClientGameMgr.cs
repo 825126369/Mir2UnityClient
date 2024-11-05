@@ -1,12 +1,13 @@
 using AKNet.Common;
 using AKNet.Tcp.Client;
+using Google.Protobuf;
 using NetProtocols.Game;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {
-    public readonly TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public static TcpNetClientMain mNetClient = new TcpNetClientMain();
     private bool bInit = false;
     public void Init()
     {
@@ -31,19 +32,30 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     public void Release()
     {
         mNetClient.Release();
+        mNetClient = null;
         Destroy(this.gameObject);
     }
 
     private void ListenClientPeerState(ClientPeerBase mClientPeer)
     {
-        if (mClientPeer.GetSocketState() == SOCKET_PEER_STATE.CONNECTED)
+        if (mClientPeer.GetSocketState() == SOCKET_PEER_STATE.DISCONNECTED)
         {
+            UIMgr.CommonDialogView.ShowYesCancel("提示", "网络已断开, 是否重连?");
+        }
+        else if (mClientPeer.GetSocketState() != SOCKET_PEER_STATE.CONNECTED)
+        {
+            UIMgr.CommonWindowLoading.Show();
+        }
+        else
+        {
+            UIMgr.CommonWindowLoading.Hide();
             SendFirstMsg();
         }
     }
     
     private void SendFirstMsg()
     {
+        UIMgr.CommonWindowLoading.Show();
         var mSendMsg = IMessagePool<packet_cs_request_AllRoleInfo>.Pop();
         mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
         mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_ALL_ROLEINFO, mSendMsg);
@@ -55,15 +67,22 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         mNetClient.Update(Time.deltaTime);
     }
 
+    public static void SendNetData(ushort nPackageId, IMessage msg)
+    {
+        mNetClient.SendNetData(nPackageId, msg);
+    }
+
     void receive_gc_innerServer_Error_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         string msg = $"内部服务器 网络故障!!!";
-        UIMgr.Instance.CommonDialogView.ShowOk("提示", msg);
+        UIMgr.CommonDialogView.ShowOk("提示", msg);
     }
 
     void receive_sc_Request_selectRole_CreateRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_request_CreateRole_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_CreateRole_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("创建角色 成功");
@@ -85,13 +104,15 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
     }
 
     void receive_sc_Request_selectRole_DeleteRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_request_DeleteRole_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_DeleteRole_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("删除角色 成功");
@@ -112,13 +133,15 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
     }
 
     void receive_sc_Request_selectRole_AllRoleInfo_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         packet_sc_request_AllRoleInfo_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_AllRoleInfo_Result>(mNetPackage);
+
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("packet_sc_request_AllRoleInfo_Result 成功");
@@ -147,7 +170,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
     }
 
@@ -155,6 +178,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     {
         var mReceiveMsg = Protocol3Utility.getData<packet_sc_request_StartGame_Result>(mNetPackage);
 
+        UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("开始游戏 成功");
@@ -179,7 +203,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
         else
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
     }
 

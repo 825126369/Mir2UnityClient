@@ -89,14 +89,14 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         UIMgr.Instance.Init();
         NetClientLoginMgr.Instance.InitLoginServerClient();
 
-        while (NetClientLoginMgr.Instance.mNetClient.GetSocketState() == SOCKET_PEER_STATE.CONNECTING)
+        while (NetClientLoginMgr.mNetClient.GetSocketState() == SOCKET_PEER_STATE.CONNECTING)
         {
             yield return null;
         }
 
-        if(NetClientLoginMgr.Instance.mNetClient.GetSocketState() != SOCKET_PEER_STATE.CONNECTED)
+        if(NetClientLoginMgr.mNetClient.GetSocketState() != SOCKET_PEER_STATE.CONNECTED)
         {
-            UIMgr.Instance.CommonDialogView.ShowOk("提示", "连接服务器失败！！！");
+            UIMgr.CommonDialogView.ShowOk("提示", "连接服务器失败！！！");
             yield break;
         }
 

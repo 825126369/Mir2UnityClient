@@ -42,11 +42,12 @@ public class SelectRoleView : MonoBehaviour
 
         deleteBtn.onClick.AddListener(() =>
         {
-            if(nSelectRoleId > 0)
+            if (nSelectRoleId > 0)
             {
+                UIMgr.CommonWindowLoading.Show();
                 var mSendMsg = IMessagePool<packet_cs_request_DeleteRole>.Pop();
                 mSendMsg.NPlayerId = nSelectRoleId;
-                NetClientGameMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_DELETE_ROLE, mSendMsg);
+                NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_DELETE_ROLE, mSendMsg);
                 IMessagePool<packet_cs_request_DeleteRole>.recycle(mSendMsg);
             }
         });
@@ -55,7 +56,11 @@ public class SelectRoleView : MonoBehaviour
         {
             if (nSelectRoleId > 0)
             {
-                
+                UIMgr.CommonWindowLoading.Show();
+                var mSendMsg = IMessagePool<packet_cs_request_StartGame>.Pop();
+                mSendMsg.NPlayerId = nSelectRoleId;
+                NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_STARTGAME, mSendMsg);
+                IMessagePool<packet_cs_request_StartGame>.recycle(mSendMsg);
             }
         });
     }

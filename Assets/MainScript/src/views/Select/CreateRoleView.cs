@@ -79,16 +79,17 @@ public class CreateRoleView : MonoBehaviour
         {
             if (string.IsNullOrWhiteSpace(mInputName.text))
             {
-                UIMgr.Instance.CommonDialogView.ShowOk("提示", "角色名不能为空");
+                UIMgr.CommonDialogView.ShowOk("提示", "角色名不能为空");
                 return;
             }
 
+            UIMgr.CommonWindowLoading.Show();
             packet_cs_request_CreateRole mSendMsg = IMessagePool<packet_cs_request_CreateRole>.Pop();
             mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
             mSendMsg.Class = (uint)mClass;
             mSendMsg.Gender = (uint)mGender;
             mSendMsg.Name = mInputName.text;
-            NetClientGameMgr.Instance.mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_CREATE_ROLE, mSendMsg);
+            NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_CREATE_ROLE, mSendMsg);
             IMessagePool<packet_cs_request_CreateRole>.recycle(mSendMsg);
         });
     }
