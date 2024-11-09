@@ -42,9 +42,19 @@
     public const ushort CS_REQUEST_STARTGAME = 2006; // 请求进入游戏
     public const ushort SC_REQUEST_STARTGAME_RESULT = 2007; // 请求进入游戏结果
 
+    public const ushort CS_REQUEST_WALK = 2008; // 请求走路
+    public const ushort CS_REQUEST_RUN = 2009; // 请求跑步
+    public const ushort CS_REQUEST_TURNDIR = 2010; // 请求转向
+    public const ushort SC_REQUEST_USER_LOCATION = 2011; // 请求位置结果
+
+    public const ushort SC_BROADCAST_LOCATION = 2012; // 广播世界里的任意物质的位置
+
     //聊天服务器===========================================================================
     public const ushort CS_SEND_CHAT_MSG = 3000;
     public const ushort SC_SEND_CHAT_MSG = 3001;
+
+
+
 }
 
 public static class NetErrorCode

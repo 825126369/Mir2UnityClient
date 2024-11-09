@@ -20,6 +20,10 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
             mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
             mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_USER_LOCATION, receive_sc_UserLocation_Result);
+
+
+            mNetClient.addNetListenFun(NetProtocolCommand.SC_BROADCAST_LOCATION, receive_sc_broadcast_UserLocation_Result);
         }
 
         ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
@@ -205,6 +209,23 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         {
             UIMgr.CommonDialogView.ShowOk("ÌבÊ¾", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
+    }
+    
+    void receive_sc_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
+    {
+        var mReceiveMsg = Protocol3Utility.getData<packet_sc_UserLocation>(mNetPackage);
+        Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
+        MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
+        Mir2Me.Instance.HandleServerLocation(pos, Dir);
+    }
+     
+    void receive_sc_broadcast_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
+    {
+        var mReceiveMsg = Protocol3Utility.getData<packet_sc_broadcast_Location>(mNetPackage);
+        Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
+        MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
+        Mir2Me.Instance.HandleServerLocation(pos, Dir);
+
     }
 
 }

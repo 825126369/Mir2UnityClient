@@ -3,9 +3,9 @@ package NetProtocols.Game;
 
 message packet_data_Vector3Int
 {
-	uint32 x = 1;
-	uint32 y = 2;
-	uint32 z = 3;
+	int32 x = 1;
+	int32 y = 2;
+	int32 z = 3;
 }
 
 message packet_data_Color

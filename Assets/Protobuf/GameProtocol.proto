@@ -2,19 +2,6 @@ syntax = "proto3";
 package NetProtocols.Game;
 import "GameProtocol_Data.proto";
 
-//聊天
-message packet_cs_chat
-{
-	string Message = 1;
-	repeated packet_data_cs_ChatInfo LinkedItems = 2;
-}
-
-message packet_sc_chat
-{
-	uint32 nType = 1;
-	string Message = 2;
-}
-
 //开始游戏
 message packet_cs_request_StartGame
 {
@@ -47,27 +34,12 @@ message packet_sc_UserLocation
 	packet_data_Vector3Int Location = 2;
 }
 
-message packet_sc_broadcast_TurnDir
+message packet_sc_broadcast_Location
 {
 	uint32 ObjectID = 1;
 	uint32 Direction = 2;
 	packet_data_Vector3Int Location = 3;
 }
-
-message packet_sc_broadcast_Walk
-{
-	uint32 ObjectID = 1;
-	uint32 Direction = 2;
-	packet_data_Vector3Int Location = 3;
-}
-
-message packet_sc_broadcast_Run
-{
-	uint32 ObjectID = 1;
-	uint32 Direction = 2;
-	packet_data_Vector3Int Location = 3;
-}
-
 
 
 

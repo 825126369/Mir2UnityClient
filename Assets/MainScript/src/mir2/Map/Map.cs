@@ -1,5 +1,4 @@
 using Client.MirObjects;
-using System.Drawing;
 using System.IO;
 using UnityEngine;
 

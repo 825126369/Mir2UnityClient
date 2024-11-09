@@ -45,13 +45,9 @@ public class ProtobufGenReset
                 {
                     if (!v2.Name.Contains("Parser") && !v2.Name.Contains("Descriptor"))
                     {
-                        if (v2.PropertyType == typeof(uint) || v2.PropertyType == typeof(ulong))
+                        if (v2.PropertyType.IsValueType)
                         {
-                            mStaticFunc += $"\t\t\tmessage.{v2.Name} = 0;\n";
-                        }
-                        else if (v2.PropertyType == typeof(bool))
-                        {
-                            mStaticFunc += $"\t\t\tmessage.{v2.Name} = false;\n";
+                            mStaticFunc += $"\t\t\tmessage.{v2.Name} = default;\n";
                         }
                         else if (v2.PropertyType == typeof(string))
                         {
@@ -128,13 +124,9 @@ public class ProtobufGenReset
                 {
                     if (!v2.Name.Contains("Parser") && !v2.Name.Contains("Descriptor"))
                     {
-                        if (v2.PropertyType == typeof(uint) || v2.PropertyType == typeof(ulong))
+                        if (v2.PropertyType.IsValueType)
                         {
-                            mStaticFunc += $"\t\t\t{v2.Name} = 0;\n";
-                        }
-                        else if (v2.PropertyType == typeof(bool))
-                        {
-                            mStaticFunc += $"\t\t\t{v2.Name} = false;\n";
+                            mStaticFunc += $"\t\t\t{v2.Name} = default;\n";
                         }
                         else if (v2.PropertyType == typeof(string))
                         {

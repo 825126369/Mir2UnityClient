@@ -6,11 +6,11 @@ namespace NetProtocols.Login
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
-			NAccountId = 0;
+			NErrorCode = default;
+			NAccountId = default;
 			SelectGateServerConnectStr = string.Empty;
 			BanReason = string.Empty;
-			ExpiryDate = 0;
+			ExpiryDate = default;
 		}
 	}
 }
@@ -22,7 +22,7 @@ namespace NetProtocols.Login
 		{
 			Account = string.Empty;
 			Password = string.Empty;
-			NLoginType = 0;
+			NLoginType = default;
 		}
 	}
 }
@@ -34,7 +34,7 @@ namespace NetProtocols.Login
 		{
 			Account = string.Empty;
 			Password = string.Empty;
-			NLoginType = 0;
+			NLoginType = default;
 			SecretQuestion = string.Empty;
 			SecretAnswer = string.Empty;
 			EMailAddress = string.Empty;
@@ -47,7 +47,7 @@ namespace NetProtocols.Login
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 		}
 	}
 }
@@ -69,7 +69,7 @@ namespace NetProtocols.Login
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 		}
 	}
 }
@@ -79,10 +79,10 @@ namespace NetProtocols.SelectGate
 	{
 		public void Reset()
 		{
-			NServerId = 0;
+			NServerId = default;
 			ServerConnectStr = string.Empty;
-			OnlinePlayerCount = 0;
-			CreatedPlayerCount = 0;
+			OnlinePlayerCount = default;
+			CreatedPlayerCount = default;
 		}
 	}
 }
@@ -92,7 +92,7 @@ namespace NetProtocols.SelectGate
 	{
 		public void Reset()
 		{
-			NServerId = 0;
+			NServerId = default;
 			DataBaseConnectStr = string.Empty;
 		}
 	}
@@ -103,10 +103,10 @@ namespace NetProtocols.SelectGate
 	{
 		public void Reset()
 		{
-			NServerId = 0;
+			NServerId = default;
 			ServerConnectStr = string.Empty;
 			ServerName = string.Empty;
-			NState = 0;
+			NState = default;
 		}
 	}
 }
@@ -147,7 +147,7 @@ namespace NetProtocols.SelectGate
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 			foreach(var v in MServerInfoList)
 			{
 				IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToPlayer_Data>.recycle(v);
@@ -162,7 +162,7 @@ namespace NetProtocols.Gate
 	{
 		public void Reset()
 		{
-			NServerType = 0;
+			NServerType = default;
 			ServerConnectStr = string.Empty;
 		}
 	}
@@ -173,7 +173,7 @@ namespace NetProtocols.Gate
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 		}
 	}
 }
@@ -183,7 +183,7 @@ namespace NetProtocols.Gate
 	{
 		public void Reset()
 		{
-			NClientId = 0;
+			NClientId = default;
 		}
 	}
 }
@@ -193,7 +193,7 @@ namespace NetProtocols.Gate
 	{
 		public void Reset()
 		{
-			NPlayerId = 0;
+			NPlayerId = default;
 		}
 	}
 }
@@ -203,7 +203,7 @@ namespace NetProtocols.Gate
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 		}
 	}
 }
@@ -215,7 +215,82 @@ namespace NetProtocols.Gate
 		{
 			IdList.Clear();
 			MMsg = ByteString.Empty;
-			DisConnected = false;
+			DisConnected = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_StartGame : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NPlayerId = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_request_StartGame_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_TurnDir : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Direction = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_Walk : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Direction = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_cs_request_Run : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Direction = default;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_UserLocation : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Direction = default;
+			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
+			Location = null;
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_broadcast_Location : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			ObjectID = default;
+			Direction = default;
+			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
+			Location = null;
 		}
 	}
 }
@@ -240,109 +315,8 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NType = 0;
+			NType = default;
 			Message = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_request_StartGame : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NPlayerId = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_request_StartGame_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_request_TurnDir : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Direction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_request_Walk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Direction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_cs_request_Run : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Direction = 0;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_UserLocation : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Direction = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
-			Location = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_TurnDir : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			ObjectID = 0;
-			Direction = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
-			Location = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_Walk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			ObjectID = 0;
-			Direction = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
-			Location = null;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_Run : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			ObjectID = 0;
-			Direction = 0;
-			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
-			Location = null;
 		}
 	}
 }
@@ -352,6 +326,9 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
+			X = default;
+			Y = default;
+			Z = default;
 		}
 	}
 }
@@ -361,10 +338,10 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			R = 0;
-			G = 0;
-			B = 0;
-			A = 0;
+			R = default;
+			G = default;
+			B = default;
+			A = default;
 		}
 	}
 }
@@ -374,13 +351,13 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NRoleId = 0;
+			NRoleId = default;
 			Name = string.Empty;
-			Gender = 0;
-			Class = 0;
-			Level = 0;
-			NLastLoginTime = 0;
-			NCreateTime = 0;
+			Gender = default;
+			Class = default;
+			Level = default;
+			NLastLoginTime = default;
+			NCreateTime = default;
 		}
 	}
 }
@@ -390,17 +367,17 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			MapIndex = 0;
+			MapIndex = default;
 			FileName = string.Empty;
 			Title = string.Empty;
-			MiniMap = 0;
-			BigMap = 0;
-			Music = 0;
-			Lights = 0;
-			Lightning = false;
-			Fire = false;
-			MapDarkLight = 0;
-			WeatherParticles = 0;
+			MiniMap = default;
+			BigMap = default;
+			Music = default;
+			Lights = default;
+			Lightning = default;
+			Fire = default;
+			MapDarkLight = default;
+			WeatherParticles = default;
 		}
 	}
 }
@@ -410,10 +387,10 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NType = 0;
-			NValue = 0;
-			NMinValue = 0;
-			NMaxValue = 0;
+			NType = default;
+			NValue = default;
+			NMinValue = default;
+			NMaxValue = default;
 		}
 	}
 }
@@ -423,38 +400,38 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NItemId = 0;
+			NItemId = default;
 			Name = string.Empty;
-			Type = 0;
-			Grade = 0;
-			RequiredType = 0;
-			RequiredClass = 0;
-			RequiredGender = 0;
-			Set = 0;
-			Shape = 0;
-			Weight = 0;
-			Light = 0;
-			RequiredAmount = 0;
-			Image = 0;
-			Durability = 0;
-			Price = 0;
-			StackSize = 0;
-			StartItem = false;
-			Effect = 0;
-			NeedIdentify = false;
-			ShowGroupPickup = false;
-			GlobalDropNotify = false;
-			ClassBased = false;
-			LevelBased = false;
-			CanMine = false;
-			CanFastRun = false;
-			CanAwakening = false;
-			Bind = 0;
-			Unique = 0;
-			RandomStatsId = 0;
-			RandomStats = 0;
+			Type = default;
+			Grade = default;
+			RequiredType = default;
+			RequiredClass = default;
+			RequiredGender = default;
+			Set = default;
+			Shape = default;
+			Weight = default;
+			Light = default;
+			RequiredAmount = default;
+			Image = default;
+			Durability = default;
+			Price = default;
+			StackSize = default;
+			StartItem = default;
+			Effect = default;
+			NeedIdentify = default;
+			ShowGroupPickup = default;
+			GlobalDropNotify = default;
+			ClassBased = default;
+			LevelBased = default;
+			CanMine = default;
+			CanFastRun = default;
+			CanAwakening = default;
+			Bind = default;
+			Unique = default;
+			RandomStatsId = default;
+			RandomStats = default;
 			ToolTip = string.Empty;
-			Slots = 0;
+			Slots = default;
 			foreach(var v in Stats)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_ItemAtt>.recycle(v);
@@ -471,12 +448,12 @@ namespace NetProtocols.Game
 		{
 			IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(ItemInfo);
 			ItemInfo = null;
-			Count = 0;
-			UniqueID = 0;
-			ItemIndex = 0;
-			CurrentDura = 0;
-			MaxDura = 0;
-			ExpiryDate = 0;
+			Count = default;
+			UniqueID = default;
+			ItemIndex = default;
+			CurrentDura = default;
+			MaxDura = default;
+			ExpiryDate = default;
 			foreach(var v in AddedStats)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_ItemAtt>.recycle(v);
@@ -492,23 +469,23 @@ namespace NetProtocols.Game
 		public void Reset()
 		{
 			Name = string.Empty;
-			Spell = 0;
-			BaseCost = 0;
-			LevelCost = 0;
-			Icon = 0;
-			Level1 = 0;
-			Level2 = 0;
-			Level3 = 0;
-			Need1 = 0;
-			Need2 = 0;
-			Need3 = 0;
-			Level = 0;
-			Key = 0;
-			Range = 0;
-			Experience = 0;
-			IsTempSpell = false;
-			CastTime = 0;
-			Delay = 0;
+			Spell = default;
+			BaseCost = default;
+			LevelCost = default;
+			Icon = default;
+			Level1 = default;
+			Level2 = default;
+			Level3 = default;
+			Need1 = default;
+			Need2 = default;
+			Need3 = default;
+			Level = default;
+			Key = default;
+			Range = default;
+			Experience = default;
+			IsTempSpell = default;
+			CastTime = default;
+			Delay = default;
 		}
 	}
 }
@@ -518,27 +495,27 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			ObjectID = 0;
-			RealId = 0;
+			ObjectID = default;
+			RealId = default;
 			Name = string.Empty;
 			GuildName = string.Empty;
 			GuildRank = string.Empty;
 			IMessagePool<NetProtocols.Game.packet_data_Color>.recycle(NameColour);
 			NameColour = null;
-			Class = 0;
-			Gender = 0;
-			Level = 0;
+			Class = default;
+			Gender = default;
+			Level = default;
 			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
 			Location = null;
-			Direction = 0;
-			Hair = 0;
-			HP = 0;
-			MP = 0;
-			Experience = 0;
-			MaxExperience = 0;
-			LevelEffects = 0;
-			HasHero = false;
-			HeroBehaviour = 0;
+			Direction = default;
+			Hair = default;
+			HP = default;
+			MP = default;
+			Experience = default;
+			MaxExperience = default;
+			LevelEffects = default;
+			HasHero = default;
+			HeroBehaviour = default;
 			foreach(var v in Inventory)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_UserItem>.recycle(v);
@@ -554,19 +531,19 @@ namespace NetProtocols.Game
 				IMessagePool<NetProtocols.Game.packet_data_UserItem>.recycle(v);
 			}
 			QuestInventory.Clear();
-			Gold = 0;
-			Credit = 0;
-			HasExpandedStorage = false;
-			ExpandedStorageExpiryTime = 0;
+			Gold = default;
+			Credit = default;
+			HasExpandedStorage = default;
+			ExpandedStorageExpiryTime = default;
 			foreach(var v in Magics)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_ClientMagic>.recycle(v);
 			}
 			Magics.Clear();
-			SummonedCreatureType = 0;
-			CreatureSummoned = false;
-			AllowObserve = false;
-			Observer = false;
+			SummonedCreatureType = default;
+			CreatureSummoned = default;
+			AllowObserve = default;
+			Observer = default;
 		}
 	}
 }
@@ -576,9 +553,9 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			UniqueID = 0;
+			UniqueID = default;
 			Title = string.Empty;
-			Grid = 0;
+			Grid = default;
 		}
 	}
 }
@@ -588,7 +565,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NAccountId = 0;
+			NAccountId = default;
 		}
 	}
 }
@@ -598,7 +575,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 			foreach(var v in MRoleList)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
@@ -613,10 +590,10 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NAccountId = 0;
+			NAccountId = default;
 			Name = string.Empty;
-			Gender = 0;
-			Class = 0;
+			Gender = default;
+			Class = default;
 		}
 	}
 }
@@ -626,7 +603,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 			foreach(var v in MRoleList)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
@@ -641,7 +618,7 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NPlayerId = 0;
+			NPlayerId = default;
 		}
 	}
 }
@@ -651,12 +628,39 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NErrorCode = 0;
+			NErrorCode = default;
 			foreach(var v in MRoleList)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
 			MRoleList.Clear();
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_broadcast_TurnDir : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_broadcast_Walk : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_sc_broadcast_Run : IProtobufResetInterface
+	{
+		public void Reset()
+		{
 		}
 	}
 }

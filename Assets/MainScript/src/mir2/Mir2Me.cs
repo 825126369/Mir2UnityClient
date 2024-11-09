@@ -1,3 +1,4 @@
+using NetProtocols.Game;
 using System;
 using UnityEngine;
 
@@ -49,21 +50,52 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        bool bClickRight = false;
+        if (Input.GetMouseButton(0))
+        {
+            bClickRight = false;
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            bClickRight = true;
+        }
+
+        bool bClickMap = false;
+        float distance = 1000f;
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, distance))
+        {
+            BoxCollider2D mHitCollider = hit.collider.GetComponent<BoxCollider2D>();
+            if (mHitCollider != null && mHitCollider.gameObject.name == "Map")
+            {
+                PrintTool.Log("µã»÷µØÍ¼£º" + mHitCollider.transform.position);
+                bClickMap = true;
+            }
+        }
+        Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red);
+
+        if (bClickMap)
         {
             bAtuoRun = false;
             Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 dir = Vector3.Normalize(pos - transform.position);
             Direction = GetDirection(dir);
-            CurrentAction = MirAction.Walking;
-            OnSimpleMove();
+
+            if (bClickRight)
+            {
+                SendRunMsg();
+            }
+            else
+            {
+                SendWalkMsg();
+            }
 
             if (TileMapMgr.readOnlyInstance != null)
             {
                 TileMapMgr.readOnlyInstance.UpdateMap();
             }
         }
-
     }
 
     private MirDirection GetDirection(Vector3 dir)
@@ -139,6 +171,15 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
         transform.position = CurrentLocation;
     }
 
+    private void UpdateLocation(Vector3Int Location, MirDirection dir)
+    {
+        CurrentLocation = Location;
+        MapLocation = new Vector3Int(CurrentLocation.x / TileMapMgr.CellWidth, CurrentLocation.y / TileMapMgr.CellHeight, 0);
+        transform.position = CurrentLocation;
+
+        Direction = dir;
+    }
+
     private void UpdateFrame()
     {
         FrameIndex++;
@@ -147,5 +188,25 @@ public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
             FrameIndex = 0;
         }
     }
+
+    private void SendWalkMsg()
+    {
+        var mSendMsg = new packet_cs_request_Walk();
+        mSendMsg.Direction = (uint)Direction;
+        NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_WALK, mSendMsg);
+    }
+
+    private void SendRunMsg()
+    {
+        var mSendMsg = new packet_cs_request_Run();
+        mSendMsg.Direction = (uint)Direction;
+        NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_RUN, mSendMsg);
+    }
+
+    public void HandleServerLocation(Vector3Int Location, MirDirection dir)
+    {
+        UpdateLocation(Location, dir);
+    }
+
 }
 
