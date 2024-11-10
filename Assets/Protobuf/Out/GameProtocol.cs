@@ -26,22 +26,24 @@ namespace NetProtocols.Game {
           string.Concat(
             "ChJHYW1lUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYW1lGhdHYW1l",
             "UHJvdG9jb2xfRGF0YS5wcm90byIwChtwYWNrZXRfY3NfcmVxdWVzdF9TdGFy",
-            "dEdhbWUSEQoJblBsYXllcklkGAEgASgNIjgKInBhY2tldF9zY19yZXF1ZXN0",
-            "X1N0YXJ0R2FtZV9SZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDSIuChlwYWNr",
-            "ZXRfY3NfcmVxdWVzdF9UdXJuRGlyEhEKCURpcmVjdGlvbhgBIAEoDSIrChZw",
-            "YWNrZXRfY3NfcmVxdWVzdF9XYWxrEhEKCURpcmVjdGlvbhgBIAEoDSIqChVw",
-            "YWNrZXRfY3NfcmVxdWVzdF9SdW4SEQoJRGlyZWN0aW9uGAEgASgNImgKFnBh",
-            "Y2tldF9zY19Vc2VyTG9jYXRpb24SEQoJRGlyZWN0aW9uGAEgASgNEjsKCExv",
-            "Y2F0aW9uGAIgASgLMikuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFf",
-            "VmVjdG9yM0ludCKAAQoccGFja2V0X3NjX2Jyb2FkY2FzdF9Mb2NhdGlvbhIQ",
-            "CghPYmplY3RJRBgBIAEoDRIRCglEaXJlY3Rpb24YAiABKA0SOwoITG9jYXRp",
-            "b24YAyABKAsyKS5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9WZWN0",
-            "b3IzSW50YgZwcm90bzM="));
+            "dEdhbWUSEQoJblBsYXllcklkGAEgASgNIoUBCiJwYWNrZXRfc2NfcmVxdWVz",
+            "dF9TdGFydEdhbWVfUmVzdWx0EhIKCm5FcnJvckNvZGUYASABKA0SEAoIbk1h",
+            "cEluZXgYAiABKA0SOQoIVXNlckluZm8YAyABKAsyJy5OZXRQcm90b2NvbHMu",
+            "R2FtZS5wYWNrZXRfZGF0YV9Vc2VySW5mbyIuChlwYWNrZXRfY3NfcmVxdWVz",
+            "dF9UdXJuRGlyEhEKCURpcmVjdGlvbhgBIAEoDSIrChZwYWNrZXRfY3NfcmVx",
+            "dWVzdF9XYWxrEhEKCURpcmVjdGlvbhgBIAEoDSIqChVwYWNrZXRfY3NfcmVx",
+            "dWVzdF9SdW4SEQoJRGlyZWN0aW9uGAEgASgNImgKFnBhY2tldF9zY19Vc2Vy",
+            "TG9jYXRpb24SEQoJRGlyZWN0aW9uGAEgASgNEjsKCExvY2F0aW9uGAIgASgL",
+            "MikuTmV0UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFfVmVjdG9yM0ludCKA",
+            "AQoccGFja2V0X3NjX2Jyb2FkY2FzdF9Mb2NhdGlvbhIQCghPYmplY3RJRBgB",
+            "IAEoDRIRCglEaXJlY3Rpb24YAiABKA0SOwoITG9jYXRpb24YAyABKAsyKS5O",
+            "ZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9WZWN0b3IzSW50YgZwcm90",
+            "bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::NetProtocols.Game.GameProtocolDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_StartGame), global::NetProtocols.Game.packet_cs_request_StartGame.Parser, new[]{ "NPlayerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_StartGame_Result), global::NetProtocols.Game.packet_sc_request_StartGame_Result.Parser, new[]{ "NErrorCode" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_StartGame_Result), global::NetProtocols.Game.packet_sc_request_StartGame_Result.Parser, new[]{ "NErrorCode", "NMapInex", "UserInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_TurnDir), global::NetProtocols.Game.packet_cs_request_TurnDir.Parser, new[]{ "Direction" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_Walk), global::NetProtocols.Game.packet_cs_request_Walk.Parser, new[]{ "Direction" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_Run), global::NetProtocols.Game.packet_cs_request_Run.Parser, new[]{ "Direction" }, null, null, null, null),
@@ -290,6 +292,8 @@ namespace NetProtocols.Game {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public packet_sc_request_StartGame_Result(packet_sc_request_StartGame_Result other) : this() {
       nErrorCode_ = other.nErrorCode_;
+      nMapInex_ = other.nMapInex_;
+      userInfo_ = other.userInfo_ != null ? other.userInfo_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -311,6 +315,30 @@ namespace NetProtocols.Game {
       }
     }
 
+    /// <summary>Field number for the "nMapInex" field.</summary>
+    public const int NMapInexFieldNumber = 2;
+    private uint nMapInex_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint NMapInex {
+      get { return nMapInex_; }
+      set {
+        nMapInex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "UserInfo" field.</summary>
+    public const int UserInfoFieldNumber = 3;
+    private global::NetProtocols.Game.packet_data_UserInfo userInfo_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::NetProtocols.Game.packet_data_UserInfo UserInfo {
+      get { return userInfo_; }
+      set {
+        userInfo_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -327,6 +355,8 @@ namespace NetProtocols.Game {
         return true;
       }
       if (NErrorCode != other.NErrorCode) return false;
+      if (NMapInex != other.NMapInex) return false;
+      if (!object.Equals(UserInfo, other.UserInfo)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -335,6 +365,8 @@ namespace NetProtocols.Game {
     public override int GetHashCode() {
       int hash = 1;
       if (NErrorCode != 0) hash ^= NErrorCode.GetHashCode();
+      if (NMapInex != 0) hash ^= NMapInex.GetHashCode();
+      if (userInfo_ != null) hash ^= UserInfo.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -357,6 +389,14 @@ namespace NetProtocols.Game {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
+      if (NMapInex != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(NMapInex);
+      }
+      if (userInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(UserInfo);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -371,6 +411,14 @@ namespace NetProtocols.Game {
         output.WriteRawTag(8);
         output.WriteUInt32(NErrorCode);
       }
+      if (NMapInex != 0) {
+        output.WriteRawTag(16);
+        output.WriteUInt32(NMapInex);
+      }
+      if (userInfo_ != null) {
+        output.WriteRawTag(26);
+        output.WriteMessage(UserInfo);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -383,6 +431,12 @@ namespace NetProtocols.Game {
       int size = 0;
       if (NErrorCode != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NErrorCode);
+      }
+      if (NMapInex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(NMapInex);
+      }
+      if (userInfo_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(UserInfo);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -398,6 +452,15 @@ namespace NetProtocols.Game {
       }
       if (other.NErrorCode != 0) {
         NErrorCode = other.NErrorCode;
+      }
+      if (other.NMapInex != 0) {
+        NMapInex = other.NMapInex;
+      }
+      if (other.userInfo_ != null) {
+        if (userInfo_ == null) {
+          UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+        }
+        UserInfo.MergeFrom(other.UserInfo);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -422,6 +485,17 @@ namespace NetProtocols.Game {
             NErrorCode = input.ReadUInt32();
             break;
           }
+          case 16: {
+            NMapInex = input.ReadUInt32();
+            break;
+          }
+          case 26: {
+            if (userInfo_ == null) {
+              UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+            }
+            input.ReadMessage(UserInfo);
+            break;
+          }
         }
       }
     #endif
@@ -443,6 +517,17 @@ namespace NetProtocols.Game {
             break;
           case 8: {
             NErrorCode = input.ReadUInt32();
+            break;
+          }
+          case 16: {
+            NMapInex = input.ReadUInt32();
+            break;
+          }
+          case 26: {
+            if (userInfo_ == null) {
+              UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+            }
+            input.ReadMessage(UserInfo);
             break;
           }
         }

@@ -11,6 +11,8 @@ message packet_cs_request_StartGame
 message packet_sc_request_StartGame_Result
 {
 	uint32 nErrorCode = 1;
+	uint32 nMapInex = 2;
+	packet_data_UserInfo UserInfo = 3;
 }
 
 message packet_cs_request_TurnDir

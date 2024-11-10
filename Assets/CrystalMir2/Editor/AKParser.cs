@@ -1,58 +1,61 @@
-﻿//#define Use
-#if Use
-
-using Newtonsoft.Json;
-using NUnit;
-using Server.MirDatabase;
+﻿using Newtonsoft.Json;
 using System.IO;
 
-namespace Server.MirEnvir
+public static class AKParser
 {
-    public static class AKParser
+    const string saveDir = "D:\\Me\\MyProject\\CrystalMir2\\DbInfo\\";
+    const string saveMapDir = "D:\\Me\\MyProject\\CrystalMir2\\DbInfo\\Map\\";
+
+    public static void ParseMapAny(string fileName, object mInfo)
     {
-        const string saveDir = "D:\\Me\\MyProject\\CrystalMir2\\DbInfo\\";
-        const string saveMapDir = "D:\\Me\\MyProject\\CrystalMir2\\DbInfo\\Map\\";
-        public static void ParseEnvir(Envir mInfo)
+        string Name = string.Empty;
+        if (mInfo.GetType().IsGenericType)
         {
-            string content = JsonConvert.SerializeObject(mInfo);
-            File.WriteAllText(saveDir + "Envir.json", content);
+            Name = mInfo.GetType().GetGenericArguments()[0].Name;
+        }
+        else
+        {
+            Name = mInfo.GetType().Name;
         }
 
-        public static void ParseMapAny(string fileName, object mInfo)
-        {
-            string Name = string.Empty;
-            if (mInfo.GetType().IsGenericType)
-            {
-                Name = mInfo.GetType().GetGenericArguments()[0].Name;
-            }
-            else
-            {
-                Name = mInfo.GetType().Name;
-            }
-
-            string content = JsonConvert.SerializeObject(mInfo);
-            string outPath = Path.Combine(saveMapDir, fileName + ".json");
-            File.WriteAllText(outPath, content);
-        }
-
-        public static void ParseAny(object mInfo)
-        {
-            string Name = string.Empty;
-            if (mInfo.GetType().IsGenericType)
-            {
-                Name = mInfo.GetType().GetGenericArguments()[0].Name;
-            }
-            else
-            {
-                Name = mInfo.GetType().Name;
-            }
-
-            string content = JsonConvert.SerializeObject(mInfo);
-            string outPath = Path.Combine(saveDir, Name + ".json");
-            File.WriteAllText(outPath, content);
-        }
-
+        string content = JsonConvert.SerializeObject(mInfo);
+        string outPath = Path.Combine(saveMapDir, fileName + ".json");
+        File.WriteAllText(outPath, content);
     }
-}
 
-#endif
+    public static void ParseAny(object mInfo)
+    {
+        string Name = string.Empty;
+        if (mInfo.GetType().IsGenericType)
+        {
+            Name = mInfo.GetType().GetGenericArguments()[0].Name;
+        }
+        else
+        {
+            Name = mInfo.GetType().Name;
+        }
+
+        string content = JsonConvert.SerializeObject(mInfo);
+        string outPath = Path.Combine(saveDir, Name + ".json");
+        File.WriteAllText(outPath, content);
+    }
+
+    public static void ParseUnityAny(object mInfo)
+    {
+        string saveDir = "Assets/CrystalMir2Export/";
+        string Name = string.Empty;
+        if (mInfo.GetType().IsGenericType)
+        {
+            Name = mInfo.GetType().GetGenericArguments()[0].Name;
+        }
+        else
+        {
+            Name = mInfo.GetType().Name;
+        }
+
+        string content = JsonConvert.SerializeObject(mInfo);
+        string outPath = Path.Combine(saveDir, Name + ".json");
+        File.WriteAllText(outPath, content);
+    }
+
+}

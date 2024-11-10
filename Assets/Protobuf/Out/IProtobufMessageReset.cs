@@ -1,78 +1,5 @@
 using AKNet.Common;
 using Google.Protobuf;
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = default;
-			NAccountId = default;
-			SelectGateServerConnectStr = string.Empty;
-			BanReason = string.Empty;
-			ExpiryDate = default;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_Login : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			Password = string.Empty;
-			NLoginType = default;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_Register : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			Password = string.Empty;
-			NLoginType = default;
-			SecretQuestion = string.Empty;
-			SecretAnswer = string.Empty;
-			EMailAddress = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_Register_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = default;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_cs_ChangePassword : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Account = string.Empty;
-			CurrentPassword = string.Empty;
-			NewPassword = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.Login
-{
-	public sealed partial class packet_sc_ChangePassword_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = default;
-		}
-	}
-}
 namespace NetProtocols.SelectGate
 {
 	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
@@ -156,6 +83,79 @@ namespace NetProtocols.SelectGate
 		}
 	}
 }
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = default;
+			NAccountId = default;
+			SelectGateServerConnectStr = string.Empty;
+			BanReason = string.Empty;
+			ExpiryDate = default;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_Login : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			Password = string.Empty;
+			NLoginType = default;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_Register : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			Password = string.Empty;
+			NLoginType = default;
+			SecretQuestion = string.Empty;
+			SecretAnswer = string.Empty;
+			EMailAddress = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_Register_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = default;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_cs_ChangePassword : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			Account = string.Empty;
+			CurrentPassword = string.Empty;
+			NewPassword = string.Empty;
+		}
+	}
+}
+namespace NetProtocols.Login
+{
+	public sealed partial class packet_sc_ChangePassword_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = default;
+		}
+	}
+}
 namespace NetProtocols.Gate
 {
 	public sealed partial class packet_IG_Register : IProtobufResetInterface
@@ -236,6 +236,9 @@ namespace NetProtocols.Game
 		public void Reset()
 		{
 			NErrorCode = default;
+			NMapInex = default;
+			IMessagePool<NetProtocols.Game.packet_data_UserInfo>.recycle(UserInfo);
+			UserInfo = null;
 		}
 	}
 }
@@ -363,129 +366,15 @@ namespace NetProtocols.Game
 }
 namespace NetProtocols.Game
 {
-	public sealed partial class packet_data_MapInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			MapIndex = default;
-			FileName = string.Empty;
-			Title = string.Empty;
-			MiniMap = default;
-			BigMap = default;
-			Music = default;
-			Lights = default;
-			Lightning = default;
-			Fire = default;
-			MapDarkLight = default;
-			WeatherParticles = default;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_ItemAtt : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NType = default;
-			NValue = default;
-			NMinValue = default;
-			NMaxValue = default;
-		}
-	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_ItemInfo : IProtobufResetInterface
 	{
 		public void Reset()
 		{
+			NUniqueId = default;
 			NItemId = default;
-			Name = string.Empty;
-			Type = default;
-			Grade = default;
-			RequiredType = default;
-			RequiredClass = default;
-			RequiredGender = default;
-			Set = default;
-			Shape = default;
-			Weight = default;
-			Light = default;
-			RequiredAmount = default;
-			Image = default;
-			Durability = default;
-			Price = default;
-			StackSize = default;
-			StartItem = default;
-			Effect = default;
-			NeedIdentify = default;
-			ShowGroupPickup = default;
-			GlobalDropNotify = default;
-			ClassBased = default;
-			LevelBased = default;
-			CanMine = default;
-			CanFastRun = default;
-			CanAwakening = default;
-			Bind = default;
-			Unique = default;
-			RandomStatsId = default;
-			RandomStats = default;
-			ToolTip = string.Empty;
-			Slots = default;
-			foreach(var v in Stats)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_ItemAtt>.recycle(v);
-			}
-			Stats.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_UserItem : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(ItemInfo);
-			ItemInfo = null;
-			Count = default;
-			UniqueID = default;
-			ItemIndex = default;
-			CurrentDura = default;
-			MaxDura = default;
-			ExpiryDate = default;
-			foreach(var v in AddedStats)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_ItemAtt>.recycle(v);
-			}
-			AddedStats.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_ClientMagic : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			Name = string.Empty;
-			Spell = default;
-			BaseCost = default;
-			LevelCost = default;
-			Icon = default;
-			Level1 = default;
-			Level2 = default;
-			Level3 = default;
-			Need1 = default;
-			Need2 = default;
-			Need3 = default;
-			Level = default;
-			Key = default;
-			Range = default;
-			Experience = default;
-			IsTempSpell = default;
-			CastTime = default;
-			Delay = default;
+			NCount = default;
+			NStarLevel = default;
+			NDura = default;
 		}
 	}
 }
@@ -495,55 +384,30 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			ObjectID = default;
-			RealId = default;
+			NMapObjectId = default;
+			NPlayerId = default;
 			Name = string.Empty;
-			GuildName = string.Empty;
-			GuildRank = string.Empty;
-			IMessagePool<NetProtocols.Game.packet_data_Color>.recycle(NameColour);
-			NameColour = null;
 			Class = default;
 			Gender = default;
-			Level = default;
+			NLevel = default;
+			NLevelExp = default;
 			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
 			Location = null;
 			Direction = default;
-			Hair = default;
 			HP = default;
 			MP = default;
-			Experience = default;
-			MaxExperience = default;
-			LevelEffects = default;
-			HasHero = default;
-			HeroBehaviour = default;
-			foreach(var v in Inventory)
+			foreach(var v in BagItemList)
 			{
-				IMessagePool<NetProtocols.Game.packet_data_UserItem>.recycle(v);
+				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
 			}
-			Inventory.Clear();
-			foreach(var v in Equipment)
+			BagItemList.Clear();
+			foreach(var v in RoleItemList)
 			{
-				IMessagePool<NetProtocols.Game.packet_data_UserItem>.recycle(v);
+				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
 			}
-			Equipment.Clear();
-			foreach(var v in QuestInventory)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_UserItem>.recycle(v);
-			}
-			QuestInventory.Clear();
+			RoleItemList.Clear();
 			Gold = default;
 			Credit = default;
-			HasExpandedStorage = default;
-			ExpandedStorageExpiryTime = default;
-			foreach(var v in Magics)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_ClientMagic>.recycle(v);
-			}
-			Magics.Clear();
-			SummonedCreatureType = default;
-			CreatureSummoned = default;
-			AllowObserve = default;
-			Observer = default;
 		}
 	}
 }
@@ -634,6 +498,42 @@ namespace NetProtocols.Game
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
 			MRoleList.Clear();
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_data_MapInfo : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_data_ItemAtt : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_data_UserItem : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+}
+namespace NetProtocols.Game
+{
+	public sealed partial class packet_data_ClientMagic : IProtobufResetInterface
+	{
+		public void Reset()
+		{
 		}
 	}
 }
