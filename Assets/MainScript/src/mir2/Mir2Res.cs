@@ -131,7 +131,12 @@ namespace Mir2
             string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
             path = Path.GetFullPath(path);
             string url = GetPathUrl(path);
-            return mSpriteDic[url];
+
+            if (mSpriteDic.ContainsKey(url))
+            {
+                return mSpriteDic[url];
+            }
+            return null;
         }
 
         public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent = null)
