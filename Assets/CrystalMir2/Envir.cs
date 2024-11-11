@@ -1,10 +1,8 @@
-﻿
-using Mir2;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace Mir2Editor
+namespace CrystalMir2
 {
     public class Envir
     {

@@ -30,30 +30,28 @@
     public const ushort GC_REGISTER_INFO_RESULT = 1046;
 
     //游戏主服务器===========================================================================
+    //CS-> GameMainServer
     public const ushort CS_REQUEST_SELECTROLE_ALL_ROLEINFO = 2000; //-- 选择界面，请求所有角色信息
-    public const ushort SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT = 2001; //--
+    public const ushort CS_REQUEST_SELECTROLE_CREATE_ROLE = 2001; //-- 选择界面，创建角色
+    public const ushort CS_REQUEST_SELECTROLE_DELETE_ROLE = 2002; //-- 选择界面，删除角色
+    public const ushort CS_REQUEST_STARTGAME = 2003; // 请求进入游戏
+    public const ushort CS_REQUEST_WALK = 2004; // 请求走路
+    public const ushort CS_REQUEST_RUN = 2005; // 请求跑步
+    public const ushort CS_REQUEST_TURNDIR = 2006; // 请求转向
 
-    public const ushort CS_REQUEST_SELECTROLE_CREATE_ROLE = 2002; //-- 选择界面，创建角色
-    public const ushort SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT = 2003; //
+    //SC
+    public const ushort SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT = 3000; //--
+    public const ushort SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT = 3001; //
+    public const ushort SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT = 3002; //
+    public const ushort SC_REQUEST_STARTGAME_RESULT = 3003; // 请求进入游戏结果
+    public const ushort SC_REQUEST_USER_LOCATION = 3004; // 请求位置结果
 
-    public const ushort CS_REQUEST_SELECTROLE_DELETE_ROLE = 2004; //-- 选择界面，删除角色
-    public const ushort SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT = 2005; //
+    public const ushort SC_BROADCAST_LOCATION = 3005; // 广播世界里的任意物质的位置
 
-    public const ushort CS_REQUEST_STARTGAME = 2006; // 请求进入游戏
-    public const ushort SC_REQUEST_STARTGAME_RESULT = 2007; // 请求进入游戏结果
-
-    public const ushort CS_REQUEST_WALK = 2008; // 请求走路
-    public const ushort CS_REQUEST_RUN = 2009; // 请求跑步
-    public const ushort CS_REQUEST_TURNDIR = 2010; // 请求转向
-    public const ushort SC_REQUEST_USER_LOCATION = 2011; // 请求位置结果
-
-    public const ushort SC_BROADCAST_LOCATION = 2012; // 广播世界里的任意物质的位置
-
-    //聊天服务器===========================================================================
-    public const ushort CS_SEND_CHAT_MSG = 3000;
-    public const ushort SC_SEND_CHAT_MSG = 3001;
-
-
+    //CS-> GameChatServer
+    public const ushort CS_SEND_CHAT_MSG = 4000;
+    //SC
+    public const ushort SC_SEND_CHAT_MSG = 5000;
 
 }
 

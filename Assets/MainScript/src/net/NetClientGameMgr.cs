@@ -1,6 +1,7 @@
 using AKNet.Common;
 using AKNet.Tcp.Client;
 using Google.Protobuf;
+using Mir2;
 using NetProtocols.Game;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,6 +81,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     {
         string msg = $"内部服务器 网络故障!!!";
         UIMgr.CommonDialogView.ShowOk("提示", msg);
+        UIMgr.CommonWindowLoading.Hide();
     }
 
     void receive_sc_Request_selectRole_CreateRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
@@ -199,7 +201,8 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
             SceneMgr.Instance.LoadSceneAsync(SceneNames.Game, (fProgress) =>
             {
-
+                WorldMgr.Instance.Init();
+                WorldMgr.Instance.LoadMap(mReceiveMsg.NMapInex);
             }, () =>
             {
                 UIMgr.Instance.Show_MainUI();

@@ -2,13 +2,18 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace Mir2Editor
+namespace CrystalMir2
 {
     public class SafeZoneInfo
     {
         public Vector3Int Location;
         public ushort Size;
         public bool StartPoint;
+
+        public SafeZoneInfo()
+        {
+           
+        }
 
         public SafeZoneInfo(BinaryReader reader)
         {
@@ -37,6 +42,11 @@ namespace Mir2Editor
         public int RespawnIndex;
         public bool SaveRespawnTime = false;
         public ushort RespawnTicks;
+
+        public RespawnInfo()
+        {
+
+        }
 
         public RespawnInfo(BinaryReader reader, int Version, int Customversion)
         {
@@ -82,6 +92,11 @@ namespace Mir2Editor
         public int ConquestIndex;
         public int Icon;
 
+        public MovementInfo()
+        {
+
+        }
+
         public MovementInfo(BinaryReader reader)
         {
             MapIndex = reader.ReadInt32();
@@ -111,6 +126,11 @@ namespace Mir2Editor
         public Vector3Int Location;
         public ushort Size;
 
+        public MineZone()
+        {
+            
+        }
+
         public MineZone(BinaryReader reader)
         {
             Location = new Vector3Int(reader.ReadInt32(), reader.ReadInt32());
@@ -133,6 +153,8 @@ namespace Mir2Editor
         public ushort BigMap;
         public ushort Music;
         public LightSetting Light;
+        public WeatherSetting WeatherParticles = WeatherSetting.None;
+
         public byte MapDarkLight = 0;
         public byte MineIndex = 0;
 
@@ -165,11 +187,15 @@ namespace Mir2Editor
         public List<MovementInfo> Movements = new List<MovementInfo>();
         public List<RespawnInfo> Respawns = new List<RespawnInfo>();
         public List<MineZone> MineZones = new List<MineZone>();
-        public WeatherSetting WeatherParticles = WeatherSetting.None;
 
         public override string ToString()
         {
             return string.Format("{0}: {1}", Index, Title);
+        }
+
+        public MapInfo()
+        {
+
         }
 
         public MapInfo(BinaryReader reader)

@@ -1,44 +1,47 @@
 ﻿using System.Text.RegularExpressions;
 
-public static class RegexFunctions
+namespace Mir2
 {
-    public static Regex ChatItemLinks = new Regex(@"<(.*?/.*?)>");
-
-    public enum RegexMatchEvalType
+    public static class RegexFunctions
     {
-        ChatLinkName
-    }
+        public static Regex ChatItemLinks = new Regex(@"<(.*?/.*?)>");
 
-    private static string RegexReplace(string text, Regex regex, MatchEvaluator ev)
-    {
-        try
+        public enum RegexMatchEvalType
         {
-            return regex.Replace(text, ev);
+            ChatLinkName
         }
-        catch
+
+        private static string RegexReplace(string text, Regex regex, MatchEvaluator ev)
         {
-            return text;
+            try
+            {
+                return regex.Replace(text, ev);
+            }
+            catch
+            {
+                return text;
+            }
         }
-    }
 
-    public static string SeperateCamelCase(this string value) 
-    { 
-        return Regex.Replace(value, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim(); 
-    }
-
-    private static MatchEvaluator GetMatchEv(RegexMatchEvalType type)
-    {
-        switch (type)
+        public static string SeperateCamelCase(this string value)
         {
-            case RegexMatchEvalType.ChatLinkName:
-                return m => m.Groups[1].Captures[0].Value.Split('/')[0];
-            default:
-                return null;
+            return Regex.Replace(value, "((?<=[a-z])[A-Z]|[A-Z](?=[a-z]))", " $1").Trim();
         }
-    }
 
-    public static string CleanChatString(string text)
-    {
-        return RegexReplace(text, ChatItemLinks, GetMatchEv(RegexMatchEvalType.ChatLinkName));
+        private static MatchEvaluator GetMatchEv(RegexMatchEvalType type)
+        {
+            switch (type)
+            {
+                case RegexMatchEvalType.ChatLinkName:
+                    return m => m.Groups[1].Captures[0].Value.Split('/')[0];
+                default:
+                    return null;
+            }
+        }
+
+        public static string CleanChatString(string text)
+        {
+            return RegexReplace(text, ChatItemLinks, GetMatchEv(RegexMatchEvalType.ChatLinkName));
+        }
     }
 }

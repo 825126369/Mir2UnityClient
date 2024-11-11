@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace Client.MirObjects
+namespace Mir2
 {
     public class FrameSet : Dictionary<MirAction, Frame>
     {

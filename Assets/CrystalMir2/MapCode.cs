@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Mir2;
+using System;
 using System.IO;
 
-namespace Client.MirObjects
+namespace CrystalMir2
 {
     public class CellInfo
     {

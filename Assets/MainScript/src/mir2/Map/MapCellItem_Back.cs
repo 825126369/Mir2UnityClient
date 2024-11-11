@@ -1,29 +1,32 @@
-using Client.MirObjects;
+using CrystalMir2;
 using UnityEngine;
 
-public class MapCellItem_Back : MonoBehaviour
+namespace Mir2
 {
-    public SpriteRenderer mSpriteRenderer;
-    private CellInfo mData;
-    private Map mMap;
-
-    public void Init(Map mMap)
+    public class MapCellItem_Back : MonoBehaviour
     {
-        this.mMap = mMap;
-    }
+        public SpriteRenderer mSpriteRenderer;
+        private CellInfo mData;
+        private Map mMap;
 
-    public void Refresh(CellInfo mData, int x, int y)
-    {
-        this.mData = mData;
-
-        mSpriteRenderer.sortingOrder = -11;
-        if (x % 2 == 0 && y % 2 == 0 && mData.BackImage >= 0)
+        public void Init(Map mMap)
         {
-            Mir2Res.Instance.SetMapSprite(mSpriteRenderer, mData.BackIndex, mData.BackImage);
+            this.mMap = mMap;
         }
-        else
+
+        public void Refresh(CellInfo mData, int x, int y)
         {
-            mSpriteRenderer.sprite = null;
+            this.mData = mData;
+
+            mSpriteRenderer.sortingOrder = -11;
+            if (x % 2 == 0 && y % 2 == 0 && mData.BackImage >= 0)
+            {
+                Mir2Res.Instance.SetMapSprite(mSpriteRenderer, mData.BackIndex, mData.BackImage);
+            }
+            else
+            {
+                mSpriteRenderer.sprite = null;
+            }
         }
     }
 }

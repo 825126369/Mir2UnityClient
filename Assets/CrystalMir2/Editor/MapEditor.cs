@@ -1,4 +1,5 @@
-using Client.MirObjects;
+using CrystalMir2;
+using Mir2;
 using System.IO;
 using UnityEditor;
 
@@ -28,5 +29,4 @@ public class MapEditor
         string path = $"Assets/CrystalMir2/Map2/{Path.GetFileNameWithoutExtension(FileName)}.json";
         File.WriteAllText(path, data);
     }
-
 }
