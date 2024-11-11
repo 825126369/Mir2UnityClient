@@ -34,6 +34,9 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
     public ServerItemData currentSelectServerItemData = null;
 
     public DataBind<List<packet_data_SelectRole_RoleInfo>> mDataBind_packet_data_SelectRole_RoleInfo;
+    public readonly List<PlayerData> mPlayerDataList = new List<PlayerData>();
+    public readonly UserData UserData = new UserData();
+    public uint nCurrentMapIndex;
     public void Init()
     {
         mDataBind_packet_data_SelectRole_RoleInfo = new DataBind<List<packet_data_SelectRole_RoleInfo>>();
@@ -66,5 +69,11 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
         {
             mServerItemDataList.Remove(item);
         }
+    }
+
+    public void InitStartGameData(packet_sc_request_StartGame_Result mReceiveMsg)
+    {
+        nCurrentMapIndex = mReceiveMsg.NMapInex;
+        UserData.CopyFrom(mReceiveMsg.UserInfo);
     }
 }

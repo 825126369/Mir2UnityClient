@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using AKNet.Common;
+using Mir2;
 
 public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 {
@@ -85,10 +86,11 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
     {
         yield return ResCenter.Instance.AsyncInit();
 
+        ExcelTableMgr.Instance.Init();
         DataCenter.Instance.Init();
         UIMgr.Instance.Init();
-        NetClientLoginMgr.Instance.InitLoginServerClient();
 
+        NetClientLoginMgr.Instance.InitLoginServerClient();
         while (NetClientLoginMgr.mNetClient.GetSocketState() == SOCKET_PEER_STATE.CONNECTING)
         {
             yield return null;

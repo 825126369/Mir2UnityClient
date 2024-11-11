@@ -1,36 +1,34 @@
+using NetProtocols.Game;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Mir2
 {
     public class WorldMgr : SingleTonMonoBehaviour<WorldMgr>
     {
         public readonly List<MapObject> mMapObjects = new List<MapObject>();
-        private bool bStarted = false;
-        private uint nCurrentMapIndex = 0;
-
         private bool bInit = false;
-        public void Init()
+
+        public List<PlayerObject> mPlayerList = new List<PlayerObject>();
+        public UserObject User;
+
+        private void Init()
         {
             if (bInit) return;
             bInit = true;
-
-            ExcelTableMgr.Instance.Init();
+            User = GameObject.Find("Me").GetComponent<UserObject>();
+            PrintTool.Assert(User != null, "User == null");
         }
 
         public void Start()
         {
             Init();
-            LoadMap(this.nCurrentMapIndex);
-        }
-
-        public void StartGame()
-        {
-
+            User.Init();
+            LoadMap(DataCenter.Instance.nCurrentMapIndex);
         }
 
         public void LoadMap(uint nMapInfoIndex)
         {
-            this.nCurrentMapIndex = nMapInfoIndex;
             var mMapInfo = ExcelTableMgr.Instance.MapInfoList.Find((x) => x.Index == nMapInfoIndex);
             if (mMapInfo != null)
             {
@@ -42,6 +40,14 @@ namespace Mir2
             else
             {
                 PrintTool.LogError("mMapInfo == null: " + nMapInfoIndex);
+            }
+        }
+
+        public void HandleServerLocation(uint ObjectID, Vector3Int Location, MirDirection dir)
+        {
+            foreach(var v in mPlayerList)
+            {
+                
             }
         }
     }

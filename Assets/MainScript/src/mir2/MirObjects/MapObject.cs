@@ -1,6 +1,6 @@
 ﻿namespace Mir2
 {
-    public abstract class MapObject
+    public interface MapObject
     {
        
     }

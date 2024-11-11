@@ -34,6 +34,11 @@ namespace Mir2
             mTilePool.Init(1000);
         }
 
+        public Vector3Int GetMiniMapPos(Vector3Int MapLocation)
+        {
+            return new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, MapLocation.y * TileMapMgr.CellHeight, 0) - new Vector3Int(0, mMapData.Height - 1, 0);
+        }
+
         public void LoadMap(string fileName = "3")
         {
             if(this.mapFileName == fileName) return;
@@ -46,7 +51,7 @@ namespace Mir2
 
         public void UpdateMap()
         {
-            nowCenter = Mir2Me.Instance.MapLocation;
+            nowCenter = WorldMgr.Instance.User.MapLocation;
             ClearTile();
             StartCoroutine(DrawMapBack());
             StartCoroutine(DrawMapMiddle());

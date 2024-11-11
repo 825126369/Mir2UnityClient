@@ -183,8 +183,8 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     void receive_sc_Request_StartGame_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         var mReceiveMsg = Protocol3Utility.getData<packet_sc_request_StartGame_Result>(mNetPackage);
-
         UIMgr.CommonWindowLoading.Hide();
+
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
             PrintTool.Log("开始游戏 成功");
@@ -199,10 +199,10 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
                 UIMgr.Instance.CreateRoleView = null;
             }
 
+            DataCenter.Instance.InitStartGameData(mReceiveMsg);
             SceneMgr.Instance.LoadSceneAsync(SceneNames.Game, (fProgress) =>
             {
-                WorldMgr.Instance.Init();
-                WorldMgr.Instance.LoadMap(mReceiveMsg.NMapInex);
+                
             }, () =>
             {
                 UIMgr.Instance.Show_MainUI();
@@ -219,15 +219,15 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         var mReceiveMsg = Protocol3Utility.getData<packet_sc_UserLocation>(mNetPackage);
         Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
         MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
-        Mir2Me.Instance.HandleServerLocation(pos, Dir);
+        WorldMgr.Instance.User.HandleServerLocation(pos, Dir);
     }
-     
+    
     void receive_sc_broadcast_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
         var mReceiveMsg = Protocol3Utility.getData<packet_sc_broadcast_Location>(mNetPackage);
         Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
         MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
-        Mir2Me.Instance.HandleServerLocation(pos, Dir);
+        WorldMgr.Instance.HandleServerLocation(mReceiveMsg.ObjectID, pos, Dir);
 
     }
 

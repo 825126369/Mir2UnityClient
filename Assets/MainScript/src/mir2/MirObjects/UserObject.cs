@@ -1,53 +1,42 @@
 using NetProtocols.Game;
-using System;
 using UnityEngine;
 
 namespace Mir2
 {
-    public class Mir2Me : SingleTonMonoBehaviour<Mir2Me>
+    public class UserObject: MonoBehaviour, MapObject
     {
         public float fSpeed = 100f;
         TimeOutGenerator mTimeOut_MouseDown = null;
-
-        public const int CellWidth = 48;
-        public const int CellHeight = 32;
-
-        public static int OffSetX;
-        public static int OffSetY;
-
-        public static int ViewRangeX;
-        public static int ViewRangeY;
-
         bool bAtuoRun = false;
 
         public Vector3Int MapLocation;
         public MirDirection Direction;
         public MirAction CurrentAction;
-
-        [NonSerialized]
         public Vector3Int CurrentLocation;
 
-        public MirGender Gender;
-        public MirClass Class;
-        public byte Hair;
-        public ushort Level;
+        public string Name;
+        public uint nLevel; //等级
+        public ulong nLevelExp; //等级
+        public uint Class; //职业
+        public uint Gender;//性别
+        public byte Hair; //头发
         public int FrameIndex;
-
         private bool bInit = false;
+        private UserData mData;
+
         public void Init()
         {
             if (bInit) return;
             bInit = true;
+
+            mData = DataCenter.Instance.UserData;
             mTimeOut_MouseDown = TimeOutGenerator.New(0.5f);
+
+            Vector3Int MapLocation = mData.MapLocation;
             CurrentLocation = new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, MapLocation.y * TileMapMgr.CellHeight, 0);
             Direction = MirDirection.UpRight;
             transform.position = CurrentLocation;
-        }
 
-
-        private void Awake()
-        {
-            Init();
         }
 
         private void OnDrawGizmos()
@@ -57,6 +46,8 @@ namespace Mir2
 
         private void Update()
         {
+            if(!bInit) return;
+
             bool bClickRight = false;
             if (Input.GetMouseButton(0))
             {
@@ -101,10 +92,7 @@ namespace Mir2
                         SendWalkMsg();
                     }
 
-                    if (TileMapMgr.readOnlyInstance != null)
-                    {
-                        TileMapMgr.readOnlyInstance.UpdateMap();
-                    }
+                    TileMapMgr.readOnlyInstance.UpdateMap();
                 }
             }
         }
