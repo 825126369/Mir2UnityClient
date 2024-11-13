@@ -5,14 +5,24 @@ using UnityEngine;
 
 public class ItemData
 {
-    public uint nUniqueId;
-    public uint nCount;
     public uint nItemId;
+    public uint nCount;
 
+    public uint nBagIndex;
     public uint nSlotIndex;
-    public uint nStarCount;
     public uint nStarLevel;
     public uint nDura;
+
+    public void CopyFrom(packet_data_ItemInfo ItemInfo)
+    {
+        this.nItemId = ItemInfo.NItemId;
+        this.nCount = ItemInfo.NCount;
+        this.nBagIndex = (uint)ItemInfo.NBagIndex;
+        this.nSlotIndex = (uint)ItemInfo.NSlotIndex;
+        this.nStarLevel = ItemInfo.NStarLevel;
+        this.nDura = ItemInfo.NDura;
+    }
+
 }
 
 public class UserData
@@ -88,6 +98,20 @@ public class UserData
         this.MapLocation = netUserInfo.Location.ToVector3Int();
         this.CurrentMapIndex = netUserInfo.NMapIndex;
         this.Direction = (MirDirection)netUserInfo.Direction;
+
+        foreach (var v in netUserInfo.EquipList)
+        {
+            ItemData mItemData = new ItemData();
+            mItemData.CopyFrom(v);
+            this.mEquipList.Add(mItemData);
+        }
+
+        foreach (var v in netUserInfo.BagList)
+        {
+            ItemData mItemData = new ItemData();
+            mItemData.CopyFrom(v);
+            this.mBagList.Add(mItemData);
+        }
     }
 
     private void RefreshEquipmentStats()
