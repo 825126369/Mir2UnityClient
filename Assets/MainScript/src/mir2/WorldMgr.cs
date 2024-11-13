@@ -1,4 +1,3 @@
-using NetProtocols.Game;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ namespace Mir2
         {
             Init();
             User.Init();
-            LoadMap(DataCenter.Instance.nCurrentMapIndex);
+            LoadMap(DataCenter.Instance.UserData.CurrentMapIndex);
         }
 
         public void LoadMap(uint nMapInfoIndex)

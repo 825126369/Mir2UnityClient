@@ -60,7 +60,7 @@ public class UserData
     //Location
     public uint CurrentMapIndex; //µ±Ç°µØÍ¼Index
     public Vector3Int MapLocation;
-    public uint Direction;
+    public MirDirection Direction;
 
     public uint HP;
     public uint MP;
@@ -74,7 +74,10 @@ public class UserData
         this.Gender = netUserInfo.Gender;
         this.Name = netUserInfo.Name;
         this.nWorldObjectId = netUserInfo.NMapObjectId;
+
         this.MapLocation = netUserInfo.Location.ToVector3Int();
+        this.CurrentMapIndex = netUserInfo.NMapIndex;
+        this.Direction = (MirDirection)netUserInfo.Direction;
     }
 
 }

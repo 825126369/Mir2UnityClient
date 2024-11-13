@@ -6,7 +6,6 @@ namespace Mir2
     public class UserObject: MonoBehaviour, MapObject
     {
         public float fSpeed = 100f;
-        TimeOutGenerator mTimeOut_MouseDown = null;
         bool bAtuoRun = false;
 
         public Vector3Int MapLocation;
@@ -14,15 +13,11 @@ namespace Mir2
         public MirAction CurrentAction;
         public Vector3Int CurrentLocation;
 
-        public string Name;
-        public uint nLevel; //等级
-        public ulong nLevelExp; //等级
-        public uint Class; //职业
-        public uint Gender;//性别
-        public byte Hair; //头发
-        public int FrameIndex;
+        private float nLastClickMapTime = 0;
+        
         private bool bInit = false;
         private UserData mData;
+        private int FrameIndex = 0;
 
         public void Init()
         {
@@ -30,13 +25,26 @@ namespace Mir2
             bInit = true;
 
             mData = DataCenter.Instance.UserData;
-            mTimeOut_MouseDown = TimeOutGenerator.New(0.5f);
 
-            Vector3Int MapLocation = mData.MapLocation;
-            CurrentLocation = new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, MapLocation.y * TileMapMgr.CellHeight, 0);
-            Direction = MirDirection.UpRight;
+            InitPos();
+        }
+
+        private void InitPos()
+        {
+            Direction = mData.Direction;
+            MapLocation = mData.MapLocation;
+            PrintTool.Log("InitPos: " + MapLocation);
+
+            CurrentLocation = new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, -MapLocation.y * TileMapMgr.CellHeight, 0);
             transform.position = CurrentLocation;
+        }
 
+        private void UpdateLocation(Vector3Int Location, MirDirection dir)
+        {
+            MapLocation = Location;
+            CurrentLocation = new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, -MapLocation.y * TileMapMgr.CellHeight, 0);
+            Direction = dir;
+            transform.position = CurrentLocation;
         }
 
         private void OnDrawGizmos()
@@ -58,41 +66,45 @@ namespace Mir2
                 bClickRight = true;
             }
 
-            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            if (Time.time - nLastClickMapTime > 0.3)
             {
-                bool bClickMap = false;
-                float distance = 1000f;
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, distance))
+                nLastClickMapTime = Time.time;
+                if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
                 {
-                    PrintTool.Log("Ray: " + hit.collider.gameObject.name);
-                    BoxCollider mHitCollider = hit.collider.GetComponent<BoxCollider>();
-                    if (mHitCollider != null && mHitCollider.gameObject.name == "MapClickBoxCollider")
+                    bool bClickMap = false;
+                    float distance = 1000f;
+                    RaycastHit hit;
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    if (Physics.Raycast(ray, out hit, distance))
                     {
-                        PrintTool.Log("点击地图：" + mHitCollider.transform.position);
-                        bClickMap = true;
+                        PrintTool.Log("Ray: " + hit.collider.gameObject.name);
+                        BoxCollider mHitCollider = hit.collider.GetComponent<BoxCollider>();
+                        if (mHitCollider != null && mHitCollider.gameObject.name == "MapClickBoxCollider")
+                        {
+                            PrintTool.Log("点击地图：" + mHitCollider.transform.position);
+                            bClickMap = true;
+                        }
                     }
-                }
-                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
-                
-                if (bClickMap)
-                {
-                    bAtuoRun = false;
-                    Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Vector3 dir = Vector3.Normalize(pos - transform.position);
-                    Direction = GetDirection(dir);
+                    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
 
-                    if (bClickRight)
+                    if (bClickMap)
                     {
-                        SendRunMsg();
-                    }
-                    else
-                    {
-                        SendWalkMsg();
-                    }
+                        bAtuoRun = false;
+                        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                        Vector3 dir = Vector3.Normalize(pos - transform.position);
+                        Direction = GetDirection(dir);
 
-                    TileMapMgr.readOnlyInstance.UpdateMap();
+                        if (bClickRight)
+                        {
+                            SendRunMsg();
+                        }
+                        else
+                        {
+                            SendWalkMsg();
+                        }
+
+                        TileMapMgr.readOnlyInstance.UpdateMap();
+                    }
                 }
             }
         }
@@ -168,15 +180,6 @@ namespace Mir2
             CurrentLocation = targetPos;
             MapLocation = new Vector3Int(CurrentLocation.x / TileMapMgr.CellWidth, CurrentLocation.y / TileMapMgr.CellHeight, 0);
             transform.position = CurrentLocation;
-        }
-
-        private void UpdateLocation(Vector3Int Location, MirDirection dir)
-        {
-            CurrentLocation = Location;
-            MapLocation = new Vector3Int(CurrentLocation.x / TileMapMgr.CellWidth, CurrentLocation.y / TileMapMgr.CellHeight, 0);
-            transform.position = CurrentLocation;
-
-            Direction = dir;
         }
 
         private void UpdateFrame()

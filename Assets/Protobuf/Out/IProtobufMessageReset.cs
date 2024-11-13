@@ -236,7 +236,6 @@ namespace NetProtocols.Game
 		public void Reset()
 		{
 			NErrorCode = default;
-			NMapInex = default;
 			IMessagePool<NetProtocols.Game.packet_data_UserInfo>.recycle(UserInfo);
 			UserInfo = null;
 		}
@@ -370,7 +369,8 @@ namespace NetProtocols.Game
 	{
 		public void Reset()
 		{
-			NUniqueId = default;
+			NBagIndex = default;
+			NSlotIndex = default;
 			NItemId = default;
 			NCount = default;
 			NStarLevel = default;
@@ -391,21 +391,17 @@ namespace NetProtocols.Game
 			Gender = default;
 			NLevel = default;
 			NLevelExp = default;
+			NMapIndex = default;
 			IMessagePool<NetProtocols.Game.packet_data_Vector3Int>.recycle(Location);
 			Location = null;
 			Direction = default;
 			HP = default;
 			MP = default;
-			foreach(var v in BagItemList)
+			foreach(var v in ItemList)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
 			}
-			BagItemList.Clear();
-			foreach(var v in RoleItemList)
-			{
-				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
-			}
-			RoleItemList.Clear();
+			ItemList.Clear();
 			Gold = default;
 			Credit = default;
 		}

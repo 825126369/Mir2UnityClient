@@ -19,7 +19,7 @@ namespace Mir2
         private bool bInit = false;
         private Vector3Int lastCenter;
         private Vector3Int nowCenter;
-        readonly Vector3Int Range = new Vector3Int(10, 10, 0);
+        private Vector3Int Range = new Vector3Int(10, 10, 0);
 
         private string mapFileName = string.Empty;
         private void Start()
@@ -34,19 +34,14 @@ namespace Mir2
             mTilePool.Init(1000);
         }
 
-        public Vector3Int GetMiniMapPos(Vector3Int MapLocation)
-        {
-            return new Vector3Int(MapLocation.x * TileMapMgr.CellWidth, MapLocation.y * TileMapMgr.CellHeight, 0) - new Vector3Int(0, mMapData.Height - 1, 0);
-        }
-
         public void LoadMap(string fileName = "3")
         {
-            if(this.mapFileName == fileName) return;
+           // if(this.mapFileName == fileName) return;
             this.mapFileName = fileName;    
-
             string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\" + fileName + ".map";
             mMapData = new MapReader(path);
             UpdateMap();
+
         }
 
         public void UpdateMap()
@@ -72,9 +67,10 @@ namespace Mir2
                 {
                     if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
                     {
-                        Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                        if (!orInRange(tilePosition))
+                        Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                        if (!orInRange(fakeTilePosition))
                         {
+                            Vector3Int tilePosition = GetTilePos(x, y, 0);
                             RecycleTile(Map_Back, tilePosition);
                             RecycleTile(Map_Middle, tilePosition);
                             RecycleTile(Map_Front, tilePosition);
@@ -120,9 +116,10 @@ namespace Mir2
                         {
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(tilePosition))
+                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                            if (orInRange(fakeTilePosition))
                             {
+                                Vector3Int tilePosition = GetTilePos(x, y, 0);
                                 Tile tile = GetTile(Map_Back, tilePosition);
                                 tile.sprite = mSprite;
                                 Map_Back.SetTile(tilePosition, tile);
@@ -153,9 +150,10 @@ namespace Mir2
                         {
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(tilePosition))
+                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                            if (orInRange(fakeTilePosition))
                             {
+                                Vector3Int tilePosition = GetTilePos(x, y, 0);
                                 Tile tile = GetTile(Map_Middle, tilePosition);
                                 tile.sprite = mSprite;
                                 Map_Middle.SetTile(tilePosition, tile);
@@ -177,7 +175,7 @@ namespace Mir2
             {
                 for (int y = nMinY; y <= nMaxY; y++)
                 {
-                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
+                    if (x >= 0 && x < mMapData.Width && y > 0 && y < mMapData.Height)
                     {
                         int nIndex1 = mMapData.MapCells[x, y].FrontIndex;
                         int nIndex2 = (mMapData.MapCells[x, y].FrontImage & 0x7FFF) - 1;
@@ -193,9 +191,10 @@ namespace Mir2
                                 continue;
                             }
 
-                            Vector3Int tilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(tilePosition))
+                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                            if (orInRange(fakeTilePosition))
                             {
+                                Vector3Int tilePosition = GetTilePos(x, y, 0);
                                 Tile tile = GetTile(Map_Front, tilePosition);
                                 tile.sprite = mSprite;
                                 Map_Front.SetTile(tilePosition, tile);
@@ -204,6 +203,16 @@ namespace Mir2
                     }
                 }
             }
+        }
+
+        public Vector3Int GetUserTileMapPos(Vector3Int MapLocation)
+        {
+            return new Vector3Int(MapLocation.x, -MapLocation.y, 0);
+        }
+
+        public Vector3Int GetTilePos(int x, int y, int z)
+        {
+            return new Vector3Int(x, -y, 0);
         }
 
         private Tile GetTile(Tilemap mMap, Vector3Int position)

@@ -29,11 +29,13 @@ message packet_data_SelectRole_RoleInfo
 
 message packet_data_ItemInfo
 {
-	uint64 nUniqueId = 1;
-	uint32 nItemId = 2;
-	uint32 nCount = 3;
-	uint32 nStarLevel = 4;
-	uint32 nDura = 5;
+	uint64 nBagIndex = 1;
+	uint32 nSlotIndex = 2;
+	uint32 nItemId = 3;
+
+	uint32 nCount = 4;
+	uint32 nStarLevel = 5;
+	uint32 nDura = 6;
 }
 
 message packet_data_UserInfo
@@ -47,17 +49,15 @@ message packet_data_UserInfo
 	uint32 nLevel = 6;
 	uint64 nLevelExp = 7;
 
-	packet_data_Vector3Int Location = 8;
-	uint32 Direction = 9;
+	uint32 nMapIndex = 8;
+	packet_data_Vector3Int Location = 9;
+	uint32 Direction = 10;
 
-	uint32 HP = 10;
-	uint32 MP = 11;
-
-	repeated packet_data_ItemInfo BagItemList = 12; 
-	repeated packet_data_ItemInfo RoleItemList = 13; 
-	
-	uint32 Gold = 14;
-	uint32 Credit = 15;
+	uint32 HP = 11;
+	uint32 MP = 12;
+	repeated packet_data_ItemInfo ItemList = 13; 
+	uint32 Gold = 15;
+	uint32 Credit = 16;
 }
 
 message packet_data_cs_ChatInfo

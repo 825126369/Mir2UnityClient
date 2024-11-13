@@ -24,7 +24,6 @@ namespace CrystalMir2
         public static int ScriptIndex;
 
         public static List<MapInfo> MapInfoList = new List<MapInfo>();
-
         const string DatabasePath = "D:\\Me\\MyProject\\CrystalMir2_Chinese\\Server\\Debug\\Server.MirDB";
 
         public static bool LoadDB()
@@ -52,6 +51,9 @@ namespace CrystalMir2
 
                 NPCIndex = reader.ReadInt32();
                 QuestIndex = reader.ReadInt32();
+
+                Debug.Log("MapIndex: " + MapIndex);
+                Debug.Log("QuestIndex: " + QuestIndex);
 
                 if (LoadVersion >= 63)
                 {
