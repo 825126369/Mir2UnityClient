@@ -84,5 +84,9 @@ MonoBehaviour:
   m_MaterialList: []
   m_TextAssetList:
   - {fileID: 4900000, guid: a0eeb1873949e3642b50025292919bf2, type: 3}
+  - {fileID: 4900000, guid: e39814c22a07fa1458425a784a67a621, type: 3}
+  - {fileID: 4900000, guid: 6e8605c7df131374a86905ba7cbf6f99, type: 3}
+  - {fileID: 4900000, guid: 983c74f64b37bc349a12157d55b1559a, type: 3}
+  - {fileID: 4900000, guid: 3242cb9f635140d42bcf50fd5685f54d, type: 3}
   mResFolder: Assets\GameAssets\game
   mResSuffix: .prefab;

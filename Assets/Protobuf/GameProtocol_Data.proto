@@ -55,7 +55,8 @@ message packet_data_UserInfo
 
 	uint32 HP = 11;
 	uint32 MP = 12;
-	repeated packet_data_ItemInfo ItemList = 13; 
+	repeated packet_data_ItemInfo BagList = 13; 
+	repeated packet_data_ItemInfo EquipList = 14; 
 	uint32 Gold = 15;
 	uint32 Credit = 16;
 }

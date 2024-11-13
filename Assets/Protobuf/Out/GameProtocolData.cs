@@ -34,16 +34,18 @@ namespace NetProtocols.Game {
             "ZVRpbWUYByABKAQigQEKFHBhY2tldF9kYXRhX0l0ZW1JbmZvEhEKCW5CYWdJ",
             "bmRleBgBIAEoBBISCgpuU2xvdEluZGV4GAIgASgNEg8KB25JdGVtSWQYAyAB",
             "KA0SDgoGbkNvdW50GAQgASgNEhIKCm5TdGFyTGV2ZWwYBSABKA0SDQoFbkR1",
-            "cmEYBiABKA0i4wIKFHBhY2tldF9kYXRhX1VzZXJJbmZvEhQKDG5NYXBPYmpl",
+            "cmEYBiABKA0ingMKFHBhY2tldF9kYXRhX1VzZXJJbmZvEhQKDG5NYXBPYmpl",
             "Y3RJZBgBIAEoDRIRCgluUGxheWVySWQYAiABKA0SDAoETmFtZRgDIAEoCRIN",
             "CgVDbGFzcxgEIAEoDRIOCgZHZW5kZXIYBSABKA0SDgoGbkxldmVsGAYgASgN",
             "EhEKCW5MZXZlbEV4cBgHIAEoBBIRCgluTWFwSW5kZXgYCCABKA0SOwoITG9j",
             "YXRpb24YCSABKAsyKS5OZXRQcm90b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9W",
             "ZWN0b3IzSW50EhEKCURpcmVjdGlvbhgKIAEoDRIKCgJIUBgLIAEoDRIKCgJN",
-            "UBgMIAEoDRI5CghJdGVtTGlzdBgNIAMoCzInLk5ldFByb3RvY29scy5HYW1l",
-            "LnBhY2tldF9kYXRhX0l0ZW1JbmZvEgwKBEdvbGQYDyABKA0SDgoGQ3JlZGl0",
-            "GBAgASgNIkgKF3BhY2tldF9kYXRhX2NzX0NoYXRJbmZvEhAKCFVuaXF1ZUlE",
-            "GAEgASgEEg0KBVRpdGxlGAIgASgJEgwKBEdyaWQYAyABKA1iBnByb3RvMw=="));
+            "UBgMIAEoDRI4CgdCYWdMaXN0GA0gAygLMicuTmV0UHJvdG9jb2xzLkdhbWUu",
+            "cGFja2V0X2RhdGFfSXRlbUluZm8SOgoJRXF1aXBMaXN0GA4gAygLMicuTmV0",
+            "UHJvdG9jb2xzLkdhbWUucGFja2V0X2RhdGFfSXRlbUluZm8SDAoER29sZBgP",
+            "IAEoDRIOCgZDcmVkaXQYECABKA0iSAoXcGFja2V0X2RhdGFfY3NfQ2hhdElu",
+            "Zm8SEAoIVW5pcXVlSUQYASABKAQSDQoFVGl0bGUYAiABKAkSDAoER3JpZBgD",
+            "IAEoDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -51,7 +53,7 @@ namespace NetProtocols.Game {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_Color), global::NetProtocols.Game.packet_data_Color.Parser, new[]{ "R", "G", "B", "A" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_SelectRole_RoleInfo), global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser, new[]{ "NRoleId", "Name", "Gender", "Class", "Level", "NLastLoginTime", "NCreateTime" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_ItemInfo), global::NetProtocols.Game.packet_data_ItemInfo.Parser, new[]{ "NBagIndex", "NSlotIndex", "NItemId", "NCount", "NStarLevel", "NDura" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_UserInfo), global::NetProtocols.Game.packet_data_UserInfo.Parser, new[]{ "NMapObjectId", "NPlayerId", "Name", "Class", "Gender", "NLevel", "NLevelExp", "NMapIndex", "Location", "Direction", "HP", "MP", "ItemList", "Gold", "Credit" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_UserInfo), global::NetProtocols.Game.packet_data_UserInfo.Parser, new[]{ "NMapObjectId", "NPlayerId", "Name", "Class", "Gender", "NLevel", "NLevelExp", "NMapIndex", "Location", "Direction", "HP", "MP", "BagList", "EquipList", "Gold", "Credit" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_data_cs_ChatInfo), global::NetProtocols.Game.packet_data_cs_ChatInfo.Parser, new[]{ "UniqueID", "Title", "Grid" }, null, null, null, null)
           }));
     }
@@ -1490,7 +1492,8 @@ namespace NetProtocols.Game {
       direction_ = other.direction_;
       hP_ = other.hP_;
       mP_ = other.mP_;
-      itemList_ = other.itemList_.Clone();
+      bagList_ = other.bagList_.Clone();
+      equipList_ = other.equipList_.Clone();
       gold_ = other.gold_;
       credit_ = other.credit_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -1646,15 +1649,26 @@ namespace NetProtocols.Game {
       }
     }
 
-    /// <summary>Field number for the "ItemList" field.</summary>
-    public const int ItemListFieldNumber = 13;
-    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_ItemInfo> _repeated_itemList_codec
+    /// <summary>Field number for the "BagList" field.</summary>
+    public const int BagListFieldNumber = 13;
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_ItemInfo> _repeated_bagList_codec
         = pb::FieldCodec.ForMessage(106, global::NetProtocols.Game.packet_data_ItemInfo.Parser);
-    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> itemList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo>();
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> bagList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> ItemList {
-      get { return itemList_; }
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> BagList {
+      get { return bagList_; }
+    }
+
+    /// <summary>Field number for the "EquipList" field.</summary>
+    public const int EquipListFieldNumber = 14;
+    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_ItemInfo> _repeated_equipList_codec
+        = pb::FieldCodec.ForMessage(114, global::NetProtocols.Game.packet_data_ItemInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> equipList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_ItemInfo> EquipList {
+      get { return equipList_; }
     }
 
     /// <summary>Field number for the "Gold" field.</summary>
@@ -1708,7 +1722,8 @@ namespace NetProtocols.Game {
       if (Direction != other.Direction) return false;
       if (HP != other.HP) return false;
       if (MP != other.MP) return false;
-      if(!itemList_.Equals(other.itemList_)) return false;
+      if(!bagList_.Equals(other.bagList_)) return false;
+      if(!equipList_.Equals(other.equipList_)) return false;
       if (Gold != other.Gold) return false;
       if (Credit != other.Credit) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -1730,7 +1745,8 @@ namespace NetProtocols.Game {
       if (Direction != 0) hash ^= Direction.GetHashCode();
       if (HP != 0) hash ^= HP.GetHashCode();
       if (MP != 0) hash ^= MP.GetHashCode();
-      hash ^= itemList_.GetHashCode();
+      hash ^= bagList_.GetHashCode();
+      hash ^= equipList_.GetHashCode();
       if (Gold != 0) hash ^= Gold.GetHashCode();
       if (Credit != 0) hash ^= Credit.GetHashCode();
       if (_unknownFields != null) {
@@ -1799,7 +1815,8 @@ namespace NetProtocols.Game {
         output.WriteRawTag(96);
         output.WriteUInt32(MP);
       }
-      itemList_.WriteTo(output, _repeated_itemList_codec);
+      bagList_.WriteTo(output, _repeated_bagList_codec);
+      equipList_.WriteTo(output, _repeated_equipList_codec);
       if (Gold != 0) {
         output.WriteRawTag(120);
         output.WriteUInt32(Gold);
@@ -1866,7 +1883,8 @@ namespace NetProtocols.Game {
         output.WriteRawTag(96);
         output.WriteUInt32(MP);
       }
-      itemList_.WriteTo(ref output, _repeated_itemList_codec);
+      bagList_.WriteTo(ref output, _repeated_bagList_codec);
+      equipList_.WriteTo(ref output, _repeated_equipList_codec);
       if (Gold != 0) {
         output.WriteRawTag(120);
         output.WriteUInt32(Gold);
@@ -1921,7 +1939,8 @@ namespace NetProtocols.Game {
       if (MP != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(MP);
       }
-      size += itemList_.CalculateSize(_repeated_itemList_codec);
+      size += bagList_.CalculateSize(_repeated_bagList_codec);
+      size += equipList_.CalculateSize(_repeated_equipList_codec);
       if (Gold != 0) {
         size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Gold);
       }
@@ -1979,7 +1998,8 @@ namespace NetProtocols.Game {
       if (other.MP != 0) {
         MP = other.MP;
       }
-      itemList_.Add(other.itemList_);
+      bagList_.Add(other.bagList_);
+      equipList_.Add(other.equipList_);
       if (other.Gold != 0) {
         Gold = other.Gold;
       }
@@ -2057,7 +2077,11 @@ namespace NetProtocols.Game {
             break;
           }
           case 106: {
-            itemList_.AddEntriesFrom(input, _repeated_itemList_codec);
+            bagList_.AddEntriesFrom(input, _repeated_bagList_codec);
+            break;
+          }
+          case 114: {
+            equipList_.AddEntriesFrom(input, _repeated_equipList_codec);
             break;
           }
           case 120: {
@@ -2139,7 +2163,11 @@ namespace NetProtocols.Game {
             break;
           }
           case 106: {
-            itemList_.AddEntriesFrom(ref input, _repeated_itemList_codec);
+            bagList_.AddEntriesFrom(ref input, _repeated_bagList_codec);
+            break;
+          }
+          case 114: {
+            equipList_.AddEntriesFrom(ref input, _repeated_equipList_codec);
             break;
           }
           case 120: {

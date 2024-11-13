@@ -397,11 +397,16 @@ namespace NetProtocols.Game
 			Direction = default;
 			HP = default;
 			MP = default;
-			foreach(var v in ItemList)
+			foreach(var v in BagList)
 			{
 				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
 			}
-			ItemList.Clear();
+			BagList.Clear();
+			foreach(var v in EquipList)
+			{
+				IMessagePool<NetProtocols.Game.packet_data_ItemInfo>.recycle(v);
+			}
+			EquipList.Clear();
 			Gold = default;
 			Credit = default;
 		}
@@ -494,69 +499,6 @@ namespace NetProtocols.Game
 				IMessagePool<NetProtocols.Game.packet_data_SelectRole_RoleInfo>.recycle(v);
 			}
 			MRoleList.Clear();
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_MapInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_ItemAtt : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_UserItem : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_data_ClientMagic : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_TurnDir : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_Walk : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.Game
-{
-	public sealed partial class packet_sc_broadcast_Run : IProtobufResetInterface
-	{
-		public void Reset()
-		{
 		}
 	}
 }
