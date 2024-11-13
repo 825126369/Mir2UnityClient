@@ -3,9 +3,9 @@ namespace Mir2
 	public class ItemInfo
 	{
 		public string ItemName;
-		public string ItemType;
-		public string ItemGrade;
-		public ItemGrade ItemRequiredType;
+		public ItemType ItemType;
+		public ItemGrade ItemGrade;
+		public RequiredType ItemRequiredType;
 		public RequiredGender ItemRequiredGender;
 		public RequiredClass ItemRequiredClass;
 		public ItemSet ItemSet;

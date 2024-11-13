@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 namespace Mir2
 {
@@ -339,53 +340,62 @@ namespace Mir2
                     return dir;
             }
         }
-        //    public static ItemInfo GetRealItem(ItemInfo Origin, ushort Level, MirClass job, List<ItemInfo> ItemList)
-        //    {
-        //        if (Origin.ClassBased && Origin.LevelBased)
-        //            return GetClassAndLevelBasedItem(Origin, job, Level, ItemList);
-        //        if (Origin.ClassBased)
-        //            return GetClassBasedItem(Origin, job, ItemList);
-        //        if (Origin.LevelBased)
-        //            return GetLevelBasedItem(Origin, Level, ItemList);
-        //        return Origin;
-        //    }
-        //    public static ItemInfo GetLevelBasedItem(ItemInfo Origin, ushort level, List<ItemInfo> ItemList)
-        //    {
-        //        ItemInfo output = Origin;
-        //        for (int i = 0; i < ItemList.Count; i++)
-        //        {
-        //            ItemInfo info = ItemList[i];
-        //            if (info.Name.StartsWith(Origin.Name))
-        //                if ((info.RequiredType == RequiredType.Level) && (info.RequiredAmount <= level) && (output.RequiredAmount < info.RequiredAmount) && (Origin.RequiredGender == info.RequiredGender))
-        //                    output = info;
-        //        }
-        //        return output;
-        //    }
-        //    public static ItemInfo GetClassBasedItem(ItemInfo Origin, MirClass job, List<ItemInfo> ItemList)
-        //    {
-        //        for (int i = 0; i < ItemList.Count; i++)
-        //        {
-        //            ItemInfo info = ItemList[i];
-        //            if (info.Name.StartsWith(Origin.Name))
-        //                if (((byte)info.RequiredClass == (1 << (byte)job)) && (Origin.RequiredGender == info.RequiredGender))
-        //                    return info;
-        //        }
-        //        return Origin;
-        //    }
 
-        //    public static ItemInfo GetClassAndLevelBasedItem(ItemInfo Origin, MirClass job, ushort level, List<ItemInfo> ItemList)
-        //    {
-        //        ItemInfo output = Origin;
-        //        for (int i = 0; i < ItemList.Count; i++)
-        //        {
-        //            ItemInfo info = ItemList[i];
-        //            if (info.Name.StartsWith(Origin.Name))
-        //                if ((byte)info.RequiredClass == (1 << (byte)job))
-        //                    if ((info.RequiredType == RequiredType.Level) && (info.RequiredAmount <= level) && (output.RequiredAmount <= info.RequiredAmount) && (Origin.RequiredGender == info.RequiredGender))
-        //                        output = info;
-        //        }
-        //        return output;
-        //    }
+        public static ItemInfo GetRealItem(ItemInfo Origin, ushort Level, MirClass job, List<ItemInfo> ItemList)
+        {
+            if (Origin.ClassBased && Origin.LevelBased)
+                return GetClassAndLevelBasedItem(Origin, job, Level, ItemList);
+            if (Origin.ClassBased)
+                return GetClassBasedItem(Origin, job, ItemList);
+            if (Origin.LevelBased)
+                return GetLevelBasedItem(Origin, Level, ItemList);
+            return Origin;
+        }
+
+        public static ItemInfo GetLevelBasedItem(ItemInfo Origin, ushort level, List<ItemInfo> ItemList)
+        {
+            ItemInfo output = Origin;
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                ItemInfo info = ItemList[i];
+                if (info.ItemName.StartsWith(Origin.ItemName))
+                    if ((info.ItemRequiredType == RequiredType.Level) && 
+                        (info.ItemRequiredAmount <= level) && 
+                        (output.ItemRequiredAmount < info.ItemRequiredAmount) && 
+                        (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                        output = info;
+            }
+            return output;
+        }
+        public static ItemInfo GetClassBasedItem(ItemInfo Origin, MirClass job, List<ItemInfo> ItemList)
+        {
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                ItemInfo info = ItemList[i];
+                if (info.ItemName.StartsWith(Origin.ItemName))
+                    if (((byte)info.ItemRequiredClass == (1 << (byte)job)) && 
+                        (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                        return info;
+            }
+            return Origin;
+        }
+
+        public static ItemInfo GetClassAndLevelBasedItem(ItemInfo Origin, MirClass job, ushort level, List<ItemInfo> ItemList)
+        {
+            ItemInfo output = Origin;
+            for (int i = 0; i < ItemList.Count; i++)
+            {
+                ItemInfo info = ItemList[i];
+                if (info.ItemName.StartsWith(Origin.ItemName))
+                    if ((byte)info.ItemRequiredClass == (1 << (byte)job))
+                        if ((info.ItemRequiredType == RequiredType.Level) &&
+                            (info.ItemRequiredAmount <= level) &&
+                            (output.ItemRequiredAmount <= info.ItemRequiredAmount) &&
+                            (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                            output = info;
+            }
+            return output;
+        }
 
         //    public static string StringOverLines(string line, int maxWordsPerLine, int maxLettersPerLine)
         //    {

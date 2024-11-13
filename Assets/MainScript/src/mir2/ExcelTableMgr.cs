@@ -48,7 +48,9 @@ namespace Mir2
                 string[] valueList = lineList[i].Split(',');
                 for (int j = 0; j < valueList.Length; j++)
                 {
-                    string value = varList[j];
+                    if (j >= varList.Length) continue;
+
+                    string value = valueList[j];
                     var mFieldInfo = itemInfo.GetType().GetField(varList[j]);
                     if (mFieldInfo != null)
                     {

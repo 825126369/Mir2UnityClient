@@ -879,7 +879,7 @@ public enum ItemType : byte
     CraftingMaterial = 16,
     Scroll = 17,
     Gem = 18,
-    Mount = 19,
+    Mount = 19, // //坐骑
     Book = 20,
     Script = 21,
     Reins = 22,
