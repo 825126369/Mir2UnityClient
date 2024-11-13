@@ -114,7 +114,7 @@ public class UserData
         }
     }
 
-    private void RefreshEquipmentStats()
+    public void RefreshEquipmentStats()
     {
         Weapon = -1;
         WeaponEffect = 0;

@@ -73,5 +73,7 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
     public void InitStartGameData(packet_sc_request_StartGame_Result mReceiveMsg)
     {
         UserData.CopyFrom(mReceiveMsg.UserInfo);
+        UserData.RefreshEquipmentStats();
     }
+
 }
