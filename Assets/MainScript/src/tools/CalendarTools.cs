@@ -1,8 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 
 public class CalendarTools
 {
@@ -14,7 +10,6 @@ public class CalendarTools
 
     public static int GetSumDayOfMonth(int nYear, int nMonth)
     {
-        //DateTime mDateTime = new DateTime(nYear, nMonth + 1, 0);
         return DateTime.DaysInMonth(nYear, nMonth);
     }
 

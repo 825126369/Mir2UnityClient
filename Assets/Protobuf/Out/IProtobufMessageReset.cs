@@ -1,88 +1,5 @@
 using AKNet.Common;
 using Google.Protobuf;
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = default;
-			ServerConnectStr = string.Empty;
-			OnlinePlayerCount = default;
-			CreatedPlayerCount = default;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_SelectGateServerToGateServer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = default;
-			DataBaseConnectStr = string.Empty;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_SelectGateServerToPlayer_Data : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NServerId = default;
-			ServerConnectStr = string.Empty;
-			ServerName = string.Empty;
-			NState = default;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_gsg_SendServerInfo : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.SelectGate.packet_GateServerToSelectGateServer_Data>.recycle(MServerInfo);
-			MServerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_sgg_SendServerInfo_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToGateServer_Data>.recycle(MServerInfo);
-			MServerInfo = null;
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_cs_request_ServerList : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-		}
-	}
-}
-namespace NetProtocols.SelectGate
-{
-	public sealed partial class packet_sc_ServerList_Result : IProtobufResetInterface
-	{
-		public void Reset()
-		{
-			NErrorCode = default;
-			foreach(var v in MServerInfoList)
-			{
-				IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToPlayer_Data>.recycle(v);
-			}
-			MServerInfoList.Clear();
-		}
-	}
-}
 namespace NetProtocols.Login
 {
 	public sealed partial class packet_sc_Login_Result : IProtobufResetInterface
@@ -96,9 +13,6 @@ namespace NetProtocols.Login
 			ExpiryDate = default;
 		}
 	}
-}
-namespace NetProtocols.Login
-{
 	public sealed partial class packet_cs_Login : IProtobufResetInterface
 	{
 		public void Reset()
@@ -108,9 +22,6 @@ namespace NetProtocols.Login
 			NLoginType = default;
 		}
 	}
-}
-namespace NetProtocols.Login
-{
 	public sealed partial class packet_cs_Register : IProtobufResetInterface
 	{
 		public void Reset()
@@ -123,9 +34,6 @@ namespace NetProtocols.Login
 			EMailAddress = string.Empty;
 		}
 	}
-}
-namespace NetProtocols.Login
-{
 	public sealed partial class packet_sc_Register_Result : IProtobufResetInterface
 	{
 		public void Reset()
@@ -133,9 +41,6 @@ namespace NetProtocols.Login
 			NErrorCode = default;
 		}
 	}
-}
-namespace NetProtocols.Login
-{
 	public sealed partial class packet_cs_ChangePassword : IProtobufResetInterface
 	{
 		public void Reset()
@@ -145,14 +50,76 @@ namespace NetProtocols.Login
 			NewPassword = string.Empty;
 		}
 	}
-}
-namespace NetProtocols.Login
-{
 	public sealed partial class packet_sc_ChangePassword_Result : IProtobufResetInterface
 	{
 		public void Reset()
 		{
 			NErrorCode = default;
+		}
+	}
+}
+namespace NetProtocols.SelectGate
+{
+	public sealed partial class packet_GateServerToSelectGateServer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = default;
+			ServerConnectStr = string.Empty;
+			OnlinePlayerCount = default;
+			CreatedPlayerCount = default;
+		}
+	}
+	public sealed partial class packet_SelectGateServerToGateServer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = default;
+			DataBaseConnectStr = string.Empty;
+		}
+	}
+	public sealed partial class packet_SelectGateServerToPlayer_Data : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NServerId = default;
+			ServerConnectStr = string.Empty;
+			ServerName = string.Empty;
+			NState = default;
+		}
+	}
+	public sealed partial class packet_gsg_SendServerInfo : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			IMessagePool<NetProtocols.SelectGate.packet_GateServerToSelectGateServer_Data>.recycle(MServerInfo);
+			MServerInfo = null;
+		}
+	}
+	public sealed partial class packet_sgg_SendServerInfo_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToGateServer_Data>.recycle(MServerInfo);
+			MServerInfo = null;
+		}
+	}
+	public sealed partial class packet_cs_request_ServerList : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+		}
+	}
+	public sealed partial class packet_sc_ServerList_Result : IProtobufResetInterface
+	{
+		public void Reset()
+		{
+			NErrorCode = default;
+			foreach(var v in MServerInfoList)
+			{
+				IMessagePool<NetProtocols.SelectGate.packet_SelectGateServerToPlayer_Data>.recycle(v);
+			}
+			MServerInfoList.Clear();
 		}
 	}
 }
@@ -166,9 +133,6 @@ namespace NetProtocols.Gate
 			ServerConnectStr = string.Empty;
 		}
 	}
-}
-namespace NetProtocols.Gate
-{
 	public sealed partial class packet_GI_RegisterResult : IProtobufResetInterface
 	{
 		public void Reset()
@@ -176,9 +140,6 @@ namespace NetProtocols.Gate
 			NErrorCode = default;
 		}
 	}
-}
-namespace NetProtocols.Gate
-{
 	public sealed partial class packet_GIIG_ClientDisConnect : IProtobufResetInterface
 	{
 		public void Reset()
@@ -186,9 +147,6 @@ namespace NetProtocols.Gate
 			NClientId = default;
 		}
 	}
-}
-namespace NetProtocols.Gate
-{
 	public sealed partial class packet_CG_Register : IProtobufResetInterface
 	{
 		public void Reset()
@@ -196,9 +154,6 @@ namespace NetProtocols.Gate
 			NPlayerId = default;
 		}
 	}
-}
-namespace NetProtocols.Gate
-{
 	public sealed partial class packet_GC_RegisterResult : IProtobufResetInterface
 	{
 		public void Reset()
@@ -206,9 +161,6 @@ namespace NetProtocols.Gate
 			NErrorCode = default;
 		}
 	}
-}
-namespace NetProtocols.Gate
-{
 	public sealed partial class packet_data_RelayMsg : IProtobufResetInterface
 	{
 		public void Reset()
@@ -228,9 +180,6 @@ namespace NetProtocols.Game
 			NPlayerId = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_request_StartGame_Result : IProtobufResetInterface
 	{
 		public void Reset()
@@ -240,9 +189,6 @@ namespace NetProtocols.Game
 			UserInfo = null;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_TurnDir : IProtobufResetInterface
 	{
 		public void Reset()
@@ -250,9 +196,6 @@ namespace NetProtocols.Game
 			Direction = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_Walk : IProtobufResetInterface
 	{
 		public void Reset()
@@ -260,9 +203,6 @@ namespace NetProtocols.Game
 			Direction = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_Run : IProtobufResetInterface
 	{
 		public void Reset()
@@ -270,9 +210,6 @@ namespace NetProtocols.Game
 			Direction = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_UserLocation : IProtobufResetInterface
 	{
 		public void Reset()
@@ -282,9 +219,6 @@ namespace NetProtocols.Game
 			Location = null;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_broadcast_Location : IProtobufResetInterface
 	{
 		public void Reset()
@@ -295,9 +229,6 @@ namespace NetProtocols.Game
 			Location = null;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_chat : IProtobufResetInterface
 	{
 		public void Reset()
@@ -310,9 +241,6 @@ namespace NetProtocols.Game
 			LinkedItems.Clear();
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_chat : IProtobufResetInterface
 	{
 		public void Reset()
@@ -321,9 +249,6 @@ namespace NetProtocols.Game
 			Message = string.Empty;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_Vector3Int : IProtobufResetInterface
 	{
 		public void Reset()
@@ -333,9 +258,6 @@ namespace NetProtocols.Game
 			Z = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_Color : IProtobufResetInterface
 	{
 		public void Reset()
@@ -346,9 +268,6 @@ namespace NetProtocols.Game
 			A = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_SelectRole_RoleInfo : IProtobufResetInterface
 	{
 		public void Reset()
@@ -362,9 +281,6 @@ namespace NetProtocols.Game
 			NCreateTime = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_ItemInfo : IProtobufResetInterface
 	{
 		public void Reset()
@@ -377,9 +293,6 @@ namespace NetProtocols.Game
 			NDura = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_UserInfo : IProtobufResetInterface
 	{
 		public void Reset()
@@ -411,9 +324,6 @@ namespace NetProtocols.Game
 			Credit = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_data_cs_ChatInfo : IProtobufResetInterface
 	{
 		public void Reset()
@@ -423,9 +333,6 @@ namespace NetProtocols.Game
 			Grid = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_AllRoleInfo : IProtobufResetInterface
 	{
 		public void Reset()
@@ -433,9 +340,6 @@ namespace NetProtocols.Game
 			NAccountId = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_request_AllRoleInfo_Result : IProtobufResetInterface
 	{
 		public void Reset()
@@ -448,9 +352,6 @@ namespace NetProtocols.Game
 			MRoleList.Clear();
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_CreateRole : IProtobufResetInterface
 	{
 		public void Reset()
@@ -461,9 +362,6 @@ namespace NetProtocols.Game
 			Class = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_request_CreateRole_Result : IProtobufResetInterface
 	{
 		public void Reset()
@@ -476,9 +374,6 @@ namespace NetProtocols.Game
 			MRoleList.Clear();
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_cs_request_DeleteRole : IProtobufResetInterface
 	{
 		public void Reset()
@@ -486,9 +381,6 @@ namespace NetProtocols.Game
 			NPlayerId = default;
 		}
 	}
-}
-namespace NetProtocols.Game
-{
 	public sealed partial class packet_sc_request_DeleteRole_Result : IProtobufResetInterface
 	{
 		public void Reset()
