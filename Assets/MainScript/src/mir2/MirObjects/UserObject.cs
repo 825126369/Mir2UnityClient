@@ -426,6 +426,8 @@ namespace Mir2
                     }
                     break;
             }
+
+
         }
 
         public void SetAction()
@@ -510,7 +512,7 @@ namespace Mir2
 
         private void Update()
         {
-            if(!bInit) return;
+            if (!bInit) return;
 
             ProcessFrames();
             Draw();
@@ -527,6 +529,10 @@ namespace Mir2
             }
 
             CheckInput();
+            if (RequestAction != null)
+            {
+                SetAction();
+            }
         }
 
         private void CheckInput()
