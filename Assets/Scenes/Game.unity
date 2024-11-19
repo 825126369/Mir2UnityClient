@@ -335,7 +335,6 @@ MonoBehaviour:
   mEquipHead: {fileID: 736248536}
   mEquipWingEffect: {fileID: 34925576}
   mEquipMount: {fileID: 1825574173}
-  CurrentAction: 0
   CurrentLocation: {x: 0, y: 0, z: 0}
   WeaponLibrary1: 
   WeaponEffectLibrary1: 
@@ -363,12 +362,14 @@ MonoBehaviour:
   FastRun: 0
   Fishing: 0
   FoundFish: 0
+  Sneaking: 0
   MountType: -1
   TransformType: -1
   DrawFrame: 0
   DrawWingFrame: 0
   SkipFrameUpdate: 0
   Poison: 0
+  CurrentAction: 0
 --- !u!4 &453696038
 Transform:
   m_ObjectHideFlags: 0
@@ -455,6 +456,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   User: {fileID: 453696037}
+  MapMgr: {fileID: 1315149098}
 --- !u!4 &671868609
 Transform:
   m_ObjectHideFlags: 0
@@ -916,6 +918,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
+--- !u!114 &1315149098 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2807003994515908697, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
+  m_PrefabInstance: {fileID: 1315149097}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a6530e175bfe7419733e90a4870683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1825574171
 GameObject:
   m_ObjectHideFlags: 0

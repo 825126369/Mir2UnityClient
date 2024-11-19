@@ -2,6 +2,7 @@ using NetProtocols.Game;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 using UnityEngine;
 
 namespace Mir2
@@ -20,8 +21,7 @@ namespace Mir2
         public SpriteRenderer mEquipWingEffect;
 
         public SpriteRenderer mEquipMount;
-        
-        public MirAction CurrentAction;
+       
         public Vector3Int CurrentLocation;
 
         private float InputDelay = 0.4f;
@@ -50,6 +50,8 @@ namespace Mir2
         public PoisonType Poison;
         public List<QueuedAction> ActionFeed = new List<QueuedAction>();
         private QueuedAction RequestAction;
+        private QueuedAction NextAction;
+        public MirAction CurrentAction;
 
         public void Init()
         {
@@ -428,6 +430,17 @@ namespace Mir2
 
         public void SetAction()
         {
+            if (RequestAction != null)
+            {
+                if ((ActionFeed.Count == 0) || (ActionFeed.Count == 1 && NextAction.Action == MirAction.Stance))
+                {
+                    ActionFeed.Clear();
+                    ActionFeed.Add(RequestAction);
+                    RequestAction = null;
+                }
+            }
+
+            QueuedAction CurrentRequestAction = null;
             if (ActionFeed.Count == 0)
             {
                 CurrentAction = MirAction.Standing;
@@ -440,13 +453,13 @@ namespace Mir2
                     FrameInterval = Frame.Interval;
                     EffectFrameInterval = Frame.EffectInterval;
                 }
-
             }
             else
             {
                 QueuedAction action = ActionFeed[0];
                 ActionFeed.RemoveAt(0);
                 CurrentAction = action.Action;
+                CurrentRequestAction = action;
 
                 Frames.TryGetValue(CurrentAction, out Frame);
                 FrameIndex = 0;
@@ -455,6 +468,26 @@ namespace Mir2
                 {
                     FrameInterval = Frame.Interval;
                     EffectFrameInterval = Frame.EffectInterval;
+                }
+            }
+
+            if (CurrentRequestAction != null)
+            {
+                switch (CurrentAction)
+                {
+                    case MirAction.Standing:
+                    case MirAction.MountStanding:
+                        SendTurnDirMsg(CurrentRequestAction.Direction);
+                        break;
+                    case MirAction.Walking:
+                    case MirAction.MountWalking:
+                    case MirAction.Sneek:
+                        SendWalkMsg(CurrentRequestAction.Direction);
+                        break;
+                    case MirAction.Running:
+                    case MirAction.MountRunning:
+                        SendRunMsg(CurrentRequestAction.Direction);
+                        break;
                 }
             }
         }
@@ -809,6 +842,13 @@ namespace Mir2
         }
 
         //---------------------------------------ÍøÂçÏûÏ¢-----------------------------------------------------------
+
+        private void SendTurnDirMsg(MirDirection Direction)
+        {
+            var mSendMsg = new packet_cs_request_TurnDir();
+            mSendMsg.Direction = (uint)Direction;
+            NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_TURNDIR, mSendMsg);
+        }
 
         private void SendWalkMsg(MirDirection Direction)
         {
