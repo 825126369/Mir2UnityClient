@@ -372,26 +372,42 @@ namespace Mir2
 
         public void Draw()
         {
-            DrawMount();
+            mEquipMount.sprite = null;
+            mEquipWeapon.sprite = null;
+            mEquipArmour.sprite = null;
+            mEquipHead.sprite = null;
+            mEquipWeapon2.sprite = null;
+            mEquipWeaponEffect.sprite = null;
+            mEquipWingEffect.sprite = null;
 
+            mEquipMount.sortingOrder = 0;
 
             if (mData.Direction == MirDirection.Left || mData.Direction == MirDirection.Up || mData.Direction == MirDirection.UpLeft || mData.Direction == MirDirection.DownLeft)
-                DrawWeapon();
+            {
+                mEquipWeapon.sortingOrder = 1;
+            }
             else
-                DrawWeapon2();
+            {
+                mEquipWeapon2.sortingOrder = 1;
+            }
 
-
-            DrawBody();
-            DrawHead();
-
+            mEquipArmour.sortingOrder = 3;
+            mEquipHead.sortingOrder = 4;
 
             if (mData.Direction == MirDirection.UpRight || mData.Direction == MirDirection.Right || mData.Direction == MirDirection.DownRight || mData.Direction == MirDirection.Down)
-                DrawWeapon();
+            {
+                mEquipWeapon.sortingOrder = 5;
+            }
             else
-                DrawWeapon2();
-
-            if (mData.Class == MirClass.Archer && HasClassWeapon)
-                DrawWeapon2();
+            {
+                mEquipWeapon2.sortingOrder = 5;
+            }
+            
+            DrawMount();
+            DrawBody();
+            DrawHead();
+            DrawWeapon();
+            DrawWeapon2();
         }
 
         public int UpdateFrame(bool skip = true)
@@ -574,6 +590,7 @@ namespace Mir2
         private void CheckInput()
         {
             if (Time.time < InputDelay) return;
+            InputDelay = Time.time + 0.4f;
 
             var direction = MouseDirection();
             bool AutoRun = false;
@@ -812,7 +829,7 @@ namespace Mir2
             //if (Functions.InRange(mData.MapLocation, p, 2))
             //    return Functions.DirectionFromPoint(mData.MapLocation, p);
 
-            float fAngle = 360 / 8 / 2;
+            float fAngle = 360 / 8;
             float fNowAngle = Mathf.Acos(Mathf.Abs(Dir.x)) / MathF.PI * 180;
 
             Debug.Log(fNowAngle);

@@ -299,7 +299,7 @@ namespace Mir2
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     var mTexture = DownloadHandlerTexture.GetContent(www);
-                    mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), Vector2.zero, 1);
+                    mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), Vector2.one * 0.5f, 1);
                     mSpriteDic[url] = mTargetSprite;
                 }
                 else
