@@ -282,7 +282,7 @@ namespace Mir2
         
         public void SetSprite(string path, Action<Sprite> mFinishEvent = null)
         {
-            Debug.Log(path);
+            //Debug.Log(path);
             path = Path.GetFullPath(path);
             string url = GetPathUrl(path);
             StartCoroutine(SetWebSprite(url, mFinishEvent));

@@ -1,8 +1,4 @@
-using CrystalMir2;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Security.Claims;
-using UnityEditor;
 using UnityEngine;
 
 namespace Mir2
@@ -11,7 +7,6 @@ namespace Mir2
     {
         public readonly List<MapObject> mMapObjects = new List<MapObject>();
         public readonly List<Door> mDoorList = new List<Door>();
-        private bool bInit = false;
 
         public List<PlayerObject> mPlayerList = new List<PlayerObject>();
         public UserObject User;
@@ -19,17 +14,8 @@ namespace Mir2
 
         private float _doorTime;
 
-        private void Init()
-        {
-            if (bInit) return;
-            bInit = true;
-            User = GameObject.Find("Me").GetComponent<UserObject>();
-            PrintTool.Assert(User != null, "User == null");
-        }
-
         public void Start()
         {
-            Init();
             User.Init();
             MapMgr.Load();
         }
@@ -97,9 +83,9 @@ namespace Mir2
         //----------------------------------------------ÍøÂçÏûÏ¢----------------------------------------------------
         public void HandleServerLocation(uint ObjectID, Vector3Int Location, MirDirection dir)
         {
-            foreach(var v in mPlayerList)
+            foreach (var v in mPlayerList)
             {
-                
+
             }
         }
 

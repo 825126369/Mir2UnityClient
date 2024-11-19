@@ -22,7 +22,7 @@ namespace Mir2
 
         public SpriteRenderer mEquipMount;
        
-        public Vector3Int CurrentLocation;
+        public Vector3 CurrentLocation;
 
         private float InputDelay = 0.4f;
         private float NextRunTime = 0;
@@ -727,11 +727,11 @@ namespace Mir2
 
         private bool CanRun(MirDirection dir)
         {
-            if (CanWalk(dir) && WorldMgr.Instance.EmptyCell(Functions.PointMove(CurrentLocation, dir, 2)))
+            if (CanWalk(dir) && WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 2)))
             {
                 if (RidingMount)
                 {
-                    return WorldMgr.Instance.EmptyCell(Functions.PointMove(CurrentLocation, dir, 3));
+                    return WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 3));
                 }
 
                 return true;
@@ -871,6 +871,8 @@ namespace Mir2
             UpdateLocation(Location, dir);
             ActionFeed.Clear();
             SetAction();
+
+            WorldMgr.Instance.MapMgr.UpdateMap();
         }
 
     }

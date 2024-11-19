@@ -42,7 +42,8 @@ namespace Mir2
 
         public void Load()
         {
-            mMapData = DataCenter.Instance.MapData.mMapBasicInfo;    
+            mMapData = DataCenter.Instance.MapData.mMapBasicInfo;   
+            UpdateMap();
         }
         
         public void UpdateMap()
