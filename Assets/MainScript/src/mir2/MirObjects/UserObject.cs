@@ -1,6 +1,7 @@
 using NetProtocols.Game;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Security.Claims;
 using UnityEngine;
@@ -21,8 +22,6 @@ namespace Mir2
         public SpriteRenderer mEquipWingEffect;
 
         public SpriteRenderer mEquipMount;
-       
-        public Vector3 CurrentLocation;
 
         private float InputDelay = 0.4f;
         private float NextRunTime = 0;
@@ -52,6 +51,9 @@ namespace Mir2
         private QueuedAction RequestAction;
         private QueuedAction NextAction;
         public MirAction CurrentAction;
+        public QueuedAction CurrentQueuedAction;
+
+        private TimeOutGenerator mTimeOutGenerator_ForMove = null;
 
         public void Init()
         {
@@ -59,6 +61,7 @@ namespace Mir2
             bInit = true;
 
             mData = DataCenter.Instance.UserData;
+            mTimeOutGenerator_ForMove = TimeOutGenerator.New(0.1f);
 
             InitPos();
             InitEquipEffect();
@@ -419,15 +422,15 @@ namespace Mir2
                 case MirAction.MountRunning:
                 case MirAction.Sneek:
                 case MirAction.DashAttack:
-
-                    if (UpdateFrame(false) >= Frame.Count)
+                    if (mTimeOutGenerator_ForMove.orTimeOut())
                     {
-                        FrameIndex = Frame.Count - 1;
+                        if (UpdateFrame(false) >= Frame.Count)
+                        {
+                            FrameIndex = Frame.Count - 1;
+                        }
                     }
                     break;
             }
-
-
         }
 
         public void SetAction()
@@ -441,8 +444,8 @@ namespace Mir2
                     RequestAction = null;
                 }
             }
-
-            QueuedAction CurrentRequestAction = null;
+            
+            CurrentQueuedAction = null;
             if (ActionFeed.Count == 0)
             {
                 CurrentAction = MirAction.Standing;
@@ -461,7 +464,7 @@ namespace Mir2
                 QueuedAction action = ActionFeed[0];
                 ActionFeed.RemoveAt(0);
                 CurrentAction = action.Action;
-                CurrentRequestAction = action;
+                CurrentQueuedAction = action;
 
                 Frames.TryGetValue(CurrentAction, out Frame);
                 FrameIndex = 0;
@@ -473,22 +476,22 @@ namespace Mir2
                 }
             }
 
-            if (CurrentRequestAction != null)
+            if (CurrentQueuedAction != null)
             {
                 switch (CurrentAction)
                 {
                     case MirAction.Standing:
                     case MirAction.MountStanding:
-                        SendTurnDirMsg(CurrentRequestAction.Direction);
+                        SendTurnDirMsg(CurrentQueuedAction.Direction);
                         break;
                     case MirAction.Walking:
                     case MirAction.MountWalking:
                     case MirAction.Sneek:
-                        SendWalkMsg(CurrentRequestAction.Direction);
+                        SendWalkMsg(CurrentQueuedAction.Direction);
                         break;
                     case MirAction.Running:
                     case MirAction.MountRunning:
-                        SendRunMsg(CurrentRequestAction.Direction);
+                        SendRunMsg(CurrentQueuedAction.Direction);
                         break;
                 }
             }
@@ -496,18 +499,26 @@ namespace Mir2
 
         private void InitPos()
         {
-            CurrentLocation = new Vector3Int(mData.MapLocation.x * DataCenter.CellWidth, -mData.MapLocation.y * DataCenter.CellHeight, 0);
-            transform.position = CurrentLocation;
-
+            transform.position = GetTargetLocation(mData.MapLocation);
             PrintTool.Log("InitPos: " + mData.MapLocation);
+        }
+
+        private Vector3 GetTargetLocation(Vector3Int Location, MirDirection dir, int i = 1)
+        {
+            var mTargetMapLocation = Functions.PointMove(Location, dir, i);
+            return new Vector3(mTargetMapLocation.x * DataCenter.CellWidth, -mTargetMapLocation.y * DataCenter.CellHeight, 0);
+        }
+
+        private Vector3 GetTargetLocation(Vector3Int Location)
+        {
+            return new Vector3(Location.x * DataCenter.CellWidth, -Location.y * DataCenter.CellHeight, 0);
         }
 
         private void UpdateLocation(Vector3Int Location, MirDirection dir)
         {
             mData.MapLocation = Location;
-            CurrentLocation = new Vector3Int(mData.MapLocation.x * DataCenter.CellWidth, -mData.MapLocation.y * DataCenter.CellHeight, 0);
             mData.Direction = dir;
-            transform.position = CurrentLocation;
+            transform.position = GetTargetLocation(Location);
         }
 
         private void Update()
@@ -526,6 +537,31 @@ namespace Mir2
             {
                 DrawFrame = Frame.Start + (Frame.OffSet * (byte)mData.Direction) + FrameIndex;
                 DrawWingFrame = Frame.EffectStart + (Frame.EffectOffSet * (byte)mData.Direction) + EffectFrameIndex;
+            }
+
+            if (CurrentQueuedAction != null)
+            {
+                switch (CurrentAction)
+                {
+                    case MirAction.Walking:
+                    case MirAction.Running:
+                        if (Frame == null)
+                        {
+                            break;
+                        }
+
+                        Vector3 beginPos = GetTargetLocation(CurrentQueuedAction.Location);
+                        Vector3 targetPos = GetTargetLocation(CurrentQueuedAction.Location, CurrentQueuedAction.Direction, 1);
+
+                        int count = Frame.Count;
+                        int index = FrameIndex;
+                        float fPercent = (index + 1) / (float)count;
+
+                        transform.position = new Vector3Int(mData.MapLocation.x * DataCenter.CellWidth, -mData.MapLocation.y * DataCenter.CellHeight, 0);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             CheckInput();
@@ -770,20 +806,24 @@ namespace Mir2
 
         public MirDirection MouseDirection()
         {
-            var Dir = Vector3.Normalize(Camera.main.ScreenToWorldPoint(Input.mousePosition) - CurrentLocation);
-            Vector3Int p = MouseClickMapLocation();
-            if (Functions.InRange(mData.MapLocation, p, 2))
-                return Functions.DirectionFromPoint(mData.MapLocation, p);
+            var Dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            Dir = Vector3.Normalize(new Vector3(Dir.x, Dir.y, 0));
+            //Vector3Int p = MouseClickMapLocation();
+            //if (Functions.InRange(mData.MapLocation, p, 2))
+            //    return Functions.DirectionFromPoint(mData.MapLocation, p);
 
             float fAngle = 360 / 8 / 2;
             float fNowAngle = Mathf.Acos(Mathf.Abs(Dir.x)) / MathF.PI * 180;
+
+            Debug.Log(fNowAngle);
+
             if(Dir.x > 0)
             {
                 if(Dir.y > 0)
                 {
                     if(fNowAngle <  fAngle / 2)
                     {
-                        return MirDirection.Up;
+                        return MirDirection.Right;
                     }
                     else if (fNowAngle < fAngle + fAngle / 2)
                     {
@@ -791,14 +831,14 @@ namespace Mir2
                     }
                     else
                     {
-                        return MirDirection.Right;
+                        return MirDirection.Up;
                     }
                 }
                 else
                 {
                     if (fNowAngle < fAngle / 2)
                     {
-                        return MirDirection.Down;
+                        return MirDirection.Right;
                     }
                     else if (fNowAngle < fAngle + fAngle / 2)
                     {
@@ -806,7 +846,7 @@ namespace Mir2
                     }
                     else
                     {
-                        return MirDirection.Right;
+                        return MirDirection.Down;
                     }
                 }
             }
@@ -816,7 +856,7 @@ namespace Mir2
                 {
                     if (fNowAngle < fAngle / 2)
                     {
-                        return MirDirection.Up;
+                        return MirDirection.Left;
                     }
                     else if (fNowAngle < fAngle + fAngle / 2)
                     {
@@ -824,14 +864,14 @@ namespace Mir2
                     }
                     else
                     {
-                        return MirDirection.Left;
+                        return MirDirection.Up;
                     }
                 }
                 else
                 {
                     if (fNowAngle < fAngle / 2)
                     {
-                        return MirDirection.Down;
+                        return MirDirection.Left;
                     }
                     else if (fNowAngle < fAngle + fAngle / 2)
                     {
@@ -839,7 +879,7 @@ namespace Mir2
                     }
                     else
                     {
-                        return MirDirection.Left;
+                        return MirDirection.Down;
                     }
                 }
             }

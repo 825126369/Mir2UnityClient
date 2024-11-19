@@ -33,7 +33,6 @@ namespace Mir2
 
         public void LoadMap(string fileName = "3")
         {
-           // if(this.mapFileName == fileName) return;
             this.mapFileName = fileName;    
             string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\" + fileName + ".map";
             mMapData = new MapReader(path);
@@ -118,13 +117,16 @@ namespace Mir2
                         {
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(fakeTilePosition))
+                            if (mSprite != null)
                             {
-                                Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                Tile tile = GetTile(Map_Back, tilePosition);
-                                tile.sprite = mSprite;
-                                Map_Back.SetTile(tilePosition, tile);
+                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                                if (orInRange(fakeTilePosition))
+                                {
+                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
+                                    Tile tile = GetTile(Map_Back, tilePosition);
+                                    tile.sprite = mSprite;
+                                    Map_Back.SetTile(tilePosition, tile);
+                                }
                             }
                         }
                     }
@@ -152,13 +154,16 @@ namespace Mir2
                         {
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(fakeTilePosition))
+                            if (mSprite != null)
                             {
-                                Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                Tile tile = GetTile(Map_Middle, tilePosition);
-                                tile.sprite = mSprite;
-                                Map_Middle.SetTile(tilePosition, tile);
+                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                                if (orInRange(fakeTilePosition))
+                                {
+                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
+                                    Tile tile = GetTile(Map_Middle, tilePosition);
+                                    tile.sprite = mSprite;
+                                    Map_Middle.SetTile(tilePosition, tile);
+                                }
                             }
                         }
                     }
@@ -187,19 +192,22 @@ namespace Mir2
                             if (nIndex1 == 200) continue; //fixes random bad spots on old school 4.map
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            if ((mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) &&
-                                ((mSprite.texture.width != DataCenter.CellWidth * 2) || (mSprite.texture.height != DataCenter.CellHeight * 2)))
+                            if (mSprite != null)
                             {
-                                continue;
-                            }
+                                if ((mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) &&
+                                    ((mSprite.texture.width != DataCenter.CellWidth * 2) || (mSprite.texture.height != DataCenter.CellHeight * 2)))
+                                {
+                                    continue;
+                                }
 
-                            Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                            if (orInRange(fakeTilePosition))
-                            {
-                                Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                Tile tile = GetTile(Map_Front, tilePosition);
-                                tile.sprite = mSprite;
-                                Map_Front.SetTile(tilePosition, tile);
+                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
+                                if (orInRange(fakeTilePosition))
+                                {
+                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
+                                    Tile tile = GetTile(Map_Front, tilePosition);
+                                    tile.sprite = mSprite;
+                                    Map_Front.SetTile(tilePosition, tile);
+                                }
                             }
                         }
                     }
