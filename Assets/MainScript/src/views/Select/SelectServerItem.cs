@@ -18,7 +18,10 @@ public class SelectServerItem : MonoBehaviour
             PrintTool.Log(mData);
             if (mData.nState != EServerState.Maintenance)
             {
-                NetClientSelectServerMgr.Instance.Release();
+                if (NetClientSelectServerMgr.readOnlyInstance != null)
+                {
+                    NetClientSelectServerMgr.Instance.Release();
+                }
                 DataCenter.Instance.currentSelectServerItemData = mData;
                 NetClientGameMgr.Instance.Init();
             }

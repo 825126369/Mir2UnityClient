@@ -5,11 +5,8 @@ using UnityEngine.Tilemaps;
 
 namespace Mir2
 {
-    public class TileMapMgr : SingleTonMonoBehaviour<TileMapMgr>
+    public class TileMapMgr:MonoBehaviour
     {
-        public const int CellWidth = 48;
-        public const int CellHeight = 32;
-
         public Tilemap Map_Back;
         public Tilemap Map_Middle;
         public Tilemap Map_Front;
@@ -41,12 +38,16 @@ namespace Mir2
             string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\" + fileName + ".map";
             mMapData = new MapReader(path);
             UpdateMap();
-
         }
 
+        public void Load()
+        {
+            mMapData = DataCenter.Instance.MapData.mMapBasicInfo;    
+        }
+        
         public void UpdateMap()
         {
-            nowCenter = WorldMgr.Instance.User.MapLocation;
+            nowCenter = DataCenter.Instance.UserData.MapLocation;
             ClearTile();
             StartCoroutine(DrawMapBack());
             StartCoroutine(DrawMapMiddle());
@@ -185,8 +186,8 @@ namespace Mir2
                             if (nIndex1 == 200) continue; //fixes random bad spots on old school 4.map
                             yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
                             Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            if ((mSprite.texture.width != CellWidth || mSprite.texture.height != CellHeight) &&
-                                ((mSprite.texture.width != CellWidth * 2) || (mSprite.texture.height != CellHeight * 2)))
+                            if ((mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) &&
+                                ((mSprite.texture.width != DataCenter.CellWidth * 2) || (mSprite.texture.height != DataCenter.CellHeight * 2)))
                             {
                                 continue;
                             }

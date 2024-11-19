@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Tilemaps;
@@ -13,8 +15,136 @@ namespace Mir2
         public readonly Dictionary<string, Sprite> mSpriteDic = new Dictionary<string, Sprite>();
         public static readonly string[] MapLibs = new string[400];
         public static readonly string DataPath = "D:/Me/MyProject/CrystalMir2/Client8/Data/";
+
+        public static string[] CArmours,
+                                  CWeapons,
+                                  CWeaponEffect,
+                                  CHair,
+                                  CHumEffect,
+                                  AArmours,
+                                  AWeaponsL,
+                                  AWeaponsR,
+                                  AHair,
+                                  AHumEffect,
+                                  ARArmours,
+                                  ARWeapons,
+                                  ARWeaponsS,
+                                  ARHair,
+                                  ARHumEffect,
+                                  Monsters,
+                                  Gates,
+                                  Flags,
+                                  Siege,
+                                  Mounts,
+                                  NPCs,
+                                  Fishing,
+                                  Pets,
+                                  Transform,
+                                  TransformMounts,
+                                  TransformEffect,
+                                  TransformWeaponEffect;
+
+
+        public string MapPath,
+                    SoundPath,
+                    ExtraDataPath = @".\Data\Extra\",
+                    ShadersPath = @".\Data\Shaders\",
+                    MonsterPath = @".\Data\Monster\",
+                    GatePath = @".\Data\Gate\",
+                    FlagPath = @".\Data\Flag\",
+                    SiegePath = @".\Data\Siege\",
+                    NPCPath = @".\Data\NPC\",
+                    CArmourPath = @".\Data\CArmour\",
+                    CWeaponPath = @".\Data\CWeapon\",
+                    CWeaponEffectPath = @".\Data\CWeaponEffect\",
+                    CHairPath = @".\Data\CHair\",
+                    AArmourPath = @".\Data\AArmour\",
+                    AWeaponPath = @".\Data\AWeapon\",
+                    AHairPath = @".\Data\AHair\",
+                    ARArmourPath = @".\Data\ARArmour\",
+                    ARWeaponPath = @".\Data\ARWeapon\",
+                    ARHairPath = @".\Data\ARHair\",
+                    CHumEffectPath = @".\Data\CHumEffect\",
+                    AHumEffectPath = @".\Data\AHumEffect\",
+                    ARHumEffectPath = @".\Data\ARHumEffect\",
+                    MountPath = @".\Data\Mount\",
+                    FishingPath = @".\Data\Fishing\",
+                    PetsPath = @".\Data\Pet\",
+                    TransformPath = @".\Data\Transform\",
+                    TransformMountsPath = @".\Data\TransformRide2\",
+                    TransformEffectPath = @".\Data\TransformEffect\",
+                    TransformWeaponEffectPath = @".\Data\TransformWeaponEffect\",
+                    MouseCursorPath = @".\Data\Cursors\";
+
         public Mir2Res()
         {
+            MapPath = Path.Combine(DataPath, "Map");
+            SoundPath = Path.Combine(DataPath, "Sound");
+            ExtraDataPath = Path.Combine(DataPath, "Extra");
+            ShadersPath = Path.Combine(DataPath, "Shaders");
+            MonsterPath = Path.Combine(DataPath, "Monster");
+            GatePath = Path.Combine(DataPath, "Gate");
+            FlagPath = Path.Combine(DataPath, "Flag");
+            SiegePath = Path.Combine(DataPath, "Siege");
+            NPCPath = Path.Combine(DataPath, "NPC");
+            CArmourPath = Path.Combine(DataPath, "CArmour");
+            CWeaponPath = Path.Combine(DataPath, "CWeapon");
+            CWeaponEffectPath = Path.Combine(DataPath, "CWeaponEffect");
+            CHairPath = Path.Combine(DataPath, "CHair");
+            AArmourPath = Path.Combine(DataPath, "AArmour");
+            AWeaponPath = Path.Combine(DataPath, "AWeapon");
+            AHairPath = Path.Combine(DataPath, "AHair");
+            ARArmourPath = Path.Combine(DataPath, "ARArmour");
+            ARWeaponPath = Path.Combine(DataPath, "ARWeapon");
+            ARHairPath = Path.Combine(DataPath, "ARHair");
+            CHumEffectPath = Path.Combine(DataPath, "CHumEffect");
+            AHumEffectPath = Path.Combine(DataPath, "AHumEffect");
+            ARHumEffectPath = Path.Combine(DataPath, "ARHumEffect");
+            MountPath = Path.Combine(DataPath, "Mount");
+            FishingPath = Path.Combine(DataPath, "Fishing");
+            PetsPath = Path.Combine(DataPath, "Pet");
+            TransformPath = Path.Combine(DataPath, "Transform");
+            TransformMountsPath = Path.Combine(DataPath, "TransformRide2");
+            TransformEffectPath = Path.Combine(DataPath, "TransformEffect");
+            TransformWeaponEffectPath = Path.Combine(DataPath, "TransformWeaponEffect");
+            MouseCursorPath = Path.Combine(DataPath, "Cursors");
+
+
+            InitLibrary(ref CArmours, CArmourPath, "00");
+            InitLibrary(ref CHair, CHairPath, "00");
+            InitLibrary(ref CWeapons, CWeaponPath, "00");
+            InitLibrary(ref CWeaponEffect, CWeaponEffectPath, "00");
+            InitLibrary(ref CHumEffect, CHumEffectPath, "00");
+
+            //Assassin
+            InitLibrary(ref AArmours, AArmourPath, "00");
+            InitLibrary(ref AHair, AHairPath, "00");
+            InitLibrary(ref AWeaponsL, AWeaponPath, "00", " L");
+            InitLibrary(ref AWeaponsR, AWeaponPath, "00", " R");
+            InitLibrary(ref AHumEffect, AHumEffectPath, "00");
+
+            //Archer
+            InitLibrary(ref ARArmours, ARArmourPath, "00");
+            InitLibrary(ref ARHair, ARHairPath, "00");
+            InitLibrary(ref ARWeapons, ARWeaponPath, "00");
+            InitLibrary(ref ARWeaponsS, ARWeaponPath, "00", " S");
+            InitLibrary(ref ARHumEffect, ARHumEffectPath, "00");
+
+            //Other
+            InitLibrary(ref Monsters, MonsterPath, "000");
+            InitLibrary(ref Gates, GatePath, "00");
+            InitLibrary(ref Flags, FlagPath, "00");
+            InitLibrary(ref Siege, SiegePath, "00");
+            InitLibrary(ref NPCs, NPCPath, "00");
+            InitLibrary(ref Mounts, MountPath, "00");
+            InitLibrary(ref Fishing, FishingPath, "00");
+            InitLibrary(ref Pets, PetsPath, "00");
+            InitLibrary(ref Transform, TransformPath, "00");
+            InitLibrary(ref TransformMounts, TransformMountsPath, "00");
+            InitLibrary(ref TransformEffect, TransformEffectPath, "00");
+            InitLibrary(ref TransformWeaponEffect, TransformWeaponEffectPath, "00");
+
+
             #region Maplibs
             //wemade mir2 (allowed from 0-99)
             MapLibs[0] = (DataPath + "Map\\WemadeMir2\\Tiles");
@@ -84,6 +214,17 @@ namespace Mir2
             #endregion
         }
 
+        static void InitLibrary(ref string[] library, string path, string toStringValue, string suffix = "")
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            var allFiles = Directory.GetDirectories(path, "*", SearchOption.TopDirectoryOnly);
+            library = allFiles.ToArray();
+        }
+
         public void SetMapSprite(SpriteRenderer mSpriteRenderer, int nIndex, int nIndex2)
         {
             StartCoroutine(SetMapSprite2(mSpriteRenderer, nIndex, nIndex2));
@@ -137,6 +278,14 @@ namespace Mir2
                 return mSpriteDic[url];
             }
             return null;
+        }
+        
+        public void SetSprite(string path, Action<Sprite> mFinishEvent = null)
+        {
+            Debug.Log(path);
+            path = Path.GetFullPath(path);
+            string url = GetPathUrl(path);
+            StartCoroutine(SetWebSprite(url, mFinishEvent));
         }
 
         public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent = null)

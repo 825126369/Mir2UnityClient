@@ -23,9 +23,12 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
 
     public void Release()
     {
-        mNetClient.Release();
-        mNetClient = null;
-        Destroy(this.gameObject);
+        if (mNetClient != null)
+        {
+            mNetClient.Release();
+            mNetClient = null;
+            Destroy(this.gameObject);
+        }
     }
 
     private void ListenClientPeerState(ClientPeerBase mClientPeer)

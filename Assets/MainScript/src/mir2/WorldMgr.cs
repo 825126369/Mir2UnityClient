@@ -1,4 +1,8 @@
+using CrystalMir2;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Security.Claims;
+using UnityEditor;
 using UnityEngine;
 
 namespace Mir2
@@ -6,10 +10,14 @@ namespace Mir2
     public class WorldMgr : SingleTonMonoBehaviour<WorldMgr>
     {
         public readonly List<MapObject> mMapObjects = new List<MapObject>();
+        public readonly List<Door> mDoorList = new List<Door>();
         private bool bInit = false;
 
         public List<PlayerObject> mPlayerList = new List<PlayerObject>();
         public UserObject User;
+        public TileMapMgr MapMgr;
+
+        private float _doorTime;
 
         private void Init()
         {
@@ -23,25 +31,70 @@ namespace Mir2
         {
             Init();
             User.Init();
-            LoadMap(DataCenter.Instance.UserData.CurrentMapIndex);
+            MapMgr.Load();
         }
 
-        public void LoadMap(uint nMapInfoIndex)
+        public bool ValidPoint(Vector3Int p)
         {
-            var mMapInfo = ExcelTableMgr.Instance.MapInfoList.Find((x) => x.Index == nMapInfoIndex);
-            if (mMapInfo != null)
+            var M2CellInfo = DataCenter.Instance.MapData.mMapBasicInfo.MapCells;
+            return (M2CellInfo[p.x, p.y].BackImage & 0x20000000) == 0;
+        }
+
+        public bool EmptyCell(Vector3Int p)
+        {
+            var M2CellInfo = DataCenter.Instance.MapData.mMapBasicInfo.MapCells;
+            if ((M2CellInfo[p.x, p.y].BackImage & 0x20000000) != 0 || (M2CellInfo[p.x, p.y].FrontImage & 0x8000) != 0)
+                return false;
+
+            //for (int i = 0; i < mMapObjects.Count; i++)
+            //{
+            //    MapObject ob = mMapObjects[i];
+
+            //    if (ob.CurrentLocation == p && ob.Blocking)
+            //        return false;
+            //}
+
+            return true;
+        }
+
+        public bool CheckDoorOpen(Vector3Int p)
+        {
+            var M2CellInfo = DataCenter.Instance.MapData.mMapBasicInfo.MapCells;
+            if (M2CellInfo[p.x, p.y].DoorIndex == 0) return true;
+            Door DoorInfo = GetDoor(M2CellInfo[p.x, p.y].DoorIndex);
+            if (DoorInfo == null) return false;
+            if ((DoorInfo.DoorState == DoorState.Closed) || (DoorInfo.DoorState == DoorState.Closing))
             {
-                if (TileMapMgr.readOnlyInstance != null)
+                if (Time.time > _doorTime)
                 {
-                    TileMapMgr.readOnlyInstance.LoadMap(mMapInfo.FileName);
+                    _doorTime = Time.time + 4;
+                    //Network.Enqueue(new C.Opendoor() { DoorIndex = DoorInfo.index });
+                }
+
+                return false;
+            }
+            if ((DoorInfo.DoorState == DoorState.Open) && (DoorInfo.LastTick + 4 > Time.time))
+            {
+                if (Time.time > _doorTime)
+                {
+                    _doorTime = Time.time + 4;
+                    //Network.Enqueue(new C.Opendoor() { DoorIndex = DoorInfo.index });
                 }
             }
-            else
-            {
-                PrintTool.LogError("mMapInfo == null: " + nMapInfoIndex);
-            }
+            return true;
         }
 
+        public Door GetDoor(byte Index)
+        {
+            for (int i = 0; i < mDoorList.Count; i++)
+            {
+                if (mDoorList[i].index == Index)
+                    return mDoorList[i];
+            }
+            return null;
+        }
+
+        //----------------------------------------------ÍøÂçÏûÏ¢----------------------------------------------------
         public void HandleServerLocation(uint ObjectID, Vector3Int Location, MirDirection dir)
         {
             foreach(var v in mPlayerList)
@@ -49,5 +102,6 @@ namespace Mir2
                 
             }
         }
+
     }
 }

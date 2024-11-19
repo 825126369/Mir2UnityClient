@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using UnityEngine;
 namespace Mir2
 {
     public static class Functions
@@ -31,9 +31,9 @@ namespace Mir2
             return size;
         }
 
-        public static bool TryParse(string s, out Point temp)
+        public static bool TryParse(string s, out Vector3Int temp)
         {
-            temp = Point.Empty;
+            temp = Vector3Int.zero;
 
             if (String.IsNullOrWhiteSpace(s)) return false;
 
@@ -46,35 +46,16 @@ namespace Mir2
             if (!Int32.TryParse(data[1], out int tempY))
                 return false;
 
-            temp = new Point(tempX, tempY);
+            temp = new Vector3Int(tempX, tempY);
             return true;
         }
-        public static Point Subtract(this Point p1, Point p2)
+
+        public static bool InRange(Vector3Int a, Vector3Int b, int i)
         {
-            return new Point(p1.X - p2.X, p1.Y - p2.Y);
-        }
-        public static Point Subtract(this Point p1, int x, int y)
-        {
-            return new Point(p1.X - x, p1.Y - y);
-        }
-        public static Point Add(this Point p1, Point p2)
-        {
-            return new Point(p1.X + p2.X, p1.Y + p2.Y);
-        }
-        public static Point Add(this Point p1, int x, int y)
-        {
-            return new Point(p1.X + x, p1.Y + y);
-        }
-        public static string PointToString(Point p)
-        {
-            return String.Format("{0}, {1}", p.X, p.Y);
-        }
-        public static bool InRange(Point a, Point b, int i)
-        {
-            return Math.Abs(a.X - b.X) <= i && Math.Abs(a.Y - b.Y) <= i;
+            return Math.Abs(a.x - b.x) <= i && Math.Abs(a.y - b.y) <= i;
         }
 
-        public static bool FacingEachOther(MirDirection dirA, Point pointA, MirDirection dirB, Point pointB)
+        public static bool FacingEachOther(MirDirection dirA, Vector3Int pointA, MirDirection dirB, Vector3Int pointB)
         {
             if (dirA == DirectionFromPoint(pointA, pointB) && dirB == DirectionFromPoint(pointB, pointA))
             {
@@ -178,27 +159,28 @@ namespace Mir2
                 default: return d;
             }
         }
-        public static MirDirection DirectionFromPoint(Point source, Point dest)
+
+        public static MirDirection DirectionFromPoint(Vector3Int source, Vector3Int dest)
         {
-            if (source.X < dest.X)
+            if (source.x < dest.x)
             {
-                if (source.Y < dest.Y)
+                if (source.y < dest.y)
                     return MirDirection.DownRight;
-                if (source.Y > dest.Y)
+                if (source.y > dest.y)
                     return MirDirection.UpRight;
                 return MirDirection.Right;
             }
 
-            if (source.X > dest.X)
+            if (source.x > dest.x)
             {
-                if (source.Y < dest.Y)
+                if (source.y < dest.y)
                     return MirDirection.DownLeft;
-                if (source.Y > dest.Y)
+                if (source.y > dest.y)
                     return MirDirection.UpLeft;
                 return MirDirection.Left;
             }
 
-            return source.Y < dest.Y ? MirDirection.Down : MirDirection.Up;
+            return source.y < dest.y ? MirDirection.Down : MirDirection.Up;
         }
 
         public static MirDirection ShiftDirection(MirDirection dir, int i)
@@ -206,114 +188,41 @@ namespace Mir2
             return (MirDirection)(((int)dir + i + 8) % 8);
         }
 
-        public static Size Add(this Size p1, Size p2)
-        {
-            return new Size(p1.Width + p2.Width, p1.Height + p2.Height);
-        }
-        public static Size Add(this Size p1, int width, int height)
-        {
-            return new Size(p1.Width + width, p1.Height + height);
-        }
-
-        public static Point PointMove(Point p, MirDirection d, int i)
+        public static Vector3Int PointMove(Vector3Int p, MirDirection d, int i)
         {
             switch (d)
             {
                 case MirDirection.Up:
-                    p.Offset(0, -i);
+                    p += new Vector3Int(0, -i);
                     break;
                 case MirDirection.UpRight:
-                    p.Offset(i, -i);
+                    p += new Vector3Int(i, -i);
                     break;
                 case MirDirection.Right:
-                    p.Offset(i, 0);
+                    p += new Vector3Int(i, 0);
                     break;
                 case MirDirection.DownRight:
-                    p.Offset(i, i);
+                    p += new Vector3Int(i, i);
                     break;
                 case MirDirection.Down:
-                    p.Offset(0, i);
+                    p += new Vector3Int(0, i);
                     break;
                 case MirDirection.DownLeft:
-                    p.Offset(-i, i);
+                    p += new Vector3Int(-i, i);
                     break;
                 case MirDirection.Left:
-                    p.Offset(-i, 0);
+                    p += new Vector3Int(-i, 0);
                     break;
                 case MirDirection.UpLeft:
-                    p.Offset(-i, -i);
-                    break;
-            }
-            return p;
-        }
-        public static Point Left(Point p, MirDirection d)
-        {
-            switch (d)
-            {
-                case MirDirection.Up:
-                    p.Offset(-1, 0);
-                    break;
-                case MirDirection.UpRight:
-                    p.Offset(-1, -1);
-                    break;
-                case MirDirection.Right:
-                    p.Offset(0, -1);
-                    break;
-                case MirDirection.DownRight:
-                    p.Offset(1, -1);
-                    break;
-                case MirDirection.Down:
-                    p.Offset(1, 0);
-                    break;
-                case MirDirection.DownLeft:
-                    p.Offset(1, 1);
-                    break;
-                case MirDirection.Left:
-                    p.Offset(0, 1);
-                    break;
-                case MirDirection.UpLeft:
-                    p.Offset(-1, 1);
+                    p += new Vector3Int(-i, -i);
                     break;
             }
             return p;
         }
 
-        public static Point Right(Point p, MirDirection d)
+        public static int MaxDistance(Vector3Int p1, Vector3Int p2)
         {
-            switch (d)
-            {
-                case MirDirection.Up:
-                    p.Offset(1, 0);
-                    break;
-                case MirDirection.UpRight:
-                    p.Offset(1, 1);
-                    break;
-                case MirDirection.Right:
-                    p.Offset(0, 1);
-                    break;
-                case MirDirection.DownRight:
-                    p.Offset(-1, 1);
-                    break;
-                case MirDirection.Down:
-                    p.Offset(-1, 0);
-                    break;
-                case MirDirection.DownLeft:
-                    p.Offset(-1, -1);
-                    break;
-                case MirDirection.Left:
-                    p.Offset(0, -1);
-                    break;
-                case MirDirection.UpLeft:
-                    p.Offset(1, -1);
-                    break;
-            }
-            return p;
-        }
-
-        public static int MaxDistance(Point p1, Point p2)
-        {
-            return Math.Max(Math.Abs(p1.X - p2.X), Math.Abs(p1.Y - p2.Y));
-
+            return Math.Max(Math.Abs(p1.x - p2.x), Math.Abs(p1.y - p2.y));
         }
 
         public static MirDirection ReverseDirection(MirDirection dir)
