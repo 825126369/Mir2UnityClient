@@ -263,8 +263,7 @@ namespace Mir2
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     var mTexture = DownloadHandlerTexture.GetContent(www);
-                    mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), new Vector2(0, 1), 1,0,SpriteMeshType.FullRect);
-                    mTargetSprite.name = Path.GetFileNameWithoutExtension(url.LocalPath);
+                    mTargetSprite = CreateSprite(mTexture);
                     mSpriteDic[url.AbsoluteUri] = mTargetSprite;
                 }
                 else
@@ -274,6 +273,13 @@ namespace Mir2
                 www.Dispose();
             }
             mFinishEvent?.Invoke(mTargetSprite);
+        }
+
+        private Sprite CreateSprite(Texture2D mTexture)
+        {
+            var mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), new Vector2(0, 1), 1, 0, SpriteMeshType.FullRect);
+            mTargetSprite.name = mTexture.name;
+            return mTargetSprite;
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Mir2
 
         private void SetOffset()
         {
-            transform.localPosition = Vector3.zero + new Vector3(mInfo.X, mInfo.Y);
+            transform.localPosition = Vector3.zero + new Vector3(mInfo.X, -mInfo.Y);
         }
     }
 }
