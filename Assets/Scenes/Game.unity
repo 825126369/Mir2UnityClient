@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34925575}
   - component: {fileID: 34925576}
+  - component: {fileID: 34925577}
   m_Layer: 0
   m_Name: EquipWing
   m_TagString: Untagged
@@ -205,7 +206,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &34925577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34925574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1 &376921257
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,6 +397,7 @@ MonoBehaviour:
   TransformType: -1
   DrawFrame: 0
   DrawWingFrame: 0
+  SkipFrames: 0
   SkipFrameUpdate: 0
   Poison: 0
   CurrentAction: 0
@@ -481,6 +513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 675985264}
   - component: {fileID: 675985265}
+  - component: {fileID: 675985266}
   m_Layer: 0
   m_Name: EquipWeapon1Effect
   m_TagString: Untagged
@@ -497,7 +530,7 @@ Transform:
   m_GameObject: {fileID: 675985263}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.4, y: 3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -544,7 +577,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34fa9e906bf77654482857b76468b430, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -552,9 +585,39 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &675985266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675985263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1 &736248534
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,6 +628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 736248535}
   - component: {fileID: 736248536}
+  - component: {fileID: 736248537}
   m_Layer: 0
   m_Name: EquipHead
   m_TagString: Untagged
@@ -581,7 +645,7 @@ Transform:
   m_GameObject: {fileID: 736248534}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -14, y: 34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -628,7 +692,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 34fa9e906bf77654482857b76468b430, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8e8a7188730be864aa1ed97f2246cac6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -638,7 +702,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &736248537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736248534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1 &1015293230
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,6 +796,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1076635664}
   - component: {fileID: 1076635665}
+  - component: {fileID: 1076635666}
   m_Layer: 0
   m_Name: EquipArmour
   m_TagString: Untagged
@@ -775,7 +870,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &1076635666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076635663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1 &1240219312
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1240219313}
   - component: {fileID: 1240219314}
+  - component: {fileID: 1240219315}
   m_Layer: 0
   m_Name: EquipWeapon1
   m_TagString: Untagged
@@ -802,7 +928,7 @@ Transform:
   m_GameObject: {fileID: 1240219312}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.4, y: 3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -849,7 +975,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34fa9e906bf77654482857b76468b430, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cb4ab4495d2061348a1442d4eecf2a9a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -859,7 +985,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &1240219315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240219312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1001 &1315149097
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -938,6 +1094,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1825574172}
   - component: {fileID: 1825574173}
+  - component: {fileID: 1825574174}
   m_Layer: 0
   m_Name: EquipMount
   m_TagString: Untagged
@@ -1011,7 +1168,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &1825574174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825574171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1 &1945873861
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,6 +1209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1945873862}
   - component: {fileID: 1945873863}
+  - component: {fileID: 1945873864}
   m_Layer: 0
   m_Name: EquipWeapon2
   m_TagString: Untagged
@@ -1038,7 +1226,7 @@ Transform:
   m_GameObject: {fileID: 1945873861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 9.4, y: 3.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1085,7 +1273,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34fa9e906bf77654482857b76468b430, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1093,9 +1281,39 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
+--- !u!114 &1945873864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945873861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad2e562068a3a734e91373770c4c4915, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mInfo:
+    Width: 0
+    Height: 0
+    X: 0
+    Y: 0
+    ShadowX: 0
+    ShadowY: 0
+    Shadow: 0
+    Length: 0
+    Image: {fileID: 0}
+    MaskWidth: 0
+    MaskHeight: 0
+    MaskX: 0
+    MaskY: 0
+    MaskLength: 0
+    MaskImage: {fileID: 0}
+    HasMask: 0
+    CleanTime: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

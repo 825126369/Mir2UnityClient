@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using AKNet.Common;
 using Mir2;
+using CrystalMir2;
 
 public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
 {
@@ -85,6 +86,8 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
     public IEnumerator StartEnterGame()
     {
         yield return ResCenter.Instance.AsyncInit();
+        MLibrarys.InitLibraries();
+        yield return null;
 
         ExcelTableMgr.Instance.Init();
         DataCenter.Instance.Init();

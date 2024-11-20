@@ -284,9 +284,11 @@ namespace Mir2
         {
             int nFrameIndex = DrawFrame + ArmourOffSet;
             string mSpriteName = nFrameIndex + ".png";
-            Mir2Res.Instance.SetSprite(Path.Combine(BodyLibrary, mSpriteName), (mSprite)=>
+            string path = Path.Combine(BodyLibrary, mSpriteName);
+            Mir2Res.Instance.SetSprite(path, (mSprite)=>
             {
                 mEquipArmour.sprite = mSprite;
+                mEquipArmour.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
             });
         }
 
@@ -296,9 +298,11 @@ namespace Mir2
             {
                 int nFrameIndex = DrawFrame + HairOffSet;
                 string mSpriteName = nFrameIndex + ".png";
-                Mir2Res.Instance.SetSprite(Path.Combine(HairLibrary, mSpriteName), (mSprite) =>
+                string path = Path.Combine(HairLibrary, mSpriteName);
+                Mir2Res.Instance.SetSprite(path, (mSprite) =>
                 {
                     mEquipHead.sprite = mSprite;
+                    mEquipHead.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                 });
             }
         }
@@ -311,20 +315,25 @@ namespace Mir2
             {
                 int nFrameIndex = DrawFrame + WeaponOffSet;
                 string mSpriteName = nFrameIndex + ".png";
-                Mir2Res.Instance.SetSprite(Path.Combine(WeaponLibrary1, mSpriteName), (mSprite) =>
+                string path = Path.Combine(WeaponLibrary1, mSpriteName);
+                Mir2Res.Instance.SetSprite(path, (mSprite) =>
                 {
                     mEquipWeapon.sprite = mSprite;
+                    mEquipWeapon.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                 });
 
                 if (!string.IsNullOrWhiteSpace(WeaponEffectLibrary1))
                 {
-                    Mir2Res.Instance.SetSprite(Path.Combine(WeaponEffectLibrary1, mSpriteName), (mSprite) =>
+                    path = Path.Combine(WeaponEffectLibrary1, mSpriteName);
+                    Mir2Res.Instance.SetSprite(path, (mSprite) =>
                     {
                         mEquipWeaponEffect.sprite = mSprite;
+                        mEquipWeaponEffect.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                     });
                 }
             }
         }
+
         public void DrawWeapon2()
         {
             if (Weapon == -1) return;
@@ -333,9 +342,11 @@ namespace Mir2
             {
                 int nFrameIndex = DrawFrame + WeaponOffSet;
                 string mSpriteName = nFrameIndex + ".png";
-                Mir2Res.Instance.SetSprite(Path.Combine(WeaponLibrary2, mSpriteName), (mSprite) =>
+                string path = Path.Combine(WeaponLibrary2, mSpriteName);
+                Mir2Res.Instance.SetSprite(path, (mSprite) =>
                 {
                     mEquipWeapon2.sprite = mSprite;
+                    mEquipWeapon2.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                 });
             }
         }
@@ -347,9 +358,11 @@ namespace Mir2
             {
                 int nFrameIndex = DrawWingFrame + WingOffset;
                 string mSpriteName = nFrameIndex + ".png";
-                Mir2Res.Instance.SetSprite(Path.Combine(WingLibrary, mSpriteName), (mSprite) =>
+                string path = Path.Combine(WingLibrary, mSpriteName);
+                Mir2Res.Instance.SetSprite(path, (mSprite) =>
                 {
-                    mEquipWeapon2.sprite = mSprite;
+                    mEquipWingEffect.sprite = mSprite;
+                    mEquipWingEffect.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                 });
             }
         }
@@ -362,9 +375,11 @@ namespace Mir2
             {
                 int nFrameIndex = DrawFrame - 416 + MountOffset;
                 string mSpriteName = nFrameIndex + ".png";
-                Mir2Res.Instance.SetSprite(Path.Combine(MountLibrary, mSpriteName), (mSprite) =>
+                string path = Path.Combine(MountLibrary, mSpriteName);
+                Mir2Res.Instance.SetSprite(path, (mSprite) =>
                 {
                     mEquipMount.sprite = mSprite;
+                    mEquipMount.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
                 });
             }
         }

@@ -225,57 +225,21 @@ namespace Mir2
             library = allFiles.ToArray();
         }
 
-        public void SetMapSprite(SpriteRenderer mSpriteRenderer, int nIndex, int nIndex2)
-        {
-            StartCoroutine(SetMapSprite2(mSpriteRenderer, nIndex, nIndex2));
-        }
-
-        private IEnumerator SetMapSprite2(SpriteRenderer mSpriteRenderer, int nIndex, int nIndex2)
-        {
-            string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
-            path = Path.GetFullPath(path);
-            string url = GetPathUrl(path);
-
-            yield return SetWebSprite(url, (mTargetSprite) =>
-            {
-                mSpriteRenderer.sprite = mTargetSprite;
-            });
-        }
-
-        public void SetMapSprite(Tile mSpriteRenderer, int nIndex, int nIndex2)
-        {
-            StartCoroutine(SetMapSprite2(mSpriteRenderer, nIndex, nIndex2));
-        }
-
-        public IEnumerator SetMapSprite2(Tile mSpriteRenderer, int nIndex, int nIndex2)
-        {
-            string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
-            path = Path.GetFullPath(path);
-            string url = GetPathUrl(path);
-
-            yield return SetWebSprite(url, (mTargetSprite) =>
-            {
-                mSpriteRenderer.sprite = mTargetSprite;
-            });
-        }
-
         public IEnumerator RequestMapSprite(int nIndex, int nIndex2)
         {
             string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
             path = Path.GetFullPath(path);
-            string url = GetPathUrl(path);
-            yield return SetWebSprite(url);
+            yield return SetWebSprite(path);
         }
 
         public Sprite GetMapSprite(int nIndex, int nIndex2)
         {
             string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
             path = Path.GetFullPath(path);
-            string url = GetPathUrl(path);
-
-            if (mSpriteDic.ContainsKey(url))
+            Uri url = new Uri(path);
+            if (mSpriteDic.ContainsKey(url.AbsoluteUri))
             {
-                return mSpriteDic[url];
+                return mSpriteDic[url.AbsoluteUri];
             }
             return null;
         }
@@ -284,14 +248,14 @@ namespace Mir2
         {
             //Debug.Log(path);
             path = Path.GetFullPath(path);
-            string url = GetPathUrl(path);
-            StartCoroutine(SetWebSprite(url, mFinishEvent));
+            StartCoroutine(SetWebSprite(path, mFinishEvent));
         }
 
-        public IEnumerator SetWebSprite(string url, Action<Sprite> mFinishEvent = null)
+        public IEnumerator SetWebSprite(string path, Action<Sprite> mFinishEvent = null)
         {
+            Uri url = new Uri(path);
             Sprite mTargetSprite = null;
-            if (!mSpriteDic.TryGetValue(url, out mTargetSprite))
+            if (!mSpriteDic.TryGetValue(url.AbsoluteUri, out mTargetSprite))
             {
                 var www = UnityWebRequestTexture.GetTexture(url);
                 yield return www.SendWebRequest();
@@ -299,8 +263,9 @@ namespace Mir2
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     var mTexture = DownloadHandlerTexture.GetContent(www);
-                    mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), Vector2.one * 0.5f, 1);
-                    mSpriteDic[url] = mTargetSprite;
+                    mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), new Vector2(0, 1), 1,0,SpriteMeshType.FullRect);
+                    mTargetSprite.name = Path.GetFileNameWithoutExtension(url.LocalPath);
+                    mSpriteDic[url.AbsoluteUri] = mTargetSprite;
                 }
                 else
                 {
@@ -309,12 +274,6 @@ namespace Mir2
                 www.Dispose();
             }
             mFinishEvent?.Invoke(mTargetSprite);
-        }
-
-        public string GetPathUrl(string filePath)
-        {
-            Uri fileUri = new Uri(filePath);
-            return fileUri.AbsoluteUri;
         }
     }
 }
