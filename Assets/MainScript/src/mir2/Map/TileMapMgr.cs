@@ -1,24 +1,27 @@
 using CrystalMir2;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace Mir2
 {
-    public class TileMapMgr:MonoBehaviour
+    public class TileMapMgr : MonoBehaviour
     {
         public Tilemap Map_Back;
         public Tilemap Map_Middle;
         public Tilemap Map_Front;
 
-        private MapReader mMapData;
         readonly ScriptableObjectPool<Tile> mTilePool = new ScriptableObjectPool<Tile>();
         private bool bInit = false;
-        private Vector3Int lastCenter;
-        private Vector3Int nowCenter;
-        private Vector3Int Range = new Vector3Int(10, 10, 0);
+        readonly List<Vector3Int> mDrawPosList = new List<Vector3Int>();
 
-        private string mapFileName = string.Empty;
+        public MapReader mMapData;
+
+        public Vector3Int nowCenter;
+        public Vector3Int Range = new Vector3Int(100, 100, 0);
+        public string mapFileName = "0";
         private void Start()
         {
             Init();
@@ -31,55 +34,44 @@ namespace Mir2
             mTilePool.Init(1000);
         }
 
-        public void LoadMap(string fileName = "3")
+        public void LoadMapTest()
         {
-            this.mapFileName = fileName;    
-            string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\" + fileName + ".map";
+            string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\{mapFileName}.map";
             mMapData = new MapReader(path);
-            UpdateMap();
+
+            ClearTile();
+            GetDrawPosList();
+            StartCoroutine(DrawMap(mDrawPosList));
         }
 
         public void Load()
         {
-            mMapData = DataCenter.Instance.MapData.mMapBasicInfo;   
+            mMapData = DataCenter.Instance.MapData.mMapBasicInfo;
             UpdateMap();
         }
-        
+
         public void UpdateMap()
         {
             nowCenter = DataCenter.Instance.UserData.MapLocation;
             ClearTile();
-            StartCoroutine(DrawMapBack());
-            StartCoroutine(DrawMapMiddle());
-            StartCoroutine(DrawMapFront());
-            lastCenter = nowCenter;
+            GetDrawPosList();
+            StartCoroutine(DrawMap(mDrawPosList));
         }
 
         private void ClearTile()
         {
-            int nLastMinX = lastCenter.x - Range.x;
-            int nLastMaxX = lastCenter.x + Range.x;
-            int nLastMinY = lastCenter.y - Range.y;
-            int nLastMaxY = lastCenter.y + Range.y;
-
-            for (int x = nLastMinX; x <= nLastMaxX; x++)
+            foreach (var mPos in mDrawPosList)
             {
-                for (int y = nLastMinY; y <= nLastMaxY; y++)
+                int x = mPos.x;
+                int y = mPos.y;
+                if (!orInRange(mPos))
                 {
-                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
-                    {
-                        Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                        if (!orInRange(fakeTilePosition))
-                        {
-                            Vector3Int tilePosition = GetTilePos(x, y, 0);
-                            RecycleTile(Map_Back, tilePosition);
-                            RecycleTile(Map_Middle, tilePosition);
-                            RecycleTile(Map_Front, tilePosition);
-                        }
-                    }
+                    Vector3Int tilePosition = GetTilePos(x, y, 0);
+                    RecycleTile(Map_Back, tilePosition);
+                    RecycleTile(Map_Middle, tilePosition);
+                    RecycleTile(Map_Front, tilePosition);
                 }
             }
-
         }
 
         private bool orInRange(Vector3Int tilePosition)
@@ -97,127 +89,172 @@ namespace Mir2
             return true;
         }
 
-        private IEnumerator DrawMapBack()
+        private void GetDrawPosList()
         {
             int nMinX = nowCenter.x - Range.x;
             int nMaxX = nowCenter.x + Range.x;
             int nMinY = nowCenter.y - Range.y;
             int nMaxY = nowCenter.y + Range.y;
 
-            for (int x = nMinX; x <= nMaxX; x++)
+            int nRangeMax = Math.Max(Range.x, Range.y);
+            mDrawPosList.Clear();
+            for (int i = 1; i <= nRangeMax; i++)
             {
-                for (int y = nMinY; y <= nMaxY; y++)
+                int x = i;
+                int y = 0;
+                for (y = nowCenter.y - i; y <= nowCenter.y + i; y++)
                 {
-                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
+                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height && x >= nMinX && x <= nMaxX && y >= nMinY && y <= nMaxY)
                     {
-                        int nIndex1 = mMapData.MapCells[x, y].BackIndex;
-                        int nIndex2 = (mMapData.MapCells[x, y].BackImage & 0x1FFFFFFF) - 1;
+                        mDrawPosList.Add(new Vector3Int(x, y));
+                    }
+                }
 
-                        if (y % 2 == 0 && x % 2 == 0 && nIndex1 >= 0 && nIndex2 >= 0)
-                        {
-                            yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
-                            Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            if (mSprite != null)
-                            {
-                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                                if (orInRange(fakeTilePosition))
-                                {
-                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                    Tile tile = GetTile(Map_Back, tilePosition);
-                                    tile.sprite = mSprite;
-                                    Map_Back.SetTile(tilePosition, tile);
-                                }
-                            }
-                        }
+                x = -i;
+                for (y = nowCenter.y - i; y <= nowCenter.y + i; y++)
+                {
+                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height && x >= nMinX && x <= nMaxX && y >= nMinY && y <= nMaxY)
+                    {
+                        mDrawPosList.Add(new Vector3Int(x, y));
+                    }
+                }
+
+                y = i;
+                for (x = nowCenter.x - i + 1; x <= nowCenter.x + i - 1; x++)
+                {
+                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height && x >= nMinX && x <= nMaxX && y >= nMinY && y <= nMaxY)
+                    {
+                        mDrawPosList.Add(new Vector3Int(x, y));
+                    }
+                }
+
+                y = -i;
+                for (x = nowCenter.x - i + 1; x <= nowCenter.x + i - 1; x++)
+                {
+                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height && x >= nMinX && x <= nMaxX && y >= nMinY && y <= nMaxY)
+                    {
+                        mDrawPosList.Add(new Vector3Int(x, y));
                     }
                 }
             }
         }
 
-        private IEnumerator DrawMapMiddle()
+        private IEnumerator DrawMap(List<Vector3Int> mDrawPosList)
         {
-            int nMinX = nowCenter.x - Range.x;
-            int nMaxX = nowCenter.x + Range.x;
-            int nMinY = nowCenter.y - Range.y;
-            int nMaxY = nowCenter.y + Range.y;
-
-            for (int x = nMinX; x <= nMaxX; x++)
+            int nRefreshPosCount = 0;
+            foreach (var v in mDrawPosList)
             {
-                for (int y = nMinY; y <= nMaxY; y++)
+                if (nRefreshPosCount++ > 1000)
                 {
-                    if (x >= 0 && x < mMapData.Width && y >= 0 && y < mMapData.Height)
-                    {
-                        int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
-                        int nIndex2 = (mMapData.MapCells[x, y].MiddleImage) - 1;
-
-                        if (nIndex1 >= 0 && nIndex2 >= 0)
-                        {
-                            yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
-                            Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            if (mSprite != null)
-                            {
-                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                                if (orInRange(fakeTilePosition))
-                                {
-                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                    Tile tile = GetTile(Map_Middle, tilePosition);
-                                    tile.sprite = mSprite;
-                                    Map_Middle.SetTile(tilePosition, tile);
-                                }
-                            }
-                        }
-                    }
+                    nRefreshPosCount = 0;
+                    yield return null;
                 }
+
+                DrawMapBackCell(v);
+                DrawMapMiddleCell(v);
+                DrawMapFrontCell(v);
             }
         }
 
-        private IEnumerator DrawMapFront()
+        private void DrawMapBackCell(Vector3Int mPos)
         {
-            int nMinX = nowCenter.x - Range.x;
-            int nMaxX = nowCenter.x + Range.x;
-            int nMinY = nowCenter.y - Range.y;
-            int nMaxY = nowCenter.y + Range.y;
+            int x = mPos.x;
+            int y = mPos.y;
+            Vector3Int tilePosition = GetTilePos(x, y, 0);
+            if (Map_Back.GetTile(tilePosition) != null) return;
 
-            for (int x = nMinX; x <= nMaxX; x++)
+            if (x <= 0 || x % 2 == 1) return;
+            if(x >= mMapData.Width) return;
+            if (mMapData.MapCells[x, y].BackImage == 0 || mMapData.MapCells[x, y].BackIndex == -1) return;
+
+            int nIndex1 = mMapData.MapCells[x, y].BackIndex;
+            int nIndex2 = (mMapData.MapCells[x, y].BackImage & 0x1FFFFFFF) - 1;
+
+            if (y % 2 == 0 && x % 2 == 0 && nIndex1 >= 0 && nIndex2 >= 0)
             {
-                for (int y = nMinY; y <= nMaxY; y++)
+                Mir2Res.Instance.SetMapSprite(nIndex1, nIndex2, (mSprite) =>
                 {
-                    if (x >= 0 && x < mMapData.Width && y > 0 && y < mMapData.Height)
+                    if (mSprite != null)
                     {
-                        int nIndex1 = mMapData.MapCells[x, y].FrontIndex;
-                        int nIndex2 = (mMapData.MapCells[x, y].FrontImage & 0x7FFF) - 1;
-
-                        if (nIndex1 >= 0 && nIndex2 >= 0)
+                        if (orInRange(mPos))
                         {
-                            if (nIndex1 == 200) continue; //fixes random bad spots on old school 4.map
-                            yield return Mir2Res.Instance.RequestMapSprite(nIndex1, nIndex2);
-                            Sprite mSprite = Mir2Res.Instance.GetMapSprite(nIndex1, nIndex2);
-                            if (mSprite != null)
-                            {
-                                if ((mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) &&
-                                    ((mSprite.texture.width != DataCenter.CellWidth * 2) || (mSprite.texture.height != DataCenter.CellHeight * 2)))
-                                {
-                                    continue;
-                                }
-
-                                Vector3Int fakeTilePosition = new Vector3Int(x, y, 0);
-                                if (orInRange(fakeTilePosition))
-                                {
-                                    Vector3Int tilePosition = GetTilePos(x, y, 0);
-                                    Tile tile = GetTile(Map_Front, tilePosition);
-                                    tile.sprite = mSprite;
-                                    Map_Front.SetTile(tilePosition, tile);
-                                }
-                            }
+                            Tile tile = GetTile(Map_Back, tilePosition);
+                            tile.sprite = mSprite;
+                            Map_Back.SetTile(tilePosition, tile);
                         }
                     }
-                }
+                });
+            }
+
+        }
+
+        private void DrawMapMiddleCell(Vector3Int mPos)
+        {
+            int x = mPos.x;
+            int y = mPos.y;
+            Vector3Int tilePosition = GetTilePos(x, y, 0);
+            if (Map_Middle.GetTile(tilePosition) != null) return;
+            if (x < 0) return;
+            if (x >= mMapData.Width) return;
+
+            int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
+            int nIndex2 = (mMapData.MapCells[x, y].MiddleImage) - 1;
+
+            if ((nIndex2 < 0) || nIndex1 == -1) return;
+
+            if (nIndex1 >= 0)
+            {
+                Mir2Res.Instance.SetMapSprite(nIndex1, nIndex2, (mSprite) =>
+                {
+                    if (mSprite != null)
+                    {
+                        if (mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) return;
+
+                        if (orInRange(mPos))
+                        {
+                            Tile tile = GetTile(Map_Middle, tilePosition);
+                            tile.sprite = mSprite;
+                            Map_Middle.SetTile(tilePosition, tile);
+                        }
+                    }
+                });
             }
         }
 
-        public Vector3Int GetUserTileMapPos(Vector3Int MapLocation)
+        private void DrawMapFrontCell(Vector3Int mPos)
         {
-            return new Vector3Int(MapLocation.x, -MapLocation.y, 0);
+            int x = mPos.x;
+            int y = mPos.y;
+            Vector3Int tilePosition = GetTilePos(x, y, 0);
+            if (Map_Front.GetTile(tilePosition) != null) return;
+            if (x < 0) return;
+            if (x >= mMapData.Width) return;
+
+            int nIndex1 = mMapData.MapCells[x, y].FrontIndex;
+            int nIndex2 = (mMapData.MapCells[x, y].FrontImage & 0x7FFF) - 1;
+
+            if (nIndex1 >= 0 && nIndex2 >= 0)
+            {
+                if (nIndex1 == 200) return; //fixes random bad spots on old school 4.map
+                Mir2Res.Instance.SetMapSprite(nIndex1, nIndex2, (mSprite) =>
+                {
+                    if (mSprite != null)
+                    {
+                        if ((mSprite.texture.width != DataCenter.CellWidth || mSprite.texture.height != DataCenter.CellHeight) &&
+                            ((mSprite.texture.width != DataCenter.CellWidth * 2) || (mSprite.texture.height != DataCenter.CellHeight * 2)))
+                        {
+                            return;
+                        }
+
+                        if (orInRange(mPos))
+                        {
+                            Tile tile = GetTile(Map_Front, tilePosition);
+                            tile.sprite = mSprite;
+                            Map_Front.SetTile(tilePosition, tile);
+                        }
+                    }
+                });
+            }
         }
 
         public Vector3Int GetTilePos(int x, int y, int z)

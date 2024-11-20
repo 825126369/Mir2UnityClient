@@ -28,7 +28,7 @@ public class TileMapMgrEditor : Editor
     {
         if (GUILayout.Button("Draw Map"))
         {
-            mTarget.LoadMap();
+            mTarget.LoadMapTest();
         }
     }
 

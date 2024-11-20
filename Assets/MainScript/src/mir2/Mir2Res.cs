@@ -225,35 +225,31 @@ namespace Mir2
             library = allFiles.ToArray();
         }
 
-        public IEnumerator RequestMapSprite(int nIndex, int nIndex2)
+        public void SetMapSprite(int nIndex, int nIndex2, Action<Sprite> mFinishEvent = null)
         {
             string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
-            path = Path.GetFullPath(path);
-            yield return SetWebSprite(path);
+            SetSprite(path, mFinishEvent);
         }
 
-        public Sprite GetMapSprite(int nIndex, int nIndex2)
+        public void SetSprite(string path, Action<Sprite> mFinishEvent = null)
         {
-            string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
             path = Path.GetFullPath(path);
             Uri url = new Uri(path);
             if (mSpriteDic.ContainsKey(url.AbsoluteUri))
             {
-                return mSpriteDic[url.AbsoluteUri];
+                var mSprite = mSpriteDic[url.AbsoluteUri];
+                mFinishEvent?.Invoke(mSprite);
             }
-            return null;
-        }
-        
-        public void SetSprite(string path, Action<Sprite> mFinishEvent = null)
-        {
-            //Debug.Log(path);
-            path = Path.GetFullPath(path);
-            StartCoroutine(SetWebSprite(path, mFinishEvent));
+            else
+            {
+                StartCoroutine(SetWebSprite(path, mFinishEvent));
+            }
         }
 
         public IEnumerator SetWebSprite(string path, Action<Sprite> mFinishEvent = null)
         {
             Uri url = new Uri(path);
+
             Sprite mTargetSprite = null;
             if (!mSpriteDic.TryGetValue(url.AbsoluteUri, out mTargetSprite))
             {

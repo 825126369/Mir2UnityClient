@@ -4,6 +4,7 @@ using System.IO;
 
 namespace CrystalMir2
 {
+    [System.Serializable]
     public class CellInfo
     {
         public short BackIndex;
@@ -34,6 +35,7 @@ namespace CrystalMir2
         public sbyte FishingAttribute = -1;
     }
 
+    [System.Serializable]
     public class MapReader
     {
         public int Width, Height;

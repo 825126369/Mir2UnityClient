@@ -13,8 +13,8 @@ using static UnityEditor.AddressableAssets.Build.BuildPipelineTasks.GenerateLoca
 
 public static class MLibraryEditor
 {
-    public const string OutDir = "D:/Me/MyProject/CrystalMir2/Client8/";
-    public const string RootDir = "D:/Me/MyProject/CrystalMir2/Client/";
+    public const string OutDir = "D:\\Me\\MyProject\\CrystalMir2_Chinese\\Client8\\";
+    public const string RootDir = "D:\\Me\\MyProject\\CrystalMir2_Chinese\\Client\\Debug\\";
 
     public const string DataPath = RootDir + "Data/",
                     MapPath = RootDir + "Map/",
