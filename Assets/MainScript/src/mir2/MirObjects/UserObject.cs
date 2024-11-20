@@ -46,11 +46,10 @@ namespace Mir2
         public bool SkipFrames = false;
         public int SkipFrameUpdate;
         public PoisonType Poison;
-        public List<QueuedAction> ActionFeed = new List<QueuedAction>();
+        public readonly Queue<QueuedAction> ActionFeed = new Queue<QueuedAction>();
         private QueuedAction RequestAction;
         private QueuedAction NextAction;
         public MirAction CurrentAction;
-        public QueuedAction CurrentQueuedAction;
 
         private TimeOutGenerator mTimeOutGenerator_ForMove = null;
 
@@ -465,19 +464,23 @@ namespace Mir2
             }
         }
 
-        public void SetAction()
+        public void AddAction()
         {
             if (RequestAction != null)
             {
                 if ((ActionFeed.Count == 0) || (ActionFeed.Count == 1 && NextAction.Action == MirAction.Stance))
                 {
                     ActionFeed.Clear();
-                    ActionFeed.Add(RequestAction);
+                    ActionFeed.Enqueue(RequestAction);
                     RequestAction = null;
+
+                    SetAction();
                 }
             }
-            
-            CurrentQueuedAction = null;
+        }
+
+        public void SetAction()
+        {
             if (ActionFeed.Count == 0)
             {
                 CurrentAction = MirAction.Standing;
@@ -493,16 +496,14 @@ namespace Mir2
             }
             else
             {
-                QueuedAction action = ActionFeed[0];
-                ActionFeed.RemoveAt(0);
+                var OldAction = CurrentAction;
+                QueuedAction action = ActionFeed.Dequeue();
                 CurrentAction = action.Action;
 
+                var OldDirection = mData.Direction;
                 mData.MapLocation = action.Location;
-                MirDirection olddirection = mData.Direction;
                 mData.Direction = action.Direction;
-
-                CurrentQueuedAction = action;
-
+                
                 Frames.TryGetValue(CurrentAction, out Frame);
                 FrameIndex = 0;
                 EffectFrameIndex = 0;
@@ -511,51 +512,26 @@ namespace Mir2
                     FrameInterval = Frame.Interval;
                     EffectFrameInterval = Frame.EffectInterval;
                 }
-            }
 
-            if (CurrentQueuedAction != null)
-            {
                 switch (CurrentAction)
                 {
                     case MirAction.Standing:
                     case MirAction.MountStanding:
-                        SendTurnDirMsg(CurrentQueuedAction.Direction);
+                        SendTurnDirMsg(mData.Direction);
                         break;
                     case MirAction.Walking:
                     case MirAction.MountWalking:
                     case MirAction.Sneek:
-                        SendWalkMsg(CurrentQueuedAction.Direction);
+                        SendWalkMsg(mData.Direction);
+                        WorldMgr.Instance.MapMgr.UpdateMap();
                         break;
                     case MirAction.Running:
                     case MirAction.MountRunning:
-                        SendRunMsg(CurrentQueuedAction.Direction);
+                        SendRunMsg(mData.Direction);
+                        WorldMgr.Instance.MapMgr.UpdateMap();
                         break;
                 }
             }
-        }
-
-        private void InitPos()
-        {
-            transform.position = GetTargetLocation(mData.MapLocation);
-            PrintTool.Log("InitPos: " + mData.MapLocation);
-        }
-
-        private Vector3 GetTargetLocation(Vector3Int Location, MirDirection dir, int i = 1)
-        {
-            var mTargetMapLocation = Functions.PointMove(Location, dir, i);
-            return new Vector3(mTargetMapLocation.x * DataCenter.CellWidth, -mTargetMapLocation.y * DataCenter.CellHeight, 0);
-        }
-
-        private Vector3 GetTargetLocation(Vector3Int Location)
-        {
-            return new Vector3(Location.x * DataCenter.CellWidth, -Location.y * DataCenter.CellHeight, 0);
-        }
-
-        private void UpdateLocation(Vector3Int Location, MirDirection dir)
-        {
-            mData.MapLocation = Location;
-            mData.Direction = dir;
-            transform.position = GetTargetLocation(Location);
         }
 
         private void Update()
@@ -576,37 +552,31 @@ namespace Mir2
                 DrawFrame = Frame.Start + (Frame.OffSet * (byte)mData.Direction) + FrameIndex;
                 DrawWingFrame = Frame.EffectStart + (Frame.EffectOffSet * (byte)mData.Direction) + EffectFrameIndex;
             }
-
-            if (CurrentQueuedAction != null)
+            
+            switch (CurrentAction)
             {
-                switch (CurrentAction)
-                {
-                    case MirAction.Walking:
-                    case MirAction.Running:
-                        if (Frame == null)
-                        {
-                            break;
-                        }
-
-                        Vector3 beginPos = GetTargetLocation(mData.MapLocation, mData.Direction, -1);
-                        Vector3 targetPos = GetTargetLocation(mData.MapLocation);
-
-                        int count = Frame.Count;
-                        int index = FrameIndex;
-                        float fPercent = (index + 1) / (float)count;
-
-                        transform.position = beginPos * (1 - fPercent) + targetPos * fPercent;
+                case MirAction.Walking:
+                case MirAction.Running:
+                    if (Frame == null)
+                    {
                         break;
-                    default:
-                        break;
-                }
+                    }
+
+                    Vector3 beginPos = GetTargetLocation(mData.MapLocation, mData.Direction, -1);
+                    Vector3 targetPos = GetTargetLocation(mData.MapLocation);
+
+                    int count = Frame.Count;
+                    int index = FrameIndex;
+                    float fPercent = (index + 1) / (float)count;
+
+                    transform.position = beginPos * (1 - fPercent) + targetPos * fPercent;
+                    break;
+                default:
+                    break;
             }
-
+            
             CheckInput();
-            if (RequestAction != null)
-            {
-                SetAction();
-            }
+            AddAction();
         }
 
         private void CheckInput()
@@ -740,6 +710,23 @@ namespace Mir2
                     }
                 }
             }
+        }
+
+        private void InitPos()
+        {
+            transform.position = GetTargetLocation(mData.MapLocation);
+            PrintTool.Log("InitPos: " + mData.MapLocation);
+        }
+
+        private Vector3 GetTargetLocation(Vector3Int MapLocation, MirDirection dir, int i = 1)
+        {
+            var mTargetMapLocation = Functions.PointMove(MapLocation, dir, i);
+            return new Vector3(mTargetMapLocation.x * DataCenter.CellWidth, -mTargetMapLocation.y * DataCenter.CellHeight, 0);
+        }
+
+        private Vector3 GetTargetLocation(Vector3Int MapLocation)
+        {
+            return new Vector3(MapLocation.x * DataCenter.CellWidth, -MapLocation.y * DataCenter.CellHeight, 0);
         }
 
         public static Vector3Int MouseClickMapLocation()
@@ -922,11 +909,12 @@ namespace Mir2
         {
             if (mData.MapLocation == Location && mData.Direction == dir) return;
 
-            UpdateLocation(Location, dir);
+            mData.MapLocation = Location;
+            mData.Direction = dir;
+            transform.position = GetTargetLocation(Location);
+
             ActionFeed.Clear();
             SetAction();
-
-            WorldMgr.Instance.MapMgr.UpdateMap();
         }
 
     }
