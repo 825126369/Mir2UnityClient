@@ -1,9 +1,7 @@
 using NetProtocols.Game;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Security.Claims;
 using UnityEngine;
 
 namespace Mir2
@@ -45,6 +43,7 @@ namespace Mir2
         public short MountType = -1, TransformType = -1;
 
         public int DrawFrame, DrawWingFrame;
+        public bool SkipFrames = false;
         public int SkipFrameUpdate;
         public PoisonType Poison;
         public List<QueuedAction> ActionFeed = new List<QueuedAction>();
@@ -440,9 +439,11 @@ namespace Mir2
                 case MirAction.DashAttack:
                     if (mTimeOutGenerator_ForMove.orTimeOut())
                     {
+                        if (SkipFrames) UpdateFrame();
                         if (UpdateFrame(false) >= Frame.Count)
                         {
                             FrameIndex = Frame.Count - 1;
+                            SetAction();
                         }
                     }
                     break;
@@ -480,6 +481,11 @@ namespace Mir2
                 QueuedAction action = ActionFeed[0];
                 ActionFeed.RemoveAt(0);
                 CurrentAction = action.Action;
+
+                mData.MapLocation = action.Location;
+                MirDirection olddirection = mData.Direction;
+                mData.Direction = action.Direction;
+
                 CurrentQueuedAction = action;
 
                 Frames.TryGetValue(CurrentAction, out Frame);
@@ -540,6 +546,7 @@ namespace Mir2
         private void Update()
         {
             if (!bInit) return;
+            SkipFrames = ActionFeed.Count > 1;
 
             ProcessFrames();
             Draw();
@@ -566,14 +573,14 @@ namespace Mir2
                             break;
                         }
 
-                        Vector3 beginPos = GetTargetLocation(CurrentQueuedAction.Location);
-                        Vector3 targetPos = GetTargetLocation(CurrentQueuedAction.Location, CurrentQueuedAction.Direction, 1);
+                        Vector3 beginPos = GetTargetLocation(mData.MapLocation, mData.Direction, -1);
+                        Vector3 targetPos = GetTargetLocation(mData.MapLocation);
 
                         int count = Frame.Count;
                         int index = FrameIndex;
                         float fPercent = (index + 1) / (float)count;
 
-                        transform.position = new Vector3Int(mData.MapLocation.x * DataCenter.CellWidth, -mData.MapLocation.y * DataCenter.CellHeight, 0);
+                        transform.position = beginPos * (1 - fPercent) + targetPos * fPercent;
                         break;
                     default:
                         break;
@@ -590,169 +597,140 @@ namespace Mir2
         private void CheckInput()
         {
             if (Time.time < InputDelay) return;
-            InputDelay = Time.time + 0.4f;
+            InputDelay = Time.time + 0.2f;
 
-            var direction = MouseDirection();
-            bool AutoRun = false;
-            if (AutoRun)
+            bool bClickMap = false;
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
             {
-                if (CanRun(direction) && Time.time > NextRunTime)
+                float distance = 1000f;
+                RaycastHit hit;
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, distance))
                 {
-                    int distance = RidingMount || Sprint ? 3 : 2;
-                    bool fail = false;
-                    for (int i = 1; i <= distance; i++)
+                    BoxCollider mHitCollider = hit.collider.GetComponent<BoxCollider>();
+                    if (mHitCollider != null && mHitCollider.gameObject.name == "MapClickBoxCollider")
                     {
-                        if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
-                            fail = true;
-                    }
-
-                    if (!fail)
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, distance) };
-                        return;
+                        PrintTool.Log("点击地图：" + mHitCollider.transform.position);
+                        bClickMap = true;
                     }
                 }
-                if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
-                {
-                    RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                    return;
-                }
-                if (direction != mData.Direction)
-                {
-                    RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                    return;
-                }
+#if UNTIY_EDITOR
+                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
+#endif
             }
-            else if(Input.GetMouseButton(0))
-            {
-                if (!WorldMgr.Instance.ValidPoint(Functions.PointMove(mData.MapLocation, direction, 1)))
-                {
-                    var mEquipInfo = mData.mEquipList.Find((x) => x.nSlotIndex == (int)EquipmentSlot.Weapon);
-                    if (mEquipInfo != null)
-                    {
-                        var mItemIndex = mEquipInfo.nItemId;
-                        var mItemInfo = ExcelTableMgr.Instance.mItemList[(int)mItemIndex];
 
-                        if (mEquipInfo != null && mItemInfo.CanMine)
+            if (bClickMap)
+            {
+                var direction = MouseDirection();
+                bool AutoRun = false;
+                if (AutoRun)
+                {
+                    if (CanRun(direction) && Time.time > NextRunTime)
+                    {
+                        int distance = RidingMount || Sprint ? 3 : 2;
+                        bool fail = false;
+                        for (int i = 1; i <= distance; i++)
                         {
-                            if (direction != mData.Direction)
-                            {
-                                RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                                return;
-                            }
+                            if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
+                                fail = true;
+                        }
+
+                        if (!fail)
+                        {
+                            RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, distance) };
                             return;
                         }
                     }
-                }
-
-                if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
-                {
-                    RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                    return;
-                }
-
-                if (direction != mData.Direction)
-                {
-                    RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                    return;
-                }
-            }
-            else if (Input.GetMouseButton(1))
-            {
-                if (Functions.InRange(MouseClickMapLocation(), mData.MapLocation, 2))
-                {
+                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
+                    {
+                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
+                        return;
+                    }
                     if (direction != mData.Direction)
                     {
                         RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                    }
-                    return;
-                }
-
-                if (CanRun(direction))
-                {
-                    int distance = RidingMount || (Sprint && !Sneaking) ? 3 : 2;
-                    bool fail = false;
-                    for (int i = 0; i <= distance; i++)
-                    {
-                        if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
-                            fail = true;
-                    }
-                    if (!fail)
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, RidingMount || (Sprint && !Sneaking) ? 3 : 2) };
                         return;
                     }
                 }
-                if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
+                else if (Input.GetMouseButton(0))
                 {
-                    RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                    return;
-                }
+                    if (!WorldMgr.Instance.ValidPoint(Functions.PointMove(mData.MapLocation, direction, 1)))
+                    {
+                        var mEquipInfo = mData.mEquipList.Find((x) => x.nSlotIndex == (int)EquipmentSlot.Weapon);
+                        if (mEquipInfo != null)
+                        {
+                            var mItemIndex = mEquipInfo.nItemId;
+                            var mItemInfo = ExcelTableMgr.Instance.mItemList[(int)mItemIndex];
 
-                if (direction != mData.Direction)
+                            if (mEquipInfo != null && mItemInfo.CanMine)
+                            {
+                                if (direction != mData.Direction)
+                                {
+                                    RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
+                                    return;
+                                }
+                                return;
+                            }
+                        }
+                    }
+
+                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
+                    {
+                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
+                        return;
+                    }
+
+                    if (direction != mData.Direction)
+                    {
+                        RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
+                        return;
+                    }
+                }
+                else if (Input.GetMouseButton(1))
                 {
-                    RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                    return;
+                    if (Functions.InRange(MouseClickMapLocation(), mData.MapLocation, 2))
+                    {
+                        if (direction != mData.Direction)
+                        {
+                            RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
+                        }
+                        return;
+                    }
+
+                    if (CanRun(direction))
+                    {
+                        int distance = RidingMount || (Sprint && !Sneaking) ? 3 : 2;
+                        bool fail = false;
+                        for (int i = 0; i <= distance; i++)
+                        {
+                            if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
+                                fail = true;
+                        }
+                        if (!fail)
+                        {
+                            RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, RidingMount || (Sprint && !Sneaking) ? 3 : 2) };
+                            return;
+                        }
+                    }
+                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
+                    {
+                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
+                        return;
+                    }
+
+                    if (direction != mData.Direction)
+                    {
+                        RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
+                        return;
+                    }
                 }
             }
-
-            //bool bClickRight = false;
-            //if (Input.GetMouseButton(0))
-            //{
-            //    bClickRight = false;
-            //}
-            //else if (Input.GetMouseButton(1))
-            //{
-            //    bClickRight = true;
-            //}
-            
-            //if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-            //{
-            //    bool bClickMap = false;
-            //    float distance = 1000f;
-            //    RaycastHit hit;
-            //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //    if (Physics.Raycast(ray, out hit, distance))
-            //    {
-            //        PrintTool.Log("Ray: " + hit.collider.gameObject.name);
-            //        BoxCollider mHitCollider = hit.collider.GetComponent<BoxCollider>();
-            //        if (mHitCollider != null && mHitCollider.gameObject.name == "MapClickBoxCollider")
-            //        {
-            //            PrintTool.Log("点击地图：" + mHitCollider.transform.position);
-            //            bClickMap = true;
-            //        }
-            //    }
-            //    Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
-
-            //    if (bClickMap)
-            //    {
-            //        bAtuoRun = false;
-            //        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //        Vector3 dir = Vector3.Normalize(pos - transform.position);
-            //        //var Direction = Functions.SDirection(dir);
-
-            //        //if (bClickRight)
-            //        //{
-            //        //    SendRunMsg(Direction);
-            //        //}
-            //        //else
-            //        //{
-            //        //    SendWalkMsg(Direction);
-            //        //}
-
-            //        //WorldMgr.Instance.MapMgr.UpdateMap();
-            //    }
-            //}
-            //else
-            //{
-
-            //}
         }
 
         public static Vector3Int MouseClickMapLocation()
         {
             var WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            return new Vector3Int((int)(WorldPos.x / DataCenter.CellWidth), (int)(WorldPos.y / DataCenter.CellHeight));
+            return new Vector3Int((int)(WorldPos.x / DataCenter.CellWidth), -(int)(WorldPos.y / DataCenter.CellHeight));
         }
 
         private bool CanWalk(MirDirection dir)
@@ -831,8 +809,6 @@ namespace Mir2
 
             float fAngle = 360 / 8;
             float fNowAngle = Mathf.Acos(Mathf.Abs(Dir.x)) / MathF.PI * 180;
-
-            Debug.Log(fNowAngle);
 
             if(Dir.x > 0)
             {
