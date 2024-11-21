@@ -517,6 +517,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 126bffebcd1b6e34a9044ba77732953b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MapPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Map
+  SoundPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Sound
+  ExtraDataPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Extra
+  ShadersPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Shaders
+  MonsterPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Monster
+  GatePath: D:/Me/MyProject/CrystalMir2/Client8/Data/Gate
+  FlagPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Flag
+  SiegePath: D:/Me/MyProject/CrystalMir2/Client8/Data/Siege
+  NPCPath: D:/Me/MyProject/CrystalMir2/Client8/Data/NPC
+  CArmourPath: D:/Me/MyProject/CrystalMir2/Client8/Data/CArmour
+  CWeaponPath: D:/Me/MyProject/CrystalMir2/Client8/Data/CWeapon
+  CWeaponEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/CWeaponEffect
+  CHairPath: D:/Me/MyProject/CrystalMir2/Client8/Data/CHair
+  AArmourPath: D:/Me/MyProject/CrystalMir2/Client8/Data/AArmour
+  AWeaponPath: D:/Me/MyProject/CrystalMir2/Client8/Data/AWeapon
+  AHairPath: D:/Me/MyProject/CrystalMir2/Client8/Data/AHair
+  ARArmourPath: D:/Me/MyProject/CrystalMir2/Client8/Data/ARArmour
+  ARWeaponPath: D:/Me/MyProject/CrystalMir2/Client8/Data/ARWeapon
+  ARHairPath: D:/Me/MyProject/CrystalMir2/Client8/Data/ARHair
+  CHumEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/CHumEffect
+  AHumEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/AHumEffect
+  ARHumEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/ARHumEffect
+  MountPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Mount
+  FishingPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Fishing
+  PetsPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Pet
+  TransformPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Transform
+  TransformMountsPath: D:/Me/MyProject/CrystalMir2/Client8/Data/TransformRide2
+  TransformEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/TransformEffect
+  TransformWeaponEffectPath: D:/Me/MyProject/CrystalMir2/Client8/Data/TransformWeaponEffect
+  MouseCursorPath: D:/Me/MyProject/CrystalMir2/Client8/Data/Cursors
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

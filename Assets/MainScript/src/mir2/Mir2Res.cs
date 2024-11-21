@@ -1,13 +1,10 @@
-using CrystalMir2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.Tilemaps;
 
 namespace Mir2
 {
@@ -290,10 +287,7 @@ namespace Mir2
 
         private Sprite CreateSprite(Texture2D mTexture)
         {
-            if (mTexture == null) return null;
-            var mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), new Vector2(0, 1), 1, 0, SpriteMeshType.FullRect);
-            mTargetSprite.name = mTexture.name;
-            return mTargetSprite;
+            return MLibraryMgr.CreateSprite(mTexture);
         }
     }
 }

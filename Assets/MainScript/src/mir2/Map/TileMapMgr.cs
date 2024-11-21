@@ -1,10 +1,7 @@
-using CrystalMir2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
 
 namespace Mir2
@@ -14,16 +11,16 @@ namespace Mir2
         public Tilemap Map_Back;
         public Tilemap Map_Middle;
         public Tilemap Map_Front;
-        public SortingGroup Map_AnimationLayer;
-        public SortingGroup Map_Mir3MiddleLayer;
-        public SortingGroup Map_FrontAnimationLayer;
-        public SpriteRenderer SpritePrefab;
+        public Mir2TileMap Map_AnimationLayer;
+        public Mir2TileMap Map_Mir3MiddleLayer;
+        public Mir2TileMap Map_FrontAnimationLayer;
 
-        readonly NodeComponentPool<SpriteRenderer> mSpriteRendererPool = new NodeComponentPool<SpriteRenderer>();
+        public MapTileDraw MapTileDrawPrefab;
+        readonly NodeComponentPool<MapTileDraw> mMapTileDrawPool = new NodeComponentPool<MapTileDraw>();
         readonly ScriptableObjectPool<Tile> mTilePool = new ScriptableObjectPool<Tile>();
+
         private bool bInit = false;
         readonly List<Vector3Int> mDrawPosList = new List<Vector3Int>();
-
         public MapReader mMapData;
 
         public Vector3Int nowCenter;
@@ -52,7 +49,7 @@ namespace Mir2
             if (bInit) return;
             bInit = true;
             mTilePool.Init(1000);
-            mSpriteRendererPool.Init(SpritePrefab.gameObject, 10);
+            mMapTileDrawPool.Init(MapTileDrawPrefab.gameObject, 10);
 
             Map_Back.ClearAllEditorPreviewTiles();
             Map_Middle.ClearAllEditorPreviewTiles();
@@ -77,6 +74,7 @@ namespace Mir2
         public void Load()
         {
             Init();
+            Range = new Vector3Int(20, 20, 0);
             mMapData = DataCenter.Instance.MapData.mMapBasicInfo;
             UpdateMap();
         }
@@ -91,10 +89,6 @@ namespace Mir2
 
         private void ClearTile()
         {
-            RecycleSpriteRenderer(Map_AnimationLayer);
-            RecycleSpriteRenderer(Map_Mir3MiddleLayer);
-            RecycleSpriteRenderer(Map_FrontAnimationLayer);
-
             foreach (var mPos in mDrawPosList)
             {
                 int x = mPos.x;
@@ -105,6 +99,10 @@ namespace Mir2
                     RecycleTile(Map_Back, tilePosition);
                     RecycleTile(Map_Middle, tilePosition);
                     RecycleTile(Map_Front, tilePosition);
+
+                    RecycleMapTile(Map_AnimationLayer, tilePosition);
+                    RecycleMapTile(Map_Mir3MiddleLayer, tilePosition);
+                    RecycleMapTile(Map_FrontAnimationLayer, tilePosition);
                 }
             }
             mDrawPosList.Clear();
@@ -134,6 +132,7 @@ namespace Mir2
 
             int nRangeMax = Math.Max(Range.x, Range.y);
             mDrawPosList.Clear();
+            mDrawPosList.Add(nowCenter);
             for (int i = 1; i <= nRangeMax; i++)
             {
                 int x = nowCenter.x + i;
@@ -323,6 +322,8 @@ namespace Mir2
             int x = mPos.x;
             int y = mPos.y;
             Vector3Int tilePosition = GetTilePos(x, y + 1, 0);
+            if (Map_AnimationLayer.GetTile(tilePosition) != null) return;
+
             Vector3 mWorldPos = new Vector3(tilePosition.x * DataCenter.CellWidth, tilePosition.y * DataCenter.CellHeight);
 
             if (x < 0) return;
@@ -342,9 +343,10 @@ namespace Mir2
                     {
                         if (orInRange(mPos))
                         {
-                            var tile = GetSpriteRenderer(Map_AnimationLayer);
-                            tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                            tile.sprite = mSprite;
+                            var tile = GetMapTileDraw(Map_AnimationLayer);
+                            tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(190, index));
+                            Vector3 point = mWorldPos;
+                            tile.DrawUp(point);
                         }
                     }
                 });
@@ -356,6 +358,8 @@ namespace Mir2
             int x = mPos.x;
             int y = mPos.y;
             Vector3Int tilePosition = GetTilePos(x, y + 1, 0);
+            if (Map_Mir3MiddleLayer.GetTile(tilePosition) != null) return;
+
             Vector3 mWorldPos = new Vector3(tilePosition.x * DataCenter.CellWidth, tilePosition.y * DataCenter.CellHeight);
 
             if ((mMapData.MapCells[x, y].MiddleIndex >= 0) && (mMapData.MapCells[x, y].MiddleIndex != -1))
@@ -373,44 +377,48 @@ namespace Mir2
                             animation &= 0x0f;
                         }
 
-                        byte animationTick = mMapData.MapCells[x, y].MiddleAnimationTick;
-                        index += (AnimationCount % (animation + (animation * animationTick))) / (1 + animationTick);
-
-                        if (blend && (animation == 10 || animation == 8)) //diamond mines, abyss blends
+                        if (animation > 0)
                         {
-                            int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
-                            int nIndex2 = index;
-                            Mir2Res.Instance.GetMapSpriteByMLibrary(nIndex1, nIndex2, (mSprite) =>
-                            {
-                                if (mSprite != null)
-                                {
-                                    if (orInRange(mPos))
-                                    {
-                                        var tile = GetSpriteRenderer(Map_Mir3MiddleLayer);
-                                        tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                                        tile.sprite = mSprite;
-                                    }
-                                }
-                            });
-                        }
-                        else
-                        {
-                            int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
-                            int nIndex2 = index;
-                            Mir2Res.Instance.GetMapSpriteByMLibrary(nIndex1, nIndex2, (mSprite) =>
-                            {
-                                if (mSprite != null)
-                                {
-                                    if (orInRange(mPos))
-                                    {
-                                        var tile = GetSpriteRenderer(Map_Mir3MiddleLayer);
-                                        tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                                        tile.sprite = mSprite;
-                                    }
-                                }
-                            });
-                        }
+                            byte animationTick = mMapData.MapCells[x, y].MiddleAnimationTick;
+                            index += (AnimationCount % (animation + (animation * animationTick))) / (1 + animationTick);
 
+                            if (blend && (animation == 10 || animation == 8)) //diamond mines, abyss blends
+                            {
+                                int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
+                                int nIndex2 = index;
+                                Mir2Res.Instance.GetMapSpriteByMLibrary(nIndex1, nIndex2, (mSprite) =>
+                                {
+                                    if (mSprite != null)
+                                    {
+                                        if (orInRange(mPos))
+                                        {
+                                            var tile = GetMapTileDraw(Map_Mir3MiddleLayer);
+                                            tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(nIndex1, nIndex2));
+                                            Vector3 point = mWorldPos;
+                                            tile.DrawUpBlend(point);
+                                        }
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                int nIndex1 = mMapData.MapCells[x, y].MiddleIndex;
+                                int nIndex2 = index;
+                                Mir2Res.Instance.GetMapSpriteByMLibrary(nIndex1, nIndex2, (mSprite) =>
+                                {
+                                    if (mSprite != null)
+                                    {
+                                        if (orInRange(mPos))
+                                        {
+                                            var tile = GetMapTileDraw(Map_Mir3MiddleLayer);
+                                            tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(nIndex1, nIndex2));
+                                            Vector3 point = mWorldPos;
+                                            tile.DrawUp(point);
+                                        }
+                                    }
+                                });
+                            }
+                        }
                     }
 
                     Mir2Res.Instance.GetMapSpriteByMLibrary(mMapData.MapCells[x, y].MiddleIndex, index, (mSprite) =>
@@ -423,9 +431,10 @@ namespace Mir2
                             {
                                 if (orInRange(mPos))
                                 {
-                                    var tile = GetSpriteRenderer(Map_Mir3MiddleLayer);
-                                    tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                                    tile.sprite = mSprite;
+                                    var tile = GetMapTileDraw(Map_Mir3MiddleLayer);
+                                    tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(mMapData.MapCells[x, y].MiddleIndex, index));
+                                    Vector3 point = mWorldPos;
+                                    tile.DrawUp(point);
                                 }
                             }
                         }
@@ -439,8 +448,9 @@ namespace Mir2
             int x = mPos.x;
             int y = mPos.y;
             Vector3Int tilePosition = GetTilePos(x, y + 1, 0);
-            Vector3 mWorldPos = new Vector3(tilePosition.x * DataCenter.CellWidth, tilePosition.y * DataCenter.CellHeight);
+            if (Map_FrontAnimationLayer.GetTile(tilePosition) != null) return;
 
+            Vector3 mWorldPos = new Vector3(tilePosition.x * DataCenter.CellWidth, tilePosition.y * DataCenter.CellHeight);
             int index = (mMapData.MapCells[x, y].FrontImage & 0x7FFF) - 1;
 
             if (index < 0) return;
@@ -455,13 +465,13 @@ namespace Mir2
                 blend = true;
                 animation &= 0x7F;
             }
-            
+
             if (animation > 0)
             {
                 byte animationTick = mMapData.MapCells[x, y].FrontAnimationTick;
                 index += (AnimationCount % (animation + (animation * animationTick))) / (1 + animationTick);
             }
-            
+
             if (mMapData.MapCells[x, y].DoorIndex > 0)
             {
                 Door DoorInfo = DataCenter.Instance.MapData.GetDoor(mMapData.MapCells[x, y].DoorIndex);
@@ -492,22 +502,25 @@ namespace Mir2
                         {
                             if ((fileIndex > 99) & (fileIndex < 199))
                             {
-                                var tile = GetSpriteRenderer(Map_FrontAnimationLayer);
-                                tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                                tile.sprite = mSprite;
+                                var tile = GetMapTileDraw(Map_FrontAnimationLayer);
+                                tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(fileIndex, index));
+                                Vector3 point = mWorldPos + new Vector3(0, 3 * DataCenter.CellHeight);
+                                tile.DrawBlend(point, Color.white, true);
                             }
                             else
                             {
-                                var tile = GetSpriteRenderer(Map_FrontAnimationLayer);
-                                tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                                tile.sprite = mSprite;
+                                var tile = GetMapTileDraw(Map_FrontAnimationLayer);
+                                tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(fileIndex, index));
+                                Vector3 point = mWorldPos + new Vector3(0, mSprite.texture.height);
+                                tile.DrawBlend(point, Color.white, index >= 2723 && index <= 2732);
                             }
                         }
                         else
                         {
-                            var tile = GetSpriteRenderer(Map_FrontAnimationLayer);
-                            tile.transform.position = mWorldPos + new Vector3(0, mSprite.texture.height, 0);
-                            tile.sprite = mSprite;
+                            var tile = GetMapTileDraw(Map_FrontAnimationLayer);
+                            tile.SetData(mSprite, MLibraryMgr.Instance.GetMapImage(fileIndex, index));
+                            Vector3 point = mWorldPos + new Vector3(0, mSprite.texture.height);
+                            tile.Draw(point);
                         }
                     }
                 }
@@ -519,20 +532,23 @@ namespace Mir2
             return new Vector3Int(x, -y, 0);
         }
 
-        private SpriteRenderer GetSpriteRenderer(SortingGroup sortingGroup)
+        private MapTileDraw GetMapTileDraw(Mir2TileMap mTileMap)
         {
-            var mSpriteRenderer = mSpriteRendererPool.popObj();
-            mSpriteRenderer.transform.SetParent(sortingGroup.transform, false);
-            mSpriteRenderer.transform.localScale = Vector3.one;
-            mSpriteRenderer.transform.position = Vector3.zero;
-            return mSpriteRenderer;
+            var mTile = mMapTileDrawPool.popObj();
+            mTile.transform.SetParent(mTileMap.transform, false);
+            mTile.transform.localScale = Vector3.one;
+            mTile.transform.position = Vector3.zero;
+            return mTile;
         }
 
-        private void RecycleSpriteRenderer(SortingGroup mMap)
+        private void RecycleMapTile(Mir2TileMap mMap, Vector3Int position)
         {
-            foreach(Transform v in mMap.transform)
+            MapTileDraw tile = mMap.GetTile(position);
+            if (tile != null)
             {
-                mSpriteRendererPool.recycleObj(v.GetComponent<SpriteRenderer>());
+                tile.Clear();
+                mMapTileDrawPool.recycleObj(tile);
+                mMap.SetTile(position, null);
             }
         }
 

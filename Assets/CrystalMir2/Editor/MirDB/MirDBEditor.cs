@@ -1,4 +1,4 @@
-using CrystalMir2;
+using Mir2;
 using UnityEditor;
 using UnityEngine;
 

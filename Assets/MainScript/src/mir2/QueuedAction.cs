@@ -1,10 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QueuedAction
+namespace Mir2
 {
-    public MirAction Action;
-    public Vector3Int Location;
-    public MirDirection Direction;
-    public List<object> Params;
+    public class QueuedAction
+    {
+        public MirAction Action;
+        public Vector3Int Location;
+        public MirDirection Direction;
+        public List<object> Params;
+    }
 }

@@ -27064,15 +27064,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2807003994515908697, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
       propertyPath: Range.x
-      value: 100
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 2807003994515908697, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
       propertyPath: Range.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5074100781052397889, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
-      propertyPath: m_SortingOrder
-      value: -8
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 5568980296066831714, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
       propertyPath: m_TileAssetArray.Array.data[0].m_Data
@@ -27194,10 +27190,6 @@ PrefabInstance:
       propertyPath: m_TileSpriteArray.Array.data[14].m_Data
       value: 
       objectReference: {fileID: 1842471}
-    - target: {fileID: 5658946422124521575, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
-      propertyPath: m_SortingOrder
-      value: -6
-      objectReference: {fileID: 0}
     - target: {fileID: 7444784115498544161, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -28150,10 +28142,6 @@ PrefabInstance:
       propertyPath: m_TileSpriteArray.Array.data[113].m_Data
       value: 
       objectReference: {fileID: 882907751}
-    - target: {fileID: 8825820799803966791, guid: 88c59c63dfe261943b3373f736a48902, type: 3}
-      propertyPath: m_SortingOrder
-      value: -7
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,5 +1,4 @@
-﻿using CrystalMir2;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Mir2

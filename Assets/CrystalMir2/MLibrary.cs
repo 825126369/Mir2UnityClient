@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace CrystalMir2
+namespace Mir2
 {
     public static class MLibrarys
     {
@@ -685,6 +685,9 @@ namespace CrystalMir2
                     texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.b, color1.g, color1.r, color1.a));
                 }
             }
+
+            texture.filterMode = FilterMode.Point;
+            texture.wrapMode = TextureWrapMode.Clamp;
             texture.Apply();
             return texture;
         }

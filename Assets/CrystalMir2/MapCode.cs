@@ -1,8 +1,7 @@
-﻿using Mir2;
-using System;
+﻿using System;
 using System.IO;
 
-namespace CrystalMir2
+namespace Mir2
 {
     [System.Serializable]
     public class CellInfo

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-namespace CrystalMir2
+namespace Mir2
 {
     public class MLibraryMgr:SingleTonMonoBehaviour<MLibraryMgr>
     {
@@ -68,6 +68,34 @@ namespace CrystalMir2
         public string GetTextureName(string prefix, int nLibIndex, int nImageIndex)
         {
             return $"{prefix}_{nLibIndex}_{nImageIndex}";
+        }
+
+        public static void SetTextureParam(Texture2D mTexture)
+        {
+            if (mTexture != null)
+            {
+                mTexture.filterMode = FilterMode.Point;
+                mTexture.wrapMode = TextureWrapMode.Clamp;
+                mTexture.Apply();
+            }
+        }
+
+        public static Sprite CreateSprite(Texture2D mTexture)
+        {
+            SetTextureParam(mTexture);
+
+            if (mTexture == null) return null;
+            var mTargetSprite = Sprite.Create(
+                mTexture, 
+                new Rect(0, 0, mTexture.width, mTexture.height), 
+                new Vector2(0, 1), 
+                1, 
+                0, 
+                SpriteMeshType.FullRect
+            );
+
+            mTargetSprite.name = mTexture.name;
+            return mTargetSprite;
         }
 
     }

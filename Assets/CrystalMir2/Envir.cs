@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace CrystalMir2
+namespace Mir2
 {
     public class Envir
     {

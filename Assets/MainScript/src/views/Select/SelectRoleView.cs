@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using AKNet.Common;
+using Mir2;
 
 public class SelectRoleView : MonoBehaviour
 {

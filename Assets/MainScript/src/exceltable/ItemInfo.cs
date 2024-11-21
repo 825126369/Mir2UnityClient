@@ -1,6 +1,6 @@
 namespace Mir2
 {
-	public class ItemInfo
+    public class ItemInfo
 	{
 		public string ItemName;
 		public ItemType ItemType;

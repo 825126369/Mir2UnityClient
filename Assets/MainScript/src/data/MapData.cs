@@ -1,20 +1,22 @@
-using CrystalMir2;
 using System.Collections.Generic;
 
-public class MapData
+namespace Mir2
 {
-    public MapReader mMapBasicInfo;
-    public MapInfo mMapInfo;
-
-    public readonly List<Door> mDoorList = new List<Door>();
-
-    public Door GetDoor(byte Index)
+    public class MapData
     {
-        for (int i = 0; i < mDoorList.Count; i++)
+        public MapReader mMapBasicInfo;
+        public MapInfo mMapInfo;
+
+        public readonly List<Door> mDoorList = new List<Door>();
+
+        public Door GetDoor(byte Index)
         {
-            if (mDoorList[i].index == Index)
-                return mDoorList[i];
+            for (int i = 0; i < mDoorList.Count; i++)
+            {
+                if (mDoorList[i].index == Index)
+                    return mDoorList[i];
+            }
+            return null;
         }
-        return null;
     }
 }
