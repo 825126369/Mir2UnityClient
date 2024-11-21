@@ -1,4 +1,4 @@
-2024/11/20 16:55:09  Error: OperationAborted 
+2024/11/21 10:24:14  Error: OperationAborted 
   at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
   at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
   at AKNet.Tcp.Client.TCPSocketMgr.DisConnectedWithSocketError (System.Net.Sockets.SocketError mError) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
@@ -11,20 +11,7 @@
   at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
   at System.Threading.ThreadPoolWorkQueue.Dispatch () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
   at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
-2024/11/20 16:55:10  Error: OperationAborted 
-  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
-  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
-  at AKNet.Tcp.Client.TCPSocketMgr.DisConnectedWithSocketError (System.Net.Sockets.SocketError mError) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
-  at AKNet.Tcp.Client.TCPSocketMgr.ProcessReceive (System.Net.Sockets.SocketAsyncEventArgs e) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
-  at AKNet.Tcp.Client.TCPSocketMgr.OnIOCompleted (System.Object sender, System.Net.Sockets.SocketAsyncEventArgs e) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
-  at System.Net.Sockets.SocketAsyncEventArgs.OnCompleted (System.Net.Sockets.SocketAsyncEventArgs e) [0x00000] in <09af50eda9a647268d2c4fcdf7fac506>:0 
-  at System.Net.Sockets.SocketAsyncEventArgs.Complete_internal () [0x00000] in <09af50eda9a647268d2c4fcdf7fac506>:0 
-  at System.Net.Sockets.Socket+<>c.<.cctor>b__367_10 (System.IAsyncResult ares) [0x00000] in <09af50eda9a647268d2c4fcdf7fac506>:0 
-  at System.Net.Sockets.SocketAsyncResult+<>c.<Complete>b__27_0 (System.Object state) [0x00000] in <09af50eda9a647268d2c4fcdf7fac506>:0 
-  at System.Threading.QueueUserWorkItemCallback.System.Threading.IThreadPoolWorkItem.ExecuteWorkItem () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
-  at System.Threading.ThreadPoolWorkQueue.Dispatch () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
-  at System.Threading._ThreadPoolWaitCallback.PerformWaitCallback () [0x00000] in <8ce0bd04a7a04b4b9395538239d3fdd8>:0 
-2024/11/20 16:56:59  Error: ConnectionReset 
+2024/11/21 10:24:16  Error: OperationAborted 
   at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
   at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 
   at AKNet.Tcp.Client.TCPSocketMgr.DisConnectedWithSocketError (System.Net.Sockets.SocketError mError) [0x00000] in <5bfc5e53657441199dd68c38ed0fcea4>:0 

@@ -1,3 +1,4 @@
+using CrystalMir2;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -225,6 +226,21 @@ namespace Mir2
             library = allFiles.ToArray();
         }
 
+        public void GetMapSpriteByMLibrary(int nIndex, int nIndex2, Action<Sprite> mFinishEvent = null)
+        {
+            Sprite mTargetSprite = null;
+            var MImage = MLibraryMgr.Instance.GetMapImage(nIndex, nIndex2);
+            if (MImage != null)
+            {
+                if (MImage.Image != null)
+                {
+                    MImage.Image.name = MLibraryMgr.Instance.GetTextureName("Map", nIndex, nIndex2);
+                }
+                mTargetSprite = CreateSprite(MImage.Image);
+            }
+            mFinishEvent?.Invoke(mTargetSprite);
+        }
+
         public void SetMapSprite(int nIndex, int nIndex2, Action<Sprite> mFinishEvent = null)
         {
             string path = Path.Combine(MapLibs[nIndex], nIndex2 + ".png");
@@ -259,6 +275,7 @@ namespace Mir2
                 if (www.result == UnityWebRequest.Result.Success)
                 {
                     var mTexture = DownloadHandlerTexture.GetContent(www);
+                    mTexture.name = MLibraryMgr.Instance.GetTextureName(path);
                     mTargetSprite = CreateSprite(mTexture);
                     mSpriteDic[url.AbsoluteUri] = mTargetSprite;
                 }
@@ -273,6 +290,7 @@ namespace Mir2
 
         private Sprite CreateSprite(Texture2D mTexture)
         {
+            if (mTexture == null) return null;
             var mTargetSprite = Sprite.Create(mTexture, new Rect(0, 0, mTexture.width, mTexture.height), new Vector2(0, 1), 1, 0, SpriteMeshType.FullRect);
             mTargetSprite.name = mTexture.name;
             return mTargetSprite;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Claims;
 using UnityEngine;
 
 namespace Mir2
@@ -6,8 +7,6 @@ namespace Mir2
     public class WorldMgr : SingleTonMonoBehaviour<WorldMgr>
     {
         public readonly List<MapObject> mMapObjects = new List<MapObject>();
-        public readonly List<Door> mDoorList = new List<Door>();
-
         public List<PlayerObject> mPlayerList = new List<PlayerObject>();
         public UserObject User;
         public TileMapMgr MapMgr;
@@ -47,7 +46,7 @@ namespace Mir2
         {
             var M2CellInfo = DataCenter.Instance.MapData.mMapBasicInfo.MapCells;
             if (M2CellInfo[p.x, p.y].DoorIndex == 0) return true;
-            Door DoorInfo = GetDoor(M2CellInfo[p.x, p.y].DoorIndex);
+            Door DoorInfo = DataCenter.Instance.MapData.GetDoor(M2CellInfo[p.x, p.y].DoorIndex);
             if (DoorInfo == null) return false;
             if ((DoorInfo.DoorState == DoorState.Closed) || (DoorInfo.DoorState == DoorState.Closing))
             {
@@ -68,16 +67,6 @@ namespace Mir2
                 }
             }
             return true;
-        }
-
-        public Door GetDoor(byte Index)
-        {
-            for (int i = 0; i < mDoorList.Count; i++)
-            {
-                if (mDoorList[i].index == Index)
-                    return mDoorList[i];
-            }
-            return null;
         }
 
         //----------------------------------------------ÍøÂçÏûÏ¢----------------------------------------------------

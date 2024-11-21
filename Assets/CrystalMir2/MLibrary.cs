@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -107,12 +108,16 @@ namespace CrystalMir2
         public static MLibrary[] TransformEffect;
         public static MLibrary[] TransformWeaponEffect;
 
+        static bool bInit = false;
         static bool Loaded = false;
         static int Progress = 0;
         static int Count = 0;
 
         public static void InitLibraries()
         {
+            if (bInit) return;
+            bInit = true;
+
             //Wiz/War/Tao
             InitLibrary(ref CArmours, CArmourPath, "00");
             InitLibrary(ref CHair, CHairPath, "00");
@@ -575,7 +580,7 @@ namespace CrystalMir2
             if (_images == null || index < 0 || index >= _images.Length)
                 return;
 
-            if (_images[index] == null)
+            if (index < _count && _images[index] == null)
             {
                 _fStream.Position = _indexList[index];
                 _images[index] = new MImage(_reader);
@@ -595,6 +600,9 @@ namespace CrystalMir2
 
         public MImage GetImage(int nIndex)
         {
+            if (_images == null || nIndex < 0 || nIndex >= _images.Length)
+                return null;
+
             return _images[nIndex];
         }
     }
@@ -641,7 +649,6 @@ namespace CrystalMir2
 
         public void CreateTexture(BinaryReader reader)
         {
-
             MemoryStream stream = new MemoryStream();
             DecompressImage(reader.ReadBytes(Length), stream);
             byte[] Data = stream.ToArray();
@@ -678,7 +685,7 @@ namespace CrystalMir2
                     texture.SetPixel(x, nHeight - 1 - y, new UnityEngine.Color(color1.b, color1.g, color1.r, color1.a));
                 }
             }
-
+            texture.Apply();
             return texture;
         }
 
