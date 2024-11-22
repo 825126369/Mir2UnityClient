@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -14,6 +15,7 @@ namespace Mir2
         public Mir2TileMap Map_AnimationLayer;
         public Mir2TileMap Map_Mir3MiddleLayer;
         public Mir2TileMap Map_FrontAnimationLayer;
+        public SpriteRenderer mBackground;
 
         public MapTileDraw MapTileDrawPrefab;
         readonly NodeComponentPool<MapTileDraw> mMapTileDrawPool = new NodeComponentPool<MapTileDraw>();
@@ -77,6 +79,7 @@ namespace Mir2
             Range = new Vector3Int(20, 20, 0);
             mMapData = DataCenter.Instance.MapData.mMapBasicInfo;
             UpdateMap();
+            DrawBackground();
         }
 
         public void UpdateMap()
@@ -525,6 +528,67 @@ namespace Mir2
                     }
                 }
             });
+        }
+
+        private void DrawBackground()
+        {
+            string cleanFilename = mapFileName.Replace(@".\Map\", "");
+            if (cleanFilename.StartsWith("ID1") || cleanFilename.StartsWith("ID2"))
+            {
+                //mountains
+                var mImage = MLibraryMgr.Instance.GetImage(MLibrarys.Background, 10);
+                if (mImage != null)
+                {
+                    var mSprite = MLibraryMgr.CreateSprite(mImage.Image);
+                    if (mSprite != null)
+                    {
+                        mBackground.sprite = mSprite;
+                        mBackground.transform.position = Vector3.zero;
+                    }
+                }
+            }
+            else if (cleanFilename.StartsWith("ID3_013"))
+            {
+                //desert
+                var mImage = MLibraryMgr.Instance.GetImage(MLibrarys.Background, 22);
+                if (mImage != null)
+                {
+                    var mSprite = MLibraryMgr.CreateSprite(mImage.Image);
+                    if (mSprite != null)
+                    {
+                        mBackground.sprite = mSprite;
+                        mBackground.transform.position = Vector3.zero;
+                    }
+                }
+            }
+            else if (cleanFilename.StartsWith("ID3_015"))
+            {
+                //greatwall
+                var mImage = MLibraryMgr.Instance.GetImage(MLibrarys.Background, 23);
+                if (mImage != null)
+                {
+                    var mSprite = MLibraryMgr.CreateSprite(mImage.Image);
+                    if (mSprite != null)
+                    {
+                        mBackground.sprite = mSprite;
+                        mBackground.transform.position = Vector3.zero;
+                    }
+                }
+            }
+            else if (cleanFilename.StartsWith("ID3_023") || cleanFilename.StartsWith("ID3_025"))
+            {
+                //village entrance
+                var mImage = MLibraryMgr.Instance.GetImage(MLibrarys.Background, 21);
+                if (mImage != null)
+                {
+                    var mSprite = MLibraryMgr.CreateSprite(mImage.Image);
+                    if (mSprite != null)
+                    {
+                        mBackground.sprite = mSprite;
+                        mBackground.transform.position = Vector3.zero;
+                    }
+                }
+            }
         }
 
         public Vector3Int GetTilePos(int x, int y, int z)

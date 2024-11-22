@@ -41,6 +41,12 @@ namespace Mir2
             return mLib.GetImage(nIndex);
         }
 
+        public MImage GetImage(MLibrary mLib, int nIndex)
+        {
+            mLib.CheckImage(nIndex);
+            return mLib.GetImage(nIndex);
+        }
+
         public void GetLibTexturePath(string url, out string libPath, out int nIndex)
         {
             Uri uri = new Uri(url);
