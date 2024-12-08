@@ -1,15 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerData
+public class MonsterData
 {
     public uint nId;
     public string Name;
-    public uint nLevel; //等级
-    public ulong nLevelExp; //等级
-    public uint Class; //职业
-    public uint Gender;//性别
-    public byte Hair; //头发
+
     //Location
     public uint CurrentMapIndex; //当前地图Index
     public Vector3Int CurrentLocation;
@@ -18,5 +14,5 @@ public class PlayerData
     public uint HP;
     public uint MP;
 
-    public readonly List<ItemData> mEquipList = new List<ItemData>();
+    public uint nAttack = 100;
 }

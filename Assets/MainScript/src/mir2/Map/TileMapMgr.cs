@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Tilemaps;
+using UnityEngine.VFX;
 
 namespace Mir2
 {
@@ -589,6 +591,55 @@ namespace Mir2
                     }
                 }
             }
+        }
+
+        private void DrawLight()
+        {
+            //#region Night Lights
+            //Color darkness;
+
+            //switch (setting)
+            //{
+            //    case LightSetting.Night:
+            //        {
+            //            switch (MapDarkLight)
+            //            {
+            //                case 1:
+            //                    darkness = Color.FromArgb(255, 20, 20, 20);
+            //                    break;
+            //                case 2:
+            //                    darkness = Color.LightSlateGray;
+            //                    break;
+            //                case 3:
+            //                    darkness = Color.SkyBlue;
+            //                    break;
+            //                case 4:
+            //                    darkness = Color.Goldenrod;
+            //                    break;
+            //                default:
+            //                    darkness = Color.Black;
+            //                    break;
+            //            }
+            //        }
+            //        break;
+            //    case LightSetting.Evening:
+            //    case LightSetting.Dawn:
+            //        darkness = Color.FromArgb(255, 50, 50, 50);
+            //        break;
+            //    default:
+            //    case LightSetting.Day:
+            //        darkness = Color.FromArgb(255, 255, 255, 255);
+            //        break;
+            //}
+
+            //if (MapObject.User.Poison.HasFlag(PoisonType.Blindness))
+            //{
+            //    darkness = GetBlindLight(darkness);
+            //}
+
+            //DXManager.Device.Clear(ClearFlags.Target, darkness, 0, 0);
+
+            //#endregion
         }
 
         public Vector3Int GetTilePos(int x, int y, int z)

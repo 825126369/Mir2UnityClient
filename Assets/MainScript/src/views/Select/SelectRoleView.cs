@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using AKNet.Common;
 using Mir2;
+using AKNet.Extentions.Protobuf;
 
 public class SelectRoleView : MonoBehaviour
 {

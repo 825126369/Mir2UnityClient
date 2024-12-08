@@ -1,4 +1,4 @@
-using AKNet.Editor;
+using AKNet.Extentions.Protobuf.Editor;
 using UnityEditor;
 
 public class ProtoBufEditor

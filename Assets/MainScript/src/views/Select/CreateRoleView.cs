@@ -1,4 +1,5 @@
 using AKNet.Common;
+using AKNet.Extentions.Protobuf;
 using Mir2;
 using NetProtocols.Game;
 using UnityEngine;

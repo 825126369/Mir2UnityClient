@@ -1,4 +1,5 @@
 using AKNet.Common;
+using AKNet.Extentions.Protobuf;
 using AKNet.Tcp.Client;
 using Google.Protobuf;
 using NetProtocols.SelectGate;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectServerMgr>
 {
-    public static TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public static CustomNetClientMain mNetClient = new CustomNetClientMain();
     private bool bInit = false;
     public void Init()
     {
@@ -14,7 +15,7 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
         bInit = true;
 
         mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
+        mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_SERVER_LIST_RESULT, receive_scServerList);
         if (IPAddressHelper.TryParseConnectStr(DataCenter.Instance.selectGateServerConnectStr, out string Ip, out ushort nPort))
         {
             mNetClient.ConnectServer(Ip, nPort);

@@ -2,7 +2,7 @@
 {
     public interface MapObject
     {
-       
+        
     }
 
     public class FrameLoop

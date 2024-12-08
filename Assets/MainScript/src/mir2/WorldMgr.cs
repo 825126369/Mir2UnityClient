@@ -6,7 +6,7 @@ namespace Mir2
 {
     public class WorldMgr : SingleTonMonoBehaviour<WorldMgr>
     {
-        public readonly List<MapObject> mMapObjects = new List<MapObject>();
+        public readonly List<MapObject> mMapObjectList = new List<MapObject>();
         public List<PlayerObject> mPlayerList = new List<PlayerObject>();
         public UserObject User;
         public TileMapMgr MapMgr;
@@ -31,9 +31,9 @@ namespace Mir2
             if ((M2CellInfo[p.x, p.y].BackImage & 0x20000000) != 0 || (M2CellInfo[p.x, p.y].FrontImage & 0x8000) != 0)
                 return false;
 
-            //for (int i = 0; i < mMapObjects.Count; i++)
+            //for (int i = 0; i < mMapObjectList.Count; i++)
             //{
-            //    MapObject ob = mMapObjects[i];
+            //    MapObject ob = mMapObjectList[i];
 
             //    if (ob.CurrentLocation == p && ob.Blocking)
             //        return false;

@@ -1,12 +1,12 @@
 using AKNet.Common;
-using AKNet.Tcp.Client;
+using AKNet.Extentions.Protobuf;
 using Google.Protobuf;
 using NetProtocols.Login;
 using UnityEngine;
 
 public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 {
-    public static TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public static CustomNetClientMain mNetClient = new CustomNetClientMain();
     private bool bInit = false;
 
     public void InitLoginServerClient()
@@ -14,9 +14,9 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         if (bInit) return;
         bInit = true;
         mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
-        mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
+        mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_LOGIN_RESULT, receive_scRequestLogin);
+        mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_CHANGE_PASSWORD_RESULT, receive_scChangePassword);
+        mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_REGISTER_RESULT, receive_scRequestRegister);
 
         if (IPAddressHelper.TryParseConnectStr(DataCenter.LoginServerConnectStr, out string Ip, out ushort nPort))
         {

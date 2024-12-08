@@ -1,10 +1,5 @@
-using Google.Protobuf;
-using System;
-using System.IO;
-using System.Reflection;
+using AKNet.Extentions.Protobuf.Editor;
 using UnityEditor;
-using UnityEngine;
-using AKNet.Editor;
 
 public class ProtobufGenReset
 {

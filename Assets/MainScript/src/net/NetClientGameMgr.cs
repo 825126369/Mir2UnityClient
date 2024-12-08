@@ -1,4 +1,5 @@
 using AKNet.Common;
+using AKNet.Extentions.Protobuf;
 using AKNet.Tcp.Client;
 using Google.Protobuf;
 using Mir2;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {
-    public static TcpNetClientMain mNetClient = new TcpNetClientMain();
+    public static CustomNetClientMain mNetClient = new CustomNetClientMain();
     private bool bInit = false;
     public void Init()
     {
@@ -16,15 +17,15 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         {
             bInit = true;
             mNetClient.addListenClientPeerStateFunc(ListenClientPeerState);
-            mNetClient.addNetListenFun(NetProtocolCommand.GC_INNER_SERVER_NET_ERROR, receive_gc_innerServer_Error_Result);
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_REQUEST_USER_LOCATION, receive_sc_UserLocation_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.GC_INNER_SERVER_NET_ERROR, receive_gc_innerServer_Error_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_SELECTROLE_ALL_ROLEINFO_RESULT, receive_sc_Request_selectRole_AllRoleInfo_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_SELECTROLE_CREATE_ROLE_RESULT, receive_sc_Request_selectRole_CreateRole_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_USER_LOCATION, receive_sc_UserLocation_Result);
 
 
-            mNetClient.addNetListenFun(NetProtocolCommand.SC_BROADCAST_LOCATION, receive_sc_broadcast_UserLocation_Result);
+            mNetClient.addNetListenFunc(NetProtocolCommand.SC_BROADCAST_LOCATION, receive_sc_broadcast_UserLocation_Result);
         }
 
         ServerItemData mData = DataCenter.Instance.currentSelectServerItemData;
