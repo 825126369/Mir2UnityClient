@@ -51,7 +51,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
             PrintTool.LogWarning(message);
         };
 
-        NetLogMgr.AddLogFunc(LogFunc, LogErrorFunc, LogWarningFunc);
+        NetLog.AddLogFunc(LogFunc, LogErrorFunc, LogWarningFunc);
     }
 
     private IEnumerator AsyncInit()
