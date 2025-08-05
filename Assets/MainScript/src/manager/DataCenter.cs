@@ -21,7 +21,7 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
     public readonly Regex mPasswordRegex = new Regex(@"^[A-Za-z0-9]{8,20}$");
     public readonly Regex mMailRegex = new Regex(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
 
-    public const string LoginServerConnectStr = "192.168.0.170:8010";
+    public const string LoginServerConnectStr = "192.168.0.169:8010";
     public string selectGateServerConnectStr = string.Empty;
     public string GateServerConnectStr = string.Empty;
     public uint nAccountId = 0;

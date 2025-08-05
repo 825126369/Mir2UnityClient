@@ -2,6 +2,7 @@ using NetProtocols.Game;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Security.Claims;
 using UnityEngine;
 
 namespace Mir2
@@ -51,6 +52,8 @@ namespace Mir2
         private QueuedAction NextAction;
         public MirAction CurrentAction;
 
+        private float LastRunTime;
+        private float NextActionTime;
         private TimeOutGenerator mTimeOutGenerator_ForMove = null;
 
         public void Init()
@@ -279,9 +282,9 @@ namespace Mir2
             }
         }
 
-        public void DrawBody()
+        public void DrawBody() //盔甲
         {
-            int nFrameIndex = DrawFrame + ArmourOffSet;
+            int nFrameIndex = DrawFrame + ArmourOffSet; //盔甲偏移
             string mSpriteName = nFrameIndex + ".png";
             string path = Path.Combine(BodyLibrary, mSpriteName);
             Mir2Res.Instance.SetSprite(path, (mSprite)=>
@@ -291,7 +294,7 @@ namespace Mir2
             });
         }
 
-        public void DrawHead()
+        public void DrawHead() //头盔
         {
             if (!string.IsNullOrWhiteSpace(HairLibrary))
             {
@@ -306,7 +309,7 @@ namespace Mir2
             }
         }
 
-        public void DrawWeapon()
+        public void DrawWeapon() //武器
         {
             if (Weapon < 0) return;
 
@@ -333,7 +336,7 @@ namespace Mir2
             }
         }
 
-        public void DrawWeapon2()
+        public void DrawWeapon2() //武器2
         {
             if (Weapon == -1) return;
 
@@ -350,7 +353,7 @@ namespace Mir2
             }
         }
 
-        public void DrawWings()
+        public void DrawWings() //翅膀
         {
             if (WingEffect <= 0 || WingEffect >= 100) return;
             if (!string.IsNullOrWhiteSpace(WingLibrary))
@@ -366,7 +369,7 @@ namespace Mir2
             }
         }
 
-        public void DrawMount()
+        public void DrawMount()//坐骑
         {
             if (MountType < 0 || !RidingMount) return;
 
@@ -473,7 +476,6 @@ namespace Mir2
                     ActionFeed.Clear();
                     ActionFeed.Enqueue(RequestAction);
                     RequestAction = null;
-
                     SetAction();
                 }
             }
@@ -481,6 +483,9 @@ namespace Mir2
 
         public void SetAction()
         {
+            if (Time.time < NextActionTime)
+                return;
+
             if (ActionFeed.Count == 0)
             {
                 CurrentAction = MirAction.Standing;
@@ -518,17 +523,22 @@ namespace Mir2
                     case MirAction.Standing:
                     case MirAction.MountStanding:
                         SendTurnDirMsg(mData.Direction);
+                        NextActionTime = Time.time + 2.5f;
                         break;
-                    case MirAction.Walking:
-                    case MirAction.MountWalking:
-                    case MirAction.Sneek:
+                    case MirAction.Walking: //行走
+                    case MirAction.MountWalking: //山路行走
+                    case MirAction.Sneek: //蛇形走位
+                        this.LastRunTime = Time.time;
                         SendWalkMsg(mData.Direction);
                         WorldMgr.Instance.MapMgr.UpdateMap();
+                        NextActionTime = Time.time + 2.5f;
                         break;
                     case MirAction.Running:
-                    case MirAction.MountRunning:
+                    case MirAction.MountRunning: //山路跑
+                        this.LastRunTime = Time.time;
                         SendRunMsg(mData.Direction);
                         WorldMgr.Instance.MapMgr.UpdateMap();
+                        NextActionTime = Time.time + 2.5f;
                         break;
                 }
             }
@@ -617,7 +627,9 @@ namespace Mir2
                         for (int i = 1; i <= distance; i++)
                         {
                             if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
+                            {
                                 fail = true;
+                            }
                         }
 
                         if (!fail)
