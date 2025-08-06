@@ -7,6 +7,9 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
     public List<AudioSource> audioSourcePool = new List<AudioSource>();
     private AudioSource bgAudioSource;
 
+    public float Vol;
+    public float MusicVol;
+
     public void Init()
     {
         this.audioSourcePool = new List<AudioSource>();

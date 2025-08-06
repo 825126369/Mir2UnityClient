@@ -1,21 +1,18 @@
-﻿using S = ServerPackets;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using S = ServerPackets;
 
 namespace Mir2
 {
     public class UserObject : PlayerObject
     {
         public uint Id;
-
         public int HP, MP;
-
         public int AttackSpeed;
-
         public Stats Stats;
 
-        public int CurrentHandWeight,
-                      CurrentWearWeight,
-                      CurrentBagWeight;
-
+        public int CurrentHandWeight, CurrentWearWeight, CurrentBagWeight;
         public long Experience, MaxExperience;
 
         public bool TradeLocked;
@@ -25,9 +22,7 @@ namespace Mir2
         public bool RentalGoldLocked;
         public bool RentalItemLocked;
         public uint RentalGoldAmount;
-
         public SpecialItemMode ItemMode;
-
         public BaseStats CoreStats = new BaseStats(0);
 
         public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
@@ -52,7 +47,7 @@ namespace Mir2
 
         public bool Slaying, Thrusting, HalfMoon, CrossHalfMoon, DoubleSlash, TwinDrakeBlade, FlamingSword;
         public ClientMagic NextMagic;
-        public Point NextMagicLocation;
+        public Vector3Int NextMagicLocation;
         public MapObject NextMagicObject;
         public MirDirection NextMagicDirection;
         public QueuedAction QueuedAction;
@@ -216,7 +211,7 @@ namespace Mir2
                 UserItem temp = Equipment[i];
                 if (temp == null) continue;
 
-                ItemInfo realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
+                ItemInfoCFG realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
 
                 if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
                     CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);
@@ -324,7 +319,7 @@ namespace Mir2
                 UserItem temp = equipItem.Slots[i];
 
                 if (temp == null) continue;
-                ItemInfo realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
+                ItemInfoCFG realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
 
                 if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
                     CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);

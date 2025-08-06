@@ -3,7 +3,6 @@
     public static class Globals
     {
         public const string ProductCodename = "Crystal";
-
         public const int
 
             MinAccountIDLength = 3,
@@ -51,20 +50,20 @@
 
         public static Spell[] RangedSpells = new Spell[]
         {
-        Spell.FireBall,
-        Spell.ThunderBolt,
-        Spell.FireBang,
-        Spell.FireWall,
-        Spell.FrostCrunch,
-        Spell.Vampirism,
-        Spell.FlameDisruptor,
-        Spell.IceStorm,
-        Spell.MeteorStrike,
-        Spell.Blizzard,
-        Spell.SoulFireBall,
-        Spell.StraightShot,
-        Spell.ElementalShot,
-        Spell.PoisonShot
+            Spell.FireBall,
+            Spell.ThunderBolt,
+            Spell.FireBang,
+            Spell.FireWall,
+            Spell.FrostCrunch,
+            Spell.Vampirism,
+            Spell.FlameDisruptor,
+            Spell.IceStorm,
+            Spell.MeteorStrike,
+            Spell.Blizzard,
+            Spell.SoulFireBall,
+            Spell.StraightShot,
+            Spell.ElementalShot,
+            Spell.PoisonShot
         };
     }
 }

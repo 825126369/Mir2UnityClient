@@ -105,8 +105,8 @@ public class UserData
             ItemData temp = mEquipList[i];
             if (temp == null) continue;
 
-            ItemInfo mItemInfo = ExcelTableMgr.Instance.mItemList[(int)temp.nItemId];
-            ItemInfo realItem = Functions.GetRealItem(mItemInfo, (ushort)nLevel, Class, ExcelTableMgr.Instance.mItemList);
+            ItemInfoCFG mItemInfo = ExcelTableMgr.Instance.mItemList[(int)temp.nItemId];
+            ItemInfoCFG realItem = Functions.GetRealItem(mItemInfo, (ushort)nLevel, Class, ExcelTableMgr.Instance.mItemList);
 
             if (temp.nDura == 0 && realItem.ItemDurability > 0) continue;
 

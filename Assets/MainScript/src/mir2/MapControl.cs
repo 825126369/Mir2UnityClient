@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 namespace Mir2
@@ -52,6 +53,8 @@ namespace Mir2
         }
 
         public static Vector3Int MouseLocation;
+        public bool FloorValid, LightsValid;
+        protected internal bool TextureValid;
 
         public static int Direction16(Vector3Int source, Vector3Int destination)
         {
@@ -95,6 +98,50 @@ namespace Mir2
         public void SortObject(MapObject ob)
         {
             M2CellInfo[ob.MapLocation.x, ob.MapLocation.y].Sort();
+        }
+        public static MapObject GetObject(uint targetID)
+        {
+            Objects.TryGetValue(targetID, out var ob);
+            return ob;
+        }
+
+        public bool HasTarget(Vector3Int p)
+        {
+            foreach (var ob in Objects.Values)
+            {
+                if (ob.CurrentLocation == p && ob.Blocking)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool CanHalfMoon(Vector3Int p, MirDirection d)
+        {
+            d = Functions.PreviousDir(d);
+            for (int i = 0; i < 4; i++)
+            {
+                if (HasTarget(Functions.PointMove(p, d, 1))) return true;
+                d = Functions.NextDir(d);
+            }
+            return false;
+        }
+        public bool CanCrossHalfMoon(Vector3Int p)
+        {
+            MirDirection dir = MirDirection.Up;
+            for (int i = 0; i < 8; i++)
+            {
+                if (HasTarget(Functions.PointMove(p, dir, 1))) return true;
+                dir = Functions.NextDir(dir);
+            }
+            return false;
+        }
+
+        public bool ValidPoint(Vector3Int p)
+        {
+            //GameScene.Scene.ChatDialog.ReceiveChat(string.Format("cell: {0}", (M2CellInfo[p.X, p.Y].BackImage & 0x20000000)), ChatType.Hint);
+            return (M2CellInfo[p.x, p.y].BackImage & 0x20000000) == 0;
         }
 
 

@@ -6,7 +6,7 @@ namespace Mir2
     internal class ExcelTableMgr : Singleton<ExcelTableMgr>
     {
         public List<MapInfo> MapInfoList = new List<MapInfo>();
-        public List<ItemInfo> mItemList = new List<ItemInfo>();
+        public List<ItemInfoCFG> mItemList = new List<ItemInfoCFG>();
 
         public void Init()
         {
@@ -43,7 +43,7 @@ namespace Mir2
                     continue;
                 }
 
-                ItemInfo itemInfo = new ItemInfo();
+                ItemInfoCFG itemInfo = new ItemInfoCFG();
                 string[] valueList = lineList[i].Split(',');
                 for (int j = 0; j < valueList.Length; j++)
                 {

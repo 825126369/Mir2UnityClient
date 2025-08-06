@@ -250,7 +250,7 @@ namespace Mir2
             }
         }
 
-        public static ItemInfo GetRealItem(ItemInfo Origin, ushort Level, MirClass job, List<ItemInfo> ItemList)
+        public static ItemInfoCFG GetRealItem(ItemInfoCFG Origin, ushort Level, MirClass job, List<ItemInfoCFG> ItemList)
         {
             if (Origin.ClassBased && Origin.LevelBased)
                 return GetClassAndLevelBasedItem(Origin, job, Level, ItemList);
@@ -261,12 +261,12 @@ namespace Mir2
             return Origin;
         }
 
-        public static ItemInfo GetLevelBasedItem(ItemInfo Origin, ushort level, List<ItemInfo> ItemList)
+        public static ItemInfoCFG GetLevelBasedItem(ItemInfoCFG Origin, ushort level, List<ItemInfoCFG> ItemList)
         {
-            ItemInfo output = Origin;
+            ItemInfoCFG output = Origin;
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfo info = ItemList[i];
+                ItemInfoCFG info = ItemList[i];
                 if (info.ItemName.StartsWith(Origin.ItemName))
                     if ((info.ItemRequiredType == RequiredType.Level) && 
                         (info.ItemRequiredAmount <= level) && 
@@ -276,11 +276,11 @@ namespace Mir2
             }
             return output;
         }
-        public static ItemInfo GetClassBasedItem(ItemInfo Origin, MirClass job, List<ItemInfo> ItemList)
+        public static ItemInfoCFG GetClassBasedItem(ItemInfoCFG Origin, MirClass job, List<ItemInfoCFG> ItemList)
         {
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfo info = ItemList[i];
+                ItemInfoCFG info = ItemList[i];
                 if (info.ItemName.StartsWith(Origin.ItemName))
                     if (((byte)info.ItemRequiredClass == (1 << (byte)job)) && 
                         (Origin.ItemRequiredGender == info.ItemRequiredGender))
@@ -289,12 +289,12 @@ namespace Mir2
             return Origin;
         }
 
-        public static ItemInfo GetClassAndLevelBasedItem(ItemInfo Origin, MirClass job, ushort level, List<ItemInfo> ItemList)
+        public static ItemInfoCFG GetClassAndLevelBasedItem(ItemInfoCFG Origin, MirClass job, ushort level, List<ItemInfoCFG> ItemList)
         {
-            ItemInfo output = Origin;
+            ItemInfoCFG output = Origin;
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfo info = ItemList[i];
+                ItemInfoCFG info = ItemList[i];
                 if (info.ItemName.StartsWith(Origin.ItemName))
                     if ((byte)info.ItemRequiredClass == (1 << (byte)job))
                         if ((info.ItemRequiredType == RequiredType.Level) &&

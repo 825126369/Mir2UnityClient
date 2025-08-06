@@ -323,9 +323,9 @@ namespace Mir2
         public Color ApplyDrawColour()
         {
             Color drawColour = DrawColour;
-            if (drawColour == Color.grey)
+            if (drawColour == Mir2Color.Gray)
             {
-                drawColour = Color.white;
+                drawColour = Mir2Color.White;
                 //DXManager.SetGrayscale(true);
             }
             return drawColour;

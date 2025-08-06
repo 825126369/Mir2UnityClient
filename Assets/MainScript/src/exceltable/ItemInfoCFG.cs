@@ -1,23 +1,36 @@
 namespace Mir2
 {
-	public class MonsterInfo
+    public class ItemInfoCFG
 	{
-		public string MonsterName;
-		public string MonsterImage;
-		public int MonsterAI;
-		public int MonsterEffect;
-		public int MonsterLevel;
-		public int MonsterLight;
-		public int MonsterAttackSpeed;
-		public int MonsterMoveSpeed;
-		public int MonsterViewRange;
-		public int MonsterCoolEye;
-		public int MonsterExperience;
-		public bool MonsterCanPush;
-		public bool MonsterAutoRev;
-		public bool MonsterUndead;
-		public bool MonsterCanTame;
-		public string MonsterDropPath;
+		public string ItemName;
+		public ItemType ItemType;
+		public ItemGrade ItemGrade;
+		public RequiredType ItemRequiredType;
+		public RequiredGender ItemRequiredGender;
+		public RequiredClass ItemRequiredClass;
+		public ItemSet ItemSet;
+		public int ItemRandomStatsId;
+		public int ItemRequiredAmount;
+		public int ItemImage;
+		public int ItemShape;
+		public int ItemEffect;
+		public int ItemStackSize;
+		public int ItemSlots;
+		public int ItemWeight;
+		public int ItemLightRange;
+		public int ItemLightIntensity;
+		public int ItemDurability;
+		public int ItemPrice;
+		public string ItemToolTip;
+		public bool StartItem;
+		public bool NeedIdentify;
+		public bool ShowGroupPickup;
+		public bool GlobalDropNotify;
+		public bool ClassBased;
+		public bool LevelBased;
+		public bool CanMine;
+		public bool CanFastRun;
+		public bool CanAwakening;
 		public int StatMinAC;
 		public int StatMaxAC;
 		public int StatMinMAC;
@@ -76,5 +89,33 @@ namespace Mir2
 		public int StatManaPenaltyPercent;
 		public int StatTeleportManaPenaltyPercent;
 		public int StatHero;
+		public bool BindDontDeathdrop;
+		public bool BindDontDrop;
+		public bool BindDontSell;
+		public bool BindDontStore;
+		public bool BindDontTrade;
+		public bool BindDontRepair;
+		public bool BindDontUpgrade;
+		public bool BindDestroyOnDrop;
+		public bool BindBreakOnDeath;
+		public bool BindBindOnEquip;
+		public bool BindNoSRepair;
+		public bool BindNoWeddingRing;
+		public bool BindUnableToRent;
+		public bool BindUnableToDisassemble;
+		public bool BindNoMail;
+		public bool BindNoHero;
+		public bool SpecialParalize;
+		public bool SpecialTeleport;
+		public bool SpecialClearRing;
+		public bool SpecialProtection;
+		public bool SpecialRevival;
+		public bool SpecialMuscle;
+		public bool SpecialFlame;
+		public bool SpecialHealing;
+		public bool SpecialProbe;
+		public bool SpecialSkill;
+		public bool SpecialNoDuraLoss;
+		public bool SpecialBlink;
 	}
 }
