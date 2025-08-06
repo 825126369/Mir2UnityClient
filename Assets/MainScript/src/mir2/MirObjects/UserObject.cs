@@ -1,933 +1,819 @@
-using NetProtocols.Game;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Security.Claims;
-using UnityEngine;
+锘縰sing S = ServerPackets;
 
 namespace Mir2
 {
-    public class UserObject: MonoBehaviour, MapObject
+    public class UserObject : PlayerObject
     {
-        public float fSpeed = 100f;
-        bool bAtuoRun = false;
+        public uint Id;
 
-        public SpriteRenderer mEquipWeapon;
-        public SpriteRenderer mEquipWeaponEffect;
-        public SpriteRenderer mEquipWeapon2;
+        public int HP, MP;
 
-        public SpriteRenderer mEquipArmour;
-        public SpriteRenderer mEquipHead;
-        public SpriteRenderer mEquipWingEffect;
+        public int AttackSpeed;
 
-        public SpriteRenderer mEquipMount;
+        public Stats Stats;
 
-        private float InputDelay = 0.4f;
-        private float NextRunTime = 0;
+        public int CurrentHandWeight,
+                      CurrentWearWeight,
+                      CurrentBagWeight;
 
+        public long Experience, MaxExperience;
 
-        private bool bInit = false;
-        private UserData mData;
+        public bool TradeLocked;
+        public uint TradeGoldAmount;
+        public bool AllowTrade;
 
-        public string WeaponLibrary1, WeaponEffectLibrary1, WeaponLibrary2, HairLibrary, WingLibrary, MountLibrary;
-        public int Armour, Weapon, WeaponEffect, ArmourOffSet, HairOffSet, WeaponOffSet, WingOffset, MountOffset;
-        public byte Hair;
-        public byte WingEffect;
+        public bool RentalGoldLocked;
+        public bool RentalItemLocked;
+        public uint RentalGoldAmount;
 
-        public FrameSet Frames = FrameSet.Player;
-        public Frame Frame, WingFrame;
-        public int FrameIndex, FrameInterval, EffectFrameIndex, EffectFrameInterval, SlowFrameIndex;
+        public SpecialItemMode ItemMode;
 
-        string BodyLibrary;
+        public BaseStats CoreStats = new BaseStats(0);
 
-        public bool RidingMount, Sprint, FastRun, Fishing, FoundFish, Sneaking;
-        public short MountType = -1, TransformType = -1;
+        public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
 
-        public int DrawFrame, DrawWingFrame;
-        public bool SkipFrames = false;
-        public int SkipFrameUpdate;
-        public PoisonType Poison;
-        public readonly Queue<QueuedAction> ActionFeed = new Queue<QueuedAction>();
-        private QueuedAction RequestAction;
-        private QueuedAction NextAction;
-        public MirAction CurrentAction;
+        public UserItem[] Inventory = new UserItem[46], Equipment = new UserItem[14], Trade = new UserItem[10], QuestInventory = new UserItem[40];
+        public int BeltIdx = 6, HeroBeltIdx = 2;
+        public bool HasExpandedStorage = false;
+        public DateTime ExpandedStorageExpiryTime;
 
-        private float LastRunTime;
-        private float NextActionTime;
-        private TimeOutGenerator mTimeOutGenerator_ForMove = null;
+        public List<ClientMagic> Magics = new List<ClientMagic>();
+        public List<ItemSets> ItemSets = new List<ItemSets>();
+        public List<EquipmentSlot> MirSet = new List<EquipmentSlot>();
 
-        public void Init()
+        public List<ClientIntelligentCreature> IntelligentCreatures = new List<ClientIntelligentCreature>();
+        public IntelligentCreatureType SummonedCreatureType = IntelligentCreatureType.None;
+        public bool CreatureSummoned;
+        public int PearlCount = 0;
+
+        public List<ClientQuestProgress> CurrentQuests = new List<ClientQuestProgress>();
+        public List<int> CompletedQuests = new List<int>();
+        public List<ClientMail> Mail = new List<ClientMail>();
+
+        public bool Slaying, Thrusting, HalfMoon, CrossHalfMoon, DoubleSlash, TwinDrakeBlade, FlamingSword;
+        public ClientMagic NextMagic;
+        public Point NextMagicLocation;
+        public MapObject NextMagicObject;
+        public MirDirection NextMagicDirection;
+        public QueuedAction QueuedAction;
+
+        public UserObject() { }
+        public UserObject(uint objectID) : base(objectID)
         {
-            if (bInit) return;
-            bInit = true;
+            Stats = new Stats();
+        }
 
-            mData = DataCenter.Instance.UserData;
-            mTimeOutGenerator_ForMove = TimeOutGenerator.New(0.1f);
+        public virtual void Load(S.UserInformation info)
+        {
+            Id = info.RealId;
+            Name = info.Name;
+            Settings.LoadTrackedQuests(info.Name);
+            NameColour = info.NameColour;
+            GuildName = info.GuildName;
+            GuildRankName = info.GuildRank;
+            Class = info.Class;
+            Gender = info.Gender;
+            Level = info.Level;
 
-            InitPos();
-            InitEquipEffect();
+            CurrentLocation = info.Location;
+            MapLocation = info.Location;
+            GameScene.Scene.MapControl.AddObject(this);
+
+            Direction = info.Direction;
+            Hair = info.Hair;
+
+            HP = info.HP;
+            MP = info.MP;
+
+            Experience = info.Experience;
+            MaxExperience = info.MaxExperience;
+
+            LevelEffects = info.LevelEffects;
+
+            Inventory = info.Inventory;
+            Equipment = info.Equipment;
+            QuestInventory = info.QuestInventory;
+
+            HasExpandedStorage = info.HasExpandedStorage;
+            ExpandedStorageExpiryTime = info.ExpandedStorageExpiryTime;
+
+            Magics = info.Magics;
+            for (int i = 0; i < Magics.Count; i++ )
+            {
+                Magics[i].CastTime += CMain.Time;
+            }
+
+            IntelligentCreatures = info.IntelligentCreatures;
+            SummonedCreatureType = info.SummonedCreatureType;
+            CreatureSummoned = info.CreatureSummoned;
+
+            BindAllItems();
+
+            RefreshStats();
+
             SetAction();
         }
 
-        public bool HasClassWeapon
+        public void SetSlots(S.UserSlotsRefresh p)
         {
-            get
+            Inventory = p.Inventory;
+            Equipment = p.Equipment;
+
+            BindAllItems();
+            RefreshStats();
+        }
+
+        public override void SetLibraries()
+        {
+            base.SetLibraries();
+        }
+
+        public override void SetEffects()
+        {
+            base.SetEffects();
+        }
+
+        public void RefreshStats()
+        {
+            Stats.Clear();
+
+            RefreshLevelStats();
+            RefreshBagWeight();
+            RefreshEquipmentStats();
+            RefreshItemSetStats();
+            RefreshMirSetStats();
+            RefreshSkills();
+            RefreshBuffs();
+            RefreshGuildBuffs();
+
+            SetLibraries();
+            SetEffects();
+
+            Stats[Stat.HP] += (Stats[Stat.HP] * Stats[Stat.HPRatePercent]) / 100;
+            Stats[Stat.MP] += (Stats[Stat.MP] * Stats[Stat.MPRatePercent]) / 100;
+            Stats[Stat.MaxAC] += (Stats[Stat.MaxAC] * Stats[Stat.MaxACRatePercent]) / 100;
+            Stats[Stat.MaxMAC] += (Stats[Stat.MaxMAC] * Stats[Stat.MaxMACRatePercent]) / 100;
+
+            Stats[Stat.MaxDC] += (Stats[Stat.MaxDC] * Stats[Stat.MaxDCRatePercent]) / 100;
+            Stats[Stat.MaxMC] += (Stats[Stat.MaxMC] * Stats[Stat.MaxMCRatePercent]) / 100;
+            Stats[Stat.MaxSC] += (Stats[Stat.MaxSC] * Stats[Stat.MaxSCRatePercent]) / 100;
+            Stats[Stat.AttackSpeed] += (Stats[Stat.AttackSpeed] * Stats[Stat.AttackSpeedRatePercent]) / 100;
+
+            RefreshStatCaps();
+
+            if (this == User && Light < 3) Light = 3;
+            AttackSpeed = 1400 - ((Stats[Stat.AttackSpeed] * 60) + Math.Min(370, (Level * 14)));
+            if (AttackSpeed < 550) AttackSpeed = 550;
+
+            PercentHealth = (byte)(HP / (float)Stats[Stat.HP] * 100);
+
+            GameScene.Scene.Redraw();
+        }
+
+        private void RefreshLevelStats()
+        {
+            Light = 0;
+
+            foreach (var stat in CoreStats.Stats)
             {
-                switch (Weapon / Globals.ClassWeaponCount)
+                Stats[stat.Type] = stat.Calculate(Class, Level);
+            }
+        }
+
+        private void RefreshBagWeight()
+        {
+            CurrentBagWeight = 0;
+
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                UserItem item = Inventory[i];
+                if (item != null)
                 {
-                    default:
-                        return mData.Class == MirClass.Wizard || mData.Class == MirClass.Warrior || mData.Class == MirClass.Taoist;
-                    case 1:
-                        return mData.Class == MirClass.Assassin;
-                    case 2:
-                        return mData.Class == MirClass.Archer;
+                    CurrentBagWeight += item.Weight;
                 }
             }
         }
 
-        public void InitEquipEffect()
+        private void RefreshEquipmentStats()
         {
-            bool altAnim = false;
+            Weapon = -1;
+            WeaponEffect = 0;
+            Armour = 0;
+            WingEffect = 0;
+            MountType = -1;
 
-            switch (mData.Class)
+            CurrentWearWeight = 0;
+            CurrentHandWeight = 0;
+
+            ItemMode = SpecialItemMode.None;
+            FastRun = false;
+
+            ItemSets.Clear();
+            MirSet.Clear();
+
+            for (int i = 0; i < Equipment.Length; i++)
             {
-                case MirClass.Archer:
-                    {
-                        if (HasClassWeapon)
-                        {
-                            switch (CurrentAction)
-                            {
-                                case MirAction.Walking:
-                                case MirAction.Running:
-                                case MirAction.AttackRange1:
-                                case MirAction.AttackRange2:
-                                    altAnim = true;
-                                    break;
-                            }
-                        }
+                UserItem temp = Equipment[i];
+                if (temp == null) continue;
 
-                        if (CurrentAction == MirAction.Jump) altAnim = true;
-                        if (altAnim)
-                        {
-                            BodyLibrary = Armour < Mir2Res.ARArmours.Length ? Mir2Res.ARArmours[Armour] : Mir2Res.ARArmours[0];
-                            HairLibrary = Hair < Mir2Res.ARHair.Length ? Mir2Res.ARHair[Hair] : null;
-                        }
-                        else
-                        {
-                            BodyLibrary = Armour < Mir2Res.CArmours.Length ? Mir2Res.CArmours[Armour] : Mir2Res.CArmours[0];
-                            HairLibrary = Hair < Mir2Res.CHair.Length ? Mir2Res.CHair[Hair] : null;
-                        }
+                ItemInfo realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
 
-
-                        if (HasClassWeapon)
-                        {
-                            int Index = Weapon - 200;
-
-                            if (altAnim)
-                                WeaponLibrary2 = Index < Mir2Res.ARWeaponsS.Length ? Mir2Res.ARWeaponsS[Index] : null;
-                            else
-                                WeaponLibrary2 = Index < Mir2Res.ARWeapons.Length ? Mir2Res.ARWeapons[Index] : null;
-
-                            WeaponLibrary1 = null;
-                        }
-                        else
-                        {
-                            if (Weapon >= 0)
-                            {
-                                WeaponLibrary1 = Weapon < Mir2Res.CWeapons.Length ? Mir2Res.CWeapons[Weapon] : null;
-                                if (WeaponEffect > 0)
-                                    WeaponEffectLibrary1 = WeaponEffect < Mir2Res.CWeaponEffect.Length ? Mir2Res.CWeaponEffect[WeaponEffect] : null;
-                                else
-                                    WeaponEffectLibrary1 = null;
-
-                                WeaponLibrary2 = null;
-                            }
-                            else
-                            {
-                                WeaponLibrary1 = null;
-                                WeaponEffectLibrary1 = null;
-                                WeaponLibrary2 = null;
-                            }
-                        }
-
-                        if (WingEffect > 0 && WingEffect < 100)
-                        {
-                            if (altAnim)
-                                WingLibrary = (WingEffect - 1) < Mir2Res.ARHumEffect.Length ? Mir2Res.ARHumEffect[WingEffect - 1] : null;
-                            else
-                                WingLibrary = (WingEffect - 1) < Mir2Res.CHumEffect.Length ? Mir2Res.CHumEffect[WingEffect - 1] : null;
-                        }
-
-                        ArmourOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 352 : 808;
-                        HairOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 352 : 808;
-                        WeaponOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 352 : 416;
-                        WingOffset = mData.Gender == MirGender.Male ? 0 : altAnim ? 352 : 840;
-                        MountOffset = 0;
-                    }
-                    break;
-                case MirClass.Assassin:
-                    {
-                        if (HasClassWeapon || Weapon < 0)
-                        {
-                            switch (CurrentAction)
-                            {
-                                case MirAction.Standing:
-                                case MirAction.Stance:
-                                case MirAction.Walking:
-                                case MirAction.Running:
-                                case MirAction.Die:
-                                case MirAction.Struck:
-                                case MirAction.Attack1:
-                                case MirAction.Attack2:
-                                case MirAction.Attack3:
-                                case MirAction.Attack4:
-                                case MirAction.Sneek:
-                                case MirAction.Spell:
-                                case MirAction.DashAttack:
-                                    altAnim = true;
-                                    break;
-                            }
-                        }
-
-                        if (altAnim)
-                        {
-                            BodyLibrary = Armour < Mir2Res.AArmours.Length ? Mir2Res.AArmours[Armour] : Mir2Res.AArmours[0];
-                            HairLibrary = Hair < Mir2Res.AHair.Length ? Mir2Res.AHair[Hair] : null;
-                        }
-                        else
-                        {
-                            BodyLibrary = Armour < Mir2Res.CArmours.Length ? Mir2Res.CArmours[Armour] : Mir2Res.CArmours[0];
-                            HairLibrary = Hair < Mir2Res.CHair.Length ? Mir2Res.CHair[Hair] : null;
-                        }
-
-                        if (HasClassWeapon)
-                        {
-                            int Index = Weapon - 100;
-
-                            WeaponLibrary1 = Index < Mir2Res.AWeaponsL.Length ? Mir2Res.AWeaponsR[Index] : null;
-                            WeaponLibrary2 = Index < Mir2Res.AWeaponsR.Length ? Mir2Res.AWeaponsL[Index] : null;
-                        }
-                        else
-                        {
-                            if (Weapon >= 0)
-                            {
-                                WeaponLibrary1 = Weapon < Mir2Res.CWeapons.Length ? Mir2Res.CWeapons[Weapon] : null;
-                                if (WeaponEffect > 0)
-                                    WeaponEffectLibrary1 = WeaponEffect < Mir2Res.CWeaponEffect.Length ? Mir2Res.CWeaponEffect[WeaponEffect] : null;
-                                else
-                                    WeaponEffectLibrary1 = null;
-
-                                WeaponLibrary2 = null;
-                            }
-                            else
-                            {
-                                WeaponLibrary1 = null;
-                                WeaponEffectLibrary1 = null;
-                                WeaponLibrary2 = null;
-                            }
-                        }
-
-                        if (WingEffect > 0 && WingEffect < 100)
-                        {
-                            if (altAnim)
-                                WingLibrary = (WingEffect - 1) < Mir2Res.AHumEffect.Length ? Mir2Res.AHumEffect[WingEffect - 1] : null;
-                            else
-                                WingLibrary = (WingEffect - 1) < Mir2Res.CHumEffect.Length ? Mir2Res.CHumEffect[WingEffect - 1] : null;
-                        }
-
-                        ArmourOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 512 : 808;
-                        HairOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 512 : 808;
-                        WeaponOffSet = mData.Gender == MirGender.Male ? 0 : altAnim ? 512 : 416;
-                        WingOffset = mData.Gender == MirGender.Male ? 0 : altAnim ? 544 : 840;
-                        MountOffset = 0;
-                    }
-                    break;
-                case MirClass.Warrior:
-                case MirClass.Taoist:
-                case MirClass.Wizard:
-                    {
-                        BodyLibrary = Armour < Mir2Res.CArmours.Length ? Mir2Res.CArmours[Armour] : Mir2Res.CArmours[0];
-                        HairLibrary = Hair < Mir2Res.CHair.Length ? Mir2Res.CHair[Hair] : null;
-
-                        if (Weapon >= 0)
-                        {
-                            WeaponLibrary1 = Weapon < Mir2Res.CWeapons.Length ? Mir2Res.CWeapons[Weapon] : null;
-                            if (WeaponEffect > 0)
-                                WeaponEffectLibrary1 = WeaponEffect < Mir2Res.CWeaponEffect.Length ? Mir2Res.CWeaponEffect[WeaponEffect] : null;
-                            else
-                                WeaponEffectLibrary1 = null;
-                        }
-                        else
-                        {
-                            WeaponLibrary1 = null;
-                            WeaponEffectLibrary1 = null;
-                            WeaponLibrary2 = null;
-                        }
-
-                        if (WingEffect > 0 && WingEffect < 100)
-                        {
-                            WingLibrary = (WingEffect - 1) < Mir2Res.CHumEffect.Length ? Mir2Res.CHumEffect[WingEffect - 1] : null;
-                        }
-
-
-                        ArmourOffSet = mData.Gender == MirGender.Male ? 0 : 808;
-                        HairOffSet = mData.Gender == MirGender.Male ? 0 : 808;
-                        WeaponOffSet = mData.Gender == MirGender.Male ? 0 : 416;
-                        WingOffset = mData.Gender == MirGender.Male ? 0 : 840;
-                        MountOffset = 0;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        public void DrawBody() //盔甲
-        {
-            int nFrameIndex = DrawFrame + ArmourOffSet; //盔甲偏移
-            string mSpriteName = nFrameIndex + ".png";
-            string path = Path.Combine(BodyLibrary, mSpriteName);
-            Mir2Res.Instance.SetSprite(path, (mSprite)=>
-            {
-                mEquipArmour.sprite = mSprite;
-                mEquipArmour.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-            });
-        }
-
-        public void DrawHead() //头盔
-        {
-            if (!string.IsNullOrWhiteSpace(HairLibrary))
-            {
-                int nFrameIndex = DrawFrame + HairOffSet;
-                string mSpriteName = nFrameIndex + ".png";
-                string path = Path.Combine(HairLibrary, mSpriteName);
-                Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                {
-                    mEquipHead.sprite = mSprite;
-                    mEquipHead.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                });
-            }
-        }
-
-        public void DrawWeapon() //武器
-        {
-            if (Weapon < 0) return;
-
-            if (!string.IsNullOrWhiteSpace(WeaponLibrary1))
-            {
-                int nFrameIndex = DrawFrame + WeaponOffSet;
-                string mSpriteName = nFrameIndex + ".png";
-                string path = Path.Combine(WeaponLibrary1, mSpriteName);
-                Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                {
-                    mEquipWeapon.sprite = mSprite;
-                    mEquipWeapon.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                });
-
-                if (!string.IsNullOrWhiteSpace(WeaponEffectLibrary1))
-                {
-                    path = Path.Combine(WeaponEffectLibrary1, mSpriteName);
-                    Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                    {
-                        mEquipWeaponEffect.sprite = mSprite;
-                        mEquipWeaponEffect.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                    });
-                }
-            }
-        }
-
-        public void DrawWeapon2() //武器2
-        {
-            if (Weapon == -1) return;
-
-            if (!string.IsNullOrWhiteSpace(WeaponLibrary2))
-            {
-                int nFrameIndex = DrawFrame + WeaponOffSet;
-                string mSpriteName = nFrameIndex + ".png";
-                string path = Path.Combine(WeaponLibrary2, mSpriteName);
-                Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                {
-                    mEquipWeapon2.sprite = mSprite;
-                    mEquipWeapon2.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                });
-            }
-        }
-
-        public void DrawWings() //翅膀
-        {
-            if (WingEffect <= 0 || WingEffect >= 100) return;
-            if (!string.IsNullOrWhiteSpace(WingLibrary))
-            {
-                int nFrameIndex = DrawWingFrame + WingOffset;
-                string mSpriteName = nFrameIndex + ".png";
-                string path = Path.Combine(WingLibrary, mSpriteName);
-                Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                {
-                    mEquipWingEffect.sprite = mSprite;
-                    mEquipWingEffect.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                });
-            }
-        }
-
-        public void DrawMount()//坐骑
-        {
-            if (MountType < 0 || !RidingMount) return;
-
-            if (!string.IsNullOrWhiteSpace(MountLibrary))
-            {
-                int nFrameIndex = DrawFrame - 416 + MountOffset;
-                string mSpriteName = nFrameIndex + ".png";
-                string path = Path.Combine(MountLibrary, mSpriteName);
-                Mir2Res.Instance.SetSprite(path, (mSprite) =>
-                {
-                    mEquipMount.sprite = mSprite;
-                    mEquipMount.GetComponent<CrystalMir2TextureInfo>().SetUrl(path);
-                });
-            }
-        }
-
-        public void Draw()
-        {
-            mEquipMount.sprite = null;
-            mEquipWeapon.sprite = null;
-            mEquipArmour.sprite = null;
-            mEquipHead.sprite = null;
-            mEquipWeapon2.sprite = null;
-            mEquipWeaponEffect.sprite = null;
-            mEquipWingEffect.sprite = null;
-
-            mEquipMount.sortingOrder = 0;
-
-            if (mData.Direction == MirDirection.Left || mData.Direction == MirDirection.Up || mData.Direction == MirDirection.UpLeft || mData.Direction == MirDirection.DownLeft)
-            {
-                mEquipWeapon.sortingOrder = 1;
-            }
-            else
-            {
-                mEquipWeapon2.sortingOrder = 1;
-            }
-
-            mEquipArmour.sortingOrder = 3;
-            mEquipHead.sortingOrder = 4;
-
-            if (mData.Direction == MirDirection.UpRight || mData.Direction == MirDirection.Right || mData.Direction == MirDirection.DownRight || mData.Direction == MirDirection.Down)
-            {
-                mEquipWeapon.sortingOrder = 5;
-            }
-            else
-            {
-                mEquipWeapon2.sortingOrder = 5;
-            }
-            
-            DrawMount();
-            DrawBody();
-            DrawHead();
-            DrawWeapon();
-            DrawWeapon2();
-        }
-
-        public int UpdateFrame(bool skip = true)
-        {
-            if (Frame == null) return 0;
-            if (Poison.HasFlag(PoisonType.Slow) && !skip)
-            {
-                SkipFrameUpdate++;
-                if (SkipFrameUpdate == 2)
-                    SkipFrameUpdate = 0;
+                if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
+                    CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);
                 else
-                    return FrameIndex;
+                    CurrentWearWeight = (int)Math.Min(int.MaxValue, CurrentWearWeight + temp.Weight);
+
+                if (temp.CurrentDura == 0 && realItem.Durability > 0) continue;
+
+                if (realItem.Type == ItemType.Armour)
+                {
+                    Armour = realItem.Shape;
+                    WingEffect = realItem.Effect;
+                }
+                if (realItem.Type == ItemType.Weapon)
+                {
+                    Weapon = realItem.Shape;
+                    WeaponEffect = realItem.Effect;
+                }
+
+                if (realItem.Type == ItemType.Mount)
+                {
+                    MountType = realItem.Shape;
+                }
+
+                if (temp.Info.IsFishingRod) continue;
+
+                Stats.Add(realItem.Stats);
+                Stats.Add(temp.AddedStats);
+
+                Stats[Stat.MinAC] += temp.Awake.GetAC();
+                Stats[Stat.MaxAC] += temp.Awake.GetAC();
+                Stats[Stat.MinMAC] += temp.Awake.GetMAC();
+                Stats[Stat.MaxMAC] += temp.Awake.GetMAC();
+
+                Stats[Stat.MinDC] += temp.Awake.GetDC();
+                Stats[Stat.MaxDC] += temp.Awake.GetDC();
+                Stats[Stat.MinMC] += temp.Awake.GetMC();
+                Stats[Stat.MaxMC] += temp.Awake.GetMC();
+                Stats[Stat.MinSC] += temp.Awake.GetSC();
+                Stats[Stat.MaxSC] += temp.Awake.GetSC();
+
+                Stats[Stat.HP] += temp.Awake.GetHPMP();
+                Stats[Stat.MP] += temp.Awake.GetHPMP();
+
+                if (realItem.Light > Light) Light = realItem.Light;
+                if (realItem.Unique != SpecialItemMode.None)
+                {
+                    ItemMode |= realItem.Unique;
+                }
+
+                if (realItem.CanFastRun)
+                {
+                    FastRun = true;
+                }
+
+                RefreshSocketStats(temp);
+
+                if (realItem.Set == ItemSet.None) continue;
+
+                ItemSets itemSet = ItemSets.Where(set => set.Set == realItem.Set && !set.Type.Contains(realItem.Type) && !set.SetComplete).FirstOrDefault();
+
+                if (itemSet != null)
+                {
+                    itemSet.Type.Add(realItem.Type);
+                    itemSet.Count++;
+                }
+                else
+                {
+                    ItemSets.Add(new ItemSets { Count = 1, Set = realItem.Set, Type = new List<ItemType> { realItem.Type } });
+                }
+
+                //Mir Set
+                if (realItem.Set == ItemSet.Mir)
+                {
+                    if (!MirSet.Contains((EquipmentSlot)i))
+                        MirSet.Add((EquipmentSlot)i);
+                }
             }
-            if (Frame.Reverse) return Math.Abs(--FrameIndex);
 
-            return ++FrameIndex;
-        }
-
-        public virtual void ProcessFrames()
-        {
-            if (Frame == null) return;
-
-            switch (CurrentAction)
+            if (ItemMode.HasFlag(SpecialItemMode.Muscle))
             {
-                case MirAction.Walking:
-                case MirAction.Running:
-                case MirAction.MountWalking:
-                case MirAction.MountRunning:
-                case MirAction.Sneek:
-                case MirAction.DashAttack:
-                    if (mTimeOutGenerator_ForMove.orTimeOut())
-                    {
-                        if (SkipFrames) UpdateFrame();
-                        if (UpdateFrame(false) >= Frame.Count)
-                        {
-                            FrameIndex = Frame.Count - 1;
-                            SetAction();
-                        }
-                    }
-                    break;
+                Stats[Stat.BagWeight] = Stats[Stat.BagWeight] * 2;
+                Stats[Stat.WearWeight] = Stats[Stat.WearWeight] * 2;
+                Stats[Stat.HandWeight] = Stats[Stat.HandWeight] * 2;
             }
         }
 
-        public void AddAction()
+
+        private void RefreshSocketStats(UserItem equipItem)
         {
-            if (RequestAction != null)
+            if (equipItem == null) return;
+
+            if (equipItem.Info.Type == ItemType.Weapon && equipItem.Info.IsFishingRod)
+            {
+                return;
+            }
+
+            if (equipItem.Info.Type == ItemType.Mount && !RidingMount)
+            {
+                return;
+            }
+
+            for (int i = 0; i < equipItem.Slots.Length; i++)
+            {
+                UserItem temp = equipItem.Slots[i];
+
+                if (temp == null) continue;
+                ItemInfo realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
+
+                if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
+                    CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);
+                else
+                    CurrentWearWeight = (int)Math.Min(int.MaxValue, CurrentWearWeight + temp.Weight);
+
+                if (temp.CurrentDura == 0 && realItem.Durability > 0) continue;
+
+                Stats.Add(realItem.Stats);
+                Stats.Add(temp.AddedStats);
+        
+                if (realItem.Light > Light) Light = realItem.Light;
+                if (realItem.Unique != SpecialItemMode.None)
+                {
+                    ItemMode |= realItem.Unique;
+                }
+            }
+        }
+
+        private void RefreshItemSetStats()
+        {
+            bool hasSmashSetBonus = false;     // Flag for Smash set AttackSpeed bonus
+            bool hasPuritySetBonus = false;    // Flag for Purity set Holy bonus
+            bool hasHwanDevilSetBonus = false; // Flag for HwanDevil set Weight bonuses
+
+            foreach (var s in ItemSets)
+            {
+                if ((s.Set == ItemSet.Smash) && (s.Type.Contains(ItemType.Ring)) && (s.Type.Contains(ItemType.Bracelet)))
+                {
+                    if (!hasSmashSetBonus)
+                    {
+                        Stats[Stat.AttackSpeed] += 2;
+                        hasSmashSetBonus = true;
+                    }
+                }
+
+                if ((s.Set == ItemSet.Purity) && (s.Type.Contains(ItemType.Ring)) && (s.Type.Contains(ItemType.Bracelet)))
+                {
+                    if (!hasPuritySetBonus)
+                    {
+                        Stats[Stat.Holy] += 3;
+                        hasPuritySetBonus = true;
+                    }
+                }
+
+                if ((s.Set == ItemSet.HwanDevil) && (s.Type.Contains(ItemType.Ring)) && (s.Type.Contains(ItemType.Bracelet)))
+                {
+                    if (!hasHwanDevilSetBonus)
+                    {
+                        Stats[Stat.WearWeight] += 5;
+                        Stats[Stat.BagWeight] += 20;
+                        hasHwanDevilSetBonus = true;
+                    }
+                }
+                if ((s.Set == ItemSet.DarkGhost) && (s.Type.Contains(ItemType.Necklace)) && (s.Type.Contains(ItemType.Bracelet)))
+                {
+                    Stats[Stat.HP] += 25;
+                }
+
+                if (!s.SetComplete) continue;
+
+                switch (s.Set)
+                {
+                    case ItemSet.Mundane:
+                        Stats[Stat.HP] += 50;
+                        break;
+                    case ItemSet.NokChi:
+                        Stats[Stat.MP] += 50;
+                        break;
+                    case ItemSet.TaoProtect:
+                        Stats[Stat.HP] += 30;
+                        Stats[Stat.MP] += 30;
+                        break;
+                    case ItemSet.RedOrchid:
+                        Stats[Stat.Accuracy] += 2;
+                        break;
+                    case ItemSet.RedFlower:
+                        Stats[Stat.HP] += 50;
+                        Stats[Stat.MP] -= 50;
+                        break;
+                    case ItemSet.Smash:
+                        Stats[Stat.MinDC] += 1;
+                        Stats[Stat.MaxDC] += 3;
+                        break;
+                    case ItemSet.HwanDevil:
+                        Stats[Stat.MinMC] += 1;
+                        Stats[Stat.MaxMC] += 2;
+                        break;
+                    case ItemSet.Purity:
+                        Stats[Stat.MinSC] += 1;
+                        Stats[Stat.MaxSC] += 2;
+                        break;
+                    case ItemSet.FiveString:
+                        Stats[Stat.HP] += (int)(((double)Stats[Stat.HP] / 100) * 30);
+                        Stats[Stat.MinAC] += 2;
+                        Stats[Stat.MaxAC] += 2;
+                        break;
+                    case ItemSet.Spirit:
+                        Stats[Stat.MinDC] += 2;
+                        Stats[Stat.MaxDC] += 5;
+                        Stats[Stat.AttackSpeed] += 2;
+                        break;
+                    case ItemSet.Bone:
+                        Stats[Stat.MaxAC] += 2;
+                        Stats[Stat.MaxMC] += 1;
+                        Stats[Stat.MaxSC] += 1;
+                        break;
+                    case ItemSet.Bug:
+                        Stats[Stat.MaxDC] += 1;
+                        Stats[Stat.MaxMC] += 1;
+                        Stats[Stat.MaxSC] += 1;
+                        Stats[Stat.MaxMAC] += 1;
+                        Stats[Stat.PoisonResist] += 1;
+                        break;
+                    case ItemSet.WhiteGold:
+                        Stats[Stat.MaxDC] += 2;
+                        Stats[Stat.MaxAC] += 2;
+                        break;
+                    case ItemSet.WhiteGoldH:
+                        Stats[Stat.MaxDC] += 3;
+                        Stats[Stat.HP] += 30;
+                        Stats[Stat.AttackSpeed] += 2;
+                        break;
+                    case ItemSet.RedJade:
+                        Stats[Stat.MaxMC] += 2;
+                        Stats[Stat.MaxMAC] += 2;
+                        break;
+                    case ItemSet.RedJadeH:
+                        Stats[Stat.MaxMC] += 2;
+                        Stats[Stat.MP] += 40;
+                        Stats[Stat.Agility] += 2;
+                        break;
+                    case ItemSet.Nephrite:
+                        Stats[Stat.MaxSC] += 2;
+                        Stats[Stat.MaxAC] += 1;
+                        Stats[Stat.MaxMAC] += 1;
+                        break;
+                    case ItemSet.NephriteH:
+                        Stats[Stat.MaxSC] += 2;
+                        Stats[Stat.HP] += 15;
+                        Stats[Stat.MP] += 20;
+                        Stats[Stat.Holy] += 1;
+                        Stats[Stat.Accuracy] += 1;
+                        break;
+                    case ItemSet.Whisker1:
+                        Stats[Stat.MaxDC] += 1;
+                        Stats[Stat.BagWeight] += 25;
+                        break;
+                    case ItemSet.Whisker2:
+                        Stats[Stat.MaxMC] += 1;
+                        Stats[Stat.BagWeight] += 17;
+                        break;
+                    case ItemSet.Whisker3:
+                        Stats[Stat.MaxSC] += 1;
+                        Stats[Stat.BagWeight] += 17;
+                        break;
+                    case ItemSet.Whisker4:
+                        Stats[Stat.MaxDC] += 1;
+                        Stats[Stat.BagWeight] += 20;
+                        break;
+                    case ItemSet.Whisker5:
+                        Stats[Stat.MaxDC] += 1;
+                        Stats[Stat.BagWeight] += 17;
+                        break;
+                    case ItemSet.Hyeolryong:
+                        Stats[Stat.MaxSC] += 2;
+                        Stats[Stat.HP] += 15;
+                        Stats[Stat.MP] += 20;
+                        Stats[Stat.Holy] += 1;
+                        Stats[Stat.Accuracy] += 1;
+                        break;
+                    case ItemSet.Monitor:
+                        Stats[Stat.MagicResist] += 1;
+                        Stats[Stat.PoisonResist] += 1;
+                        break;
+                    case ItemSet.Oppressive:
+                        Stats[Stat.MaxAC] += 1;
+                        Stats[Stat.Agility] += 1;
+                        break;
+                    case ItemSet.BlueFrost:
+                        Stats[Stat.MinDC] += 1;
+                        Stats[Stat.MaxDC] += 1;
+                        Stats[Stat.MinMC] += 1;
+                        Stats[Stat.MaxMC] += 1;
+                        Stats[Stat.HandWeight] += 1;
+                        Stats[Stat.WearWeight] += 2;
+                        break;
+                    case ItemSet.BlueFrostH:
+                        Stats[Stat.MinDC] += 1;
+                        Stats[Stat.MaxDC] += 2;
+                        Stats[Stat.MaxMC] += 2;
+                        Stats[Stat.Accuracy] += 1;
+                        Stats[Stat.HP] += 50;
+                        break;
+                    case ItemSet.DarkGhost:
+                        Stats[Stat.MP] += 25;
+                        Stats[Stat.AttackSpeed] += 2;
+                        break;
+                }
+            }
+        }
+
+        private void RefreshMirSetStats()
+        {
+            if (MirSet.Count() == 10)
+            {
+                Stats[Stat.MaxAC] += 1;
+                Stats[Stat.MaxMAC] += 1;
+                Stats[Stat.BagWeight] += 70;
+                Stats[Stat.Luck] += 2;
+                Stats[Stat.AttackSpeed] += 2;
+                Stats[Stat.HP] += 70;
+                Stats[Stat.MP] += 80;
+                Stats[Stat.MagicResist] += 6;
+                Stats[Stat.PoisonResist] += 6;
+            }
+
+            if (MirSet.Contains(EquipmentSlot.RingL) && MirSet.Contains(EquipmentSlot.RingR))
+            {
+                Stats[Stat.MaxMAC] += 1;
+                Stats[Stat.MaxAC] += 1;
+            }
+            if (MirSet.Contains(EquipmentSlot.BraceletL) && MirSet.Contains(EquipmentSlot.BraceletR))
+            {
+                Stats[Stat.MinAC] += 1;
+                Stats[Stat.MinMAC] += 1;
+            }
+            if ((MirSet.Contains(EquipmentSlot.RingL) | MirSet.Contains(EquipmentSlot.RingR)) && (MirSet.Contains(EquipmentSlot.BraceletL) | MirSet.Contains(EquipmentSlot.BraceletR)) && MirSet.Contains(EquipmentSlot.Necklace))
+            {
+                Stats[Stat.MaxMAC] += 1;
+                Stats[Stat.MaxAC] += 1;
+                Stats[Stat.BagWeight] += 30;
+                Stats[Stat.WearWeight] += 17;
+            }
+            if (MirSet.Contains(EquipmentSlot.RingL) && MirSet.Contains(EquipmentSlot.RingR) && MirSet.Contains(EquipmentSlot.BraceletL) && MirSet.Contains(EquipmentSlot.BraceletR) && MirSet.Contains(EquipmentSlot.Necklace))
+            {
+                Stats[Stat.MaxMAC] += 1;
+                Stats[Stat.MaxAC] += 1;
+                Stats[Stat.BagWeight] += 20;
+                Stats[Stat.WearWeight] += 10;
+            }
+            if (MirSet.Contains(EquipmentSlot.Armour) && MirSet.Contains(EquipmentSlot.Helmet) && MirSet.Contains(EquipmentSlot.Weapon))
+            {
+                Stats[Stat.MaxDC] += 2;
+                Stats[Stat.MaxMC] += 1;
+                Stats[Stat.MaxSC] += 1;
+                Stats[Stat.Agility] += 1;
+            }
+            if (MirSet.Contains(EquipmentSlot.Armour) && MirSet.Contains(EquipmentSlot.Boots) && MirSet.Contains(EquipmentSlot.Belt))
+            {
+                Stats[Stat.MaxDC] += 1;
+                Stats[Stat.MaxMC] += 1;
+                Stats[Stat.MaxSC] += 1;
+                Stats[Stat.HandWeight] += 17;
+            }
+            if (MirSet.Contains(EquipmentSlot.Armour) && MirSet.Contains(EquipmentSlot.Boots) && MirSet.Contains(EquipmentSlot.Belt) && MirSet.Contains(EquipmentSlot.Helmet) && MirSet.Contains(EquipmentSlot.Weapon))
+            {
+                Stats[Stat.MinDC] += 1;
+                Stats[Stat.MaxDC] += 1;
+                Stats[Stat.MinMC] += 1;
+                Stats[Stat.MaxMC] += 1;
+                Stats[Stat.MinSC] += 1;
+                Stats[Stat.MaxSC] += 1;
+                Stats[Stat.HandWeight] += 17;
+            }
+        }
+
+        private void RefreshSkills()
+        {
+            int[] spiritSwordLvPlus = { 0, 3, 5, 8 };
+            int[] slayingLvPlus = {5, 6, 7, 8};
+            for (int i = 0; i < Magics.Count; i++)
+            {
+                ClientMagic magic = Magics[i];
+                switch (magic.Spell)
+                {
+                    case Spell.Fencing:
+                        Stats[Stat.Accuracy] += magic.Level * 3;
+                        //Stats[Stat.MaxAC] += (magic.Level + 1) * 3;
+                        break;
+                    case Spell.Slaying:
+                    // case Spell.FatalSword:
+                        Stats[Stat.Accuracy] += magic.Level;
+                        Stats[Stat.MaxDC] += slayingLvPlus[magic.Level];
+                        break;
+                    case Spell.SpiritSword:
+                        Stats[Stat.Accuracy] += spiritSwordLvPlus[magic.Level];
+                        // Stats[Stat.Accuracy] += magic.Level;
+                        // Stats[Stat.MaxDC] += (int)(Stats[Stat.MaxSC] * (magic.Level + 1) * 0.1F);
+                        break;
+                }
+            }
+        }
+
+        private void RefreshBuffs()
+        {
+            TransformType = -1;
+            BuffDialog dialog = GetBuffDialog;
+
+            for (int i = 0; i < dialog.Buffs.Count; i++)
+            {
+                ClientBuff buff = dialog.Buffs[i];
+
+                Stats.Add(buff.Stats);
+
+                switch (buff.Type)
+                {
+                    case BuffType.SwiftFeet:
+                        Sprint = true;
+                        break;
+                    case BuffType.Transform:
+                        if (buff.Paused) continue;
+                        TransformType = (short)buff.Values[0];
+                        FastRun = true;
+                        break;
+                }
+            }
+        }
+
+        public void RefreshGuildBuffs()
+        {
+            if (User != this) return;
+            if (GameScene.Scene.GuildDialog == null) return;
+            for (int i = 0; i < GameScene.Scene.GuildDialog.EnabledBuffs.Count; i++)
+            {
+                GuildBuff buff = GameScene.Scene.GuildDialog.EnabledBuffs[i];
+                if (buff == null) continue;
+                if (!buff.Active) continue;
+
+                if (buff.Info == null)
+                {
+                    buff.Info = GameScene.Scene.GuildDialog.FindGuildBuffInfo(buff.Id);
+                }
+
+                if (buff.Info == null) continue;
+
+                Stats.Add(buff.Info.Stats);
+            }
+        }
+
+        public void RefreshStatCaps()
+        {
+            foreach (var cap in CoreStats.Caps.Values)
+            {
+                Stats[cap.Key] = Math.Min(cap.Value, Stats[cap.Key]);
+            }
+
+            Stats[Stat.HP] = Math.Max(0, Stats[Stat.HP]);
+            Stats[Stat.MP] = Math.Max(0, Stats[Stat.MP]);
+
+            Stats[Stat.MinAC] = Math.Max(0, Stats[Stat.MinAC]);
+            Stats[Stat.MaxAC] = Math.Max(0, Stats[Stat.MaxAC]);
+            Stats[Stat.MinMAC] = Math.Max(0, Stats[Stat.MinMAC]);
+            Stats[Stat.MaxMAC] = Math.Max(0, Stats[Stat.MaxMAC]);
+            Stats[Stat.MinDC] = Math.Max(0, Stats[Stat.MinDC]);
+            Stats[Stat.MaxDC] = Math.Max(0, Stats[Stat.MaxDC]);
+            Stats[Stat.MinMC] = Math.Max(0, Stats[Stat.MinMC]);
+            Stats[Stat.MaxMC] = Math.Max(0, Stats[Stat.MaxMC]);
+            Stats[Stat.MinSC] = Math.Max(0, Stats[Stat.MinSC]);
+            Stats[Stat.MaxSC] = Math.Max(0, Stats[Stat.MaxSC]);
+
+            Stats[Stat.MinDC] = Math.Min(Stats[Stat.MinDC], Stats[Stat.MaxDC]);
+            Stats[Stat.MinMC] = Math.Min(Stats[Stat.MinMC], Stats[Stat.MaxMC]);
+            Stats[Stat.MinSC] = Math.Min(Stats[Stat.MinSC], Stats[Stat.MaxSC]);
+        }
+
+        public void BindAllItems()
+        {
+            for (int i = 0; i < Inventory.Length; i++)
+            {
+                if (Inventory[i] == null) continue;
+                GameScene.Bind(Inventory[i]);
+            }
+
+            for (int i = 0; i < Equipment.Length; i++)
+            {
+                if (Equipment[i] == null) continue;
+                GameScene.Bind(Equipment[i]);
+            }
+
+            for (int i = 0; i < QuestInventory.Length; i++)
+            {
+                if (QuestInventory[i] == null) continue;
+                GameScene.Bind(QuestInventory[i]);
+            }
+        }
+
+
+        public ClientMagic GetMagic(Spell spell)
+        {
+            for (int i = 0; i < Magics.Count; i++)
+            {
+                ClientMagic magic = Magics[i];
+                if (magic.Spell != spell) continue;
+                return magic;
+            }
+
+            return null;
+        }
+
+
+        public void GetMaxGain(UserItem item)
+        {
+            int freeSpace = FreeSpace(Inventory);
+
+            if (freeSpace > 0)
+            {
+                return;
+            }
+
+            ushort canGain = 0;
+
+            foreach (UserItem inventoryItem in Inventory)
+            {
+                if (inventoryItem.Info != item.Info)
+                {
+                    continue;
+                }
+
+                int availableStack = inventoryItem.Info.StackSize - inventoryItem.Count;
+
+                if (availableStack == 0)
+                {
+                    continue;
+                }
+
+                canGain += (ushort)availableStack;
+
+                if (canGain >= item.Count)
+                {
+                    return;
+                }
+            }
+
+            if (canGain == 0)
+            {
+                item.Count = 0;
+                return;
+            }
+
+            item.Count = canGain;
+        }
+        private int FreeSpace(UserItem[] array)
+        {
+            int freeSlots = 0;
+
+            foreach (UserItem slot in array)
+            {
+                if (slot == null)
+                {
+                    freeSlots++;
+                }
+            }
+
+            return freeSlots;
+        }
+
+        public override void SetAction()
+        {
+            if (QueuedAction != null && !GameScene.Observing)
             {
                 if ((ActionFeed.Count == 0) || (ActionFeed.Count == 1 && NextAction.Action == MirAction.Stance))
                 {
                     ActionFeed.Clear();
-                    ActionFeed.Enqueue(RequestAction);
-                    RequestAction = null;
-                    SetAction();
-                }
-            }
-        }
-
-        public void SetAction()
-        {
-            if (Time.time < NextActionTime)
-                return;
-
-            if (ActionFeed.Count == 0)
-            {
-                CurrentAction = MirAction.Standing;
-
-                Frames.TryGetValue(CurrentAction, out Frame);
-                FrameIndex = 0;
-                EffectFrameIndex = 0;
-                if (Frame != null)
-                {
-                    FrameInterval = Frame.Interval;
-                    EffectFrameInterval = Frame.EffectInterval;
-                }
-            }
-            else
-            {
-                var OldAction = CurrentAction;
-                QueuedAction action = ActionFeed.Dequeue();
-                CurrentAction = action.Action;
-
-                var OldDirection = mData.Direction;
-                mData.MapLocation = action.Location;
-                mData.Direction = action.Direction;
-                
-                Frames.TryGetValue(CurrentAction, out Frame);
-                FrameIndex = 0;
-                EffectFrameIndex = 0;
-                if (Frame != null)
-                {
-                    FrameInterval = Frame.Interval;
-                    EffectFrameInterval = Frame.EffectInterval;
-                }
-
-                switch (CurrentAction)
-                {
-                    case MirAction.Standing:
-                    case MirAction.MountStanding:
-                        SendTurnDirMsg(mData.Direction);
-                        NextActionTime = Time.time + 2.5f;
-                        break;
-                    case MirAction.Walking: //行走
-                    case MirAction.MountWalking: //山路行走
-                    case MirAction.Sneek: //蛇形走位
-                        this.LastRunTime = Time.time;
-                        SendWalkMsg(mData.Direction);
-                        WorldMgr.Instance.MapMgr.UpdateMap();
-                        NextActionTime = Time.time + 2.5f;
-                        break;
-                    case MirAction.Running:
-                    case MirAction.MountRunning: //山路跑
-                        this.LastRunTime = Time.time;
-                        SendRunMsg(mData.Direction);
-                        WorldMgr.Instance.MapMgr.UpdateMap();
-                        NextActionTime = Time.time + 2.5f;
-                        break;
-                }
-            }
-        }
-
-        private void Update()
-        {
-            if (!bInit) return;
-            SkipFrames = ActionFeed.Count > 1;
-
-            ProcessFrames();
-            Draw();
-
-            if (Frame == null)
-            {
-                DrawFrame = 0;
-                DrawWingFrame = 0;
-            }
-            else
-            {
-                DrawFrame = Frame.Start + (Frame.OffSet * (byte)mData.Direction) + FrameIndex;
-                DrawWingFrame = Frame.EffectStart + (Frame.EffectOffSet * (byte)mData.Direction) + EffectFrameIndex;
-            }
-            
-            switch (CurrentAction)
-            {
-                case MirAction.Walking:
-                case MirAction.Running:
-                    if (Frame == null)
-                    {
-                        break;
-                    }
-
-                    Vector3 beginPos = GetTargetLocation(mData.MapLocation, mData.Direction, -1);
-                    Vector3 targetPos = GetTargetLocation(mData.MapLocation);
-
-                    int count = Frame.Count;
-                    int index = FrameIndex;
-                    float fPercent = (index + 1) / (float)count;
-
-                    transform.position = beginPos * (1 - fPercent) + targetPos * fPercent;
-                    break;
-                default:
-                    break;
-            }
-            
-            CheckInput();
-            AddAction();
-        }
-
-        private void CheckInput()
-        {
-            if (Time.time < InputDelay) return;
-            InputDelay = Time.time + 0.2f;
-
-            bool bClickMap = false;
-            if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
-            {
-                float distance = 1000f;
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out hit, distance))
-                {
-                    BoxCollider mHitCollider = hit.collider.GetComponent<BoxCollider>();
-                    if (mHitCollider != null && mHitCollider.gameObject.name == "MapClickBoxCollider")
-                    {
-                        PrintTool.Log("点击地图：" + mHitCollider.transform.position);
-                        bClickMap = true;
-                    }
-                }
-#if UNTIY_EDITOR
-                Debug.DrawRay(ray.origin, ray.direction * 100f, Color.green);
-#endif
-            }
-
-            if (bClickMap)
-            {
-                var direction = MouseDirection();
-                bool AutoRun = false;
-                if (AutoRun)
-                {
-                    if (CanRun(direction) && Time.time > NextRunTime)
-                    {
-                        int distance = RidingMount || Sprint ? 3 : 2;
-                        bool fail = false;
-                        for (int i = 1; i <= distance; i++)
-                        {
-                            if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
-                            {
-                                fail = true;
-                            }
-                        }
-
-                        if (!fail)
-                        {
-                            RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, distance) };
-                            return;
-                        }
-                    }
-                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                        return;
-                    }
-                    if (direction != mData.Direction)
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                        return;
-                    }
-                }
-                else if (Input.GetMouseButton(0))
-                {
-                    if (!WorldMgr.Instance.ValidPoint(Functions.PointMove(mData.MapLocation, direction, 1)))
-                    {
-                        var mEquipInfo = mData.mEquipList.Find((x) => x.nSlotIndex == (int)EquipmentSlot.Weapon);
-                        if (mEquipInfo != null)
-                        {
-                            var mItemIndex = mEquipInfo.nItemId;
-                            var mItemInfo = ExcelTableMgr.Instance.mItemList[(int)mItemIndex];
-
-                            if (mEquipInfo != null && mItemInfo.CanMine)
-                            {
-                                if (direction != mData.Direction)
-                                {
-                                    RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                                    return;
-                                }
-                                return;
-                            }
-                        }
-                    }
-
-                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                        return;
-                    }
-
-                    if (direction != mData.Direction)
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                        return;
-                    }
-                }
-                else if (Input.GetMouseButton(1))
-                {
-                    if (Functions.InRange(MouseClickMapLocation(), mData.MapLocation, 2))
-                    {
-                        if (direction != mData.Direction)
-                        {
-                            RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                        }
-                        return;
-                    }
-
-                    if (CanRun(direction))
-                    {
-                        int distance = RidingMount || (Sprint && !Sneaking) ? 3 : 2;
-                        bool fail = false;
-                        for (int i = 0; i <= distance; i++)
-                        {
-                            if (!WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, i)))
-                                fail = true;
-                        }
-                        if (!fail)
-                        {
-                            RequestAction = new QueuedAction { Action = MirAction.Running, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, RidingMount || (Sprint && !Sneaking) ? 3 : 2) };
-                            return;
-                        }
-                    }
-                    if ((CanWalk(direction, out direction)) && (WorldMgr.Instance.CheckDoorOpen(Functions.PointMove(mData.MapLocation, direction, 1))))
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Walking, Direction = direction, Location = Functions.PointMove(mData.MapLocation, direction, 1) };
-                        return;
-                    }
-
-                    if (direction != mData.Direction)
-                    {
-                        RequestAction = new QueuedAction { Action = MirAction.Standing, Direction = direction, Location = mData.MapLocation };
-                        return;
-                    }
-                }
-            }
-        }
-
-        private void InitPos()
-        {
-            transform.position = GetTargetLocation(mData.MapLocation);
-            PrintTool.Log("InitPos: " + mData.MapLocation);
-        }
-
-        private Vector3 GetTargetLocation(Vector3Int MapLocation, MirDirection dir, int i = 1)
-        {
-            var mTargetMapLocation = Functions.PointMove(MapLocation, dir, i);
-            return new Vector3(mTargetMapLocation.x * DataCenter.CellWidth, -mTargetMapLocation.y * DataCenter.CellHeight, 0);
-        }
-
-        private Vector3 GetTargetLocation(Vector3Int MapLocation)
-        {
-            return new Vector3(MapLocation.x * DataCenter.CellWidth, -MapLocation.y * DataCenter.CellHeight, 0);
-        }
-
-        public static Vector3Int MouseClickMapLocation()
-        {
-            var WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            return new Vector3Int((int)(WorldPos.x / DataCenter.CellWidth), -(int)(WorldPos.y / DataCenter.CellHeight));
-        }
-
-        private bool CanWalk(MirDirection dir)
-        {
-            return WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 1));
-        }
-
-        private bool CanWalk(MirDirection dir, out MirDirection outDir)
-        {
-            outDir = dir;
-
-            if (WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 1)))
-                return true;
-
-            dir = Functions.NextDir(outDir);
-            if (WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 1)))
-            {
-                outDir = dir;
-                return true;
-            }
-
-            dir = Functions.PreviousDir(outDir);
-            if (WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 1)))
-            {
-                outDir = dir;
-                return true;
-            }
-
-            return false;
-        }
-
-        private bool CanRun(MirDirection dir)
-        {
-            if (CanWalk(dir) && WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 2)))
-            {
-                if (RidingMount)
-                {
-                    return WorldMgr.Instance.EmptyCell(Functions.PointMove(mData.MapLocation, dir, 3));
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        private MirDirection GetDirection(Vector3 dir)
-        {
-            if (dir.x > 0)
-            {
-                if (dir.y < 0)
-                    return MirDirection.DownRight;
-                if (dir.y > 0)
-                    return MirDirection.UpRight;
-                return MirDirection.Right;
-            }
-
-            if (dir.x < 0)
-            {
-                if (dir.y < 0)
-                    return MirDirection.DownLeft;
-                if (dir.y > 0)
-                    return MirDirection.UpLeft;
-                return MirDirection.Left;
-            }
-            return dir.y < 0 ? MirDirection.Down : MirDirection.Up;
-        }
-
-        public MirDirection MouseDirection()
-        {
-            var Dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-            Dir = Vector3.Normalize(new Vector3(Dir.x, Dir.y, 0));
-            //Vector3Int p = MouseClickMapLocation();
-            //if (Functions.InRange(mData.MapLocation, p, 2))
-            //    return Functions.DirectionFromPoint(mData.MapLocation, p);
-
-            float fAngle = 360 / 8;
-            float fNowAngle = Mathf.Acos(Mathf.Abs(Dir.x)) / MathF.PI * 180;
-
-            if(Dir.x > 0)
-            {
-                if(Dir.y > 0)
-                {
-                    if(fNowAngle <  fAngle / 2)
-                    {
-                        return MirDirection.Right;
-                    }
-                    else if (fNowAngle < fAngle + fAngle / 2)
-                    {
-                        return MirDirection.UpRight;
-                    }
-                    else
-                    {
-                        return MirDirection.Up;
-                    }
-                }
-                else
-                {
-                    if (fNowAngle < fAngle / 2)
-                    {
-                        return MirDirection.Right;
-                    }
-                    else if (fNowAngle < fAngle + fAngle / 2)
-                    {
-                        return MirDirection.DownRight;
-                    }
-                    else
-                    {
-                        return MirDirection.Down;
-                    }
-                }
-            }
-            else
-            {
-                if (Dir.y > 0)
-                {
-                    if (fNowAngle < fAngle / 2)
-                    {
-                        return MirDirection.Left;
-                    }
-                    else if (fNowAngle < fAngle + fAngle / 2)
-                    {
-                        return MirDirection.UpLeft;
-                    }
-                    else
-                    {
-                        return MirDirection.Up;
-                    }
-                }
-                else
-                {
-                    if (fNowAngle < fAngle / 2)
-                    {
-                        return MirDirection.Left;
-                    }
-                    else if (fNowAngle < fAngle + fAngle / 2)
-                    {
-                        return MirDirection.DownLeft;
-                    }
-                    else
-                    {
-                        return MirDirection.Down;
-                    }
+                    ActionFeed.Add(QueuedAction);
+                    QueuedAction = null;
                 }
             }
 
-            return GetDirection(Dir);
+            base.SetAction();
         }
-
-        //---------------------------------------网络消息-----------------------------------------------------------
-
-        private void SendTurnDirMsg(MirDirection Direction)
+        public override void ProcessFrames()
         {
-            var mSendMsg = new packet_cs_request_TurnDir();
-            mSendMsg.Direction = (uint)Direction;
-            NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_TURNDIR, mSendMsg);
+            bool clear = CMain.Time >= NextMotion;
+
+            base.ProcessFrames();
+
+            if (clear) QueuedAction = null;
+            if ((CurrentAction == MirAction.Standing || CurrentAction == MirAction.MountStanding || CurrentAction == MirAction.Stance || CurrentAction == MirAction.Stance2 || CurrentAction == MirAction.DashFail) && (QueuedAction != null || NextAction != null))
+                SetAction();
         }
 
-        private void SendWalkMsg(MirDirection Direction)
+        public void ClearMagic()
         {
-            var mSendMsg = new packet_cs_request_Walk();
-            mSendMsg.Direction = (uint)Direction;
-            NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_WALK, mSendMsg);
-        }
-
-        private void SendRunMsg(MirDirection Direction)
-        {
-            var mSendMsg = new packet_cs_request_Run();
-            mSendMsg.Direction = (uint)Direction;
-            NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_RUN, mSendMsg);
-        }
-
-        public void HandleServerLocation(Vector3Int Location, MirDirection dir)
-        {
-            if (mData.MapLocation == Location && mData.Direction == dir) return;
-
-            mData.MapLocation = Location;
-            mData.Direction = dir;
-            transform.position = GetTargetLocation(Location);
-
-            ActionFeed.Clear();
-            SetAction();
-        }
-
+            NextMagic = null;
+            NextMagicDirection = 0;
+            NextMagicLocation = Point.Empty;
+            NextMagicObject = null;
+        } 
     }
 }
+

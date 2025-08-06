@@ -1,11 +1,13 @@
 ﻿using Mir2;
 using System;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Mir2
 {
@@ -591,11 +593,13 @@ namespace Mir2
             }
 
             MImage mi = _images[index];
-            if ((mi.Width == 0) || (mi.Height == 0))
-                return;
-            _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
-            
-            mi.CreateTexture(_reader);
+            if (!mi.TextureValid)
+            {
+                if ((mi.Width == 0) || (mi.Height == 0))
+                    return;
+                _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
+                mi.CreateTexture(_reader);
+            }
         }
 
         public MImage GetImage(int nIndex)
@@ -604,6 +608,56 @@ namespace Mir2
                 return null;
 
             return _images[nIndex];
+        }
+
+        public Vector2 GetTrueSize(int index)
+        {
+            if (!_initialized)
+            {
+                Initialize();
+            }
+
+            if (_images == null || index < 0 || index >= _images.Length)
+            {
+                return Vector2.zero;
+            }
+
+            if (_images[index] == null)
+            {
+                _fStream.Position = _indexList[index];
+                _images[index] = new MImage(_reader);
+            }
+
+            MImage mi = _images[index];
+            if (mi.TrueSize == Vector2.zero)
+            {
+                if (!mi.TextureValid)
+                {
+                    if ((mi.Width == 0) || (mi.Height == 0))
+                        return Vector2.zero;
+
+                    _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
+                    mi.CreateTexture(_reader);
+                }
+                return mi.GetTrueSize();
+            }
+            return mi.TrueSize;
+        }
+
+        public Vector2Int GetOffSet(int index)
+        {
+            if (!_initialized) Initialize();
+
+            if (_images == null || index < 0 || index >= _images.Length)
+                return Vector2Int.zero;
+
+            if (_images[index] == null)
+            {
+                _fStream.Seek(_indexList[index], SeekOrigin.Begin);
+                _images[index] = new MImage(_reader);
+            }
+
+            return new Vector2Int(_images[index].X, _images[index].Y);
         }
     }
 
@@ -621,6 +675,8 @@ namespace Mir2
         public Texture2D MaskImage;
         public bool HasMask;
         public long CleanTime;
+        public Vector2 TrueSize;
+        public bool TextureValid;
 
         public MImage(BinaryReader reader)
         {
@@ -668,6 +724,8 @@ namespace Mir2
 
                 MaskImage = GetTexture(MaskWidth, MaskHeight, MaskData);
             }
+            TextureValid = true;
+            CleanTime = CMain.Time + Mir2Res.CleanDelay;
         }
 
         private Texture2D GetTexture(int nWidith, int nHeight, byte[] Data)
@@ -698,6 +756,12 @@ namespace Mir2
             {
                 stream.CopyTo(destination);
             }
+        }
+
+        public Vector2 GetTrueSize()
+        {
+            TrueSize = new Vector2(Image.width, Image.height);
+            return TrueSize;
         }
     }
 }

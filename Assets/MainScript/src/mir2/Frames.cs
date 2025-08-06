@@ -3,6 +3,16 @@ using System.IO;
 
 namespace Mir2
 {
+    public class FrameLoop
+    {
+        public MirAction Action { get; set; }
+        public int Start { get; set; }
+        public int End { get; set; }
+        public int Loops { get; set; }
+
+        public int CurrentCount { get; set; }
+    }
+
     public class FrameSet : Dictionary<MirAction, Frame>
     {
         public static FrameSet Player;

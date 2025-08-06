@@ -10,9 +10,43 @@ namespace Mir2
 {
     public class Mir2Res : SingleTonMonoBehaviour<Mir2Res>
     {
+        public const long CleanDelay = 600000;
+
         public readonly Dictionary<string, Sprite> mSpriteDic = new Dictionary<string, Sprite>();
         public static readonly string[] MapLibs = new string[400];
         public static readonly string DataPath = "D:/Me/MyProject/CrystalMir2/Client8/Data/";
+        public static readonly string SoundPath = "D:/Me/MyProject/CrystalMir2/Client8/Sound/";
+
+        public static readonly string
+            ChrSel = DataPath + "ChrSel",
+            Prguse = DataPath + "Prguse",
+            Prguse2 = DataPath + "Prguse2",
+            Prguse3 = DataPath + "Prguse3",
+            BuffIcon = DataPath + "BuffIcon",
+            Help = DataPath + "Help",
+            MiniMap = DataPath + "MMap",
+            MapLinkIcon = DataPath + "MapLinkIcon",
+            Title = DataPath + "Title",
+            MagIcon = DataPath + "MagIcon",
+            MagIcon2 = DataPath + "MagIcon2",
+            Magic = DataPath + "Magic",
+            Magic2 = DataPath + "Magic2",
+            Magic3 = DataPath + "Magic3",
+            Effect = DataPath + "Effect",
+            MagicC = DataPath + "MagicC",
+            GuildSkill = DataPath + "GuildSkill",
+            Weather = DataPath + "Weather";
+
+        public static readonly string Background = DataPath + "Background";
+        public static readonly string Dragon = DataPath + "Dragon";
+        //Items
+        public static readonly string
+            Items = DataPath + "Items",
+            StateItems = DataPath + "StateItem",
+            FloorItems = DataPath + "DNItems";
+
+        //Deco
+        public static readonly string Deco = DataPath + "Deco";
 
         public static string[] CArmours,
                                   CWeapons,
@@ -44,7 +78,6 @@ namespace Mir2
 
 
         public string MapPath,
-                    SoundPath,
                     ExtraDataPath = @".\Data\Extra\",
                     ShadersPath = @".\Data\Shaders\",
                     MonsterPath = @".\Data\Monster\",
@@ -262,7 +295,6 @@ namespace Mir2
         public IEnumerator SetWebSprite(string path, Action<Sprite> mFinishEvent = null)
         {
             Uri url = new Uri(path);
-
             Sprite mTargetSprite = null;
             if (!mSpriteDic.TryGetValue(url.AbsoluteUri, out mTargetSprite))
             {
@@ -290,4 +322,5 @@ namespace Mir2
             return MLibraryMgr.CreateSprite(mTexture);
         }
     }
+
 }

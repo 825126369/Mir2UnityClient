@@ -1,6 +1,5 @@
 using AKNet.Common;
 using AKNet.Extentions.Protobuf;
-using AKNet.Tcp.Client;
 using Google.Protobuf;
 using Mir2;
 using NetProtocols.Game;

@@ -52,19 +52,19 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
     {
         return ResCenter.Instance.mBundleGameAllRes.FindAudioClip(audioName);
     }
-    
-    public AudioSource playSound(string audioName, float volume = 1f)
+
+    public AudioSource PlaySound(int audioName, bool loop = false)
     {
         bool bMute = DataCenter.Instance.bMute;
-        AudioClip obj = this.GetAudioClip(audioName);
-        if(obj)
+        AudioClip obj = this.GetAudioClip(audioName.ToString());
+        if (obj)
         {
-            AudioSource mAudioSource =  this.getSourceFromPool();     
+            AudioSource mAudioSource = this.getSourceFromPool();
             mAudioSource.clip = obj;
-            mAudioSource.loop = false;
-            mAudioSource.volume = volume;
+            mAudioSource.loop = loop;
+            mAudioSource.volume = 1;
             mAudioSource.mute = bMute;
-            
+
             mAudioSource.Play();
             return mAudioSource;
         }
@@ -75,11 +75,11 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
         return null;
     }
 
-    public void StopSound(string audioName)
+    public void StopSound(int audioName)
     {
         foreach (var audioSource in this.audioSourcePool)
         {
-            if(audioSource.isPlaying && audioSource.clip.name.EndsWith(audioName))
+            if(audioSource.isPlaying && audioSource.clip.name.EndsWith(audioName.ToString()))
             {
                 audioSource.Stop();
             }
