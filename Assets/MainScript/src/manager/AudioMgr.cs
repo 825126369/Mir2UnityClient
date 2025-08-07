@@ -56,7 +56,7 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
         return ResCenter.Instance.mBundleGameAllRes.FindAudioClip(audioName);
     }
 
-    public AudioSource PlaySound(int audioName, bool loop = false)
+    public AudioSource PlaySound(int audioName, bool loop = false, int delay = 0)
     {
         bool bMute = DataCenter.Instance.bMute;
         AudioClip obj = this.GetAudioClip(audioName.ToString());
@@ -67,8 +67,7 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
             mAudioSource.loop = loop;
             mAudioSource.volume = 1;
             mAudioSource.mute = bMute;
-
-            mAudioSource.Play();
+            mAudioSource.PlayDelayed(delay);
             return mAudioSource;
         }
         else

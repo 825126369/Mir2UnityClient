@@ -574,13 +574,13 @@ namespace Mir2
             }
         }
 
-        public void CheckImage(int index)
+        public bool CheckImage(int index)
         {
             if (!_initialized)
                 Initialize();
 
             if (_images == null || index < 0 || index >= _images.Length)
-                return;
+                return false;
 
             if (index < _count && _images[index] == null)
             {
@@ -589,17 +589,19 @@ namespace Mir2
             }
             else
             {
-                return;
+                return false;
             }
 
             MImage mi = _images[index];
             if (!mi.TextureValid)
             {
                 if ((mi.Width == 0) || (mi.Height == 0))
-                    return;
+                    return false;
                 _fStream.Seek(_indexList[index] + 17, SeekOrigin.Begin);
                 mi.CreateTexture(_reader);
             }
+
+            return true;
         }
 
         public MImage GetImage(int nIndex)
@@ -608,6 +610,11 @@ namespace Mir2
                 return null;
 
             return _images[nIndex];
+        }
+
+        public FrameSet Frames
+        {
+            get { return _frames; }
         }
 
         public Vector2 GetTrueSize(int index)
@@ -659,6 +666,24 @@ namespace Mir2
 
             return new Vector2Int(_images[index].X, _images[index].Y);
         }
+
+        public bool VisiblePixel(int index, Vector2Int point, bool accuate)
+        {
+            if (!CheckImage(index))
+                return false;
+
+            if (accuate)
+                return _images[index].VisiblePixel(point);
+
+            int accuracy = 2;
+
+            for (int x = -accuracy; x <= accuracy; x++)
+                for (int y = -accuracy; y <= accuracy; y++)
+                    if (_images[index].VisiblePixel(new Point(point.X + x, point.Y + y)))
+                        return true;
+
+            return false;
+        }
     }
 
 
@@ -677,6 +702,7 @@ namespace Mir2
         public long CleanTime;
         public Vector2 TrueSize;
         public bool TextureValid;
+        public byte[] Data;
 
         public MImage(BinaryReader reader)
         {
@@ -707,7 +733,7 @@ namespace Mir2
         {
             MemoryStream stream = new MemoryStream();
             DecompressImage(reader.ReadBytes(Length), stream);
-            byte[] Data = stream.ToArray();
+            Data = stream.ToArray();
             stream.Close();
 
             Image = GetTexture(Width, Height, Data);
@@ -762,6 +788,29 @@ namespace Mir2
         {
             TrueSize = new Vector2(Image.width, Image.height);
             return TrueSize;
+        }
+
+        public unsafe bool VisiblePixel(Vector2Int p)
+        {
+            if (p.x < 0 || p.y < 0 || p.x >= Width || p.y >= Height)
+                return false;
+
+            int w = Width;
+
+            bool result = false;
+            if (Data != null)
+            {
+                int x = p.x;
+                int y = p.y;
+
+                int index = (y * (w << 2)) + (x << 2) + 3;
+
+                byte col = Data[index];
+
+                if (col == 0) return false;
+                else return true;
+            }
+            return result;
         }
     }
 }
