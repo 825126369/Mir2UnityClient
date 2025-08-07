@@ -26,9 +26,13 @@ namespace Mir2
         public SpecialItemMode ItemMode;
         public BaseStats CoreStats = new BaseStats(0);
 
-       // public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
+        // public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
 
-        public UserItem[] Inventory = new UserItem[46], Equipment = new UserItem[14], Trade = new UserItem[10], QuestInventory = new UserItem[40];
+        public UserItem[] Inventory = new UserItem[46]; 
+        public UserItem[] Equipment = new UserItem[14];
+        public UserItem[] Trade = new UserItem[10];
+        public UserItem[] QuestInventory = new UserItem[40];
+
         public int BeltIdx = 6, HeroBeltIdx = 2;
         public bool HasExpandedStorage = false;
         public DateTime ExpandedStorageExpiryTime;

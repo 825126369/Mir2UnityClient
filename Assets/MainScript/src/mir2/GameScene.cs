@@ -42,6 +42,7 @@ namespace Mir2
         public static uint DefaultNPCID;
         public static bool HideAddedStoreStats;
         public static long SpellTime;
+        public static long UseItemTime, PickUpTime, DropViewTime, TargetDeadTime;
 
         public static List<ItemInfo> ItemInfoList = new List<ItemInfo>();
         public static List<UserId> UserIdList = new List<UserId>();
