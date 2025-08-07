@@ -113,73 +113,73 @@ namespace Mir2
             Frames = FrameSet.Player;
         }
 
-        public void Load(S.ObjectPlayer info)
-        {
-            Name = info.Name;
-            NameColour = info.NameColour;
-            GuildName = info.GuildName;
-            GuildRankName = info.GuildRankName;
-            Class = info.Class;
-            Gender = info.Gender;
-            Level = info.Level;
+   //     public void Load(S.ObjectPlayer info)
+   //     {
+   //         Name = info.Name;
+   //         NameColour = info.NameColour;
+   //         GuildName = info.GuildName;
+   //         GuildRankName = info.GuildRankName;
+   //         Class = info.Class;
+   //         Gender = info.Gender;
+   //         Level = info.Level;
 
-            CurrentLocation = info.Location;
-            MapLocation = info.Location;
-            GameScene.Scene.MapControl.AddObject(this);
+   //         CurrentLocation = info.Location;
+   //         MapLocation = info.Location;
+   //         GameScene.Scene.MapControl.AddObject(this);
 
-            Direction = info.Direction;
-            Hair = info.Hair;
+   //         Direction = info.Direction;
+   //         Hair = info.Hair;
 
-            Weapon = info.Weapon;
-			WeaponEffect = info.WeaponEffect;
-			Armour = info.Armour;
-            Light = info.Light;
+   //         Weapon = info.Weapon;
+			//WeaponEffect = info.WeaponEffect;
+			//Armour = info.Armour;
+   //         Light = info.Light;
 
-            Poison = info.Poison;
+   //         Poison = info.Poison;
 
-            Dead = info.Dead;
-            Hidden = info.Hidden;
+   //         Dead = info.Dead;
+   //         Hidden = info.Hidden;
 
-            WingEffect = info.WingEffect;
-            CurrentEffect = info.Effect;
+   //         WingEffect = info.WingEffect;
+   //         CurrentEffect = info.Effect;
 
-            MountType = info.MountType;
-            RidingMount = info.RidingMount;
+   //         MountType = info.MountType;
+   //         RidingMount = info.RidingMount;
 
-            Fishing = info.Fishing;
+   //         Fishing = info.Fishing;
 
-            TransformType = info.TransformType;
+   //         TransformType = info.TransformType;
 
-            SetLibraries();
+   //         SetLibraries();
 
-            if (Dead) ActionFeed.Add(new QueuedAction { Action = MirAction.Dead, Direction = Direction, Location = CurrentLocation });
-            if (info.Extra) Effects.Add(new Effect(Mir2Res.Magic2, 670, 10, 800, this));
+   //         if (Dead) ActionFeed.Add(new QueuedAction { Action = MirAction.Dead, Direction = Direction, Location = CurrentLocation });
+   //         if (info.Extra) Effects.Add(new Effect(Mir2Res.Magic2, 670, 10, 800, this));
 
-            ElementEffect = (int)info.ElementOrbEffect;
-            ElementsLevel = (int)info.ElementOrbLvl;
-            ElementOrbMax = (int)info.ElementOrbMax;
+   //         ElementEffect = (int)info.ElementOrbEffect;
+   //         ElementsLevel = (int)info.ElementOrbLvl;
+   //         ElementOrbMax = (int)info.ElementOrbMax;
 
-            Buffs = info.Buffs;
+   //         Buffs = info.Buffs;
 
-            LevelEffects = info.LevelEffects;
+   //         LevelEffects = info.LevelEffects;
 
-            ProcessBuffs();
+   //         ProcessBuffs();
 
-            SetAction();
+   //         SetAction();
 
-            SetEffects();
-        }
-        public void Update(S.PlayerUpdate info)
-        {
-            Weapon = info.Weapon;
-			WeaponEffect = info.WeaponEffect;
-			Armour = info.Armour;
-            Light = info.Light;
-            WingEffect = info.WingEffect;
+   //         SetEffects();
+   //     }
+   //     public void Update(S.PlayerUpdate info)
+   //     {
+   //         Weapon = info.Weapon;
+			//WeaponEffect = info.WeaponEffect;
+			//Armour = info.Armour;
+   //         Light = info.Light;
+   //         WingEffect = info.WingEffect;
 
-            SetLibraries();
-            SetEffects();
-        }
+   //         SetLibraries();
+   //         SetEffects();
+   //     }
 
         public override bool ShouldDrawHealth()
         {

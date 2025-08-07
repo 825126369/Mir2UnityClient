@@ -1,4 +1,8 @@
-﻿namespace Mir2
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Mir2
 {
     public class Heap<T> where T : IHeapItem<T>
     {
@@ -123,7 +127,7 @@
         }
 
         public MapControl Map;
-        public Point Location;
+        public Vector3Int Location;
         public Node Parent;
 
         public int GCost, HCost;
@@ -154,7 +158,7 @@
         public Node(MapControl map, int x, int y)
         {
             Map = map;
-            Location = new Point(x, y);
+            Location = new Vector3Int(x, y);
         }
     }
 
@@ -189,7 +193,7 @@
             }
         }
 
-        public List<Node> FindPath(Point start, Point target, int MaxNodes = 0)
+        public List<Node> FindPath(Vector3Int start, Vector3Int target, int MaxNodes = 0)
         {
             Node startNode = GetNode(start);
             Node targetNode = GetNode(target);
@@ -264,9 +268,9 @@
             return 14 * distX + (10 * (distY - distX));
         }
 
-        private Node GetNode(Point location)
+        private Node GetNode(Vector3Int location)
         {
-            return Grid[location.X, location.Y];
+            return Grid[location.x, location.y];
         }
 
         private List<Node> GetNeighbours(Node node)

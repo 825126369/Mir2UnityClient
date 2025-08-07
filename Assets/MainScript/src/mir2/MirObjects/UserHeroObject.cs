@@ -1,4 +1,4 @@
-﻿using S = ServerPackets;
+﻿using NetProtocols.Game;
 
 namespace Mir2
 {
@@ -10,7 +10,7 @@ namespace Mir2
 
         public UserItem[] HPItem = new UserItem[1];
         public UserItem[] MPItem = new UserItem[1];
-        public override BuffDialog GetBuffDialog => GameScene.Scene.HeroBuffsDialog;
+       // public override BuffDialog GetBuffDialog => GameScene.Scene.HeroBuffsDialog;
         public UserHeroObject(uint objectID)
         {
             ObjectID = objectID;
@@ -18,25 +18,25 @@ namespace Mir2
             Frames = FrameSet.Player;
         }
 
-        public override void Load(S.UserInformation info)
+        public override void Load(packet_data_UserInfo info)
         {
             Name = info.Name;
-            NameColour = info.NameColour;
-            Class = info.Class;
-            Gender = info.Gender;
-            Level = info.Level;
-            Hair = info.Hair;
+            //NameColour = info.NameColour;
+            Class = (MirClass)info.Class;
+            Gender = (MirGender)info.Gender;
+            Level = (ushort)info.NLevel;
+           // Hair = info.Hair;
 
-            HP = info.HP;
-            MP = info.MP;
+            HP = (int)info.HP;
+            MP = (int)info.MP;
 
-            Experience = info.Experience;
-            MaxExperience = info.MaxExperience;
+            Experience = (long)info.NLevelExp;
+           // MaxExperience = info.MaxExperience;
 
-            Inventory = info.Inventory;
-            Equipment = info.Equipment;
+            //Inventory = info.Inventory;
+            //Equipment = info.Equipment;
 
-            Magics = info.Magics;
+            //Magics = info.Magics;
             for (int i = 0; i < Magics.Count; i++)
             {
                 Magics[i].CastTime += CMain.Time;

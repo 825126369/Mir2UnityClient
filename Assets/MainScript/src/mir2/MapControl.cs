@@ -144,6 +144,148 @@ namespace Mir2
             return (M2CellInfo[p.x, p.y].BackImage & 0x20000000) == 0;
         }
 
+        public bool EmptyCell(Vector3Int p)
+        {
+            if ((M2CellInfo[p.x, p.y].BackImage & 0x20000000) != 0 || (M2CellInfo[p.x, p.y].FrontImage & 0x8000) != 0)
+                return false;
+
+            foreach (var ob in Objects.Values)
+                if (ob.CurrentLocation == p && ob.Blocking)
+                    return false;
+
+            return true;
+        }
+
+
+        private bool CanWalk(MirDirection dir)
+        {
+            return EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 1)) && !User.InTrapRock;
+        }
+
+        private bool CanWalk(MirDirection dir, out MirDirection outDir)
+        {
+            outDir = dir;
+            if (User.InTrapRock) return false;
+
+            if (EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 1)))
+                return true;
+
+            dir = Functions.NextDir(outDir);
+            if (EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 1)))
+            {
+                outDir = dir;
+                return true;
+            }
+
+            dir = Functions.PreviousDir(outDir);
+            if (EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 1)))
+            {
+                outDir = dir;
+                return true;
+            }
+
+            return false;
+        }
+
+        public Door GetDoor(byte Index)
+        {
+            for (int i = 0; i < Doors.Count; i++)
+            {
+                if (Doors[i].index == Index)
+                    return Doors[i];
+            }
+            return null;
+        }
+
+        private bool CheckDoorOpen(Vector3Int p)
+        {
+            if (M2CellInfo[p.x, p.y].DoorIndex == 0) return true;
+            Door DoorInfo = GetDoor(M2CellInfo[p.X, p.Y].DoorIndex);
+            if (DoorInfo == null) return false;//if the door doesnt exist then it isnt even being shown on screen (and cant be open lol)
+            if ((DoorInfo.DoorState == DoorState.Closed) || (DoorInfo.DoorState == DoorState.Closing))
+            {
+                if (CMain.Time > _doorTime)
+                {
+                    _doorTime = CMain.Time + 4000;
+                    //Network.Enqueue(new C.Opendoor() { DoorIndex = DoorInfo.index });
+                }
+
+                return false;
+            }
+            if ((DoorInfo.DoorState == DoorState.Open) && (DoorInfo.LastTick + 4000 > CMain.Time))
+            {
+                if (CMain.Time > _doorTime)
+                {
+                    _doorTime = CMain.Time + 4000;
+                    //Network.Enqueue(new C.Opendoor() { DoorIndex = DoorInfo.index });
+                }
+            }
+            return true;
+        }
+
+        private long _doorTime = 0;
+
+
+        private bool CanRun(MirDirection dir)
+        {
+            if (User.InTrapRock) return false;
+            if (User.CurrentBagWeight > User.Stats[Stat.BagWeight]) return false;
+            if (User.CurrentWearWeight > User.Stats[Stat.BagWeight]) return false;
+            if (CanWalk(dir) && EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 2)))
+            {
+                if (User.RidingMount || User.Sprint && !User.Sneaking)
+                {
+                    return EmptyCell(Functions.PointMove(User.CurrentLocation, dir, 3));
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CanRideAttack()
+        {
+            if (GameScene.User.RidingMount)
+            {
+                UserItem item = GameScene.User.Equipment[(int)EquipmentSlot.Mount];
+                if (item == null || item.Slots.Length < 4 || item.Slots[(int)MountSlot.Bells] == null) return false;
+            }
+
+            return true;
+        }
+
+        public bool CanFish(MirDirection dir)
+        {
+            if (!GameScene.User.HasFishingRod || GameScene.User.FishingTime + 1000 > CMain.Time) return false;
+            if (GameScene.User.CurrentAction != MirAction.Standing) return false;
+            if (GameScene.User.Direction != dir) return false;
+            if (GameScene.User.TransformType >= 6 && GameScene.User.TransformType <= 9) return false;
+
+            Vector3Int point = Functions.PointMove(User.CurrentLocation, dir, 3);
+            if (!M2CellInfo[point.x, point.y].FishingCell) return false;
+
+            return true;
+        }
+
+        public bool CanFly(Vector3Int target)
+        {
+            Vector3Int location = User.CurrentLocation;
+            while (location != target)
+            {
+                MirDirection dir = Functions.DirectionFromPoint(location, target);
+
+                location = Functions.PointMove(location, dir, 1);
+
+                if (location.x < 0 || location.y < 0 || location.x >= Width || location.y >= Height) return false;
+
+                if (!ValidPoint(location)) return false;
+            }
+
+            return true;
+        }
+
+
 
 
     }

@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 namespace Mir2
 {
@@ -281,7 +284,7 @@ namespace Mir2
         public ulong UniqueID;
         public int ItemIndex;
 
-        public ItemInfoCFG Info;
+        public ItemInfo Info;
         public ushort CurrentDura, MaxDura;
         public ushort Count = 1,
                     GemCount = 0;

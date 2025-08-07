@@ -1,15 +1,10 @@
-﻿using System.Drawing;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace Mir2
 {
     public class HeroObject : PlayerObject
     {
-        protected override Init()
-        {
-
-        }
 
         public override ObjectType Race
         {
@@ -36,14 +31,14 @@ namespace Mir2
         {
         }
 
-        public void Load(S.ObjectHero info)
-        {
-            Load((S.ObjectPlayer)info);
-            OwnerName = info.OwnerName;
+        //public void Load(S.ObjectHero info)
+        //{
+        //    Load((S.ObjectPlayer)info);
+        //    OwnerName = info.OwnerName;
 
-            if (info.ObjectID == Hero?.ObjectID)
-                Hero.CurrentLocation = info.Location;
-        }
+        //    if (info.ObjectID == Hero?.ObjectID)
+        //        Hero.CurrentLocation = info.Location;
+        //}
 
         public override void CreateLabel()
         {

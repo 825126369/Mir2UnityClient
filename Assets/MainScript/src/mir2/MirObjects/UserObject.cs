@@ -1,7 +1,7 @@
-﻿using System;
+﻿using NetProtocols.Game;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using S = ServerPackets;
 
 namespace Mir2
 {
@@ -58,49 +58,49 @@ namespace Mir2
             Stats = new Stats();
         }
 
-        public virtual void Load(S.UserInformation info)
+        public virtual void Load(packet_data_UserInfo info)
         {
-            Id = info.RealId;
-            Name = info.Name;
-            Settings.LoadTrackedQuests(info.Name);
-            NameColour = info.NameColour;
-            GuildName = info.GuildName;
-            GuildRankName = info.GuildRank;
-            Class = info.Class;
-            Gender = info.Gender;
-            Level = info.Level;
+            //Id = info.RealId;
+            //Name = info.Name;
+            //Settings.LoadTrackedQuests(info.Name);
+            //NameColour = info.NameColour;
+            //GuildName = info.GuildName;
+            //GuildRankName = info.GuildRank;
+            //Class = info.Class;
+            //Gender = info.Gender;
+            //Level = info.Level;
 
-            CurrentLocation = info.Location;
-            MapLocation = info.Location;
-            GameScene.Scene.MapControl.AddObject(this);
+            //CurrentLocation = info.Location;
+            //MapLocation = info.Location;
+            //GameScene.Scene.MapControl.AddObject(this);
 
-            Direction = info.Direction;
-            Hair = info.Hair;
+            //Direction = info.Direction;
+            //Hair = info.Hair;
 
-            HP = info.HP;
-            MP = info.MP;
+            //HP = info.HP;
+            //MP = info.MP;
 
-            Experience = info.Experience;
-            MaxExperience = info.MaxExperience;
+            //Experience = info.Experience;
+            //MaxExperience = info.MaxExperience;
 
-            LevelEffects = info.LevelEffects;
+            //LevelEffects = info.LevelEffects;
 
-            Inventory = info.Inventory;
-            Equipment = info.Equipment;
-            QuestInventory = info.QuestInventory;
+            //Inventory = info.Inventory;
+            //Equipment = info.Equipment;
+            //QuestInventory = info.QuestInventory;
 
-            HasExpandedStorage = info.HasExpandedStorage;
-            ExpandedStorageExpiryTime = info.ExpandedStorageExpiryTime;
+            //HasExpandedStorage = info.HasExpandedStorage;
+            //ExpandedStorageExpiryTime = info.ExpandedStorageExpiryTime;
 
-            Magics = info.Magics;
+            //Magics = info.Magics;
             for (int i = 0; i < Magics.Count; i++ )
             {
                 Magics[i].CastTime += CMain.Time;
             }
 
-            IntelligentCreatures = info.IntelligentCreatures;
-            SummonedCreatureType = info.SummonedCreatureType;
-            CreatureSummoned = info.CreatureSummoned;
+            //IntelligentCreatures = info.IntelligentCreatures;
+            //SummonedCreatureType = info.SummonedCreatureType;
+            //CreatureSummoned = info.CreatureSummoned;
 
             BindAllItems();
 
@@ -211,7 +211,7 @@ namespace Mir2
                 UserItem temp = Equipment[i];
                 if (temp == null) continue;
 
-                ItemInfoCFG realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
+                ItemInfo realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
 
                 if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
                     CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);

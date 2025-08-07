@@ -250,7 +250,7 @@ namespace Mir2
             }
         }
 
-        public static ItemInfoCFG GetRealItem(ItemInfoCFG Origin, ushort Level, MirClass job, List<ItemInfoCFG> ItemList)
+        public static ItemInfo GetRealItem(ItemInfo Origin, ushort Level, MirClass job, List<ItemInfo> ItemList)
         {
             if (Origin.ClassBased && Origin.LevelBased)
                 return GetClassAndLevelBasedItem(Origin, job, Level, ItemList);
@@ -261,46 +261,46 @@ namespace Mir2
             return Origin;
         }
 
-        public static ItemInfoCFG GetLevelBasedItem(ItemInfoCFG Origin, ushort level, List<ItemInfoCFG> ItemList)
+        public static ItemInfo GetLevelBasedItem(ItemInfo Origin, ushort level, List<ItemInfo> ItemList)
         {
-            ItemInfoCFG output = Origin;
+            ItemInfo output = Origin;
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfoCFG info = ItemList[i];
-                if (info.ItemName.StartsWith(Origin.ItemName))
-                    if ((info.ItemRequiredType == RequiredType.Level) && 
-                        (info.ItemRequiredAmount <= level) && 
-                        (output.ItemRequiredAmount < info.ItemRequiredAmount) && 
-                        (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                ItemInfo info = ItemList[i];
+                if (info.Name.StartsWith(Origin.Name))
+                    if ((info.RequiredType == RequiredType.Level) && 
+                        (info.RequiredAmount <= level) && 
+                        (output.RequiredAmount < info.RequiredAmount) && 
+                        (Origin.RequiredGender == info.RequiredGender))
                         output = info;
             }
             return output;
         }
-        public static ItemInfoCFG GetClassBasedItem(ItemInfoCFG Origin, MirClass job, List<ItemInfoCFG> ItemList)
+        public static ItemInfo GetClassBasedItem(ItemInfo Origin, MirClass job, List<ItemInfo> ItemList)
         {
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfoCFG info = ItemList[i];
-                if (info.ItemName.StartsWith(Origin.ItemName))
-                    if (((byte)info.ItemRequiredClass == (1 << (byte)job)) && 
-                        (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                ItemInfo info = ItemList[i];
+                if (info.Name.StartsWith(Origin.Name))
+                    if (((byte)info.RequiredClass == (1 << (byte)job)) && 
+                        (Origin.RequiredGender == info.RequiredGender))
                         return info;
             }
             return Origin;
         }
 
-        public static ItemInfoCFG GetClassAndLevelBasedItem(ItemInfoCFG Origin, MirClass job, ushort level, List<ItemInfoCFG> ItemList)
+        public static ItemInfo GetClassAndLevelBasedItem(ItemInfo Origin, MirClass job, ushort level, List<ItemInfo> ItemList)
         {
-            ItemInfoCFG output = Origin;
+            ItemInfo output = Origin;
             for (int i = 0; i < ItemList.Count; i++)
             {
-                ItemInfoCFG info = ItemList[i];
-                if (info.ItemName.StartsWith(Origin.ItemName))
-                    if ((byte)info.ItemRequiredClass == (1 << (byte)job))
-                        if ((info.ItemRequiredType == RequiredType.Level) &&
-                            (info.ItemRequiredAmount <= level) &&
-                            (output.ItemRequiredAmount <= info.ItemRequiredAmount) &&
-                            (Origin.ItemRequiredGender == info.ItemRequiredGender))
+                ItemInfo info = ItemList[i];
+                if (info.Name.StartsWith(Origin.Name))
+                    if ((byte)info.RequiredClass == (1 << (byte)job))
+                        if ((info.RequiredType == RequiredType.Level) &&
+                            (info.RequiredAmount <= level) &&
+                            (output.RequiredAmount <= info.RequiredAmount) &&
+                            (Origin.RequiredGender == info.RequiredGender))
                             output = info;
             }
             return output;

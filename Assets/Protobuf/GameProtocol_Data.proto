@@ -61,6 +61,15 @@ message packet_data_UserInfo
 	uint32 Credit = 16;
 }
 
+message packet_data_SpellInfo
+{
+    uint32 ObjectID;
+    packet_data_Vector3Int Location;
+    uint32 Spell;
+    uint32 Direction;
+    bool Param;
+}
+
 message packet_data_cs_ChatInfo
 {
 	uint64 UniqueID = 1;
