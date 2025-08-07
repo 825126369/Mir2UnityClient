@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 namespace Mir2
 {
@@ -679,10 +680,31 @@ namespace Mir2
 
             for (int x = -accuracy; x <= accuracy; x++)
                 for (int y = -accuracy; y <= accuracy; y++)
-                    if (_images[index].VisiblePixel(new Point(point.X + x, point.Y + y)))
+                    if (_images[index].VisiblePixel(new Vector2Int(point.x + x, point.y + y)))
                         return true;
 
             return false;
+        }
+
+        public void DrawBlend(int index, Vector2Int point, UnityEngine.Color colour, bool offSet = false, float rate = 1)
+        {
+            if (!CheckImage(index))
+                return;
+
+            MImage mi = _images[index];
+
+            if (offSet) point += new Vector2Int(mi.X, mi.Y);
+
+            if (point.x >= Screen.width || point.y >= Screen.height || point.x + mi.Width < 0 || point.y + mi.Height < 0)
+                return;
+
+            //bool oldBlend = DXManager.Blending;
+            //DXManager.SetBlend(true, rate);
+
+            //DXManager.Draw(mi.Image, new Rectangle(0, 0, mi.Width, mi.Height), new Vector3((float)point.X, (float)point.Y, 0.0F), colour);
+
+            //DXManager.SetBlend(oldBlend);
+            //mi.CleanTime = CMain.Time + Settings.CleanDelay;
         }
     }
 

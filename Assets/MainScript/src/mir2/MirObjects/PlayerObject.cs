@@ -125,7 +125,7 @@ namespace Mir2
 
    //         CurrentLocation = info.Location;
    //         MapLocation = info.Location;
-   //         GameScene.Scene.MapControl.AddObject(this);
+   //         MapControl.Instance.AddObject(this);
 
    //         Direction = info.Direction;
    //         Hair = info.Hair;
@@ -222,35 +222,35 @@ namespace Mir2
         //    PlayMountSound();
         //}
 
-        public void FishingUpdate(S.FishingUpdate p)
-        {
-            if (Fishing != p.Fishing)
-            {
-                MirDirection dir = Functions.DirectionFromPoint(CurrentLocation, p.FishingPoint);
+        //public void FishingUpdate(S.FishingUpdate p)
+        //{
+        //    if (Fishing != p.Fishing)
+        //    {
+        //        MirDirection dir = Functions.DirectionFromPoint(CurrentLocation, p.FishingPoint);
 
-                if (p.Fishing)
-                {        
-                    QueuedAction action = new QueuedAction { Action = MirAction.FishingCast, Direction = dir, Location = CurrentLocation };
-                    ActionFeed.Add(action);
-                }
-                else
-                {
-                    QueuedAction action = new QueuedAction { Action = MirAction.FishingReel, Direction = dir, Location = CurrentLocation };
-                    ActionFeed.Add(action);
-                }
+        //        if (p.Fishing)
+        //        {        
+        //            QueuedAction action = new QueuedAction { Action = MirAction.FishingCast, Direction = dir, Location = CurrentLocation };
+        //            ActionFeed.Add(action);
+        //        }
+        //        else
+        //        {
+        //            QueuedAction action = new QueuedAction { Action = MirAction.FishingReel, Direction = dir, Location = CurrentLocation };
+        //            ActionFeed.Add(action);
+        //        }
 
-                Fishing = p.Fishing;
-                SetLibraries();
-            }
+        //        Fishing = p.Fishing;
+        //        SetLibraries();
+        //    }
 
-            if (!HasFishingRod)
-            {
-                GameScene.Scene.FishingDialog.Hide();
-            }          
+        //    if (!HasFishingRod)
+        //    {
+        //        GameScene.Scene.FishingDialog.Hide();
+        //    }          
 
-            FishingPoint = p.FishingPoint;
-            FoundFish = p.FoundFish;
-        }
+        //    FishingPoint = p.FishingPoint;
+        //    FoundFish = p.FoundFish;
+        //}
 
 
         public virtual void SetLibraries()
@@ -2567,7 +2567,7 @@ namespace Mir2
                 case MirAction.AttackRange2:
                     if (CMain.Time >= NextMotion)
                     {
-                        GameScene.Scene.MapControl.TextureValid = false;
+                        MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame();
 
@@ -2581,16 +2581,16 @@ namespace Mir2
                                 switch (Spell)
                                 {
                                     case Spell.StraightShot:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 0);
-                                        missile = CreateProjectile(1210, Libraries.Magic3, true, 5, 30, 5);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 0);
+                                        missile = CreateProjectile(1210, Mir2Res.Magic3, true, 5, 30, 5);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic3, 1370, 7, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.StraightShot * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic3, 1370, 7, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.StraightShot * 10 + 2);
                                             };
                                         }
                                         break;
@@ -2618,14 +2618,14 @@ namespace Mir2
                                     {
                                         case 7:
                                         case 5:
-                                            missile = CreateProjectile(1030, Libraries.Magic3, true, 5, 30, 5);//normal arrow
+                                            missile = CreateProjectile(1030, Mir2Res.Magic3, true, 5, 30, 5);//normal arrow
                                             StanceTime = CMain.Time + StanceDelay;
-                                            SoundManager.PlaySound(20000 + 121 * 10);
+                                            AudioMgr.Instance.PlaySound(20000 + 121 * 10);
                                             if (missile.Target != null)
                                             {
                                                 missile.Complete += (o, e) =>
                                                 {
-                                                    SoundManager.PlaySound(20000 + 121 * 10 + 2);
+                                                    AudioMgr.Instance.PlaySound(20000 + 121 * 10 + 2);
                                                 };
                                             }
                                             break;
@@ -2636,19 +2636,19 @@ namespace Mir2
                                         switch (FrameIndex)
                                         {
                                             case 7:
-                                                missile = CreateProjectile(1690, Libraries.Magic3, true, 6, 30, 4);//elemental arrow
+                                                missile = CreateProjectile(1690, Mir2Res.Magic3, true, 6, 30, 4);//elemental arrow
                                                 StanceTime = CMain.Time + StanceDelay;
                                                 if (missile.Target != null)
                                                 {
                                                     missile.Complete += (o, e) =>
                                                     {
-                                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 2);//sound M128-2
+                                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 2);//sound M128-2
                                                     };
                                                 }
                                                 break;
                                             case 1:
-                                                Effects.Add(new Effect(Libraries.Magic3, 1681, 5, Frame.Count * FrameInterval, this));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 0);//sound M128-0
+                                                Effects.Add(new Effect(Mir2Res.Magic3, 1681, 5, Frame.Count * FrameInterval, this));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 0);//sound M128-0
                                                 break;
                                         }
                                     break;
@@ -2659,14 +2659,14 @@ namespace Mir2
                                     switch (FrameIndex)
                                     {
                                         case 7:
-                                            SoundManager.PlaySound(20000 + 121 * 10);
-                                            missile = CreateProjectile(2750, Libraries.Magic3, true, 5, 10, 5);
+                                            AudioMgr.Instance.PlaySound(20000 + 121 * 10);
+                                            missile = CreateProjectile(2750, Mir2Res.Magic3, true, 5, 10, 5);
                                             StanceTime = CMain.Time + StanceDelay;
                                             if (missile.Target != null)
                                             {
                                                 missile.Complete += (o, e) =>
                                                 {
-                                                    SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 7);//sound M130-7
+                                                    AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 7);//sound M130-7
                                                 };
                                             }
                                             break;
@@ -2676,14 +2676,14 @@ namespace Mir2
                                     switch (FrameIndex)
                                     {
                                         case 7:
-                                            SoundManager.PlaySound(20000 + 121 * 10);
-                                            missile = CreateProjectile(2750, Libraries.Magic3, true, 5, 20, 5);
+                                            AudioMgr.Instance.PlaySound(20000 + 121 * 10);
+                                            missile = CreateProjectile(2750, Mir2Res.Magic3, true, 5, 20, 5);
                                             StanceTime = CMain.Time + StanceDelay;
                                             missile.Explode = true;
 
                                             missile.Complete += (o, e) =>
                                             {
-                                                SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 7);//sound M130-7
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 7);//sound M130-7
                                             };
 
                                             break;
@@ -2693,14 +2693,14 @@ namespace Mir2
                                     switch (FrameIndex)
                                     {
                                         case 5:
-                                            missile = CreateProjectile(1030, Libraries.Magic3, true, 5, 30, 5);//normal arrow
+                                            missile = CreateProjectile(1030, Mir2Res.Magic3, true, 5, 30, 5);//normal arrow
                                             StanceTime = CMain.Time + StanceDelay;
-                                            SoundManager.PlaySound(20000 + 121 * 10);
+                                            AudioMgr.Instance.PlaySound(20000 + 121 * 10);
                                             if (missile.Target != null)
                                             {
                                                 missile.Complete += (o, e) =>
                                                 {
-                                                    SoundManager.PlaySound(20000 + 121 * 10 + 2);
+                                                    AudioMgr.Instance.PlaySound(20000 + 121 * 10 + 2);
                                                 };
                                             }
                                             break;
@@ -2717,8 +2717,8 @@ namespace Mir2
                                     switch (FrameIndex)
                                     {
                                         case 7:
-                                            SoundManager.PlaySound(20000 + ((Spell == Spell.CrippleShot) ? 136 : 121) * 10);//M136-0
-                                            missile = CreateProjectile(1930 + exFrameStart, Libraries.Magic3, true, 5, 10, 5);
+                                            AudioMgr.Instance.PlaySound(20000 + ((Spell == Spell.CrippleShot) ? 136 : 121) * 10);//M136-0
+                                            missile = CreateProjectile(1930 + exFrameStart, Mir2Res.Magic3, true, 5, 10, 5);
                                             StanceTime = CMain.Time + StanceDelay;
                                             if (missile.Target != null)
                                             {
@@ -2731,8 +2731,8 @@ namespace Mir2
                                                             int exIdx = 0;
                                                             if (this == User)
                                                             {
-                                                                if (GameScene.Scene.BuffsDialog.Buffs.Any(x => x.Type == BuffType.VampireShot)) exIdx = 20;
-                                                                if (GameScene.Scene.BuffsDialog.Buffs.Any(x => x.Type == BuffType.PoisonShot)) exIdx = 10;
+                                                                //if (GameScene.Scene.BuffsDialog.Buffs.Any(x => x.Type == BuffType.VampireShot)) exIdx = 20;
+                                                                //if (GameScene.Scene.BuffsDialog.Buffs.Any(x => x.Type == BuffType.PoisonShot)) exIdx = 10;
                                                             }
                                                             else
                                                             {
@@ -2740,30 +2740,30 @@ namespace Mir2
                                                                 if (Buffs.Any(x => x == BuffType.PoisonShot)) exIdx = 10;
                                                             }
 
-                                                            ob.Effects.Add(eff = new Effect(Libraries.Magic3, 2490 + exIdx, 7, 1000, ob));
-                                                            SoundManager.PlaySound(20000 + 136 * 10 + 5 + (exIdx / 10));//sound M136-5/7
+                                                            ob.Effects.Add(eff = new Effect(Mir2Res.Magic3, 2490 + exIdx, 7, 1000, ob));
+                                                            AudioMgr.Instance.PlaySound(20000 + 136 * 10 + 5 + (exIdx / 10));//sound M136-5/7
 
                                                             if (exIdx == 20)
                                                                 eff.Complete += (o1, e1) =>
                                                                 {
-                                                                    SoundManager.PlaySound(20000 + 45 * 10 + 2);//sound M45-2
-                                                                    Effects.Add(new Effect(Libraries.Magic3, 2100, 8, 1000, this));
+                                                                    AudioMgr.Instance.PlaySound(20000 + 45 * 10 + 2);//sound M45-2
+                                                                    Effects.Add(new Effect(Mir2Res.Magic3, 2100, 8, 1000, this));
                                                                 };
                                                         }
 
                                                         if (Spell == Spell.VampireShot || Spell == Spell.PoisonShot)
                                                         {
-                                                            ob.Effects.Add(eff = new Effect(Libraries.Magic3, 2090 + exFrameStart, 6, 1000, ob));
-                                                            SoundManager.PlaySound(20000 + (133 + (exFrameStart / 100)) * 10 + 2);//sound M133-2 or M135-2
+                                                            ob.Effects.Add(eff = new Effect(Mir2Res.Magic3, 2090 + exFrameStart, 6, 1000, ob));
+                                                            AudioMgr.Instance.PlaySound(20000 + (133 + (exFrameStart / 100)) * 10 + 2);//sound M133-2 or M135-2
                                                             if (Spell == Spell.VampireShot)
                                                                 eff.Complete += (o1, e1) =>
                                                                 {
-                                                                    SoundManager.PlaySound(20000 + 45 * 10 + 2);//sound M45-2
-                                                                    Effects.Add(new Effect(Libraries.Magic3, 2100 + exFrameStart, 8, 1000, this));
+                                                                    AudioMgr.Instance.PlaySound(20000 + 45 * 10 + 2);//sound M45-2
+                                                                    Effects.Add(new Effect(Mir2Res.Magic3, 2100 + exFrameStart, 8, 1000, this));
                                                                 };
                                                         }
                                                     }
-                                                    //SoundManager.PlaySound(20000 + 121 * 10 + 2);//sound M121-2
+                                                    //AudioMgr.Instance.PlaySound(20000 + 121 * 10 + 2);//sound M121-2
                                                 };
                                             }
                                             break;
@@ -2773,15 +2773,15 @@ namespace Mir2
                                     switch (FrameIndex)
                                     {
                                         case 7:
-                                            SoundManager.PlaySound(20000 + 138 * 10);//M138-0
-                                            missile = CreateProjectile(2530, Libraries.Magic3, true, 6, 50, 4);
+                                            AudioMgr.Instance.PlaySound(20000 + 138 * 10);//M138-0
+                                            missile = CreateProjectile(2530, Mir2Res.Magic3, true, 6, 50, 4);
                                             StanceTime = CMain.Time + StanceDelay;
                                             if (missile.Target != null)
                                             {
                                                 missile.Complete += (o, e) =>
                                                 {
-                                                    SoundManager.PlaySound(20000 + 138 * 10 + 2);//M138-2
-                                                    MapControl.Effects.Add(new Effect(Libraries.Magic3, 2690, 10, 1000, TargetPoint));
+                                                    AudioMgr.Instance.PlaySound(20000 + 138 * 10 + 2);//M138-2
+                                                    MapControl.Effects.Add(new Effect(Mir2Res.Magic3, 2690, 10, 1000, TargetPoint));
                                                 };
                                             }
                                             break;
@@ -2798,7 +2798,7 @@ namespace Mir2
                 case MirAction.MountStruck:
                     if (CMain.Time >= NextMotion)
                     {
-                        GameScene.Scene.MapControl.TextureValid = false;
+                        MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame();
 
@@ -2818,7 +2818,7 @@ namespace Mir2
                 case MirAction.Spell:
                     if (CMain.Time >= NextMotion)
                     {
-                        GameScene.Scene.MapControl.TextureValid = false;
+                        MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame();
 
@@ -2836,16 +2836,16 @@ namespace Mir2
                                     #region FireBall
 
                                     case Spell.FireBall:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        missile = CreateProjectile(10, Libraries.Magic, true, 6, 30, 4);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        missile = CreateProjectile(10, Mir2Res.Magic, true, 6, 30, 4);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic, 170, 10, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic, 170, 10, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 2);
                                             };
                                         }
                                         break;
@@ -2855,16 +2855,16 @@ namespace Mir2
                                     #region GreatFireBall
 
                                     case Spell.GreatFireBall:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        missile = CreateProjectile(410, Libraries.Magic, true, 6, 30, 4);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        missile = CreateProjectile(410, Mir2Res.Magic, true, 6, 30, 4);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic, 570, 10, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic, 570, 10, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
                                             };
                                         }
                                         break;
@@ -2874,11 +2874,11 @@ namespace Mir2
                                     #region Healing
 
                                     case Spell.Healing:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 370, 10, 800, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 370, 10, 800, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic, 370, 10, 800, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic, 370, 10, 800, ob));
                                         break;
 
                                     #endregion
@@ -2886,35 +2886,34 @@ namespace Mir2
                                     #region ElectricShock
 
                                     case Spell.ElectricShock:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 1570, 10, 1000, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1570, 10, 1000, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic, 1570, 10, 1000, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic, 1570, 10, 1000, ob));
                                         break;
                                     #endregion
 
                                     #region Poisoning
 
                                     case Spell.Poisoning:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         if (ob != null)
-                                            ob.Effects.Add(new Effect(Libraries.Magic, 770, 10, 1000, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic, 770, 10, 1000, ob));
                                         break;
                                     #endregion
 
                                     #region HellFire
 
                                     case Spell.HellFire:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         
-                                        Point dest = CurrentLocation;
+                                        Vector3Int dest = CurrentLocation;
                                         for (int i = 0; i < 4; i++)
                                         {
                                             dest = Functions.PointMove(dest, Direction, 1);
-                                            if (!GameScene.Scene.MapControl.ValidPoint(dest)) break;
-                                            effect = new Effect(Libraries.Magic, 930, 6, 500, dest) { Rate = 0.7F };
+                                            if (!MapControl.Instance.ValidPoint(dest)) break;
+                                            effect = new Effect(Mir2Res.Magic, 930, 6, 500, dest) { Rate = 0.7F };
 
                                             effect.SetStart(CMain.Time + i * 50);
                                             MapControl.Effects.Add(effect);
@@ -2927,8 +2926,8 @@ namespace Mir2
                                             for (int r = 0; r < 4; r++)
                                             {
                                                 dest = Functions.PointMove(dest, dir, 1);
-                                                if (!GameScene.Scene.MapControl.ValidPoint(dest)) break;
-                                                effect = new Effect(Libraries.Magic, 930, 6, 500, dest) { Rate = 0.7F };
+                                                if (!MapControl.Instance.ValidPoint(dest)) break;
+                                                effect = new Effect(Mir2Res.Magic, 930, 6, 500, dest) { Rate = 0.7F };
 
                                                 effect.SetStart(CMain.Time + r * 50);
                                                 MapControl.Effects.Add(effect);
@@ -2939,8 +2938,8 @@ namespace Mir2
                                             for (int r = 0; r < 4; r++)
                                             {
                                                 dest = Functions.PointMove(dest, dir, 1);
-                                                if (!GameScene.Scene.MapControl.ValidPoint(dest)) break;
-                                                effect = new Effect(Libraries.Magic, 930, 6, 500, dest) { Rate = 0.7F };
+                                                if (!MapControl.Instance.ValidPoint(dest)) break;
+                                                effect = new Effect(Mir2Res.Magic, 930, 6, 500, dest) { Rate = 0.7F };
 
                                                 effect.SetStart(CMain.Time + r * 50);
                                                 MapControl.Effects.Add(effect);
@@ -2954,12 +2953,12 @@ namespace Mir2
 
                                     case Spell.ThunderBolt:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
 
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic2, 10, 5, 400, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 10, 5, 400, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic2, 10, 5, 400, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic2, 10, 5, 400, ob));
                                         break;
 
                                     #endregion
@@ -2967,16 +2966,16 @@ namespace Mir2
                                     #region SoulFireBall
 
                                     case Spell.SoulFireBall:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic, 1360, 10, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.SoulFireBall * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic, 1360, 10, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.SoulFireBall * 10 + 2);
                                             };
                                         }
                                         break;
@@ -2987,8 +2986,8 @@ namespace Mir2
 
                                     case Spell.EnergyShield:
 
-                                        //Effects.Add(new Effect(Libraries.Magic2, 1880, 9, Frame.Count * FrameInterval, this));
-                                        //SoundManager.PlaySound(20000 + (ushort)Spell * 9);
+                                        //Effects.Add(new Effect(Mir2Res.Magic2, 1880, 9, Frame.Count * FrameInterval, this));
+                                        //AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 9);
                                         break;
 
                                     #endregion
@@ -2997,8 +2996,8 @@ namespace Mir2
 
                                     case Spell.FireBang:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic, 1660, 10, 1000, TargetPoint));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1660, 10, 1000, TargetPoint));
                                         break;
 
                                     #endregion
@@ -3006,14 +3005,14 @@ namespace Mir2
                                     #region MassHiding
 
                                     case Spell.MassHiding:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                         {
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 1540, 10, 800, TargetPoint));
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.MassHiding * 10 + 1);
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1540, 10, 800, TargetPoint));
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.MassHiding * 10 + 1);
                                         };
                                         break;
 
@@ -3022,14 +3021,14 @@ namespace Mir2
                                     #region SoulShield
 
                                     case Spell.SoulShield:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                         {
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 1320, 15, 1200, TargetPoint));
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.SoulShield * 10 + 1);
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1320, 15, 1200, TargetPoint));
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.SoulShield * 10 + 1);
                                         };
                                         break;
 
@@ -3038,14 +3037,14 @@ namespace Mir2
                                     #region BlessedArmour
 
                                     case Spell.BlessedArmour:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                         {
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 1340, 15, 1200, TargetPoint));
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.BlessedArmour * 10 + 1);
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1340, 15, 1200, TargetPoint));
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.BlessedArmour * 10 + 1);
                                         };
                                         break;
 
@@ -3054,7 +3053,7 @@ namespace Mir2
                                     #region FireWall
 
                                     case Spell.FireWall:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         break;
 
                                     #endregion
@@ -3063,8 +3062,8 @@ namespace Mir2
                                     #region HealingCircle
 
                                     case Spell.HealingCircle:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic3, 620, 10, 1200, TargetPoint));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic3, 620, 10, 1200, TargetPoint));
                                         break;
 
                                     #endregion
@@ -3073,8 +3072,8 @@ namespace Mir2
 
                                     case Spell.MassHealing:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic, 1800, 10, 1000, TargetPoint));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic, 1800, 10, 1000, TargetPoint));
                                         break;
 
                                     #endregion
@@ -3083,8 +3082,8 @@ namespace Mir2
 
                                     case Spell.IceStorm:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic, 3850, 20, 1300, TargetPoint));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic, 3850, 20, 1300, TargetPoint));
                                         break;
 
                                     #endregion
@@ -3092,11 +3091,11 @@ namespace Mir2
                                     #region TurnUndead
 
                                     case Spell.TurnUndead:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 3930, 15, 1000, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 3930, 15, 1000, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic, 3930, 15, 1000, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic, 3930, 15, 1000, ob));
                                         break;
                                     #endregion
 
@@ -3104,10 +3103,10 @@ namespace Mir2
 
                                     case Spell.IceThrust:
 
-                                        Point location = Functions.PointMove(CurrentLocation, Direction, 1);
+                                        Vector3Int location = Functions.PointMove(CurrentLocation, Direction, 1);
 
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic2, 1790 + (int)Direction * 10, 10, 10 * FrameInterval, location));
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 1790 + (int)Direction * 10, 10, 10 * FrameInterval, location));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
                                         break;
 
                                     #endregion
@@ -3115,11 +3114,11 @@ namespace Mir2
                                     #region Revelation
 
                                     case Spell.Revelation:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic, 3990, 10, 1000, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic, 3990, 10, 1000, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic, 3990, 10, 1000, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic, 3990, 10, 1000, ob));
                                         break;
                                     #endregion
 
@@ -3127,28 +3126,28 @@ namespace Mir2
 
                                     case Spell.FlameDisruptor:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
 
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic2, 140, 10, 600, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 140, 10, 600, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic2, 140, 10, 600, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic2, 140, 10, 600, ob));
                                         break;
 
                                     #endregion
 
                                     #region CatTongue
                                     case Spell.CatTongue:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
-                                        missile = CreateProjectile(260, Libraries.Magic3, true, 6, 30, 4);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
+                                        missile = CreateProjectile(260, Mir2Res.Magic3, true, 6, 30, 4);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic3, 420, 8, 800, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.CatTongue * 10 + 1);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic3, 420, 8, 800, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.CatTongue * 10 + 1);
                                             };
                                         }
                                         break;
@@ -3158,16 +3157,16 @@ namespace Mir2
                                     #region FrostCrunch
 
                                     case Spell.FrostCrunch:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        missile = CreateProjectile(410, Libraries.Magic2, true, 4, 30, 6);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        missile = CreateProjectile(410, Mir2Res.Magic2, true, 4, 30, 6);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic2, 570, 8, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.FrostCrunch * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic2, 570, 8, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.FrostCrunch * 10 + 2);
                                             };
                                         }
                                         break;
@@ -3178,9 +3177,9 @@ namespace Mir2
 
                                     case Spell.Purification:
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic2, 620, 10, 800, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 620, 10, 800, TargetPoint));
                                         else
-                                            ob.Effects.Add(new Effect(Libraries.Magic2, 620, 10, 800, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic2, 620, 10, 800, ob));
                                         break;
 
                                     #endregion
@@ -3188,13 +3187,13 @@ namespace Mir2
                                     #region Curse
 
                                     case Spell.Curse:
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                         {
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic2, 950, 24, 2000, TargetPoint));
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.Curse * 10);
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 950, 24, 2000, TargetPoint));
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.Curse * 10);
                                         };
                                         break;
 
@@ -3203,15 +3202,15 @@ namespace Mir2
                                     #region Hallucination
 
                                     case Spell.Hallucination:
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 48, 7);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 48, 7);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic2, 1110, 10, 1000, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic2, 1110, 10, 1000, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
                                             };
                                         }
                                         break;
@@ -3221,8 +3220,8 @@ namespace Mir2
                                     #region Lightning
 
                                     case Spell.Lightning:
-                                        Effects.Add(new Effect(Libraries.Magic, 970 + (int)Direction * 20, 6, Frame.Count * FrameInterval, this));
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                        Effects.Add(new Effect(Mir2Res.Magic, 970 + (int)Direction * 20, 6, Frame.Count * FrameInterval, this));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
                                         break;
 
                                     #endregion
@@ -3231,17 +3230,17 @@ namespace Mir2
 
                                     case Spell.Vampirism:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
 
                                         if (ob == null)
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic2, 1060, 20, 1000, TargetPoint));
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic2, 1060, 20, 1000, TargetPoint));
                                         else
                                         {
-                                            ob.Effects.Add(effect = new Effect(Libraries.Magic2, 1060, 20, 1000, ob));
+                                            ob.Effects.Add(effect = new Effect(Mir2Res.Magic2, 1060, 20, 1000, ob));
                                             effect.Complete += (o, e) =>
                                             {
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.Vampirism * 10 + 2);
-                                                Effects.Add(new Effect(Libraries.Magic2, 1090, 10, 500, this));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.Vampirism * 10 + 2);
+                                                Effects.Add(new Effect(Mir2Res.Magic2, 1090, 10, 500, this));
                                             };
                                         }
                                         break;
@@ -3251,12 +3250,12 @@ namespace Mir2
                                     #region PoisonCloud
 
                                     case Spell.PoisonCloud:
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                             {
-                                                SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
                                             };
 
                                         break;
@@ -3266,7 +3265,7 @@ namespace Mir2
                                     #region Blizzard
 
                                     case Spell.Blizzard:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
                                         //BlizzardFreezeTime = CMain.Time + 3000;
                                         break;
 
@@ -3275,8 +3274,8 @@ namespace Mir2
                                     #region MeteorStrike
 
                                     case Spell.MeteorStrike:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 2);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 2);
                                         //BlizzardFreezeTime = CMain.Time + 3000;
                                         break;
 
@@ -3293,8 +3292,8 @@ namespace Mir2
                                     #region SummonHolyDeva
 
                                     case Spell.SummonHolyDeva:
-                                        Effects.Add(new Effect(Libraries.Magic, 1500, 10, Frame.Count * FrameInterval, this));
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10);
+                                        Effects.Add(new Effect(Mir2Res.Magic, 1500, 10, Frame.Count * FrameInterval, this));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10);
                                         break;
 
                                     #endregion
@@ -3303,7 +3302,7 @@ namespace Mir2
 
                                     case Spell.UltimateEnhancer:
                                         if (ob != null && ob != User)
-                                            ob.Effects.Add(new Effect(Libraries.Magic2, 160, 15, 1000, ob));
+                                            ob.Effects.Add(new Effect(Mir2Res.Magic2, 160, 15, 1000, ob));
                                         break;
 
                                     #endregion
@@ -3311,14 +3310,14 @@ namespace Mir2
                                     #region Plague
 
                                     case Spell.Plague:
-                                        //SoundManager.PlaySound(20000 + (ushort)Spell.SoulShield * 10);
-                                        missile = CreateProjectile(1160, Libraries.Magic, true, 3, 30, 7);
+                                        //AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.SoulShield * 10);
+                                        missile = CreateProjectile(1160, Mir2Res.Magic, true, 3, 30, 7);
                                         missile.Explode = true;
 
                                         missile.Complete += (o, e) =>
                                         {
-                                            MapControl.Effects.Add(new Effect(Libraries.Magic3, 110, 10, 1200, TargetPoint));
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.Plague * 10 + 3);
+                                            MapControl.Effects.Add(new Effect(Mir2Res.Magic3, 110, 10, 1200, TargetPoint));
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.Plague * 10 + 3);
                                         };
                                         break;
 
@@ -3328,7 +3327,7 @@ namespace Mir2
 
                                     case Spell.TrapHexagon:
                                         if (ob != null)
-                                        SoundManager.PlaySound(20000 + (ushort)Spell.TrapHexagon * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.TrapHexagon * 10 + 1);
                                         break;
 
                                     #endregion
@@ -3337,7 +3336,7 @@ namespace Mir2
 
                                     case Spell.Trap:
                                         if (ob != null)
-                                            SoundManager.PlaySound(20000 + (ushort)Spell.Trap * 10 + 1);
+                                            AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.Trap * 10 + 1);
                                         break;
 
                                     #endregion
@@ -3345,7 +3344,7 @@ namespace Mir2
                                     #region CrescentSlash
 
                                     case Spell.CrescentSlash:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 2);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 2);
                                         break;
 
                                     #endregion
@@ -3354,8 +3353,8 @@ namespace Mir2
 
                                     case Spell.NapalmShot:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell * 10 + 1);
-                                        MapControl.Effects.Add(new Effect(Libraries.Magic3, 1660, 10, 1000, TargetPoint));
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell * 10 + 1);
+                                        MapControl.Effects.Add(new Effect(Mir2Res.Magic3, 1660, 10, 1000, TargetPoint));
                                         break;
 
                                     #endregion
@@ -3364,17 +3363,17 @@ namespace Mir2
                                     #region FireBounce
 
                                     case Spell.FireBounce:
-                                        SoundManager.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 1);
 
-                                        missile = CreateProjectile(410, Libraries.Magic, true, 6, 30, 4);
+                                        missile = CreateProjectile(410, Mir2Res.Magic, true, 6, 30, 4);
 
                                         if (missile.Target != null)
                                         {
                                             missile.Complete += (o, e) =>
                                             {
                                                 if (missile.Target.CurrentAction == MirAction.Dead) return;
-                                                missile.Target.Effects.Add(new Effect(Libraries.Magic, 570, 10, 600, missile.Target));
-                                                SoundManager.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
+                                                missile.Target.Effects.Add(new Effect(Mir2Res.Magic, 570, 10, 600, missile.Target));
+                                                AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
                                             };
                                         }
                                         break;
@@ -3385,7 +3384,7 @@ namespace Mir2
 
                                     case Spell.MeteorShower:
 
-                                        SoundManager.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 1);
+                                        AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 1);
 
                                         var targetIDs = new List<uint> { TargetID };
 
@@ -3396,7 +3395,7 @@ namespace Mir2
 
                                         foreach (var targetID in targetIDs)
                                         {
-                                            missile = CreateProjectile(410, Libraries.Magic, true, 6, 30, 4, targetID: targetID);
+                                            missile = CreateProjectile(410, Mir2Res.Magic, true, 6, 30, 4, targetID: targetID);
 
                                             if (missile.Target != null)
                                             {
@@ -3405,8 +3404,8 @@ namespace Mir2
                                                     var sender = (Missile)o;
 
                                                     if (sender.Target.CurrentAction == MirAction.Dead) return;
-                                                    sender.Target.Effects.Add(new Effect(Libraries.Magic, 570, 10, 600, sender.Target));
-                                                    SoundManager.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
+                                                    sender.Target.Effects.Add(new Effect(Mir2Res.Magic, 570, 10, 600, sender.Target));
+                                                    AudioMgr.Instance.PlaySound(20000 + (ushort)Spell.GreatFireBall * 10 + 2);
                                                 };
                                             }
                                         }
@@ -3440,7 +3439,7 @@ namespace Mir2
                 case MirAction.Die:
                     if (CMain.Time >= NextMotion)
                     {
-                        GameScene.Scene.MapControl.TextureValid = false;
+                        MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame();
 
@@ -3467,7 +3466,7 @@ namespace Mir2
                 case MirAction.Revive:
                     if (CMain.Time >= NextMotion)
                     {
-                        GameScene.Scene.MapControl.TextureValid = false;
+                        MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame();
 
@@ -3523,7 +3522,7 @@ namespace Mir2
         {
             if (WingEffect > 0 && CMain.Time >= NextMotion2)
             {
-                GameScene.Scene.MapControl.TextureValid = false;
+                MapControl.Instance.TextureValid = false;
 
                 if (SkipFrames) UpdateFrame2();
 
@@ -3543,13 +3542,9 @@ namespace Mir2
             }
 
             MapObject ob = MapControl.GetObject(targetID);
-
             var targetPoint = TargetPoint;
-
             if (ob != null) targetPoint = ob.CurrentLocation;
-
             int duration = Functions.MaxDistance(CurrentLocation, targetPoint) * 50;
-
             Missile missile = new Missile(library, baseIndex, duration / interval, duration, this, targetPoint)
             {
                 Target = ob,
@@ -3562,15 +3557,14 @@ namespace Mir2
             };
 
             Effects.Add(missile);
-
             return missile;
         }
 
         //Rebuild
         public void PlayStepSound()
         {
-            int x = CurrentLocation.X - CurrentLocation.X % 2;
-            int y = CurrentLocation.Y - CurrentLocation.Y % 2;
+            int x = CurrentLocation.x - CurrentLocation.x % 2;
+            int y = CurrentLocation.y - CurrentLocation.y % 2;
             if (MapControl.Instance.M2CellInfo[x, y].FrontIndex > 199) return; //prevents any move sounds on non mir2 maps atm
             if (MapControl.Instance.M2CellInfo[x, y].MiddleIndex > 199) return; //prevents any move sounds on non mir2 maps atm
             if (MapControl.Instance.M2CellInfo[x, y].BackIndex > 199) return; //prevents any move sounds on non mir2 maps atm
@@ -3600,7 +3594,7 @@ namespace Mir2
         private void PlayWemadeStepSound(int x, int y, out int moveSound)
         {
             int index = (MapControl.Instance.M2CellInfo[x, y].BackImage & 0x1FFFF) - 1;
-            //index = (GameScene.Scene.MapControl.M2CellInfo[x, y].FrontIndex - 2) * 10000 + index;
+            //index = (MapControl.Instance.M2CellInfo[x, y].FrontIndex - 2) * 10000 + index;
 
             if (index >= 0 && index <= 10000)
             {
@@ -3663,7 +3657,7 @@ namespace Mir2
         private void PlayShandaStepSound(int x, int y, out int moveSound)
         {
             int index = (MapControl.Instance.M2CellInfo[x, y].BackImage & 0x1FFFF) - 1;
-            //index = (GameScene.Scene.MapControl.M2CellInfo[x, y].BackIndex - 100) * 100000 + index;
+            //index = (MapControl.Instance.M2CellInfo[x, y].BackIndex - 100) * 100000 + index;
 
             var tt = MapControl.Instance.M2CellInfo[x, y];
 
@@ -4874,7 +4868,7 @@ namespace Mir2
 
         public override void Draw()
         {
-            DrawBehindEffects(Mir2Res.Effect);
+            DrawBehindEffects(Mir2Settings.Effect);
 
            // float oldOpacity = DXManager.Opacity;
             //if (Hidden && !DXManager.Blending) DXManager.SetOpacity(0.5F);
@@ -4979,13 +4973,13 @@ namespace Mir2
             //        switch (Spell)
             //        {
             //            case Spell.DoubleSlash:
-            //                Libraries.Magic2.DrawBlend(2050 + ((int)Direction * 10) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
+            //                Mir2Res.Magic2.DrawBlend(2050 + ((int)Direction * 10) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
             //                break;
             //            case Spell.TwinDrakeBlade:
-            //                Libraries.Magic2.DrawBlend(226 + ((int)Direction * 20) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
+            //                Mir2Res.Magic2.DrawBlend(226 + ((int)Direction * 20) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
             //                break;
             //            case Spell.FlamingSword:
-            //                Libraries.Magic.DrawBlend(3480 + ((int)Direction * 10) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
+            //                Mir2Res.Magic.DrawBlend(3480 + ((int)Direction * 10) + FrameIndex, DrawLocation, Color.White, true, 0.7F);
             //                break;
             //        }
             //        break;
@@ -5199,7 +5193,7 @@ namespace Mir2
                 location = Functions.PointMove(location, jumpDir, 1);
                 if (!MapControl.Instance.ValidPoint(location)) break;
 
-                CellInfo cInfo = MapControl.Instance.M2CellInfo[location.X, location.Y];
+                CellInfo cInfo = MapControl.Instance.M2CellInfo[location.x, location.y];
                 if (cInfo.CellObjects != null)
                 {
                     for (int c = 0; c < cInfo.CellObjects.Count; c++)
@@ -5275,7 +5269,8 @@ namespace Mir2
 
         public override bool MouseOver(Vector3Int p)
         {
-            return MapControl.MapLocation == CurrentLocation || BodyLibrary != null && BodyLibrary.VisiblePixel(DrawFrame + ArmourOffSet, p.Subtract(FinalDrawLocation), false);
+            return false;
+            //return MapControl.MapLocation == CurrentLocation || BodyLibrary != null && BodyLibrary.VisiblePixel(DrawFrame + ArmourOffSet, p - FinalDrawLocation), false);
         }
 
         private void CreateNameLabel()

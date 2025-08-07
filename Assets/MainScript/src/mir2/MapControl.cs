@@ -200,7 +200,7 @@ namespace Mir2
         private bool CheckDoorOpen(Vector3Int p)
         {
             if (M2CellInfo[p.x, p.y].DoorIndex == 0) return true;
-            Door DoorInfo = GetDoor(M2CellInfo[p.X, p.Y].DoorIndex);
+            Door DoorInfo = GetDoor(M2CellInfo[p.x, p.y].DoorIndex);
             if (DoorInfo == null) return false;//if the door doesnt exist then it isnt even being shown on screen (and cant be open lol)
             if ((DoorInfo.DoorState == DoorState.Closed) || (DoorInfo.DoorState == DoorState.Closing))
             {

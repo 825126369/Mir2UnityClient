@@ -10,8 +10,8 @@ namespace Mir2
 
         public UserItem[] HPItem = new UserItem[1];
         public UserItem[] MPItem = new UserItem[1];
-       // public override BuffDialog GetBuffDialog => GameScene.Scene.HeroBuffsDialog;
-        public UserHeroObject(uint objectID)
+        // public override BuffDialog GetBuffDialog => GameScene.Scene.HeroBuffsDialog;
+        public UserHeroObject(uint objectID):base(objectID)
         {
             ObjectID = objectID;
             Stats = new Stats();
@@ -25,13 +25,13 @@ namespace Mir2
             Class = (MirClass)info.Class;
             Gender = (MirGender)info.Gender;
             Level = (ushort)info.NLevel;
-           // Hair = info.Hair;
+            // Hair = info.Hair;
 
             HP = (int)info.HP;
             MP = (int)info.MP;
 
             Experience = (long)info.NLevelExp;
-           // MaxExperience = info.MaxExperience;
+            // MaxExperience = info.MaxExperience;
 
             //Inventory = info.Inventory;
             //Equipment = info.Equipment;
@@ -42,7 +42,7 @@ namespace Mir2
                 Magics[i].CastTime += CMain.Time;
             }
 
-            BindAllItems();                        
-        }      
+            BindAllItems();
+        }
     }
 }

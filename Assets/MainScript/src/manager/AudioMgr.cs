@@ -88,11 +88,6 @@ public class AudioMgr : SingleTonMonoBehaviour<AudioMgr>
         }
     }
 
-    
-    public void PlayAudio(string audioName, float volume = 1f){
-        this.playSound(audioName, volume);
-    }
-
     public void UpdateSoundState()
     {
         bool bMute = DataCenter.Instance.bMute;

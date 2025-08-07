@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using UnityEngine;
@@ -40,8 +41,7 @@ namespace Mir2
         public static readonly string Background = DataPath + "Background";
         public static readonly string Dragon = DataPath + "Dragon";
         //Items
-        public static readonly string
-            Items = DataPath + "Items",
+        public static readonly string Items = DataPath + "Items",
             StateItems = DataPath + "StateItem",
             FloorItems = DataPath + "DNItems";
 
@@ -110,7 +110,6 @@ namespace Mir2
         public Mir2Res()
         {
             MapPath = Path.Combine(DataPath, "Map");
-            SoundPath = Path.Combine(DataPath, "Sound");
             ExtraDataPath = Path.Combine(DataPath, "Extra");
             ShadersPath = Path.Combine(DataPath, "Shaders");
             MonsterPath = Path.Combine(DataPath, "Monster");
@@ -320,6 +319,16 @@ namespace Mir2
         private Sprite CreateSprite(Texture2D mTexture)
         {
             return MLibraryMgr.CreateSprite(mTexture);
+        }
+
+        public static void DrawBlend(SpriteRenderer mSpriteRenderer, string library, int index, Vector3Int point, UnityEngine.Color colour, bool offSet = false, float rate = 1)
+        {
+
+        }
+
+        public static void Draw(SpriteRenderer mSpriteRenderer, string library, int index, Vector3Int point, UnityEngine.Color colour, bool offSet = false, float rate = 1)
+        {
+
         }
     }
 

@@ -219,7 +219,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         var mReceiveMsg = Protocol3Utility.getData<packet_sc_UserLocation>(mNetPackage);
         Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
         MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
-        WorldMgr.Instance.User.HandleServerLocation(pos, Dir);
+        //WorldMgr.Instance.User.HandleServerLocation(pos, Dir);
     }
     
     void receive_sc_broadcast_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)

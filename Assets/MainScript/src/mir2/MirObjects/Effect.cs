@@ -94,7 +94,7 @@ namespace Mir2
             }
             else NextFrame = Start + (Duration / Count) * (CurrentFrame + 1);
 
-            //GameScene.Scene.MapControl.TextureValid = false;
+            //MapControl.Instance.TextureValid = false;
         }
 
         public virtual void Remove()
@@ -118,8 +118,8 @@ namespace Mir2
             }
             else
             {
-                DrawLocation = new Vector3Int((Source.x - MapObject.User.Movement.X + MapControl.OffSetX) * MapControl.CellWidth,
-                                         (Source.y - MapObject.User.Movement.Y + MapControl.OffSetY) * MapControl.CellHeight);
+                DrawLocation = new Vector3Int((Source.x - MapObject.User.Movement.x + MapControl.OffSetX) * MapControl.CellWidth,
+                                         (Source.y - MapObject.User.Movement.y + MapControl.OffSetY) * MapControl.CellHeight);
                 DrawLocation += DrawOffset;
                 DrawLocation += MapObject.User.OffSetMove;
             }
@@ -160,7 +160,7 @@ namespace Mir2
             Direction = direction16 ? MapControl.Direction16(Source, Destination) : (int)Functions.DirectionFromPoint(Source, Destination);
         }
 
-        public Missile(MLibrary library, int baseIndex, int count, int duration, Vector3Int source, Vector3Int target)
+        public Missile(string library, int baseIndex, int count, int duration, Vector3Int source, Vector3Int target)
             : base(library, baseIndex, count, duration, source)
         {
             Missiles.Add(this);
@@ -206,8 +206,8 @@ namespace Mir2
                                        (Source.y - MapObject.User.Movement.y + MapControl.OffSetY) * MapControl.CellHeight);
             DrawLocation += MapObject.User.OffSetMove;
 
-            int x = (Destination.X - Source.X) * MapControl.CellWidth;
-            int y = (Destination.Y - Source.Y) * MapControl.CellHeight;
+            int x = (Destination.x - Source.x) * MapControl.CellWidth;
+            int y = (Destination.y - Source.y) * MapControl.CellHeight;
 
             DrawLocation = new Vector3Int(x * CurrentFrame / Count, y * CurrentFrame / Count);
             transform.position = DrawLocation;
@@ -482,7 +482,7 @@ namespace Mir2
         {
             if (CMain.Time >= Start + Duration)
                 Remove();
-           // GameScene.Scene.MapControl.TextureValid = false;
+           // MapControl.Instance.TextureValid = false;
 
         }
 
@@ -495,7 +495,7 @@ namespace Mir2
             }
             else
             {
-                DrawLocation = new Vector3Int((Source.x - MapObject.User.Movement.X + MapControl.OffSetX) * MapControl.CellWidth, (Source.y - MapObject.User.Movement.Y + MapControl.OffSetY) * MapControl.CellHeight);
+                DrawLocation = new Vector3Int((Source.x - MapObject.User.Movement.x + MapControl.OffSetX) * MapControl.CellWidth, (Source.y - MapObject.User.Movement.y + MapControl.OffSetY) * MapControl.CellHeight);
                 DrawLocation += MapObject.User.OffSetMove;
             }
         }

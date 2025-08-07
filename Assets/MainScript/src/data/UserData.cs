@@ -100,92 +100,92 @@ public class UserData
         WingEffect = 0;
 
 
-        for (int i = 0; i < mEquipList.Count; i++)
-        {
-            ItemData temp = mEquipList[i];
-            if (temp == null) continue;
+        //for (int i = 0; i < mEquipList.Count; i++)
+        //{
+        //    ItemData temp = mEquipList[i];
+        //    if (temp == null) continue;
 
-            ItemInfoCFG mItemInfo = ExcelTableMgr.Instance.mItemList[(int)temp.nItemId];
-            ItemInfoCFG realItem = Functions.GetRealItem(mItemInfo, (ushort)nLevel, Class, ExcelTableMgr.Instance.mItemList);
+        //    ItemInfoCFG mItemInfo = ExcelTableMgr.Instance.mItemList[(int)temp.nItemId];
+        //    ItemInfoCFG realItem = Functions.GetRealItem(mItemInfo, (ushort)nLevel, Class, ExcelTableMgr.Instance.mItemList);
 
-            if (temp.nDura == 0 && realItem.ItemDurability > 0) continue;
+        //    if (temp.nDura == 0 && realItem.ItemDurability > 0) continue;
+        //    if (realItem.ItemType == ItemType.Armour)
+        //    {
+        //        Armour = realItem.ItemShape;
+        //        WingEffect = realItem.ItemEffect;
+        //    }
 
-            if (realItem.ItemType == ItemType.Armour)
-            {
-                Armour = realItem.ItemShape;
-                WingEffect = realItem.ItemEffect;
-            }
-            if (realItem.ItemType == ItemType.Weapon)
-            {
-                Weapon = realItem.ItemShape;
-                WeaponEffect = realItem.ItemEffect;
-            }
+        //    if (realItem.ItemType == ItemType.Weapon)
+        //    {
+        //        Weapon = realItem.ItemShape;
+        //        WeaponEffect = realItem.ItemEffect;
+        //    }
 
-            if (realItem.ItemType == ItemType.Mount) //×øÆï
-            {
-                MountType = realItem.ItemShape;
-            }
+        //    if (realItem.ItemType == ItemType.Mount) //×øÆï
+        //    {
+        //        MountType = realItem.ItemShape;
+        //    }
 
-            //    Stats.Add(realItem.Stats);
-            //    Stats.Add(temp.AddedStats);
+        //    //    Stats.Add(realItem.Stats);
+        //    //    Stats.Add(temp.AddedStats);
 
-            //    Stats[Stat.MinAC] += temp.Awake.GetAC();
-            //    Stats[Stat.MaxAC] += temp.Awake.GetAC();
-            //    Stats[Stat.MinMAC] += temp.Awake.GetMAC();
-            //    Stats[Stat.MaxMAC] += temp.Awake.GetMAC();
+        //    //    Stats[Stat.MinAC] += temp.Awake.GetAC();
+        //    //    Stats[Stat.MaxAC] += temp.Awake.GetAC();
+        //    //    Stats[Stat.MinMAC] += temp.Awake.GetMAC();
+        //    //    Stats[Stat.MaxMAC] += temp.Awake.GetMAC();
 
-            //    Stats[Stat.MinDC] += temp.Awake.GetDC();
-            //    Stats[Stat.MaxDC] += temp.Awake.GetDC();
-            //    Stats[Stat.MinMC] += temp.Awake.GetMC();
-            //    Stats[Stat.MaxMC] += temp.Awake.GetMC();
-            //    Stats[Stat.MinSC] += temp.Awake.GetSC();
-            //    Stats[Stat.MaxSC] += temp.Awake.GetSC();
+        //    //    Stats[Stat.MinDC] += temp.Awake.GetDC();
+        //    //    Stats[Stat.MaxDC] += temp.Awake.GetDC();
+        //    //    Stats[Stat.MinMC] += temp.Awake.GetMC();
+        //    //    Stats[Stat.MaxMC] += temp.Awake.GetMC();
+        //    //    Stats[Stat.MinSC] += temp.Awake.GetSC();
+        //    //    Stats[Stat.MaxSC] += temp.Awake.GetSC();
 
-            //    Stats[Stat.HP] += temp.Awake.GetHPMP();
-            //    Stats[Stat.MP] += temp.Awake.GetHPMP();
+        //    //    Stats[Stat.HP] += temp.Awake.GetHPMP();
+        //    //    Stats[Stat.MP] += temp.Awake.GetHPMP();
 
-            //    if (realItem.Light > Light) Light = realItem.Light;
-            //    if (realItem.Unique != SpecialItemMode.None)
-            //    {
-            //        ItemMode |= realItem.Unique;
-            //    }
+        //    //    if (realItem.Light > Light) Light = realItem.Light;
+        //    //    if (realItem.Unique != SpecialItemMode.None)
+        //    //    {
+        //    //        ItemMode |= realItem.Unique;
+        //    //    }
 
-            //    if (realItem.CanFastRun)
-            //    {
-            //        FastRun = true;
-            //    }
+        //    //    if (realItem.CanFastRun)
+        //    //    {
+        //    //        FastRun = true;
+        //    //    }
 
-            //    RefreshSocketStats(temp);
+        //    //    RefreshSocketStats(temp);
 
-            //    if (realItem.Set == ItemSet.None) continue;
+        //    //    if (realItem.Set == ItemSet.None) continue;
 
-            //    ItemSets itemSet = ItemSets.Where(set => set.Set == realItem.Set && !set.Type.Contains(realItem.Type) && !set.SetComplete).FirstOrDefault();
+        //    //    ItemSets itemSet = ItemSets.Where(set => set.Set == realItem.Set && !set.Type.Contains(realItem.Type) && !set.SetComplete).FirstOrDefault();
 
-            //    if (itemSet != null)
-            //    {
-            //        itemSet.Type.Add(realItem.Type);
-            //        itemSet.Count++;
-            //    }
-            //    else
-            //    {
-            //        ItemSets.Add(new ItemSets { Count = 1, Set = realItem.Set, Type = new List<ItemType> { realItem.Type } });
-            //    }
+        //    //    if (itemSet != null)
+        //    //    {
+        //    //        itemSet.Type.Add(realItem.Type);
+        //    //        itemSet.Count++;
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        ItemSets.Add(new ItemSets { Count = 1, Set = realItem.Set, Type = new List<ItemType> { realItem.Type } });
+        //    //    }
 
-            //    //Mir Set
-            //    if (realItem.Set == ItemSet.Mir)
-            //    {
-            //        if (!MirSet.Contains((EquipmentSlot)i))
-            //            MirSet.Add((EquipmentSlot)i);
-            //    }
-            //}
+        //    //    //Mir Set
+        //    //    if (realItem.Set == ItemSet.Mir)
+        //    //    {
+        //    //        if (!MirSet.Contains((EquipmentSlot)i))
+        //    //            MirSet.Add((EquipmentSlot)i);
+        //    //    }
+        //    //}
 
-            //if (ItemMode.HasFlag(SpecialItemMode.Muscle))
-            //{
-            //    Stats[Stat.BagWeight] = Stats[Stat.BagWeight] * 2;
-            //    Stats[Stat.WearWeight] = Stats[Stat.WearWeight] * 2;
-            //    Stats[Stat.HandWeight] = Stats[Stat.HandWeight] * 2;
-            //}
-        }
+        //    //if (ItemMode.HasFlag(SpecialItemMode.Muscle))
+        //    //{
+        //    //    Stats[Stat.BagWeight] = Stats[Stat.BagWeight] * 2;
+        //    //    Stats[Stat.WearWeight] = Stats[Stat.WearWeight] * 2;
+        //    //    Stats[Stat.HandWeight] = Stats[Stat.HandWeight] * 2;
+        //    //}
+        //}
     }
 
 }

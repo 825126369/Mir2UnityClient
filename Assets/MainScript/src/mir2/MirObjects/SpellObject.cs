@@ -1,11 +1,10 @@
-﻿using System;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Mir2
 {
     class SpellObject : MapObject
     {
+        public SpriteRenderer mSpriteRenderer;
         public override ObjectType Race
         {
             get { return ObjectType.Spell; }
@@ -317,7 +316,7 @@ namespace Mir2
                 }
             }
 
-            DrawLocation = new Vector3Int((CurrentLocation.x - User.Movement.x + MapControl.OffSetX) * MapControl.CellWidth, (CurrentLocation.Y - User.Movement.Y + MapControl.OffSetY) * MapControl.CellHeight);
+            DrawLocation = new Vector3Int((CurrentLocation.x - User.Movement.x + MapControl.OffSetX) * MapControl.CellWidth, (CurrentLocation.y - User.Movement.y + MapControl.OffSetY) * MapControl.CellHeight);
             DrawLocation += GlobalDisplayLocationOffset;
             DrawLocation += User.OffSetMove;
         }
@@ -329,7 +328,7 @@ namespace Mir2
 
             if (Blend)
             {
-                BodyLibrary.DrawBlend(
+               Mir2Res.DrawBlend(mSpriteRenderer, BodyLibrary,
                     DrawFrame + FrameIndex,
                     AnimationOffset == default ? DrawLocation : GetDrawWithOffset(),
                     DrawColour, true,
@@ -337,7 +336,7 @@ namespace Mir2
             }
             else
             {
-                BodyLibrary.Draw(DrawFrame + FrameIndex,
+                Mir2Res.DrawBlend(mSpriteRenderer, BodyLibrary, DrawFrame + FrameIndex,
                     AnimationOffset == default ? DrawLocation : GetDrawWithOffset(),
                     DrawColour,
                     true);

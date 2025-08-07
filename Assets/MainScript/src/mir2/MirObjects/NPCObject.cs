@@ -7,6 +7,8 @@ namespace Mir2
 {
     public class NPCObject : MapObject
     {
+        public SpriteRenderer mSpriteRenderer;
+
         public override ObjectType Race
         {
             get { return ObjectType.Merchant; }
@@ -39,44 +41,44 @@ namespace Mir2
             }
         }
 
-        //public List<ClientQuestInfo> Quests;
+        public List<ClientQuestInfo> Quests;
 
 
         public NPCObject(uint objectID) : base(objectID)
         {
         }
 
-        public void Load(S.ObjectNPC info)
-        {
-            //Name = info.Name;
-            //NameColour = info.NameColour;
-            //CurrentLocation = info.Location;
-            //Direction = info.Direction;
-            //Movement = info.Location;
-            //MapLocation = info.Location;
-            //GameScene.Scene.MapControl.AddObject(this);
+        //public void Load(S.ObjectNPC info)
+        //{
+        //    //Name = info.Name;
+        //    //NameColour = info.NameColour;
+        //    //CurrentLocation = info.Location;
+        //    //Direction = info.Direction;
+        //    //Movement = info.Location;
+        //    //MapLocation = info.Location;
+        //    //MapControl.Instance.AddObject(this);
 
-            //Quests = GameScene.QuestInfoList.Where(c => c.NPCIndex == ObjectID).ToList();
+        //    //Quests = GameScene.QuestInfoList.Where(c => c.NPCIndex == ObjectID).ToList();
 
-            //Image = info.Image;
-            //Colour = info.Colour;
+        //    //Image = info.Image;
+        //    //Colour = info.Colour;
 
-            //LoadLibrary();
+        //    //LoadLibrary();
 
-            //Frames = BodyLibrary.Frames ?? FrameSet.DefaultNPC;
+        //    //Frames = BodyLibrary.Frames ?? FrameSet.DefaultNPC;
 
-            //Light = 10;
-            //BaseIndex = 0;
+        //    //Light = 10;
+        //    //BaseIndex = 0;
 
-            //SetAction(true);
-        }
+        //    //SetAction(true);
+        //}
 
         public void LoadLibrary()
         {
-            //if (Image < Libraries.NPCs.Length)
-            //    BodyLibrary = Libraries.NPCs[Image];
+            //if (Image < Mir2Res.NPCs.Length)
+            //    BodyLibrary = Mir2Res.NPCs[Image];
             //else if (Image >= 1000 && Image < 1100)
-            //    BodyLibrary = Libraries.Flags[Image - 1000];
+            //    BodyLibrary = Mir2Res.Flags[Image - 1000];
         }
 
         public override void Process()
@@ -156,7 +158,7 @@ namespace Mir2
             //}
 
 
-            //if (colour != DrawColour) GameScene.Scene.MapControl.TextureValid = false;
+            //if (colour != DrawColour) MapControl.Instance.TextureValid = false;
 
 
             //if (CMain.Time > QuestTime)
@@ -193,7 +195,7 @@ namespace Mir2
                     if(EffectFrameInterval > 0)
                     if (CMain.Time >= NextMotion2)
                     {
-                        //GameScene.Scene.MapControl.TextureValid = false;
+                        //MapControl.Instance.TextureValid = false;
 
                         if (SkipFrames) UpdateFrame2();
 
@@ -283,7 +285,7 @@ namespace Mir2
             NextMotion = CMain.Time + FrameInterval;
             NextMotion2 = CMain.Time + EffectFrameInterval;
 
-           // GameScene.Scene.MapControl.TextureValid = false;
+           // MapControl.Instance.TextureValid = false;
 
         }
         public override void Draw()
@@ -301,12 +303,13 @@ namespace Mir2
 
             //int imageIndex = 981 + ((int)QuestIcon * 2) + QuestIndex;
             
-           // Libraries.Prguse.Draw(imageIndex, DrawLocation.Add(offSet).Add(size.Width / 2 - 28, -40), Color.White, false);
+           // Mir2Res.Prguse.Draw(imageIndex, DrawLocation.Add(offSet).Add(size.Width / 2 - 28, -40), Color.White, false);
         }
 
         public override bool MouseOver(Vector3Int p)
         {
-            return MapControl.MapLocation == CurrentLocation || BodyLibrary != null && BodyLibrary.VisiblePixel(DrawFrame, p.Subtract(FinalDrawLocation), false);
+            //return MapControl.MapLocation == CurrentLocation || BodyLibrary != null && BodyLibrary.VisiblePixel(DrawFrame, p.Subtract(FinalDrawLocation), false);
+            return false;
         }
 
         public override void DrawBehindEffects(bool effectsEnabled)
@@ -320,7 +323,9 @@ namespace Mir2
             if (BodyLibrary == null) return;
 
             if (DrawWingFrame > 0)
-                BodyLibrary.DrawBlend(DrawWingFrame, DrawLocation, Color.White, true);
+            {
+                Mir2Res.DrawBlend(mSpriteRenderer, BodyLibrary, DrawWingFrame, DrawLocation, Mir2Color.White, true);
+            }
         }
 
         public override void DrawName()
@@ -331,43 +336,43 @@ namespace Mir2
                 return;
             }
 
-            string[] splitName = Name.Split('_');
+            //string[] splitName = Name.Split('_');
 
-            for (int s = 0; s < splitName.Count(); s++)
-            {
-                CreateNPCLabel(splitName[s], s);
+            //for (int s = 0; s < splitName.Count(); s++)
+            //{
+            //    CreateNPCLabel(splitName[s], s);
 
-                TempLabel.Text = splitName[s];
-                TempLabel.Location = new Point(DisplayRectangle.X + (48 - TempLabel.Size.Width) / 2, DisplayRectangle.Y - (32 - TempLabel.Size.Height / 2) + (Dead ? 35 : 8) - (((splitName.Count() - 1) * 10) / 2) + (s * 12));
-                TempLabel.Draw();
-            }
+            //    TempLabel.Text = splitName[s];
+            //    TempLabel.Location = new Point(DisplayRectangle.X + (48 - TempLabel.Size.Width) / 2, DisplayRectangle.Y - (32 - TempLabel.Size.Height / 2) + (Dead ? 35 : 8) - (((splitName.Count() - 1) * 10) / 2) + (s * 12));
+            //    TempLabel.Draw();
+            //}
         }
 
         public void CreateNPCLabel(string word, int wordOrder)
         {
             TempLabel = null;
 
-            for (int i = 0; i < LabelList.Count; i++)
-            {
-                if (LabelList[i].Text != word || LabelList[i].ForeColour != (wordOrder == 0 ? NameColour : Color.White)) continue;
-                TempLabel = LabelList[i];
-                break;
-            }
+            //for (int i = 0; i < LabelList.Count; i++)
+            //{
+            //    if (LabelList[i].Text != word || LabelList[i].ForeColour != (wordOrder == 0 ? NameColour : Color.White)) continue;
+            //    TempLabel = LabelList[i];
+            //    break;
+            //}
 
-            if (TempLabel != null && !TempLabel.IsDisposed) return;
+            //if (TempLabel != null && !TempLabel.IsDisposed) return;
 
-            TempLabel = new MirLabel
-            {
-                AutoSize = true,
-                BackColour = Color.Transparent,
-                ForeColour = wordOrder == 0 ? NameColour : Color.White,
-                OutLine = true,
-                OutLineColour = Color.Black,
-                Text = word,
-            };
+            //TempLabel = new MirLabel
+            //{
+            //    AutoSize = true,
+            //    BackColour = Color.Transparent,
+            //    ForeColour = wordOrder == 0 ? NameColour : Color.White,
+            //    OutLine = true,
+            //    OutLineColour = Color.Black,
+            //    Text = word,
+            //};
 
-            TempLabel.Disposing += (o, e) => LabelList.Remove(TempLabel);
-            LabelList.Add(TempLabel);
+            //TempLabel.Disposing += (o, e) => LabelList.Remove(TempLabel);
+            //LabelList.Add(TempLabel);
         }
 
 
@@ -405,18 +410,13 @@ namespace Mir2
                 }
             }
 
-            foreach (ClientQuestProgress quest in (
-                from q in Quests
-                where !quests.Exists(p => p.QuestInfo.Index == q.Index) 
-                where CanAccept(q) 
-                where !User.CompletedQuests.Contains(q.Index) 
+            foreach (ClientQuestProgress quest in (from q in Quests where !quests.Exists(p => p.QuestInfo.Index == q.Index)  where CanAccept(q) where !User.CompletedQuests.Contains(q.Index) 
                 select q).Select(
                 q => User.CurrentQuests.Exists(p => p.QuestInfo.Index == q.Index) ? 
                     new ClientQuestProgress { QuestInfo = q, Taken = true, Completed = false } : 
                     new ClientQuestProgress { QuestInfo = q }))
             {
                 quests.Add(quest);
-
                 if (returnFirst) return quests;
             }
 

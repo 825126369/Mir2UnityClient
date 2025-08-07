@@ -333,10 +333,10 @@ namespace Mir2
 
         public UserItem(ItemInfoCFG info)
         {
-            SoulBoundId = -1;
-            ItemIndex = info.Index;
-            Info = info;
-            AddedStats = new Stats();
+            //SoulBoundId = -1;
+            //ItemIndex = info.Index;
+            //Info = info;
+            //AddedStats = new Stats();
 
             SetSlotSize();
         }
@@ -683,32 +683,33 @@ namespace Mir2
 
         public UserItem Clone()
         {
-            UserItem item = new UserItem(Info)
-            {
-                UniqueID = UniqueID,
-                CurrentDura = CurrentDura,
-                MaxDura = MaxDura,
-                Count = Count,
-                GemCount = GemCount,
-                DuraChanged = DuraChanged,
-                SoulBoundId = SoulBoundId,
-                Identified = Identified,
-                Cursed = Cursed,
-                Slots = Slots,
-                AddedStats = new Stats(AddedStats),
-                Awake = Awake,
+            //UserItem item = new UserItem(Info)
+            //{
+            //    UniqueID = UniqueID,
+            //    CurrentDura = CurrentDura,
+            //    MaxDura = MaxDura,
+            //    Count = Count,
+            //    GemCount = GemCount,
+            //    DuraChanged = DuraChanged,
+            //    SoulBoundId = SoulBoundId,
+            //    Identified = Identified,
+            //    Cursed = Cursed,
+            //    Slots = Slots,
+            //    AddedStats = new Stats(AddedStats),
+            //    Awake = Awake,
 
-                RefineAdded = RefineAdded,
+            //    RefineAdded = RefineAdded,
 
-                ExpireInfo = ExpireInfo,
-                RentalInformation = RentalInformation,
-                SealedInfo = SealedInfo,
+            //    ExpireInfo = ExpireInfo,
+            //    RentalInformation = RentalInformation,
+            //    SealedInfo = SealedInfo,
 
-                IsShopItem = IsShopItem,
-                GMMade = GMMade
-            };
+            //    IsShopItem = IsShopItem,
+            //    GMMade = GMMade
+            //};
 
-            return item;
+            //return item;
+            return null;
         }
 
     }
@@ -835,7 +836,7 @@ namespace Mir2
         {
             ItemIndex = reader.ReadInt32();
             GIndex = reader.ReadInt32();
-            Info = new ItemInfoCFG(reader);
+           // Info = new ItemInfoCFG(reader);
             GoldPrice = reader.ReadUInt32();
             CreditPrice = reader.ReadUInt32();
             Count = reader.ReadUInt16();
@@ -854,7 +855,7 @@ namespace Mir2
         {
             writer.Write(ItemIndex);
             writer.Write(GIndex);
-            if (packet) Info.Save(writer);
+           // if (packet) Info.Save(writer);
             writer.Write(GoldPrice);
             writer.Write(CreditPrice);
             writer.Write(Count);
@@ -869,10 +870,10 @@ namespace Mir2
             writer.Write(CanBuyGold);
         }
 
-        public override string ToString()
-        {
-            return string.Format("{0}: {1}", GIndex, Info.Name);
-        }
+        //public override string ToString()
+        //{
+        //    return string.Format("{0}: {1}", GIndex, Info.Name);
+        //}
 
     }
 

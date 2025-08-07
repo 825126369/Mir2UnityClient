@@ -1,6 +1,7 @@
 ﻿using NetProtocols.Game;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Mir2
@@ -25,7 +26,7 @@ namespace Mir2
         public SpecialItemMode ItemMode;
         public BaseStats CoreStats = new BaseStats(0);
 
-        public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
+       // public virtual BuffDialog GetBuffDialog => GameScene.Scene.BuffsDialog;
 
         public UserItem[] Inventory = new UserItem[46], Equipment = new UserItem[14], Trade = new UserItem[10], QuestInventory = new UserItem[40];
         public int BeltIdx = 6, HeroBeltIdx = 2;
@@ -52,10 +53,22 @@ namespace Mir2
         public MirDirection NextMagicDirection;
         public QueuedAction QueuedAction;
 
-        public UserObject() { }
         public UserObject(uint objectID) : base(objectID)
         {
             Stats = new Stats();
+        }
+
+        public void Init()
+        {
+            if (bInit) return;
+            bInit = true;
+
+            //mData = DataCenter.Instance.UserData;
+            //mTimeOutGenerator_ForMove = TimeOutGenerator.New(0.1f);
+
+            //InitPos();
+            //InitEquipEffect();
+            //SetAction();
         }
 
         public virtual void Load(packet_data_UserInfo info)
@@ -72,7 +85,7 @@ namespace Mir2
 
             //CurrentLocation = info.Location;
             //MapLocation = info.Location;
-            //GameScene.Scene.MapControl.AddObject(this);
+            //MapControl.Instance.AddObject(this);
 
             //Direction = info.Direction;
             //Hair = info.Hair;
@@ -109,14 +122,14 @@ namespace Mir2
             SetAction();
         }
 
-        public void SetSlots(S.UserSlotsRefresh p)
-        {
-            Inventory = p.Inventory;
-            Equipment = p.Equipment;
+        //public void SetSlots(S.UserSlotsRefresh p)
+        //{
+        //    Inventory = p.Inventory;
+        //    Equipment = p.Equipment;
 
-            BindAllItems();
-            RefreshStats();
-        }
+        //    BindAllItems();
+        //    RefreshStats();
+        //}
 
         public override void SetLibraries()
         {
@@ -162,7 +175,7 @@ namespace Mir2
 
             PercentHealth = (byte)(HP / (float)Stats[Stat.HP] * 100);
 
-            GameScene.Scene.Redraw();
+            //GameScene.Scene.Redraw();
         }
 
         private void RefreshLevelStats()
@@ -269,7 +282,6 @@ namespace Mir2
                 RefreshSocketStats(temp);
 
                 if (realItem.Set == ItemSet.None) continue;
-
                 ItemSets itemSet = ItemSets.Where(set => set.Set == realItem.Set && !set.Type.Contains(realItem.Type) && !set.SetComplete).FirstOrDefault();
 
                 if (itemSet != null)
@@ -317,24 +329,24 @@ namespace Mir2
             {
                 UserItem temp = equipItem.Slots[i];
 
-                if (temp == null) continue;
-                ItemInfoCFG realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
+                //if (temp == null) continue;
+                //ItemInfoCFG realItem = Functions.GetRealItem(temp.Info, Level, Class, GameScene.ItemInfoList);
 
-                if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
-                    CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);
-                else
-                    CurrentWearWeight = (int)Math.Min(int.MaxValue, CurrentWearWeight + temp.Weight);
+                //if (realItem.Type == ItemType.Weapon || realItem.Type == ItemType.Torch)
+                //    CurrentHandWeight = (int)Math.Min(int.MaxValue, CurrentHandWeight + temp.Weight);
+                //else
+                //    CurrentWearWeight = (int)Math.Min(int.MaxValue, CurrentWearWeight + temp.Weight);
 
-                if (temp.CurrentDura == 0 && realItem.Durability > 0) continue;
+                //if (temp.CurrentDura == 0 && realItem.Durability > 0) continue;
 
-                Stats.Add(realItem.Stats);
-                Stats.Add(temp.AddedStats);
+                //Stats.Add(realItem.Stats);
+                //Stats.Add(temp.AddedStats);
         
-                if (realItem.Light > Light) Light = realItem.Light;
-                if (realItem.Unique != SpecialItemMode.None)
-                {
-                    ItemMode |= realItem.Unique;
-                }
+                //if (realItem.Light > Light) Light = realItem.Light;
+                //if (realItem.Unique != SpecialItemMode.None)
+                //{
+                //    ItemMode |= realItem.Unique;
+                //}
             }
         }
 
@@ -616,47 +628,47 @@ namespace Mir2
         private void RefreshBuffs()
         {
             TransformType = -1;
-            BuffDialog dialog = GetBuffDialog;
+           // BuffDialog dialog = GetBuffDialog;
 
-            for (int i = 0; i < dialog.Buffs.Count; i++)
-            {
-                ClientBuff buff = dialog.Buffs[i];
+            //for (int i = 0; i < dialog.Buffs.Count; i++)
+            //{
+            //    ClientBuff buff = dialog.Buffs[i];
 
-                Stats.Add(buff.Stats);
+            //    Stats.Add(buff.Stats);
 
-                switch (buff.Type)
-                {
-                    case BuffType.SwiftFeet:
-                        Sprint = true;
-                        break;
-                    case BuffType.Transform:
-                        if (buff.Paused) continue;
-                        TransformType = (short)buff.Values[0];
-                        FastRun = true;
-                        break;
-                }
-            }
+            //    switch (buff.Type)
+            //    {
+            //        case BuffType.SwiftFeet:
+            //            Sprint = true;
+            //            break;
+            //        case BuffType.Transform:
+            //            if (buff.Paused) continue;
+            //            TransformType = (short)buff.Values[0];
+            //            FastRun = true;
+            //            break;
+            //    }
+            //}
         }
 
         public void RefreshGuildBuffs()
         {
-            if (User != this) return;
-            if (GameScene.Scene.GuildDialog == null) return;
-            for (int i = 0; i < GameScene.Scene.GuildDialog.EnabledBuffs.Count; i++)
-            {
-                GuildBuff buff = GameScene.Scene.GuildDialog.EnabledBuffs[i];
-                if (buff == null) continue;
-                if (!buff.Active) continue;
+            //if (User != this) return;
+            ////if (GameScene.Scene.GuildDialog == null) return;
+            //for (int i = 0; i < GameScene.Scene.GuildDialog.EnabledBuffs.Count; i++)
+            //{
+            //    GuildBuff buff = GameScene.Scene.GuildDialog.EnabledBuffs[i];
+            //    if (buff == null) continue;
+            //    if (!buff.Active) continue;
 
-                if (buff.Info == null)
-                {
-                    buff.Info = GameScene.Scene.GuildDialog.FindGuildBuffInfo(buff.Id);
-                }
+            //    if (buff.Info == null)
+            //    {
+            //        buff.Info = GameScene.Scene.GuildDialog.FindGuildBuffInfo(buff.Id);
+            //    }
 
-                if (buff.Info == null) continue;
+            //    if (buff.Info == null) continue;
 
-                Stats.Add(buff.Info.Stats);
-            }
+            //    Stats.Add(buff.Info.Stats);
+            //}
         }
 
         public void RefreshStatCaps()
@@ -690,19 +702,19 @@ namespace Mir2
             for (int i = 0; i < Inventory.Length; i++)
             {
                 if (Inventory[i] == null) continue;
-                GameScene.Bind(Inventory[i]);
+               // GameScene.Bind(Inventory[i]);
             }
 
             for (int i = 0; i < Equipment.Length; i++)
             {
                 if (Equipment[i] == null) continue;
-                GameScene.Bind(Equipment[i]);
+                //GameScene.Bind(Equipment[i]);
             }
 
             for (int i = 0; i < QuestInventory.Length; i++)
             {
                 if (QuestInventory[i] == null) continue;
-                GameScene.Bind(QuestInventory[i]);
+                //GameScene.Bind(QuestInventory[i]);
             }
         }
 
@@ -805,7 +817,7 @@ namespace Mir2
         {
             NextMagic = null;
             NextMagicDirection = 0;
-            NextMagicLocation = Point.Empty;
+            NextMagicLocation = Vector3Int.zero;
             NextMagicObject = null;
         } 
     }

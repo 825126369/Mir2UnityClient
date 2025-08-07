@@ -259,8 +259,8 @@ namespace Mir2
 
         private int GetDistance(Node nodeA, Node nodeB)
         {
-            int distX = Math.Abs(nodeA.Location.X - nodeB.Location.X);
-            int distY = Math.Abs(nodeA.Location.Y - nodeB.Location.Y);
+            int distX = Math.Abs(nodeA.Location.x - nodeB.Location.x);
+            int distY = Math.Abs(nodeA.Location.y - nodeB.Location.y);
 
             if (distX > distY)
                 return 14 * distY + (10 * (distX - distY));
@@ -282,8 +282,8 @@ namespace Mir2
                 {
                     if (x == 0 && y == 0) continue;
 
-                    int checkX = node.Location.X + x;
-                    int checkY = node.Location.Y + y;
+                    int checkX = node.Location.x + x;
+                    int checkY = node.Location.y + y;
 
                     if (checkX >= 0 && checkX < Grid.GetLength(0) && checkY >= 0 && checkY < Grid.GetLength(1))
                     {

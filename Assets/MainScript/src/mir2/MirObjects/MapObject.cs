@@ -4,8 +4,9 @@ using UnityEngine.UI;
 
 namespace Mir2
 {
-    public abstract class MapObject
+    public abstract class MapObject:MonoBehaviour
     {
+        protected bool bInit = false;
         public static List<Text> LabelList = new List<Text>();
 
         public static UserObject User;
@@ -331,7 +332,7 @@ namespace Mir2
             return drawColour;
         }
 
-        public virtual Missile CreateProjectile(int baseIndex, MLibrary library, bool blend, int count, int interval, int skip, int lightDistance = 6, bool direction16 = true, Color? lightColour = null, uint targetID = 0)
+        public virtual Missile CreateProjectile(int baseIndex, string library, bool blend, int count, int interval, int skip, int lightDistance = 6, bool direction16 = true, Color? lightColour = null, uint targetID = 0)
         {
             return null;
         }
@@ -470,7 +471,7 @@ namespace Mir2
             //    if (!ShouldDrawHealth()) return;
             //}
 
-            //Libraries.Prguse2.Draw(0, DisplayRectangle.X + 8, DisplayRectangle.Y - 64);
+            //Mir2Res.Prguse2.Draw(0, DisplayRectangle.X + 8, DisplayRectangle.Y - 64);
             //int index = 1;
 
             //switch (Race)
@@ -491,13 +492,13 @@ namespace Mir2
             //            index = 1; 
             //            if ((MapObject.HeroObject.Class != MirClass.Warrior && HeroObject.Level > 7) || (MapObject.HeroObject.Class == MirClass.Warrior && HeroObject.Level > 25))
             //            {
-            //               Libraries.Prguse2.Draw(10, new Rectangle(0, 0, (int)(32 * PercentMana / 100F), 4), new Point(DisplayRectangle.X + 8, DisplayRectangle.Y - 60), Color.White, false);
+            //               Mir2Res.Prguse2.Draw(10, new Rectangle(0, 0, (int)(32 * PercentMana / 100F), 4), new Point(DisplayRectangle.X + 8, DisplayRectangle.Y - 60), Color.White, false);
             //            }
             //        }
             //        break;
             //}
 
-            //Libraries.Prguse2.Draw(index, new Rectangle(0, 0, (int)(32 * PercentHealth / 100F), 4), new Point(DisplayRectangle.X + 8, DisplayRectangle.Y - 64), Color.White, false);
+            //Mir2Res.Prguse2.Draw(index, new Rectangle(0, 0, (int)(32 * PercentHealth / 100F), 4), new Point(DisplayRectangle.X + 8, DisplayRectangle.Y - 64), Color.White, false);
         }
 
         public void DrawPoison()

@@ -45,11 +45,11 @@ namespace Mir2
             //Name = string.Format("Gold ({0:###,###,###})", info.Gold);
 
 
-            //BodyLibrary = Libraries.FloorItems;
+            //BodyLibrary = Mir2Res.FloorItems;
 
             //CurrentLocation = info.Location;
             //MapLocation = info.Location;
-            //GameScene.Scene.MapControl.AddObject(this);
+            //MapControl.Instance.AddObject(this);
 
             //if (info.Gold < 100)
             //    DrawFrame = 112;

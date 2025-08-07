@@ -192,13 +192,13 @@ namespace Mir2
         public static string P_Password = string.Empty;
         public static string P_ServerName = string.Empty;
         public static string P_BrowserAddress = "https://www.lomcn.org/mir2-patchsite/";
-        public static string P_Client = Application.StartupPath + "\\";
+        //public static string P_Client = Application.StartupPath + "\\";
         public static bool P_AutoStart = false;
         public static int P_Concurrency = 1;
 
         public static void Load()
         {
-            GameLanguage.LoadClientLanguage(@".\Language.ini");
+            // GameLanguage.LoadClientLanguage(@".\Language.ini");
 
             if (!Directory.Exists(DataPath)) Directory.CreateDirectory(DataPath);
             if (!Directory.Exists(MapPath)) Directory.CreateDirectory(MapPath);
@@ -396,7 +396,7 @@ namespace Mir2
             //Quests
             for (int i = 0; i < TrackedQuests.Length; i++)
             {
-                TrackedQuests[i] = QuestTrackingReader.ReadInt32(charName, "Quest-" + i.ToString(), -1);
+               // TrackedQuests[i] = QuestTrackingReader.ReadInt32(charName, "Quest-" + i.ToString(), -1);
             }
         }
 
@@ -405,7 +405,7 @@ namespace Mir2
             //Quests
             for (int i = 0; i < TrackedQuests.Length; i++)
             {
-                QuestTrackingReader.Write(charName, "Quest-" + i.ToString(), TrackedQuests[i]);
+                //QuestTrackingReader.Write(charName, "Quest-" + i.ToString(), TrackedQuests[i]);
             }
         }
     }

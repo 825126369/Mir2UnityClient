@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +16,7 @@ public class CommonDialogView :MonoBehaviour
     
     public void ShowYesCancel(string title, string message, Action yesFunc = null, Action cancelFunc = null)
     {
-        AudioMgr.Instance.playSound(Sounds.popup,1);
+        //AudioMgr.Instance.PlaySound(Sounds.popup);
         ViewAniTools.PlayShowScaleAni(this.transform.gameObject, true);
         this.mYesFunc = yesFunc;
         this.mCancelFunc = cancelFunc;
@@ -33,7 +31,7 @@ public class CommonDialogView :MonoBehaviour
     
     public void ShowOk(string title, string message, Action okFunc = null)
     {
-        AudioMgr.Instance.PlayAudio(Sounds.popup, 1);
+        //AudioMgr.Instance.PlaySound(Sounds.popup, 1);
         ViewAniTools.PlayShowScaleAni(this.gameObject, true);
         this.lbTtile.text = title;
         this.lbMessage.text = message;
@@ -52,21 +50,21 @@ public class CommonDialogView :MonoBehaviour
 
     public void OnClickYes()
     {
-        AudioMgr.Instance.PlayAudio(Sounds.button, 1);
+       // AudioMgr.Instance.PlayAudio(Sounds.button, 1);
         this.Hide();
         this.mYesFunc?.Invoke();
     }
 
     public void OnClickCancel()
     {
-        AudioMgr.Instance.PlayAudio(Sounds.button,1);
+        //AudioMgr.Instance.PlayAudio(Sounds.button,1);
         this.Hide();
         this.mCancelFunc?.Invoke();
     }
 
     public void OnClickOk()
     {
-        AudioMgr.Instance.PlayAudio(Sounds.button,1);
+       // AudioMgr.Instance.PlayAudio(Sounds.button,1);
         this.Hide();
         this.mOkFunc?.Invoke();
     }
