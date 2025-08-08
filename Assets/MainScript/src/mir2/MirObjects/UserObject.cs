@@ -77,46 +77,46 @@ namespace Mir2
 
         public virtual void Load(packet_data_UserInfo info)
         {
-            Id = info.RealId;
-            Name = info.Name;
-            Mir2Settings.LoadTrackedQuests(info.Name);
-            NameColour = info.NameColour;
-            GuildName = info.GuildName;
-            GuildRankName = info.GuildRank;
-            Class = info.Class;
-            Gender = info.Gender;
-            Level = info.Level;
+            //Id = info.RealId;
+            //Name = info.Name;
+            //Mir2Settings.LoadTrackedQuests(info.Name);
+            //NameColour = info.NameColour;
+            //GuildName = info.GuildName;
+            //GuildRankName = info.GuildRank;
+            //Class = info.Class;
+            //Gender = info.Gender;
+            //Level = info.Level;
 
-            CurrentLocation = info.Location;
-            MapLocation = new Vector3Int(info.Location.X, info.Location.Y, info.Location.Z);
-            MapControl.Instance.AddObject(this);
+            //CurrentLocation = info.Location;
+            //MapLocation = new Vector3Int(info.Location.X, info.Location.Y, info.Location.Z);
+            //MapControl.Instance.AddObject(this);
 
-            Direction = (MirDirection)info.Direction;
-            Hair = info.Hair;
-            HP = (int)info.HP;
-            MP = (int)info.MP;
+            //Direction = (MirDirection)info.Direction;
+            //Hair = info.Hair;
+            //HP = (int)info.HP;
+            //MP = (int)info.MP;
 
-            Experience = info.Experience;
-            MaxExperience = info.MaxExperience;
+            //Experience = info.Experience;
+            //MaxExperience = info.MaxExperience;
 
-            LevelEffects = info.LevelEffects;
+            //LevelEffects = info.LevelEffects;
 
-            Inventory = info.Inventory;
-            Equipment = info.Equipment;
-            QuestInventory = info.QuestInventory;
+            //Inventory = info.Inventory;
+            //Equipment = info.Equipment;
+            //QuestInventory = info.QuestInventory;
 
-            HasExpandedStorage = info.HasExpandedStorage;
-            ExpandedStorageExpiryTime = info.ExpandedStorageExpiryTime;
+            //HasExpandedStorage = info.HasExpandedStorage;
+            //ExpandedStorageExpiryTime = info.ExpandedStorageExpiryTime;
 
-            Magics = info.Magics;
-            for (int i = 0; i < Magics.Count; i++ )
-            {
-                Magics[i].CastTime += CMain.Time;
-            }
+            //Magics = info.Magics;
+            //for (int i = 0; i < Magics.Count; i++ )
+            //{
+            //    Magics[i].CastTime += CMain.Time;
+            //}
 
-            IntelligentCreatures = info.IntelligentCreatures;
-            SummonedCreatureType = info.SummonedCreatureType;
-            CreatureSummoned = info.CreatureSummoned;
+            //IntelligentCreatures = info.IntelligentCreatures;
+            //SummonedCreatureType = info.SummonedCreatureType;
+            //CreatureSummoned = info.CreatureSummoned;
 
             BindAllItems();
 

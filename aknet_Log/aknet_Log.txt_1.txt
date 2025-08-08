@@ -1,0 +1,29 @@
+2025/8/8 23:36:57  Error: GameProtocol_Data.proto:66:20: Missing field number.
+GameProtocol_Data.proto:67:36: Missing field number.
+GameProtocol_Data.proto:68:17: Missing field number.
+GameProtocol_Data.proto:69:21: Missing field number.
+GameProtocol_Data.proto:70:15: Missing field number.
+GameProtocol_Data.proto:92:17: Missing field number.
+GameProtocol_Data.proto:93:32: Missing field number.
+GameProtocol_Data.proto:133:43: Missing field number.
+GameProtocol_Data.proto:134:41: Missing field number.
+GameProtocol_Data.proto:165:22: Missing field number.
+GameProtocol_Data.proto:166:24: Missing field number.
+GameProtocol_Data.proto:204:21: Missing field number.
+GameProtocol_Data.proto:218:29: Missing field number.
+GameProtocol_Data.proto:219:26: Missing field number.
+GameProtocol_Data.proto:220:40: Missing field number.
+GameProtocol_Data.proto:221:26: Missing field number.
+GameProtocol_Data.proto:222:20: Missing field number.
+GameProtocol_Data.proto:223:16: Missing field number.
+GameProtocol_Data.proto:224:21: Missing field number.
+GameProtocol.proto:3:1: Import "GameProtocol_Data.proto" was not found or had errors.
+GameProtocol.proto:14:9: "packet_data_UserInfo" is not defined.
+GameProtocol.proto:35:9: "packet_data_Vector3Int" is not defined.
+GameProtocol.proto:42:9: "packet_data_Vector3Int" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <674b26f6d4764f7c8375918f441ef0e0>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <674b26f6d4764f7c8375918f441ef0e0>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramew

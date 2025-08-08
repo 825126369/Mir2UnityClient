@@ -10,6 +10,7 @@ public class ProtoBufEditor
     [MenuItem("Tools/Protobuf Gen => public class")]
     private static void DoPublic()
     {
+        NetLogEx.Init();
         AKNetProtoBufEditor.DoPublicCSFile(ProtocPath, ProtocolCSPath, ProtocolPath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();

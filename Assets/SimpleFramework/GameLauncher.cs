@@ -14,7 +14,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
     {
         base.Awake();
         gameObject.removeAllChildren();
-        AddNetLog();
+        NetLogEx.Init();
     }
     
     private void Start()
@@ -27,26 +27,6 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         DontDestroyOnLoad(this);
         LeanTween.init(9000, 9000);
         StartCoroutine(AsyncInit());
-    }
-
-    private void AddNetLog()
-    {
-        Action<string> LogFunc = (string message) =>
-        {
-            PrintTool.Log(message);
-        };
-
-        Action<string> LogErrorFunc = (string message) =>
-        {
-            PrintTool.LogError(message);
-        };
-
-        Action<string> LogWarningFunc = (string message) =>
-        {
-            PrintTool.LogWarning(message);
-        };
-
-        NetLog.AddLogFunc(LogFunc, LogErrorFunc, LogWarningFunc);
     }
 
     private IEnumerator AsyncInit()
