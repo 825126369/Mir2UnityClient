@@ -1,0 +1,2076 @@
+syntax = "proto3";
+package NetProtocols.ServerPackets;
+import "GameProtocol_Data.proto";
+
+    message packet_sc_KeepAlive
+    {
+        uint64 Time = 1;
+    }
+
+    message packet_sc_Connected
+    {
+        
+    }
+
+    message packet_sc_ClientVersion
+    {
+        uint32 Result = 1;
+    }
+
+    message packet_sc_Disconnect
+    {
+       uint32 Reason = 1;
+    }
+
+    message packet_sc_NewAccount
+    {
+        uint32 Result = 1;
+        /*
+         * 0: Disabled
+         * 1: Bad AccountID
+         * 2: Bad Password
+         * 3: Bad Email
+         * 4: Bad Name
+         * 5: Bad Question
+         * 6: Bad Answer
+         * 7: Account Exists.
+         * 8: Success
+         */
+    }
+
+    message packet_sc_ChangePassword
+    {
+        uint32 Result = 1;
+        /*
+         * 0: Disabled
+         * 1: Bad AccountID
+         * 2: Bad Current Password
+         * 3: Bad New Password
+         * 4: Account Not Exist
+         * 5: Wrong Password
+         * 6: Success
+         */
+    }
+
+    //ServerPacketIds.ChangePasswordBanned
+    message packet_sc_ChangePasswordBanned
+    {
+        string Reason = 1;
+        uint64 ExpiryDate = 2;
+    }
+
+    //ServerPacketIds.Login
+    message packet_sc_Login
+    {
+        uint32 Result = 1;
+        /*
+         * 0: Disabled
+         * 1: Bad AccountID
+         * 2: Bad Password
+         * 3: Account Not Exist
+         * 4: Wrong Password
+         */
+    }
+
+    //ServerPacketIds.LoginBanned
+    message packet_sc_LoginBanned
+    {
+        string Reason = 1;
+        uint64 ExpiryDate = 2;
+    }
+    
+    //ServerPacketIds.LoginSuccess
+    message packet_sc_LoginSuccess
+    {
+        repeated SelectInfo Characters = 1;
+    }
+
+    //ServerPacketIds.NewCharacter
+    message packet_sc_NewCharacter
+    {
+        /*
+         * 0: Disabled.
+         * 1: Bad Character Name
+         * 2: Bad Gender
+         * 3: Bad Class
+         * 4: Max Characters
+         * 5: Character Exists.
+         * 
+         * 10: Success
+         * */
+        uint32 Result = 1;
+    }
+
+    //ServerPacketIds.NewCharacterSuccess
+    message packet_sc_NewCharacterSuccess
+    {
+        SelectInfo CharInfo = 1;
+    }
+
+    //ServerPacketIds.DeleteCharacter
+    message packet_sc_DeleteCharacter
+    {
+        uint32 Result = 1;
+        /*
+         * 0: Disabled.
+         * 1: Character Not Found
+         * */
+    }
+
+    message packet_sc_DeleteCharacterSuccess
+    {
+        uint32 CharacterIndex = 1;
+    }
+
+    message packet_sc_StartGame
+    {
+        uint32 Result = 1;
+        uint32 Resolution = 2;
+        /*
+         * 0: Disabled.
+         * 1: Not logged in
+         * 2: Character not found.
+         * 3: Start Game Error
+         * */
+    }
+
+    message packet_sc_StartGameBanned
+    {
+        string Reason = 1;
+        uint64 ExpiryDate = 2;
+    }
+
+    //ServerPacketIds.StartGameDelay
+    message packet_sc_StartGameDelay
+    {
+        uint64 Milliseconds = 1;
+    }
+
+    //ServerPacketIds.MapInformation;
+    message packet_sc_MapInformation
+    {
+        uint32 MapIndex = 1;
+        string FileName = 2;
+        string Title = 3;
+        uint32 MiniMap = 4;
+        uint32 BigMap = 5;
+        uint32 Music = 6;
+        uint32 Lights = 7;
+        bool Lightning = 8;
+        bool Fire = 9;
+        uint32 MapDarkLight = 10;
+        uint32 WeatherParticles = 11;
+    }
+
+    //ServerPacketIds.NewMapInfo
+    message packet_sc_NewMapInfo
+    {
+        uint32 MapIndex = 1;
+        ClientMapInfo Info = 2;
+    }
+
+    //ServerPacketIds.WorldMapSetup;
+    message packet_sc_WorldMapSetupInfo
+    {
+        WorldMapSetup Setup = 1;
+        uint32 TeleportToNPCCost = 2;
+    }
+
+    //ServerPacketIds.SearchMapResult
+    message packet_sc_SearchMapResult
+    {
+        uint32 MapIndex = 1;
+        uint32 NPCIndex = 2;
+    }
+
+    //ServerPacketIds.UserInformation
+    message packet_sc_UserInformation
+    {
+        uint32 ObjectID = 1;
+        uint32 RealId = 2;
+        string Name = 3;
+        string GuildName = 4;
+        string GuildRank = 5;
+        packet_data_Color NameColour = 6;
+        uint32 Class = 7;
+        uint32 Gender = 8;
+        uint32 Level = 9;
+        packet_data_Vector3Int Location = 10;
+        uint32 Direction = 11;
+        uint32 Hair = 12;
+        uint32 HP = 13;
+        uint32 MP = 14;
+        uint64 Experience = 15;
+        uint64 MaxExperience = 16;
+        uint32 LevelEffects = 17;
+        bool HasHero = 18;
+        uint32 HeroBehaviour = 19;
+        repeated UserItem Inventory = 20;
+        repeated UserItem Equipment = 21;
+        repeated UserItem QuestInventory = 22;
+        uint64 Gold = 23;
+        uint64 Credit = 24;
+        bool HasExpandedStorage = 25;
+        uint64 ExpandedStorageExpiryTime = 26;
+        repeated ClientMagic Magics = 27;
+        repeated ClientIntelligentCreature IntelligentCreatures = 28;
+        uint32 SummonedCreatureType = 29;
+        bool CreatureSummoned = 30;
+        bool AllowObserve = 31;
+        bool Observer = 32;
+    }
+
+    message packet_sc_UserSlotsRefresh
+    {
+        repeated UserItem Inventory;
+        repeated UserItem Equipment;
+    }
+
+    //ServerPacketIds.UserLocation;
+    message packet_sc_UserLocation
+    {
+        packet_data_Vector3Int Location = 1;
+        uint32 Direction = 2;
+    }
+
+    //ServerPacketIds.ObjectPlayer
+    message packet_sc_ObjectPlayer
+    {
+        uint32 ObjectID = 1;
+        string Name = 2;
+        string GuildName = 3;
+        string GuildRankName = 4;
+        packet_data_Color NameColour = 5;
+        uint32 Class = 6;
+        uint32 Gender = 7;
+        uint32 Level = 8;
+        packet_data_Vector3Int Location = 9;
+        uint32 Direction = 10;
+        uint32 Hair = 11;
+        uint32 Light = 12;
+		uint32 Weapon = 13;
+        uint32 WeaponEffect = 14;
+        uint32 Armour = 15;
+		uint32 Poison = 16;
+        bool Dead = 17;
+        bool Hidden = 18;
+        uint32 Effect = 19;
+        uint32 WingEffect = 20;
+        bool Extra = 21;
+        uint32 MountType = 22;
+        bool RidingMount = 23;
+        bool Fishing = 24;
+        uint32 TransformType = 25;
+        uint32 ElementOrbEffect = 26;
+        uint32 ElementOrbLvl = 27;
+        uint32 ElementOrbMax = 28;
+        uint32 LevelEffects = 29;
+        repeated uint32 Buffs = 30;
+    }
+
+    //ServerPacketIds.ObjectHero
+    message packet_sc_ObjectHero
+    {
+        packet_sc_ObjectPlayer base = 1;
+        string OwnerName = 2;
+    }
+    
+    //ServerPacketIds.ObjectRemove
+    message packet_sc_ObjectRemove
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.ObjectTurn
+    message packet_sc_ObjectTurn
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+    }
+
+    //ServerPacketIds.ObjectWalk
+    message packet_sc_ObjectWalk
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+    }
+
+    //ServerPacketIds.ObjectRun
+    message packet_sc_ObjectRun
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+    }
+
+    //ServerPacketIds.Chat
+    message packet_sc_Chat
+    {
+        string Message = 1;
+        uint32 Type = 2;
+    }
+
+    //ServerPacketIds.ObjectChat
+    message packet_sc_ObjectChat
+    {
+        uint32 ObjectID = 1;
+        string Text = 2;
+        uint32 Type = 3;
+    }
+
+    //ServerPacketIds.NewItemInfo
+    message packet_sc_NewItemInfo
+    {
+        ItemInfo Info = 1;
+    }
+
+    //ServerPacketIds.NewHeroInfo
+    message packet_sc_NewHeroInfo
+    {
+        ClientHeroInformation Info = 1;
+        uint StorageIndex = 2;
+    }
+
+    //ServerPacketIds.NewChatItem;
+    message packet_sc_NewChatItem
+    {
+        UserItem Item = 1;
+    }
+
+    //ServerPacketIds.MoveItem;
+    message packet_sc_MoveItem
+    {
+        uint32 Grid = 1;
+        uint32 From = 2;
+        uint32 To = 3;
+        bool Success = 4;
+    }
+
+    //ServerPacketIds.EquipItem;
+    message packet_sc_EquipItem
+    {
+        uint32 Grid;
+        uint64 UniqueID;
+        uint32 To;
+        bool Success;
+    }
+
+    message packet_sc_MergeItem
+    {
+        uint32 GridFrom = 1;
+        uint32 GridTo = 2;
+        uint64 IDFrom = 3;
+        uint64 IDTo = 4;
+        bool Success = 5;
+    }
+
+    //ServerPacketIds.RemoveItem
+    message packet_sc_RemoveItem
+    {
+        uint32 Grid = 1;
+        uint64 UniqueID = 2;
+        uint32 To = 3;
+        bool Success = 4;
+    }
+
+    //ServerPacketIds.RemoveSlotItem
+    message packet_sc_RemoveSlotItem
+    {
+        uint32 Grid = 1;
+        uint32 GridTo = 2;
+        uint64 UniqueID = 3;
+        uint32 To = 4;
+        bool Success = 5;
+    }
+
+    //ServerPacketIds.TakeBackItem;
+    message packet_sc_TakeBackItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.StoreItem
+    message packet_sc_StoreItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.DepositRefineItem;
+    message packet_sc_DepositRefineItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.RetrieveRefineItem
+    message packet_sc_RetrieveRefineItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }   
+
+    //ServerPacketIds.RefineCancel
+    message packet_sc_RefineCancel
+    {
+        bool Unlock = 1;
+    }
+
+    //ServerPacketIds.RefineItem
+    message packet_sc_RefineItem
+    {
+        uint64 UniqueID = 1;
+    }
+
+    //ServerPacketIds.DepositTradeItem
+    message packet_sc_DepositTradeItem
+    {
+        uint32 From;
+        uint32 To;
+        bool Success;
+    }
+
+    //ServerPacketIds.RetrieveTradeItem;
+    message packet_sc_RetrieveTradeItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.SplitItem
+    message packet_sc_SplitItem
+    {
+        UserItem Item = 1;
+        uint32 Grid = 2;
+    }
+
+    //ServerPacketIds.SplitItem1
+    message packet_sc_SplitItem1
+    {
+        uint32 Grid = 1;
+        uint64 UniqueID = 2;
+        uint32 Count = 3;
+        bool Success = 4;
+    }
+
+    //ServerPacketIds.UseItem
+    message packet_sc_UseItem
+    {
+        uint64 UniqueID = 1;
+        bool Success = 2;
+        uint32 Grid = 3;
+    }
+
+    //ServerPacketIds.DropItem
+    message packet_sc_DropItem
+    {
+        uint64 UniqueID = 1;
+        uint32 Count = 2;
+        bool HeroItem = 3;
+        bool Success = 4;
+    }
+
+    //ServerPacketIds.TakeBackHeroItem
+    message packet_sc_TakeBackHeroItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.TransferHeroItem
+    message packet_sc_TransferHeroItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.PlayerUpdate
+    message packet_sc_PlayerUpdate
+    {
+        uint32 ObjectID = 1;
+        uint32 Light = 2;
+		uint32 Weapon = 3;
+        uint32 WeaponEffect = 4;
+        uint32 Armour = 5;
+		uint32 WingEffect = 6;
+    }
+
+    //ServerPacketIds.PlayerUpdate
+    message packet_sc_PlayerInspect
+    {
+        string Name = 1;
+        string GuildName = 2;
+        string GuildRank = 3;
+        repeated UserItem Equipment = 4;
+        uint32 Class = 5;
+        uint32 Gender = 6;
+        uint32 Hair = 7;
+        uint32 Level = 8;
+        string LoverName = 9;
+        bool AllowObserve = 10;
+        bool IsHero = 11;
+    }
+
+    //ServerPacketIds.MarriageRequest;
+    message packet_sc_MarriageRequest
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.DivorceRequest
+    message packet_sc_DivorceRequest
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.MentorRequest
+    message packet_sc_MentorRequest
+    {
+        string Name = 1;
+        uint32 Level = 2;
+    }
+
+    //ServerPacketIds.TradeRequest;
+    message packet_sc_TradeRequest
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.TradeAccept
+    message packet_sc_TradeAccept
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.TradeGold
+    message packet_sc_TradeGold
+    {
+        uint32 Amount = 1;
+    }
+
+    //ServerPacketIds.TradeItem
+    message packet_sc_TradeItem
+    {
+        repeated UserItem TradeItems;
+    }
+
+    //ServerPacketIds.TradeConfirm;
+    message packet_sc_TradeConfirm
+    {
+        
+    }
+
+    //ServerPacketIds.TradeCancel
+    message packet_sc_TradeCancel
+    {
+        bool Unlock = 1;
+    }
+
+    //ServerPacketIds.LogOutSuccess
+    message packet_sc_LogOutSuccess
+    {
+        repeated SelectInfo Characters = 1;
+    }
+
+    //ServerPacketIds.LogOutFailed
+    message packet_sc_LogOutFailed
+    {
+       
+    }
+
+    //ServerPacketIds.ReturnToLogin
+    message packet_sc_ReturnToLogin
+    {
+        
+    }
+
+    //ServerPacketIds.TimeOfDay
+    message packet_sc_TimeOfDay
+    {
+        uint32 Lights = 1;
+    }
+
+    //ServerPacketIds.ChangeAMode
+    message packet_sc_ChangeAMode
+    {
+        uint Mode = 1;
+    }
+
+    //ServerPacketIds.ChangePMode
+    message packet_sc_ChangePMode
+    {
+        uint32 Mode;
+    }
+
+    //ServerPacketIds.ObjectItem
+    message packet_sc_ObjectItem
+    {
+        uint32 ObjectID = 1;
+        string Name = 2;
+        packet_data_Color NameColour = 3;
+        packet_data_Vector3Int Location = 4;
+        uint32 Image = 5;
+        uint32 grade = 6;
+    }
+
+    //ServerPacketIds.ObjectGold
+    message packet_sc_ObjectGold
+    {
+        uint32 ObjectID = 1;
+        uint32 Gold = 2;
+        packet_data_Vector3Int Location = 3;
+    }
+
+    //ServerPacketIds.GainedItem
+    message packet_sc_GainedItem
+    {
+        UserItem Item = 1;
+    }
+
+    //ServerPacketIds.GainedGold
+    message packet_sc_GainedGold
+    {
+        uint32 Gold = 1;
+    }
+
+    //ServerPacketIds.LoseGold
+    message packet_sc_LoseGold
+    {
+        uint32 Gold = 1;
+    }
+    
+    //ServerPacketIds.GainedCredit
+    message packet_sc_GainedCredit
+    {
+        uint32 Credit = 1;
+    }
+
+    //ServerPacketIds.LoseCredit
+    message packet_sc_LoseCredit
+    {
+        uint32 Credit = 1;
+    }
+
+    message packet_sc_ObjectMonster
+    {
+        uint32 ObjectID = 1;
+        string Name = 2;
+        packet_data_Color NameColour = 3;
+        packet_data_Vector3Int Location = 4;
+        uint32 Image = 5;
+        uint32 Direction = 6; 
+        uint32 Effect = 7;
+        uint32 AI = 8;
+        uint32 Light = 9;
+        bool Dead = 10;
+        bool Skeleton = 11;
+        uint32 Poison = 12;
+        bool Hidden = 13;
+        bool Extra = 14;
+        uint32 ExtraByte = 15;
+        uint64 ShockTime = 16;
+        bool BindingShotCenter = 17;
+        repeated uint Buffs = 18;
+    }
+
+    //ServerPacketIds.ObjectAttack
+    message packet_sc_ObjectAttack
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+        uint32 Spell = 4;
+        uint32 Level = 5;
+        uint32 Type = 6;
+    }
+
+    //ServerPacketIds.Struck
+    message packet_sc_Struck
+    {
+        uint32 AttackerID = 1;
+    }
+
+    //ServerPacketIds.ObjectStruck
+    message packet_sc_ObjectStruck
+    {
+        uint32 ObjectID = 1;
+        uint32 AttackerID = 2;
+        packet_data_Vector3Int Location = 3;
+        uint Direction = 4;
+    }
+
+    //ServerPacketIds.DamageIndicator
+    message packet_sc_DamageIndicator
+    {
+        uint32 Damage = 1;
+        uint32 Type = 2;
+        uint32 ObjectID = 3;
+    }
+
+    //ServerPacketIds.DuraChanged;
+    message packet_sc_DuraChanged
+    {
+        uint64 UniqueID;
+        uint32 CurrentDura;
+    }
+
+    message packet_sc_HealthChanged
+    {
+        uint32 HP = 1;
+        uint32 MP = 2;
+    }
+
+    message packet_sc_HeroHealthChanged
+    {
+        uint32 HP = 1;
+        uint32 MP = 2;
+    }
+
+    message packet_sc_DeleteItem
+    {
+        uint64 UniqueID = 1;
+        uint32 Count = 2;
+    }
+
+    //ServerPacketIds.Death
+    message packet_sc_Death
+    {
+        packet_data_Vector3Int Location = 1;
+        uint32 Direction = 2;
+    }
+
+    //ServerPacketIds.ObjectDied
+    message packet_sc_ObjectDied
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+        uint32 Type = 4;
+    }
+
+    //ServerPacketIds.ColourChanged
+    message packet_sc_ColourChanged
+    {
+        packet_data_Color NameColour = 1;
+    }
+
+    //ServerPacketIds.ObjectColourChanged
+    message packet_sc_ObjectColourChanged
+    {
+        uint32 ObjectID = 1;
+        packet_data_Color NameColour = 2;
+    }
+
+    message packet_sc_ObjectGuildNameChanged
+    {
+        uint32 ObjectID = 1;
+        string GuildName = 2;
+    }
+
+    //ServerPacketIds.GainExperience
+    message packet_sc_GainExperience
+    {
+        uint32 Amount = 1;
+    }
+    
+    //ServerPacketIds.GainHeroExperience
+    message packet_sc_GainHeroExperience
+    {
+        uint32 Amount = 1;
+    }
+
+    message packet_sc_LevelChanged
+    {
+        uint32 Level = 1;
+        uint64 Experience = 2;
+        uint64 MaxExperience = 3;
+    }
+
+
+    message packet_sc_HeroLevelChanged
+    {
+        uint32 Level = 1;
+        uint64 Experience = 2;
+        uint64 MaxExperience = 3;
+    }
+
+
+    message packet_sc_ObjectLeveled
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.ObjectHarvest
+    message packet_sc_ObjectHarvest
+    {
+        uint32 ObjectID;
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.ObjectHarvested
+    message packet_sc_ObjectHarvested
+    {
+        uint32 ObjectID;
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.ObjectNpc
+    message packet_sc_ObjectNPC
+    {
+        uint32 ObjectID = 1;
+        string Name = 2;
+        packet_data_Color NameColour = 3;
+        uint32 Image = 4;
+        packet_data_Color Colour = 5;
+        packet_data_Vector3Int Location = 6;
+        uint32 Direction = 7;
+        repeated int QuestIDs = 8;
+    }
+
+    //ServerPacketIds.NPCResponse;
+    message packet_sc_NPCResponse
+    {
+        repeated string Page;
+    }
+
+    //ServerPacketIds.ObjectHide;
+    message packet_sc_ObjectHide
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.ObjectShow
+    message packet_sc_ObjectShow
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.Poisoned
+    message packet_sc_Poisoned
+    {
+        uint32 Poison = 1;
+    }
+
+    //ServerPacketIds.ObjectPoisoned
+    message packet_sc_ObjectPoisoned
+    {
+        uint32 ObjectID;
+        uint32 Poison;
+    }
+
+    //ServerPacketIds.MapChanged
+    message packet_sc_MapChanged
+    {
+        uint32 MapIndex = 1;
+        string FileName = 2;
+        string Title = 3;
+        uint32 MiniMap = 4;
+        uint32 BigMap = 5;
+        uint32 Music = 6;
+        uint32 Lights = 7;
+        packet_data_Vector3Int Location = 8;
+        uint32 Direction = 9;
+        uint32 MapDarkLight = 10;
+        uint32 Weather = 11;
+    }
+
+    //ServerPacketIds.ObjectTeleportOut
+    message packet_sc_ObjectTeleportOut
+    {
+        uint32 ObjectID = 1;
+        uint32 Type = 2;
+    }
+
+    //ServerPacketIds.ObjectTeleportIn
+    message packet_sc_ObjectTeleportIn
+    {
+        uint32 ObjectID = 1;
+        uint32 Type = 2;
+    }
+
+    //ServerPacketIds.TeleportIn
+    message packet_sc_TeleportIn
+    {
+        
+    }
+
+    //ServerPacketIds.NPCGoods
+    message packet_sc_NPCGoods
+    {
+        repeated UserItem List = 1;
+        float Rate;
+        uint32 Type;
+        bool HideAddedStats;
+    }
+
+    //ServerPacketIds.NPCSell;
+    message packet_sc_NPCSell
+    {
+        
+    }
+
+    //ServerPacketIds.NPCRepair
+    message packet_sc_NPCRepair
+    {
+        float Rate = 1;
+    }
+
+    //ServerPacketIds.NPCSRepair
+    message packet_sc_NPCSRepair
+    {
+        float Rate = 1;
+    }
+
+    //ServerPacketIds.NPCRefine
+    message packet_sc_NPCRefine
+    {
+        float Rate = 1;
+        bool Refining = 2;
+    }
+
+    //ServerPacketIds.NPCCheckRefine
+    message packet_sc_NPCCheckRefine
+    {
+        
+    }
+
+    //ServerPacketIds.NPCCollectRefine
+    message packet_sc_NPCCollectRefine
+    {
+        bool Success = 1;
+    }
+
+    //ServerPacketIds.NPCReplaceWedRing
+    message packet_sc_NPCReplaceWedRing
+    {
+        float Rate = 1;
+    }
+
+    //ServerPacketIds.NPCStorage
+    message packet_sc_NPCStorage
+    {
+       
+    }
+
+    //ServerPacketIds.SellItem
+    message packet_sc_SellItem
+    {
+        uint64 UniqueID = 1;
+        uint32 Count = 2;
+        bool Success = 3;
+    }
+
+    //ServerPacketIds.RepairItem;
+    message packet_sc_RepairItem
+    {
+        uint64 UniqueID = 1;
+    }
+
+    //ServerPacketIds.ItemRepaired
+    message packet_sc_ItemRepaired
+    {
+        uint64 UniqueID = 1;
+        uint32 MaxDura = 2;
+        uint32 CurrentDura = 3;
+    }
+
+    //ServerPacketIds.ItemSlotSizeChanged
+    message packet_sc_ItemSlotSizeChanged
+    {
+        uint64 UniqueID = 1;
+        uint32 SlotSize;
+    }
+
+    //ServerPacketIds.ItemSealChanged
+    message packet_sc_ItemSealChanged
+    {
+        uint64 UniqueID = 1;
+        uint64 ExpiryDate = 2;
+    }
+
+    //ServerPacketIds.NewMagic
+    message packet_sc_NewMagic
+    {
+        ClientMagic Magic = 1;
+        bool Hero = 2;
+    }
+
+    //ServerPacketIds.RemoveMagic
+    message packet_sc_RemoveMagic
+    {
+        int32 PlaceId = 1;
+    }
+
+    //ServerPacketIds.MagicLeveled 
+    message packet_sc_MagicLeveled
+    {
+        uint32 ObjectID;
+        uint32 Spell;
+        uint32 Level;
+        uint32 Experience;
+    }
+    
+    //ServerPacketIds.Magic
+    message packet_sc_Magic
+    {
+        uint32 Spell = 1;
+        uint32 TargetID = 2;
+        packet_data_Vector3Int Target = 3;
+        bool Cast = 4;
+        uint32 Level = 5;
+        repeated uint SecondaryTargetIDs = 6;
+    }
+
+    //ServerPacketIds.MagicDelay
+    message packet_sc_MagicDelay
+    {
+        uint32 ObjectID = 1;
+        uint32 Spell = 2;
+        uint64 Delay = 3;
+    }
+
+    //ServerPacketIds.MagicCast
+    message packet_sc_MagicCast
+    {
+        uint32 Spell = 1;
+    }
+
+    //ServerPacketIds.ObjectMagic
+    message packet_sc_ObjectMagic
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+        uint32 Spell = 4;
+        uint32 TargetID = 5;
+        packet_data_Vector3Int Target = 6;
+        bool Cast = 7;
+        uint32 Level = 8;
+        bool SelfBroadcast = 9;
+        repeated uint SecondaryTargetIDs = 10;
+    }
+
+    //ServerPacketIds.ObjectEffect
+    message packet_sc_ObjectEffect
+    {
+        uint32 ObjectID = 1;
+        uint32 Effect = 2;
+        uint32 EffectType = 3;
+        uint32 DelayTime = 4;
+        uint32 Time = 5;
+    }
+
+    //ServerPacketIds.ObjectProjectile;
+    message packet_sc_ObjectProjectile
+    {
+        uint32 Spell = 1;
+        uint32 Source = 2;
+        uint32 Destination = 3;
+    }
+
+    //ServerPacketIds.RangeAttack
+    message packet_sc_RangeAttack //ArcherTest
+    {
+        uint32 TargetID;
+        packet_data_Vector3Int Target;
+        uint32 Spell;
+    }
+
+    //ServerPacketIds.Pushed
+    message packet_sc_Pushed
+    {
+        packet_data_Vector3Int Location = 1;
+        uint32 Direction = 2;
+    }
+
+    //ServerPacketIds.ObjectPushed
+    message packet_sc_ObjectPushed
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+    }
+
+    //ServerPacketIds.ObjectName
+    message packet_sc_ObjectName
+    {
+        uint32 ObjectID = 1;
+        string Name = 2;
+    }
+    
+    //ServerPacketIds.UserStorage
+    message packet_sc_UserStorage
+    {
+        repeated UserItem Storage;
+    }
+
+    //ServerPacketIds.SwitchGroup
+    message packet_sc_SwitchGroup
+    {
+        bool AllowGroup = 1;
+    }
+
+    //ServerPacketIds.DeleteGroup
+    message packet_sc_DeleteGroup
+    {
+
+    }
+
+    //ServerPacketIds.DeleteMember
+    message packet_sc_DeleteMember
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.GroupInvite
+    message packet_sc_GroupInvite
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.AddMember
+    message packet_sc_AddMember
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.GroupMembersMap
+    message packet_sc_GroupMembersMap
+    {
+        string PlayerName = 1;
+        string PlayerMap = 2;
+    }
+
+    //ServerPacketIds.SendMemberLocation
+    message packet_sc_SendMemberLocation
+    {
+        string MemberName = 1;
+        packet_data_Vector3Int MemberLocation = 2;
+    }
+
+    //ServerPacketIds.Revived
+    message packet_sc_Revived
+    {
+       
+    }
+
+    message packet_sc_ObjectRevived
+    {
+        uint32 ObjectID = 1;
+        bool Effect = 2;
+    }
+
+    message packet_sc_SpellToggle
+    {
+        uint32 ObjectID = 1;
+        uint32 Spell = 2;
+        bool CanUse = 3;
+    }
+
+    //ServerPacketIds.ObjectHealth
+    message packet_sc_ObjectHealth
+    {
+        uint32 ObjectID = 1;
+        uint32 Percent = 2;
+        uint32 Expire = 3;
+    }
+    
+    //ServerPacketIds.ObjectMana;
+    message packet_sc_ObjectMana
+    {
+        uint32 ObjectID = 1;
+        uint32 Percent = 2;
+    }
+
+    //ServerPacketIds.MapEffect
+    message packet_sc_MapEffect
+    {
+        packet_data_Vector3Int Location;
+        uint32 Effect;
+        uint32 Value;
+    }
+
+    //ServerPacketIds.AllowObserve
+    message packet_sc_AllowObserve
+    {
+        bool Allow = 1;
+    }
+
+    //ServerPacketIds.ObjectRangeAttack;
+    message packet_sc_ObjectRangeAttack
+    {
+        uint32 ObjectID;
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+        uint32 TargetID;
+        packet_data_Vector3Int Target;
+        uint32 Type;
+        uint32 Spell;
+        uint32 Level;
+    }
+
+    //ServerPacketIds.AddBuff
+    message packet_sc_AddBuff
+    {
+        public ClientBuff Buff;
+
+        protected override void ReadPacket(BinaryReader reader)
+        {
+            Buff = new ClientBuff(reader);
+        }
+        protected override void WritePacket(BinaryWriter writer)
+        {
+            Buff.Save(writer);
+        }
+    }
+
+    //ServerPacketIds.RemoveBuff
+    message packet_sc_RemoveBuff
+    {
+        uint32 Type;
+        uint32 ObjectID;
+    }
+
+    //ServerPacketIds.PauseBuff
+    message packet_sc_PauseBuff
+    {
+        uint32 Type = 1;
+        uint32 ObjectID = 2;
+        bool Paused = 3;
+    }
+
+    //ServerPacketIds.ObjectHidden
+    message packet_sc_ObjectHidden
+    {
+        uint32 ObjectID = 1;
+        bool Hidden = 2;
+    }
+    
+    //ServerPacketIds.RefreshItem
+    message packet_sc_RefreshItem
+    {
+        UserItem Item = 1;
+    }
+
+    //ServerPacketIds.ObjectSpell
+    message packet_sc_ObjectSpell
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Spell = 3;
+        uint32 Direction = 4;
+        bool Param = 5;
+    }
+
+    //ServerPacketIds.UserDash
+    message packet_sc_UserDash
+    {
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+    
+    //ServerPacketIds.ObjectDash
+    message packet_sc_ObjectDash
+    {
+        uint32 ObjectID;
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.UserDashFail
+    message packet_sc_UserDashFail
+    {
+        packet_data_Vector3Int Location = 1;
+        uint32 Direction = 2;
+    }
+
+    //ServerPacketIds.ObjectDashFail
+    message packet_sc_ObjectDashFail
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+    }
+
+    //ServerPacketIds.RemoveDelayedExplosion;
+    message packet_sc_RemoveDelayedExplosion
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.NPCConsign
+    message packet_sc_NPCConsign
+    {
+
+    }
+
+    //ServerPacketIds.NPCMarket
+    message packet_sc_NPCMarket
+    {
+        repeated ClientAuction Listings = 1;
+        int32 Pages = 2;
+        bool UserMode = 3;
+    }
+
+    //ServerPacketIds.NPCMarketPage
+    message packet_sc_NPCMarketPage
+    {
+        repeated ClientAuction Listings = 1;
+    }
+
+    //ServerPacketIds.GuildTerritoryPage
+    message packet_sc_GuildTerritoryPage
+    {
+        repeated ClientGTMap Listings = 1;
+        int32 length = 2;
+    }
+    
+    //ServerPacketIds.ConsignItem
+    message packet_sc_ConsignItem
+    {
+        uint64 UniqueID = 1;
+        bool Success = 2;
+    }
+
+    //ServerPacketIds.MarketFail
+    message packet_sc_MarketFail
+    {
+        uint32 Reason = 1;
+        /*
+         * 0: Dead.
+         * 1: Not talking to TrustMerchant.
+         * 2: Already Sold.
+         * 3: Expired.
+         * 4: Not enough Gold.
+         * 5: Not enough bag space.
+         * 6: You cannot buy your own items.
+         * 7: Trust Merchant is too far.
+         * 8: Too much Gold.
+         */
+    }
+
+    //ServerPacketIds.MarketSuccess
+    message packet_sc_MarketSuccess
+    {
+        string Message = 1;
+    }
+
+    //ServerPacketIds.ObjectSitDown
+    message packet_sc_ObjectSitDown
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+        bool Sitting = 4;
+    }
+
+    //ServerPacketIds.InTrapRock
+    message packet_sc_InTrapRock
+    {
+        bool Trapped = 1;
+    }
+
+    //ServerPacketIds.BaseStatsInfo
+    message packet_sc_BaseStatsInfo
+    {
+        BaseStats Stats;
+    }
+
+    //ServerPacketIds.HeroBaseStatsInfo
+    message packet_sc_HeroBaseStatsInfo
+    {
+        BaseStats Stats = 1;
+    }
+
+    //ServerPacketIds.UserName
+    message packet_sc_UserName
+    {
+        uint32 Id;
+        string Name;
+    }
+
+    //ServerPacketIds.ChatItemStats
+    message packet_sc_ChatItemStats
+    {
+        uint64 ChatItemId = 1;
+        UserItem Stats = 2;
+    }
+
+    //ServerPacketIds.GuildNoticeChange
+    message packet_sc_GuildNoticeChange
+    {
+        int32 update = 1;
+        repeated string notice = 2;
+    }
+
+    //ServerPacketIds.GuildMemberChange
+    message packet_sc_GuildMemberChange
+    {
+        string Name = 1;
+        uint32 Status = 2;
+        uint32 RankIndex = 3;
+        repeated GuildRank Ranks = 4;
+    }
+
+    message packet_sc_GuildStatus
+    {
+        string GuildName = 1;
+        string GuildRankName = 2;
+        uint32 Level = 3;
+        uint64 Experience = 4;
+        uint64 MaxExperience = 5;
+        uint32 Gold = 6;
+        uint32 SparePoints = 7;
+        uint32 MemberCount = 8;
+        uint32 MaxMembers = 9;
+        bool Voting = 10;
+        uint32 ItemCount = 11;
+        uint32 BuffCount = 12;
+        GuildRankOptions MyOptions = 13;
+        uint32 MyRankId = 14;
+    }
+
+    //ServerPacketIds.GuildInvite
+    message packet_sc_GuildInvite
+    {
+        string Name = 1;
+    }
+
+    //ServerPacketIds.GuildExpGain;
+    message packet_sc_GuildExpGain
+    {
+        uint32 Amount = 0;
+    }
+
+    //ServerPacketIds.GuildNameRequest
+    message packet_sc_GuildNameRequest
+    {
+        
+    }
+
+    //ServerPacketIds.GuildStorageGoldChang
+    message packet_sc_GuildStorageGoldChange
+    {
+        uint32 Amount = 1;
+        uint32 Type = 2;
+        string Name = 3;
+    }
+
+    //ServerPacketIds.GuildStorageItemChange
+    message packet_sc_GuildStorageItemChange
+    {
+        uint32 User = 1;
+        uint32 Type = 2;
+        uint32 To = 3;
+        uint32 From = 4;
+        GuildStorageItem Item = 5;
+    }
+
+    //ServerPacketIds.GuildStorageList
+    message packet_sc_GuildStorageList
+    {
+        repeated GuildStorageItem Items;
+    }
+
+    //ServerPacketIds.GuildRequestWar
+    message packet_sc_GuildRequestWar
+    {
+       
+    }
+
+    //ServerPacketIds.HeroCreateRequest
+    message packet_sc_HeroCreateRequest
+    {
+        bool CanCreateClass = 1;
+    }
+    
+    //ServerPacketIds.NewHero
+    message packet_sc_NewHero
+    {
+        /*
+         * 0: Disabled.
+         * 1: Bad Character Name
+         * 2: Bad Gender
+         * 3: Bad Class
+         * 4: Max Heroes
+         * 5: Name Exists.
+         * */
+        uint32 Result = 1;
+    }
+
+    //ServerPacketIds.HeroInformation
+    message packet_sc_HeroInformation
+    {
+        UserInformation base = 1;
+        bool AutoPot = 2;
+        uint32 AutoHPPercent = 3;
+        uint32 AutoMPPercent = 4;
+        uint32 HPItemIndex = 5;
+        uint32 MPItemIndex = 6;
+    }
+
+    //ServerPacketIds.UpdateHeroSpawnState
+    message packet_sc_UpdateHeroSpawnState
+    {
+        uint32 State = 1;
+    }
+
+    //ServerPacketIds.UnlockHeroAutoPot
+    message packet_sc_UnlockHeroAutoPot
+    {
+        
+    }
+
+    //ServerPacketIds.SetAutoPotValue;
+    message packet_sc_SetAutoPotValue
+    {
+        uint32 Stat = 1;
+        uint32 Value = 2;
+    }
+
+    //ServerPacketIds.SetAutoPotItem
+    message packet_sc_SetAutoPotItem
+    {
+        uint32 Grid = 1;
+        uint32 ItemIndex = 2;
+    }
+
+    //ServerPacketIds.SetHeroBehaviour
+    message packet_sc_SetHeroBehaviour
+    {
+        uint32 Behaviour = 1;
+    }
+
+    //ServerPacketIds.ManageHeroes
+    message packet_sc_ManageHeroes
+    {
+        uint32 MaximumCount = 1;
+        ClientHeroInformation CurrentHero = 2;
+        repeated ClientHeroInformation Heroes = 3;
+    }
+
+    //ServerPacketIds.ChangeHero
+    message packet_sc_ChangeHero
+    {
+        uint32 FromIndex = 1;
+    }
+
+    //ServerPacketIds.DefaultNPC
+    message packet_sc_DefaultNPC
+    {
+        uint32 ObjectID = 1;
+    }
+
+    //ServerPacketIds.NPCUpdate
+    message packet_sc_NPCUpdate
+    {
+        uint32 NPCID = 1;
+    }
+
+    //ServerPacketIds.NPCImageUpdate
+    message packet_sc_NPCImageUpdate
+    {
+        uint32 ObjectID;
+        uint32 Image;
+        packet_data_Color Colour;
+    }
+
+    //ServerPacketIds.MountUpdate
+    message packet_sc_MountUpdate
+    {
+        uint32 ObjectID = 1;
+        uint32 MountType = 2;
+        bool RidingMount = 3;
+    }
+
+    //ServerPacketIds.TransformUpdate
+    message packet_sc_TransformUpdate
+    {
+        uint32 ObjectID = 1;
+        uint32 TransformType = 2;
+    }
+
+    //ServerPacketIds.EquipSlotItem
+    message packet_sc_EquipSlotItem
+    {
+        uint32 Grid = 1;
+        uint64 UniqueID = 2;
+        uint32 To = 3;
+        bool Success = 4;
+        uint32 GridTo = 5;
+    }
+
+    //ServerPacketIds.FishingUpdate;
+    message packet_sc_FishingUpdate
+    {
+        uint32 ObjectID = 1;
+        bool Fishing = 2;
+        uint32 ProgressPercent = 3;
+        uint32 ChancePercent = 4;
+        packet_data_Vector3Int FishingPoint = 5;
+        bool FoundFish = 6;
+    }
+
+    //ServerPacketIds.ChangeQuest
+    message packet_sc_ChangeQuest
+    {
+        ClientQuestProgress Quest = 1;
+        uint32 QuestState = 2;
+        bool TrackQuest = 3;
+    }
+
+    //ServerPacketIds.CompleteQuest
+    message packet_sc_CompleteQuest
+    {
+        repeated int CompletedQuests = 1;
+    }
+
+    //ServerPacketIds.ShareQuest
+    message packet_sc_ShareQuest
+    {
+        uint32 QuestIndex;
+        string SharerName;
+    }
+
+    //ServerPacketIds.NewQuestInfo
+    message packet_sc_NewQuestInfo
+    {
+        ClientQuestInfo Info = 1;
+    }
+
+    //ServerPacketIds.GainedQuestItem
+    message packet_sc_GainedQuestItem
+    {
+        UserItem Item = 1;
+    }
+
+    //ServerPacketIds.DeleteQuestItem
+    message packet_sc_DeleteQuestItem
+    {
+        uint64 UniqueID = 1;
+        uint32 Count = 2;
+    }
+    
+    //ServerPacketIds.GameShopInfo
+    message packet_sc_GameShopInfo
+    {
+        GameShopItem Item;
+        uint32 StockLevel;
+    }
+
+    //ServerPacketIds.GameShopStock
+    message packet_sc_GameShopStock
+    {
+        uint32 GIndex;
+        uint32 StockLevel;
+    }
+
+    //ServerPacketIds.CancelReincarnation
+    message packet_sc_CancelReincarnation
+    {
+       
+    }
+
+    //ServerPacketIds.RequestReincarnation
+    message packet_sc_RequestReincarnation
+    {
+       
+    }
+
+    //ServerPacketIds.UserBackStep
+    message packet_sc_UserBackStep
+    {
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.ObjectBackStep
+    message packet_sc_ObjectBackStep
+    {
+        uint32 ObjectID;
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+        uint32 Distance;
+    }
+
+    message packet_sc_UserDashAttack
+    {
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.ObjectDashAttack
+    message packet_sc_ObjectDashAttack
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Direction = 3;
+        uint32 Distance = 4;
+    }
+
+    //ServerPacketIds.UserAttackMove
+    message packet_sc_UserAttackMove//warrior skill - SlashingBurst move packet 
+    {
+        packet_data_Vector3Int Location;
+        uint32 Direction;
+    }
+
+    //ServerPacketIds.CombineItem
+    message packet_sc_CombineItem
+    {
+        uint32 Grid = 1;
+        uint64 IDFrom = 2;
+        uint64 IDTo = 3;
+        bool Success = 4;
+        bool Destroy = 5;
+    }
+
+    //ServerPacketIds.ItemUpgraded
+    message packet_sc_ItemUpgraded
+    {
+        UserItem Item = 1;
+    }
+
+    //ServerPacketIds.SetConcentration
+    message packet_sc_SetConcentration
+    {
+        uint32 ObjectID = 1;
+        bool Enabled = 2;
+        bool Interrupted = 3;
+    }
+    
+    //ServerPacketIds.SetElemental
+    message packet_sc_SetElemental
+    {
+        uint32 ObjectID = 1;
+        bool Enabled = 2;
+        bool Casted = 3;
+        uint32 Value = 4;
+        uint32 ElementType = 5;
+        uint32 ExpLast = 6;
+    }
+
+    //ServerPacketIds.ObjectDeco
+    message packet_sc_ObjectDeco
+    {
+        uint32 ObjectID = 1;
+        packet_data_Vector3Int Location = 2;
+        uint32 Image = 3;
+    }
+
+    message packet_sc_ObjectSneaking
+    {
+        uint32 ObjectID = 1;
+        bool SneakingActive = 2;
+    }
+
+    message packet_sc_ObjectLevelEffects
+    {
+        uint32 ObjectID = 1;
+        uint32 LevelEffects = 2;
+    }
+
+    message packet_sc_SetBindingShot
+    {
+        bool Enabled = 1;
+        uint64 Value = 2;
+    }
+
+    //ServerPacketIds.SendOutputMessage
+    message packet_sc_SendOutputMessage
+    {
+        string Message = 1;
+        uint32 Type = 2;
+    }
+
+    message packet_sc_NPCAwakening
+    {
+        
+    }
+
+    message packet_sc_NPCDisassemble
+    {
+       
+    }
+
+    message packet_sc_NPCDowngrade
+    {
+        
+    }
+    message packet_sc_NPCReset
+    {
+        
+    }
+
+    message packet_sc_AwakeningNeedMaterials
+    {
+        repeated ItemInfo Materials;
+        repeated byte MaterialsCount;
+    }
+
+    message packet_sc_AwakeningLockedItem
+    {
+        uint64 UniqueID = 1;
+        bool Locked = 2;
+    }
+
+    message packet_sc_Awakening
+    {
+        public uint32 result = 1;
+        public uint64 removeID = 2;
+    }
+
+    message packet_sc_ReceiveMail
+    {
+        repeated ClientMail Mail = 1;
+    }
+
+    message packet_sc_MailLockedItem
+    {
+        uint64 UniqueID = 1;
+        bool Locked = 2;
+    }
+
+    message packet_sc_MailSent
+    {
+        uint32 Result = 1;
+    }
+
+    message packet_sc_MailSendRequest
+    {
+        
+    }
+
+    message packet_sc_ParcelCollected
+    {
+        uint32 Result = 1;
+    }
+
+    message packet_sc_MailCost
+    {
+        uint32 Cost = 1;
+    }
+
+    message packet_sc_ResizeInventory
+    {
+        uint32 Size = 1;
+    }
+
+    message packet_sc_ResizeStorage
+    {
+        uint32 Size = 1;
+        bool HasExpandedStorage = 2;
+        uint64 ExpiryTime = 3;
+    }
+
+    message packet_sc_NewIntelligentCreature
+    {
+        ClientIntelligentCreature Creature = 1;
+    }
+
+    message packet_sc_UpdateIntelligentCreatureList
+    {
+        repeated ClientIntelligentCreature CreatureList = 1;
+        bool CreatureSummoned = 2;
+        uint32 SummonedCreatureType = 3;
+        uint32 PearlCount = 4;
+    }
+
+    message packet_sc_IntelligentCreatureEnableRename
+    {
+        
+    }
+
+    message packet_sc_IntelligentCreaturePickup
+    {
+        uint32 ObjectID;
+    }
+
+    message packet_sc_NPCPearlGoods
+    {
+        repeated UserItem List = 1;
+        float Rate = 2;
+        uint32 Type = 3;
+    }
+
+    message packet_sc_FriendUpdate
+    {
+        repeated ClientFriend Friends = 1;
+    }
+
+    message packet_sc_GuildBuffList
+    {
+        uint32 Remove = 1;
+        repeated GuildBuff ActiveBuffs = 2;
+        repeated GuildBuffInfo GuildBuffs = 3;
+    }
+
+    message packet_sc_LoverUpdate
+    {
+        string Name = 1;
+        uint64 Date = 2;
+        string MapName = 3;
+        uint32 MarriedDays = 4;
+    }
+
+    message packet_sc_MentorUpdate
+    {
+        string Name = 1;
+        uint32 Level = 2;
+        bool Online = 3;
+        uint64 MenteeEXP = 4;
+    }
+
+    message packet_sc_NPCRequestInput
+    {
+        uint32 NPCID = 1;
+        string PageName = 2;
+    }
+
+    message packet_sc_Rankings
+    {
+        uint32 RankType = 1;
+        uint32 MyRank = 2;
+        repeated RankCharacterInfo ListingDetails = 3;
+        repeated long Listings = 4;
+        uint32 Count = 5;
+    }
+
+    message packet_sc_Opendoor
+    {
+        bool Close = 1;
+        uint32 DoorIndex = 2;
+    }
+
+    message packet_sc_GetRentedItems
+    {
+        repeated ItemRentalInformation RentedItems = 1;
+    }
+
+    message packet_sc_ItemRentalRequest
+    {
+        string Name = 1;
+        bool Renting = 2;
+    }
+
+    message packet_sc_ItemRentalFee
+    {
+        uint32 Amount = 1;
+    }
+
+    message packet_sc_ItemRentalPeriod
+    {
+        uint32 Days = 1;
+    }
+
+    message packet_sc_DepositRentalItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    message packet_sc_RetrieveRentalItem
+    {
+        uint32 From = 1;
+        uint32 To = 2;
+        bool Success = 3;
+    }
+
+    message packet_sc_UpdateRentalItem
+    {
+        bool HasData = 1;
+        UserItem LoanItem = 2;
+    }
+
+    message packet_sc_CancelItemRental
+    {
+        
+    }
+
+    message packet_sc_ItemRentalLock
+    {
+        bool Success = 1;
+        bool GoldLocked = 2;
+        bool ItemLocked = 3;
+    }
+
+    message packet_sc_ItemRentalPartnerLock
+    {
+        bool GoldLocked = 1;
+        bool ItemLocked = 2;
+    }
+
+    message packet_sc_CanConfirmItemRental
+    {
+        
+    }
+
+    message packet_sc_ConfirmItemRental
+    {
+       
+    }
+
+
+    message packet_sc_NewRecipeInfo
+    {
+        ClientRecipeInfo Info;
+    }
+
+    message packet_sc_CraftItem
+    {
+        bool Success = 1;
+    }
+
+    message packet_sc_OpenBrowser
+    {
+        string Url = 1;
+    }
+
+    message packet_sc_PlaySound
+    {
+        uint32 Sound = 1;
+    }
+
+    message packet_sc_SetTimer
+    {
+        string Key = 1;
+        uint32 Type = 2;
+        uint32 Seconds = 3;
+    }
+
+    message packet_sc_ExpireTimer
+    {
+        string Key = 1;
+    }
+
+    message packet_sc_UpdateNotice
+    {
+        Notice Notice = 1;
+    }
+
+    message packet_sc_Roll
+    {
+        uint32 Type = 1;
+        string Page = 2;
+        uint32 Result = 3;
+        bool AutoRoll = 4;
+    }
+
+    message packet_sc_SetCompass
+    {
+        packet_data_Vector3Int Location;
+    }
+

@@ -76,3 +76,241 @@ message packet_data_cs_ChatInfo
     string Title = 2;
     uint32 Grid = 3;
 }
+
+message packet_data_SelectInfo
+{
+    uint32 Index = 1;
+    string Name = 2;
+    uint32 Level = 3;
+    uint32 Class = 4;
+    uint32 Gender = 5;
+    uint64 LastAccess = 6;
+}
+
+message packet_data_WorldMapSetup
+{
+    bool Enabled;
+    repeated WorldMapIcon Icons;
+}
+
+message packet_data_IntelligentCreatureRules
+{
+    uint32 MinimalFullness = 1;
+    bool MousePickupEnabled = 2;
+    uint32 MousePickupRange = 3;
+    bool AutoPickupEnabled = 4;
+    uint32 AutoPickupRange = 5;
+    bool SemiAutoPickupEnabled = 6;
+    uint32 SemiAutoPickupRange = 7;
+    bool CanProduceBlackStone = 8;
+}
+
+message packet_data_IntelligentCreatureItemFilter
+{
+    bool PetPickupAll = 1;
+    bool PetPickupGold = 2;
+    bool PetPickupWeapons = 3;
+    bool PetPickupArmours = 4;
+    bool PetPickupHelmets = 5;
+    bool PetPickupBoots = 6;
+    bool PetPickupBelts = 7;
+    bool PetPickupAccessories = 8;
+    bool PetPickupOthers = 9;
+    uint32 PickupGrade = 10;
+}
+
+message packet_data_ClientIntelligentCreature
+{
+    uint32 PetType = 1;
+    uint32 Icon = 2;
+    string CustomName = 3;
+    uint32 Fullness = 4;
+    uint32 SlotIndex = 5;
+    uint64 Expire = 6;
+    uint64 BlackstoneTime = 7;
+    uint64 MaintainFoodTime = 8;
+    uint petMode = 9;
+    IntelligentCreatureRules CreatureRules;
+    IntelligentCreatureItemFilter Filter;
+}
+
+message packet_data_ClientBuff
+{
+    uint32 Type = 1;
+    string Caster = 2;
+    bool Visible = 3;
+    uint32 ObjectID = 4;
+    uint64 ExpireTime = 5;
+    bool Infinite = 6;
+    uint32 Stats = 7;
+    bool Paused = 8;
+    repeated int Values = 9;
+}
+
+message packet_data_ExpireInfo
+{
+    uint64 ExpiryDate = 1;
+}
+
+message packet_data_RentalInformation
+{
+    string OwnerName = 1;
+    uint32 BindingFlags = 2;
+    uint64 ExpiryDate = 3;
+    bool RentalLocked = 4;
+}
+
+message packet_data_SealedInfo
+{
+    uint64 ExpiryDate;
+    uint64 NextSealDate;
+}
+
+message packet_data_AwakeMaterialsDataItem
+{
+    repeated byte B = 1;
+}
+
+message packet_data_AwakeMaterialsData
+{
+    repeated packet_data_AwakeMaterialsDataItem A = 1;
+}
+
+message packet_data_Awake
+{
+    uint32 AwakeSuccessRate = 1;
+    uint32 AwakeHitRate = 2;
+    uint32 MaxAwakeLevel = 3;
+    uint32 Awake_WeaponRate = 4;
+    uint32 Awake_HelmetRate = 5;
+    uint32 Awake_ArmorRate = 6;
+    uint32 AwakeChanceMin = 7;
+    repeated float AwakeMaterialRate = 8;
+    repeated byte AwakeChanceMax = 9;
+    repeated packet_data_AwakeMaterialsData AwakeMaterials = 10;
+    uint32 Type = 11;
+    repeated byte listAwake = 12;
+}
+
+message packet_data_Stats
+{
+	map<int32, int32> Values = 1;
+}
+
+message packet_data_UserItem
+{
+    uint64 UniqueID = 1;
+    uint32 ItemIndex = 2;
+    public ItemInfo Info = 3;
+    uint32 CurrentDura = 4;
+	uint32 MaxDura = 5;
+    uint32 Count = 6;
+    uint32 GemCount = 7;
+    uint32 RefinedValue = 8;
+    uint32 RefineAdded = 9;
+    uint32 RefineSuccessChance = 10;
+    bool DuraChanged = 11;
+    int32 SoulBoundId = 12;
+    bool Identified = 13;
+    bool Cursed = 14;
+    int32 WeddingRing = 15;
+    repeated UserItem Slots = 16;
+    uint64 BuybackExpiryDate;
+    ExpireInfo ExpireInfo;
+    RentalInformation RentalInformation;
+    SealedInfo SealedInfo;
+    bool IsShopItem;
+    Awake Awake;
+    Stats AddedStats;
+}
+
+message packet_data_ClientAuction
+{
+    uint64 AuctionID = 1;
+    UserItem Item = 2;
+    string Seller = 3;
+    uint32 Price = 4;
+    uint64 ConsignmentDate = 5;
+    uint32 ItemType = 6;
+}
+
+message packet_data_BaseStat
+{
+    uint32 FormulaType = 1;
+    uint32 Type = 2;
+    uint32 Base = 3;
+    float Gain = 4;
+    float GainRate = 5;
+    uint32 Max = 6;
+}
+
+message packet_data_BaseStats
+{
+    uint32 Job = 1;
+    repeated BaseStat Stats = 2;
+    Stats Caps = 3;
+}
+
+message packet_data_ClientQuestProgress
+{
+    uint32 Id = 1;
+    ClientQuestInfo QuestInfo = 2;
+    repeated string TaskList = 3;
+    bool Taken = 4;
+    bool Completed = 5;
+    bool New = 6;
+}
+
+message packet_data_GameShopItem
+{
+    uint32 ItemIndex = 1;
+    uint32 GIndex = 2;
+    ItemInfo Info = 3;
+    uint32 GoldPrice = 4;
+    uint32 CreditPrice = 5;
+    uint32 Count = 6;
+    string Class = 7;
+    string Category = 8;
+    uint32 Stock = 9;
+    bool iStock = 10;
+    bool Deal = 11;
+    bool TopItem = 12;
+    uint64 Date = 13;
+    bool CanBuyGold = 14;
+    bool CanBuyCredit = 15;
+}
+
+message packet_data_ObjectPlayer
+{
+    uint32 ObjectID = 1;
+    string Name = 2;
+    string GuildName = 3;
+    string GuildRankName = 4;
+    packet_data_Color NameColour = 5;
+    uint32 Class = 6;
+    uint32 Gender = 7;
+    uint32 Level = 8;
+    packet_data_Vector3Int Location = 9;
+    uint32 Direction = 10;
+    uint32 Hair = 11;
+    uint32 Light = 12;
+	uint32 Weapon = 13;
+    uint32 WeaponEffect = 14;
+    uint32 Armour = 15;
+	uint32 Poison = 16;
+    bool Dead = 17;
+    bool Hidden = 18;
+    uint32 Effect = 19;
+    uint32 WingEffect = 20;
+    bool Extra = 21;
+    uint32 MountType = 22;
+    bool RidingMount = 23;
+    bool Fishing = 24;
+    uint32 TransformType = 25;
+    uint32 ElementOrbEffect = 26;
+    uint32 ElementOrbLvl = 27;
+    uint32 ElementOrbMax = 28;
+    uint32 LevelEffects = 29;
+    repeated uint32 Buffs = 30;
+}
+

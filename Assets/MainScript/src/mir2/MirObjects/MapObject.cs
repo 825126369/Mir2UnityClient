@@ -98,7 +98,7 @@ namespace Mir2
 
         public uint LastTargetObjectId => lastTargetObjectId;
 
-        public List<QueuedAction> ActionFeed = new List<QueuedAction>();
+        public readonly List<QueuedAction> ActionFeed = new List<QueuedAction>();
         public QueuedAction NextAction
         {
             get { return ActionFeed.Count > 0 ? ActionFeed[0] : null; }
@@ -172,6 +172,11 @@ namespace Mir2
 
             GameScene.NPCID = 0;
             //GameScene.Scene.NPCDialog.Hide();
+        }
+
+        protected void Update()
+        {
+            Process();
         }
 
         public abstract void Process();

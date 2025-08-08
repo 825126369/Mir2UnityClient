@@ -24,11 +24,6 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         {
             PrintTool.m_PrintToolLog = false;
         }
-
-        Application.targetFrameRate = 60;
-        Application.runInBackground = !GameConst.isMobilePlatform();
-
-        PrintPlatformInfo();
         DontDestroyOnLoad(this);
         LeanTween.init(9000, 9000);
         StartCoroutine(AsyncInit());
@@ -91,6 +86,7 @@ public class GameLauncher : SingleTonMonoBehaviour<GameLauncher>
         ExcelTableMgr.Instance.Init();
         DataCenter.Instance.Init();
         UIMgr.Instance.Init();
+        CMain.Instance.Init();
 
         NetClientLoginMgr.Instance.InitLoginServerClient();
         while (NetClientLoginMgr.mNetClient.GetSocketState() == SOCKET_PEER_STATE.CONNECTING)
