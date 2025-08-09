@@ -485,3 +485,10 @@ message packet_data_ItemRentalInformation
     string RentingPlayerName = 3;
     uint64 ItemReturnDate = 4;
 }
+
+message packet_data_ChatItem
+{
+	uint64 UniqueID = 1;
+    string Title = 2;
+    uint32 Grid = 3;
+}

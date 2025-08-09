@@ -1,0 +1,851 @@
+﻿syntax = "proto3";
+package NetProto.CSPacket;
+import "ShareData.proto";
+
+message packet_cs_ClientVersion
+{
+    repeated uint32 VersionHash = 1;
+}
+
+message packet_cs_Disconnect
+{
+    
+}
+
+message packet_cs_KeepAlive
+{
+    uint64 Time = 1;
+}
+
+message packet_cs_NewAccount
+{
+    string AccountID = 1;
+    string Password = 2;
+    uint64 BirthDate = 3;
+    string UserName = 4;
+    string SecretQuestion = 5;
+    string SecretAnswer = 6;
+    string EMailAddress = 7;
+}
+
+message packet_cs_ChangePassword
+{
+    string AccountID = 1;
+    string CurrentPassword = 2;
+    string NewPassword = 3;
+}
+
+message packet_cs_Login
+{
+    string AccountID = 1;
+    string Password = 2;
+}
+
+message packet_cs_NewCharacter
+{
+    string Name = 1;
+    uint32 Gender = 2;
+    uint32 Class = 3;
+}
+
+message packet_cs_DeleteCharacter
+{
+    uint32 CharacterIndex = 1;
+}
+
+message packet_cs_StartGame
+{
+    uint32 CharacterIndex = 1;
+}
+
+message packet_cs_LogOut
+{
+   
+}
+
+message packet_cs_Turn
+{
+    uint32 Direction = 1;
+}
+
+message packet_cs_Walk
+{
+    uint32 Direction = 1;
+}
+
+message packet_cs_Run
+{
+    uint32 Direction = 1;
+}
+
+message packet_cs_Chat
+{
+    string Message = 1;
+    repeated NetProto.ShareData.packet_data_ChatItem LinkedItems = 2;
+}
+
+message packet_cs_MoveItem
+{
+    uint32 Grid = 1;
+    uint32 From = 2;
+    uint32 To = 3;
+}
+
+message packet_cs_StoreItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_DepositRefineItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_RetrieveRefineItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_RefineCancel
+{
+    
+}
+
+message packet_cs_RefineItem
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_CheckRefine
+{
+    uint64 UniqueID = 2;
+}
+
+message packet_cs_ReplaceWedRing
+{
+    uint64 UniqueID = 1;
+}
+
+
+message packet_cs_DepositTradeItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_RetrieveTradeItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_TakeBackItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_MergeItem
+{
+    uint32 GridFrom = 1;
+    uint32 GridTo = 2;
+    uint64 IDFrom = 3;
+    uint64 IDTo = 4;
+}
+
+message packet_cs_EquipItem
+{
+    uint32 Grid = 1;
+    uint64 UniqueID = 2;
+    uint32 To = 3;
+}
+
+message packet_cs_RemoveItem
+{
+    uint32 Grid = 1;
+    uint64 UniqueID = 2;
+    uint32 To = 3;
+}
+
+message packet_cs_RemoveSlotItem
+{
+    uint32 Grid = 1;
+    uint32 GridTo = 2;
+    uint64 UniqueID = 3;
+    uint32 To = 4;
+    uint64 FromUniqueID = 5;
+}
+
+message packet_cs_SplitItem
+{
+    uint32 Grid = 1;
+    uint64 UniqueID = 2;
+    uint32 Count = 3;
+}
+
+message packet_cs_UseItem
+{
+    uint64 UniqueID = 1;
+    uint32 Grid = 2;
+}
+
+message packet_cs_DropItem
+{
+    uint64 UniqueID = 1;
+    uint32 Count = 2;
+    bool HeroInventory = 3;
+}
+
+message packet_cs_TakeBackHeroItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_TransferHeroItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_DropGold
+{
+    uint32 Amount = 1;
+}
+
+message packet_cs_PickUp
+{
+
+}
+
+message packet_cs_Inspect
+{
+    uint32 ObjectID = 1;
+    bool Ranking = 2;
+    bool Hero = 3;
+}
+
+message packet_cs_Observe
+{
+    string Name = 1;
+}
+
+message packet_cs_ChangeAMode
+{
+    uint32 Mode = 1;
+}
+
+message packet_cs_ChangePMode
+{
+    uint32 Mode = 1;
+}
+
+message packet_cs_ChangeTrade
+{
+    bool AllowTrade = 1;
+}
+
+message packet_cs_Attack
+{
+    uint32 Direction = 1;
+    uint32 Spell = 2;
+}
+
+message packet_cs_RangeAttack //ArcherTest
+{
+    uint32 Direction = 1;
+    NetProto.ShareData.packet_data_Vector3Int Location = 2;
+    uint32 TargetID = 3;
+    NetProto.ShareData.packet_data_Vector3Int TargetLocation = 4;
+}
+
+message packet_cs_Harvest
+{
+    uint32 Direction = 1;
+}
+
+message packet_cs_CallNPC
+{
+    uint32 ObjectID = 1;
+    string Key = 2;
+}
+
+message packet_cs_BuyItem
+{
+    uint64 ItemIndex = 1;
+    uint32 Count = 2;
+    uint32 Type = 3;
+}
+
+message packet_cs_SellItem
+{
+    uint64 UniqueID = 1;
+    uint32 Count = 2;
+}
+
+message packet_cs_CraftItem
+{
+    uint64 UniqueID = 1;
+    uint32 Count = 2;
+    repeated uint32 Slots = 3;
+}
+
+message packet_cs_RepairItem
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_BuyItemBack
+{
+    uint64 UniqueID = 1;
+    uint32 Count = 2;
+}
+
+message packet_cs_SRepairItem
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_RequestMapInfo
+{
+    uint32 MapIndex = 1;
+}
+
+message packet_cs_TeleportToNPC
+{
+    uint32 ObjectID = 1;
+}
+
+message packet_cs_SearchMap
+{
+    string Text = 1;
+}
+
+message packet_cs_MagicKey
+{
+    uint32 Spell = 1;
+    uint32 Key = 2;
+    uint32 OldKey = 3;
+}
+
+message packet_cs_Magic
+{
+    uint32 Spell = 1;
+    uint32 Direction = 2;
+    uint32 TargetID = 3;
+    NetProto.ShareData.packet_data_Vector3Int Location = 4;
+    uint32 ObjectID = 5;
+    bool SpellTargetLock = 6;
+}
+
+message packet_cs_SwitchGroup
+{
+    bool AllowGroup = 1;
+}
+
+message packet_cs_AddMember
+{
+    string Name = 1;
+}
+
+message packet_cs_DelMember
+{
+    string Name = 1;
+}
+
+message packet_cs_GroupInvite
+{
+    bool AcceptInvite = 1;
+}
+
+message packet_cs_NewHero
+{
+    string Name = 1;
+    uint32 Gender = 2;
+    uint32 Class = 3;
+}
+
+message packet_cs_SetAutoPotValue
+{
+    uint32 Stat = 1;
+    uint32 Value = 2;
+}
+
+message packet_cs_SetAutoPotItem
+{
+    uint32 Grid = 1;
+    uint32 ItemIndex = 2;
+}
+
+message packet_cs_SetHeroBehaviour
+{
+    uint32 Behaviour = 1;
+}
+
+message packet_cs_ChangeHero
+{
+    uint32 ListIndex = 1;
+}
+
+message packet_cs_MarriageRequest
+{
+    
+}
+
+message packet_cs_MarriageReply
+{
+    bool AcceptInvite = 1;
+}
+
+message packet_cs_ChangeMarriage
+{
+
+}
+
+message packet_cs_DivorceRequest
+{
+    
+}
+
+message packet_cs_DivorceReply
+{
+    bool AcceptInvite = 1;
+}
+
+message packet_cs_AddMentor
+{
+    string Name = 1;
+}
+
+message packet_cs_MentorReply
+{
+    bool AcceptInvite = 1;
+}
+
+message packet_cs_AllowMentor
+{
+   
+}
+
+message packet_cs_CancelMentor
+{
+   
+}
+
+
+message packet_cs_TradeReply
+{
+    bool AcceptInvite = 1;
+}
+    
+message packet_cs_TradeRequest
+{
+    
+}
+
+message packet_cs_TradeGold
+{
+    uint32 Amount = 1;
+}
+
+message packet_cs_TradeConfirm
+{
+    bool Locked = 1;
+}
+
+message packet_cs_TradeCancel
+{
+    
+}
+
+message packet_cs_TownRevive
+{
+    
+}
+
+message packet_cs_SpellToggle
+{
+    uint32 Spell = 1;
+    uint32 canUse = 2;
+}
+
+message packet_cs_ConsignItem
+{
+    uint64 UniqueID = 1;
+    uint32 Price = 2;
+    uint32 Type = 3;
+}
+
+message packet_cs_GuildTerritoryPage
+{
+    uint32 Page = 1;
+}
+
+message packet_cs_PurchaseGuildTerritory
+{
+    string Owner = 1;
+}
+
+message packet_cs_MarketSearch
+{
+    string Match = 1;
+    uint32 Type = 2;
+    bool Usermode = 3;
+    uint32 MinShape = 4;
+    uint32 MaxShape = 5;
+    uint32 MarketType = 6;
+}
+
+message packet_cs_MarketRefresh
+{
+   
+}
+
+message packet_cs_MarketPage
+{
+    uint32 Page = 1;
+}
+
+message packet_cs_MarketBuy
+{
+    uint64 AuctionID = 1;
+    uint32 BidPrice = 2;
+}
+
+message packet_cs_MarketSellNow
+{
+    uint64 AuctionID = 1;
+}
+
+message packet_cs_MarketGetBack
+{
+    uint32 Mode = 1;
+    uint64 AuctionID = 2;
+}
+
+message packet_cs_RequestUserName
+{
+    uint32 UserID = 1;
+}
+
+message packet_cs_RequestChatItem
+{
+    uint64 ChatItemID = 1;
+}
+
+message packet_cs_EditGuildMember
+{
+    uint32 ChangeType = 1;
+    uint32 RankIndex = 2;
+    string Name = 3;
+    string RankName = 4;
+}
+
+message packet_cs_EditGuildNotice
+{
+    repeated string notice = 1;
+}
+
+message packet_cs_GuildInvite
+{
+    bool AcceptInvite = 1;
+}
+
+message packet_cs_RequestGuildInfo
+{
+    uint32 Type = 1;
+}
+
+message packet_cs_GuildNameReturn
+{
+    string Name = 1;
+}
+
+message packet_cs_GuildWarReturn
+{
+    string Name = 1;
+}
+
+message packet_cs_GuildStorageGoldChange
+{
+    uint32 Type = 1;
+    uint32 Amount = 2;      
+}
+
+message packet_cs_GuildStorageItemChange
+{
+    uint32 Type = 1;
+    uint32 From = 2;
+    uint32 To = 3;
+}
+
+message packet_cs_EquipSlotItem
+{
+    uint32 Grid = 1;
+    uint64 UniqueID = 2;
+    uint32 To = 3;
+    uint32 GridTo = 4;
+    uint64 ToUniqueID = 5;
+}
+
+message packet_cs_FishingCast
+{
+    bool CastOut = 1;
+}
+
+message packet_cs_FishingChangeAutocast
+{
+    bool AutoCast = 1;
+}
+
+message packet_cs_AcceptQuest
+{
+    uint32 NPCIndex = 1;
+    uint32 QuestIndex = 2;
+}
+
+message packet_cs_FinishQuest
+{
+    uint32 QuestIndex = 1;
+    uint32 SelectedItemIndex = 2;
+}
+
+message packet_cs_AbandonQuest
+{
+    uint32 QuestIndex = 1;
+}
+
+message packet_cs_ShareQuest
+{
+    uint32 QuestIndex = 1;
+}
+
+message packet_cs_AcceptReincarnation
+{
+    
+}
+
+message packet_cs_CancelReincarnation
+{
+    
+}
+
+message packet_cs_CombineItem
+{
+    uint32 Grid = 1;
+    uint64 IDFrom = 2;
+    uint64 IDTo = 3;
+}
+
+message packet_cs_AwakeningNeedMaterials
+{
+    uint64 UniqueID = 1;
+    uint32 Type = 2;
+}
+
+message packet_cs_AwakeningLockedItem
+{
+    uint64 UniqueID = 1;
+    bool Locked = 2;
+}
+
+message packet_cs_Awakening
+{
+    uint64 UniqueID = 1;
+    uint32 Type = 2;
+    uint32 PositionIdx = 3;
+}
+
+message packet_cs_DisassembleItem
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_DowngradeAwakening
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_ResetAddedItem
+{
+    uint64 UniqueID = 1;
+}
+
+message packet_cs_SendMail
+{
+    string Name = 1;
+    string Message = 2;
+    uint32 Gold = 3;
+    repeated uint64 ItemsIdx = 4;
+    bool Stamped = 5;
+}
+
+message packet_cs_ReadMail
+{
+    uint64 MailID = 1;
+}
+
+message packet_cs_CollectParcel
+{
+    uint64 MailID = 1;
+}
+
+message packet_cs_DeleteMail
+{
+    uint64 MailID = 1;
+}
+
+message packet_cs_LockMail
+{
+    uint64 MailID = 1;
+    bool Lock = 2;
+}
+
+message packet_cs_MailLockedItem
+{
+    uint64 UniqueID = 1;
+    bool Locked = 2;
+}
+
+message packet_cs_MailCost
+{
+    uint32 Gold = 1;
+    repeated uint64 ItemsIdx = 2;
+    bool Stamped = 3;
+}
+
+message packet_cs_RequestIntelligentCreatureUpdates
+{
+    bool Update = 1;
+}
+
+message packet_cs_UpdateIntelligentCreature
+{
+    NetProto.ShareData.packet_data_ClientIntelligentCreature Creature = 1;
+    bool SummonMe = 2;
+    bool UnSummonMe = 3;
+    bool ReleaseMe = 4;
+}
+
+message packet_cs_IntelligentCreaturePickup
+{
+    bool MouseMode = 1;
+    NetProto.ShareData.packet_data_Vector3Int Location = 2;
+}
+
+message packet_cs_AddFriend
+{
+    string Name = 1;
+    bool Blocked = 2;
+}
+
+message packet_cs_RemoveFriend
+{
+    uint32 CharacterIndex = 1;
+}
+
+message packet_cs_RefreshFriends
+{
+    
+}
+
+message packet_cs_AddMemo
+{
+    uint32 CharacterIndex = 1;
+    string Memo = 2;
+}
+
+message packet_cs_GuildBuffUpdate
+{
+    uint32 Action = 1; //0 = request list, 1 = request a buff to be enabled, 2 = request a buff to be activated
+    uint32 Id = 2;
+}
+
+message packet_cs_GameshopBuy
+{
+    uint32 GIndex = 1;
+    uint32 Quantity = 2;
+    uint32 PType = 3;
+}
+
+message packet_cs_NPCConfirmInput
+{
+    uint32 NPCID = 1;
+    string PageName = 2;
+    string Value = 3;
+}
+
+message packet_cs_ReportIssue
+{
+    repeated uint32 Image = 1;
+    uint32 ImageSize = 2;
+    uint32 ImageChunk = 3;
+    string Message = 4;
+}
+
+message packet_cs_GetRanking
+{
+    uint32 RankType = 1;
+    uint32 RankIndex = 2;
+    bool OnlineOnly = 3;
+}
+
+message packet_cs_Opendoor
+{
+    uint32 DoorIndex = 1;
+}
+
+message packet_cs_GetRentedItems
+{
+   
+}
+
+message packet_cs_ItemRentalRequest
+{
+    
+}
+
+message packet_cs_ItemRentalFee
+{
+    uint32 Amount = 1;
+}
+
+message packet_cs_ItemRentalPeriod
+{
+    uint32 Days = 1;
+}
+
+message packet_cs_DepositRentalItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_RetrieveRentalItem
+{
+    uint32 From = 1;
+    uint32 To = 2;
+}
+
+message packet_cs_CancelItemRental
+{
+    
+}
+
+message packet_cs_ItemRentalLockFee
+{
+    
+}
+
+message packet_cs_ItemRentalLockItem
+{
+    
+}
+
+message packet_cs_ConfirmItemRental
+{
+    
+}

@@ -215,7 +215,8 @@ namespace NetProto.ShareData {
             "C0xhc3RVcGRhdGVkGAYgASgEIngKIXBhY2tldF9kYXRhX0l0ZW1SZW50YWxJ",
             "bmZvcm1hdGlvbhIOCgZJdGVtSWQYASABKAQSEAoISXRlbU5hbWUYAiABKAkS",
             "GQoRUmVudGluZ1BsYXllck5hbWUYAyABKAkSFgoOSXRlbVJldHVybkRhdGUY",
-            "BCABKARiBnByb3RvMw=="));
+            "BCABKAQiRQoUcGFja2V0X2RhdGFfQ2hhdEl0ZW0SEAoIVW5pcXVlSUQYASAB",
+            "KAQSDQoFVGl0bGUYAiABKAkSDAoER3JpZBgDIAEoDWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -263,7 +264,8 @@ namespace NetProto.ShareData {
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_GuildBuffInfo), global::NetProto.ShareData.packet_data_GuildBuffInfo.Parser, new[]{ "Id", "Icon", "Name", "LevelRequirement", "PointsRequirement", "TimeLimit", "ActivationCost", "Stats" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_GuildBuff), global::NetProto.ShareData.packet_data_GuildBuff.Parser, new[]{ "Id", "Info", "Active", "ActiveTimeRemaining" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_RankCharacterInfo), global::NetProto.ShareData.packet_data_RankCharacterInfo.Parser, new[]{ "PlayerId", "Name", "Class", "Level", "Experience", "LastUpdated" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_ItemRentalInformation), global::NetProto.ShareData.packet_data_ItemRentalInformation.Parser, new[]{ "ItemId", "ItemName", "RentingPlayerName", "ItemReturnDate" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_ItemRentalInformation), global::NetProto.ShareData.packet_data_ItemRentalInformation.Parser, new[]{ "ItemId", "ItemName", "RentingPlayerName", "ItemReturnDate" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.ShareData.packet_data_ChatItem), global::NetProto.ShareData.packet_data_ChatItem.Parser, new[]{ "UniqueID", "Title", "Grid" }, null, null, null, null)
           }));
     }
     #endregion
@@ -18749,6 +18751,278 @@ namespace NetProto.ShareData {
           }
           case 32: {
             ItemReturnDate = input.ReadUInt64();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  [global::System.Diagnostics.DebuggerDisplayAttribute("{ToString(),nq}")]
+  public sealed partial class packet_data_ChatItem : pb::IMessage<packet_data_ChatItem>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<packet_data_ChatItem> _parser = new pb::MessageParser<packet_data_ChatItem>(() => new packet_data_ChatItem());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pb::MessageParser<packet_data_ChatItem> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::NetProto.ShareData.ShareDataReflection.Descriptor.MessageTypes[45]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_data_ChatItem() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_data_ChatItem(packet_data_ChatItem other) : this() {
+      uniqueID_ = other.uniqueID_;
+      title_ = other.title_;
+      grid_ = other.grid_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public packet_data_ChatItem Clone() {
+      return new packet_data_ChatItem(this);
+    }
+
+    /// <summary>Field number for the "UniqueID" field.</summary>
+    public const int UniqueIDFieldNumber = 1;
+    private ulong uniqueID_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public ulong UniqueID {
+      get { return uniqueID_; }
+      set {
+        uniqueID_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Title" field.</summary>
+    public const int TitleFieldNumber = 2;
+    private string title_ = "";
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public string Title {
+      get { return title_; }
+      set {
+        title_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Grid" field.</summary>
+    public const int GridFieldNumber = 3;
+    private uint grid_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public uint Grid {
+      get { return grid_; }
+      set {
+        grid_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override bool Equals(object other) {
+      return Equals(other as packet_data_ChatItem);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public bool Equals(packet_data_ChatItem other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (UniqueID != other.UniqueID) return false;
+      if (Title != other.Title) return false;
+      if (Grid != other.Grid) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (UniqueID != 0UL) hash ^= UniqueID.GetHashCode();
+      if (Title.Length != 0) hash ^= Title.GetHashCode();
+      if (Grid != 0) hash ^= Grid.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (UniqueID != 0UL) {
+        output.WriteRawTag(8);
+        output.WriteUInt64(UniqueID);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Title);
+      }
+      if (Grid != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(Grid);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (UniqueID != 0UL) {
+        output.WriteRawTag(8);
+        output.WriteUInt64(UniqueID);
+      }
+      if (Title.Length != 0) {
+        output.WriteRawTag(18);
+        output.WriteString(Title);
+      }
+      if (Grid != 0) {
+        output.WriteRawTag(24);
+        output.WriteUInt32(Grid);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int CalculateSize() {
+      int size = 0;
+      if (UniqueID != 0UL) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt64Size(UniqueID);
+      }
+      if (Title.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Title);
+      }
+      if (Grid != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Grid);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(packet_data_ChatItem other) {
+      if (other == null) {
+        return;
+      }
+      if (other.UniqueID != 0UL) {
+        UniqueID = other.UniqueID;
+      }
+      if (other.Title.Length != 0) {
+        Title = other.Title;
+      }
+      if (other.Grid != 0) {
+        Grid = other.Grid;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            UniqueID = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            Title = input.ReadString();
+            break;
+          }
+          case 24: {
+            Grid = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+      if ((tag & 7) == 4) {
+        // Abort on any end group tag.
+        return;
+      }
+      switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            UniqueID = input.ReadUInt64();
+            break;
+          }
+          case 18: {
+            Title = input.ReadString();
+            break;
+          }
+          case 24: {
+            Grid = input.ReadUInt32();
             break;
           }
         }
