@@ -21,6 +21,7 @@ namespace Mir2
         public static KeyBindSettings InputKeys = new KeyBindSettings();
         public static Texture2D[] Cursors;
         public static MouseCursor CurrentCursor = MouseCursor.None;
+
         public void Init()
         {
             Application.targetFrameRate = 60;

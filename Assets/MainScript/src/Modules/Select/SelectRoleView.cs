@@ -1,9 +1,10 @@
 using Mir2;
-using NetProto.Game;
 using NetProto.ShareData;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using C = NetProto.CSPacket;
+using S = NetProto.SCPacket;
 
 public class SelectRoleView : MonoBehaviour
 {
@@ -14,10 +15,10 @@ public class SelectRoleView : MonoBehaviour
     public Button deleteBtn;
     public Button startBtn;
 
-    private uint nSelectRoleId = 0;
+    private int nSelectRoleIndex = -1;
     private readonly List<SelectRoleItem> mItemList = new List<SelectRoleItem>();
-
     private bool bInit = false;
+
     private void Init()
     {
         if (bInit) return;
@@ -34,8 +35,6 @@ public class SelectRoleView : MonoBehaviour
             mItem.gameObject.SetActive(false);
         }
 
-        DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.addDataBind(RefreshView);
-
         createBtn.onClick.AddListener(() =>
         {
             UIMgr.Instance.Show_CreateRoleView();
@@ -43,79 +42,99 @@ public class SelectRoleView : MonoBehaviour
 
         deleteBtn.onClick.AddListener(() =>
         {
-            if (nSelectRoleId > 0)
+            if (nSelectRoleIndex >= 0)
             {
                 UIMgr.CommonWindowLoading.Show();
-                var mSendMsg = new packet_cs_request_DeleteRole();
-                mSendMsg.NPlayerId = nSelectRoleId;
+                var mSendMsg = new C.packet_cs_DeleteCharacter();
+                mSendMsg.CharacterIndex = (uint)nSelectRoleIndex;
                 NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_DELETE_ROLE, mSendMsg);
             }
         });
 
         startBtn.onClick.AddListener(() =>
         {
-            if (nSelectRoleId > 0)
+            if (nSelectRoleIndex >= 0)
             {
                 UIMgr.CommonWindowLoading.Show();
-                var mSendMsg = new packet_cs_request_StartGame();
-                mSendMsg.NPlayerId = nSelectRoleId;
+                var mSendMsg = new C.packet_cs_StartGame();
+                mSendMsg.CharacterIndex = (uint)nSelectRoleIndex;
                 NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_STARTGAME, mSendMsg);
             }
         });
+
+        EventMgr.Instance.AddListener(GameEvent.packet_sc_DeleteCharacter, OnEvent_DeleteCharacter);
+        EventMgr.Instance.AddListener(GameEvent.packet_sc_NewCharacter, OnEvent_NewCharacter);
+        EventMgr.Instance.AddListener(GameEvent.packet_sc_request_AllRoleInfo, OnEvent_request_AllRoleInfo);
     }
 
     private void OnDestroy()
     {
-        DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.removeDataBind(RefreshView);
+        EventMgr.Instance.RemoveListener(GameEvent.packet_sc_DeleteCharacter, OnEvent_DeleteCharacter);
+        EventMgr.Instance.RemoveListener(GameEvent.packet_sc_NewCharacter, OnEvent_NewCharacter);
+        EventMgr.Instance.RemoveListener(GameEvent.packet_sc_request_AllRoleInfo, OnEvent_request_AllRoleInfo);
     }
 
     public void Show()
     {
-        Init();
-        gameObject.SetActive(true);
-        this.nSelectRoleId = 0;
-        var mRoleList = DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData;
-        RefreshView(mRoleList);
+        this.Init();
+        this.gameObject.SetActive(true);
+        this.nSelectRoleIndex = 0;
+        this.RefreshView();
     }
     
     public void Hide()
     {
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
-    public void OnSelectRoldId(uint Id)
+    private void OnEvent_DeleteCharacter(object data)
     {
-        PrintTool.Log("OnSelectRoldId: " + Id);
-        this.nSelectRoleId = Id;
-        var mRoleList = DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData;
-        RefreshView(mRoleList);
+        UIMgr.CommonWindowLoading.Hide();
+        List<packet_data_SelectInfo> mList = SelectRoleModel.Instance.m_packet_data_SelectInfo_List;
+        mList.RemoveAll((packet_data_SelectInfo x)=>
+        {
+            return x.Index == nSelectRoleIndex;
+        });
+
+        mList.Sort((x, y) =>
+        {
+            return (int)x.LastAccess - (int)y.LastAccess;
+        });
     }
 
-    public void RefreshView(List<packet_data_SelectRole_RoleInfo> mRoleList)
+    private void OnEvent_NewCharacter(object data)
     {
-        packet_data_SelectRole_RoleInfo mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
+        this.RefreshView();
+    }
+
+    private void OnEvent_request_AllRoleInfo(object data)
+    {
+        this.RefreshView();
+    }
+
+    public void OnSelectRoldId(int nIndex)
+    {
+        PrintTool.Log("OnSelectRoldId: " + nIndex);
+        this.nSelectRoleIndex = nIndex;
+        this.RefreshView();
+    }
+
+    public void RefreshView()
+    {
+        List<packet_data_SelectInfo> mRoleList = SelectRoleModel.Instance.m_packet_data_SelectInfo_List;
+        packet_data_SelectInfo mSelectRoleInfo = mRoleList.Find((x) => x.Index == nSelectRoleIndex);
         if (mSelectRoleInfo == null)
         {
-            nSelectRoleId = 0;
-            ulong nMaxLoginTime = 0;
-            foreach (var v in mRoleList)
-            {
-                if (nMaxLoginTime < v.NLastLoginTime)
-                {
-                    nMaxLoginTime = v.NLastLoginTime;
-                    nSelectRoleId = v.NRoleId;
-                }
-            }
-
-            if (nSelectRoleId == 0)
+            nSelectRoleIndex = -1;
+            if (nSelectRoleIndex == 0)
             {
                 if (mRoleList.Count > 0)
                 {
-                    nSelectRoleId = mRoleList[0].NRoleId;
+                    nSelectRoleIndex = (int)mRoleList[0].Index;
                 }
             }
         }
-        mSelectRoleInfo = mRoleList.Find((x) => x.NRoleId == nSelectRoleId);
+        mSelectRoleInfo = mRoleList.Find((x) => x.Index == nSelectRoleIndex);
 
         mItemPrefab.gameObject.SetActive(false);
         for (int i = 0; i < mRoleList.Count; i++)
@@ -138,7 +157,7 @@ public class SelectRoleView : MonoBehaviour
             mItem.gameObject.SetActive(true);
             var mData = mRoleList[i];
             mItem.Refresh(mData);
-            mItem.OnSelect(this.nSelectRoleId);
+            mItem.OnSelect(this.nSelectRoleIndex);
         }
 
         for (int i = mRoleList.Count; i < mItemList.Count; i++)
@@ -157,7 +176,7 @@ public class SelectRoleView : MonoBehaviour
         if (mRoleList.Count > 0)
         {
             roleDisplay.gameObject.SetActive(true);
-            lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.NLastLoginTime).ToString("yyyy/MM/dd HH:mm:ss");
+            lastRefreshTime.text = TimeTool.GetLocalTimeFromTimeStamp(mSelectRoleInfo.LastAccess).ToString("yyyy/MM/dd HH:mm:ss");
 
             var mAnimationImage = roleDisplay.GetComponent<AnimationImage>();
             var mClass = mSelectRoleInfo.Class;

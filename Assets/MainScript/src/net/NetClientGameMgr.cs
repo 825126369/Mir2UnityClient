@@ -2,10 +2,9 @@ using AKNet.Common;
 using AKNet.Extentions.Protobuf;
 using Google.Protobuf;
 using Mir2;
-using NetProto.Game;
-using NetProto.ShareData;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using S = NetProto.SCPacket;
 
 public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 {
@@ -23,8 +22,6 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
             mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_SELECTROLE_DELETE_ROLE_RESULT, receive_sc_Request_selectRole_DeleteRole_Result);
             mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_STARTGAME_RESULT, receive_sc_Request_StartGame_Result);
             mNetClient.addNetListenFunc(NetProtocolCommand.SC_REQUEST_USER_LOCATION, receive_sc_UserLocation_Result);
-
-
             mNetClient.addNetListenFunc(NetProtocolCommand.SC_BROADCAST_LOCATION, receive_sc_broadcast_UserLocation_Result);
         }
 
@@ -62,9 +59,9 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     private void SendFirstMsg()
     {
         UIMgr.CommonWindowLoading.Show();
-        var mSendMsg = new packet_cs_request_AllRoleInfo();
-        mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
-        mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_ALL_ROLEINFO, mSendMsg);
+        //var mSendMsg = new packet_cs_request_AllRoleInfo();
+        //mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
+        //mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_ALL_ROLEINFO, mSendMsg);
     }
 
     private void Update()
@@ -86,105 +83,42 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
     void receive_sc_Request_selectRole_CreateRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_CreateRole_Result mReceiveMsg = packet_sc_request_CreateRole_Result.Parser.ParseFrom(mNetPackage.GetData());
-
-        UIMgr.CommonWindowLoading.Hide();
-        if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
-        {
-            PrintTool.Log("创建角色 成功");
-            List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
-            mList.Sort((x, y) =>
-            {
-                if (x.NCreateTime < y.NCreateTime)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
-            });
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
-            UIMgr.Instance.CreateRoleView.gameObject.SetActive(false);
-        }
-        else
-        {
-            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
-        }
+        S.packet_sc_NewCharacterSuccess mReceiveMsg = S.packet_sc_NewCharacterSuccess.Parser.ParseFrom(mNetPackage.GetData());
+        PrintTool.Log("创建角色 成功");
+        SelectRoleModel.Instance.m_packet_data_SelectInfo_List.Add(mReceiveMsg.CharInfo);
+        EventMgr.Instance.Broadcast(GameEvent.packet_sc_NewCharacter);
     }
 
     void receive_sc_Request_selectRole_DeleteRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_DeleteRole_Result mReceiveMsg = packet_sc_request_DeleteRole_Result.Parser.ParseFrom(mNetPackage.GetData());
+        S.packet_sc_DeleteCharacter mReceiveMsg = S.packet_sc_DeleteCharacter.Parser.ParseFrom(mNetPackage.GetData());
         UIMgr.CommonWindowLoading.Hide();
-        if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
+
+        if (mReceiveMsg.Result == NetErrorCode.NoError)
         {
             PrintTool.Log("删除角色 成功");
-            List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
-            mList.Sort((x, y) =>
-            {
-                if (x.NCreateTime < y.NCreateTime)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
-            });
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
+            EventMgr.Instance.Broadcast(GameEvent.packet_sc_DeleteCharacter);
         }
         else
         {
-            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.Result);
         }
     }
 
     void receive_sc_Request_selectRole_AllRoleInfo_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_AllRoleInfo_Result mReceiveMsg = packet_sc_request_AllRoleInfo_Result.Parser.ParseFrom(mNetPackage.GetData());
-
+        S.packet_sc_request_AllRoleInfo mReceiveMsg = S.packet_sc_request_AllRoleInfo.Parser.ParseFrom(mNetPackage.GetData());
         UIMgr.CommonWindowLoading.Hide();
-        if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
-        {
-            PrintTool.Log("packet_sc_request_AllRoleInfo_Result 成功");
-            if (UIMgr.Instance.SelectServerView != null)
-            {
-                Destroy(UIMgr.Instance.SelectServerView.gameObject);
-                UIMgr.Instance.SelectServerView = null;
-            }
-
-            List<packet_data_SelectRole_RoleInfo> mList = new List<packet_data_SelectRole_RoleInfo>(mReceiveMsg.MRoleList);
-            mList.Sort((x, y) =>
-            {
-                if (x.NCreateTime < y.NCreateTime)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
-            });
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.bindData = mList;
-            DataCenter.Instance.mDataBind_packet_data_SelectRole_RoleInfo.DispatchEvent();
-
-            UIMgr.Instance.Show_SelectRoleView();
-        }
-        else
-        {
-            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
-        }
+        SelectRoleModel.Instance.m_packet_data_SelectInfo_List =  mReceiveMsg.Characters.ToList();
+        EventMgr.Instance.Broadcast(GameEvent.packet_sc_request_AllRoleInfo);
     }
 
     void receive_sc_Request_StartGame_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = packet_sc_request_StartGame_Result.Parser.ParseFrom(mNetPackage.GetData());
+        var mReceiveMsg = S.packet_sc_StartGame.Parser.ParseFrom(mNetPackage.GetData());
         UIMgr.CommonWindowLoading.Hide();
 
-        if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
+        if (mReceiveMsg.Result == NetErrorCode.NoError)
         {
             PrintTool.Log("开始游戏 成功");
             if (UIMgr.Instance.SelectRoleView != null)
@@ -209,24 +143,24 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
         }
         else
         {
-            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
+            UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.Result);
         }
     }
     
     void receive_sc_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = packet_sc_UserLocation.Parser.ParseFrom(mNetPackage.GetData());
-        Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
-        MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
+        var mReceiveMsg = S.packet_sc_UserLocation.Parser.ParseFrom(mNetPackage.GetData());
+        //Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
+        //MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
         //WorldMgr.Instance.User.HandleServerLocation(pos, Dir);
     }
     
     void receive_sc_broadcast_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = packet_sc_broadcast_Location.Parser.ParseFrom(mNetPackage.GetData());
-        Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
-        MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
-        WorldMgr.Instance.HandleServerLocation(mReceiveMsg.ObjectID, pos, Dir);
+        var mReceiveMsg = S.packet_sc_UserLocation.Parser.ParseFrom(mNetPackage.GetData());
+        //Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
+        //MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
+        //WorldMgr.Instance.HandleServerLocation(mReceiveMsg.ObjectID, pos, Dir);
 
     }
 

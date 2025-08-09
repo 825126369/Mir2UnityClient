@@ -9,7 +9,6 @@ namespace Mir2
         public List<PlayerObject> mPlayerList = new List<PlayerObject>();
         public UserObject User;
         public TileMapMgr MapMgr;
-
         private float _doorTime;
 
         public void Start()

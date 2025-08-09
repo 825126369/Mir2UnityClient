@@ -53,6 +53,12 @@ message packet_cs_DeleteCharacter
     uint32 CharacterIndex = 1;
 }
 
+// 新加的包
+message packet_cs_request_AllRoleInfo
+{
+    
+}
+
 message packet_cs_StartGame
 {
     uint32 CharacterIndex = 1;

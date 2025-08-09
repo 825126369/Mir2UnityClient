@@ -4,6 +4,6 @@ namespace Mir2
 {
     public interface IUserHeroObject
     {
-        void Load(packet_data_UserInfo info);
+        void Load(NetProto.SCPacket.packet_sc_UserInformation info);
     }
 }

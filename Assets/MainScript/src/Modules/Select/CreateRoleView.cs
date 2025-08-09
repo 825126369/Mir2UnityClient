@@ -1,8 +1,12 @@
 using AKNet.Extentions.Protobuf;
 using Mir2;
-using NetProto.Game;
+using NetProto.CSPacket;
+using NetProto.ShareData;
 using UnityEngine;
 using UnityEngine.UI;
+
+using C = NetProto.CSPacket;
+using S = NetProto.SCPacket;
 
 public class CreateRoleView : MonoBehaviour
 {
@@ -85,13 +89,22 @@ public class CreateRoleView : MonoBehaviour
             }
 
             UIMgr.CommonWindowLoading.Show();
-            packet_cs_request_CreateRole mSendMsg = new packet_cs_request_CreateRole();
-            mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
+            C.packet_cs_NewCharacter mSendMsg = new C.packet_cs_NewCharacter();
             mSendMsg.Class = (uint)mClass;
             mSendMsg.Gender = (uint)mGender;
             mSendMsg.Name = mInputName.text;
             NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_CREATE_ROLE, mSendMsg);
         });
+
+        EventMgr.Instance.AddListener(GameEvent.packet_sc_NewCharacter, OnEvent_NewCharacter);
+    }
+
+    private void OnEvent_NewCharacter(object data)
+    {
+        UIMgr.CommonWindowLoading.Hide();
+        packet_data_SelectInfo mData = data as packet_data_SelectInfo;
+        SelectRoleModel.Instance.m_packet_data_SelectInfo_List.Add(mData);
+        this.Hide();
     }
 
     public void Show()

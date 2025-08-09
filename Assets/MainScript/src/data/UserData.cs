@@ -63,7 +63,7 @@ public class UserData
     public int WingEffect = 0;
     public int MountType = 0;
 
-    public void CopyFrom(packet_data_UserInfo netUserInfo)
+    public void CopyFrom(NetProto.SCPacket.packet_sc_UserInformation netUserInfo)
     {
         //this.nId = netUserInfo.NPlayerId;
         //this.nLevel = netUserInfo.NLevel;

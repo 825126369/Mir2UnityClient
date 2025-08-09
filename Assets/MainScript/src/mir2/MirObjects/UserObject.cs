@@ -75,7 +75,7 @@ namespace Mir2
             //SetAction();
         }
 
-        public virtual void Load(packet_data_UserInfo info)
+        public virtual void Load(NetProto.SCPacket.packet_sc_UserInformation info)
         {
             //Id = info.RealId;
             //Name = info.Name;

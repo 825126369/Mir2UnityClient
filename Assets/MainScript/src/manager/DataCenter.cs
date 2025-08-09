@@ -1,10 +1,9 @@
 using Mir2;
-using NetProto.Game;
-using NetProto.ShareData;
 using NetProtocols.SelectGate;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using S = NetProto.SCPacket;
 
 public class DataCenter:SingleTonMonoBehaviour<DataCenter>
 {
@@ -35,8 +34,6 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
 
     public readonly List<ServerItemData> mServerItemDataList = new List<ServerItemData>();
     public ServerItemData currentSelectServerItemData = null;
-    //选人
-    public DataBind<List<packet_data_SelectRole_RoleInfo>> mDataBind_packet_data_SelectRole_RoleInfo;
     //主游戏
     public const int CellWidth = 48;
     public const int CellHeight = 32;
@@ -46,7 +43,7 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
 
     public void Init()
     {
-        mDataBind_packet_data_SelectRole_RoleInfo = new DataBind<List<packet_data_SelectRole_RoleInfo>>();
+       
     }
 
     public void OnNetSyncServerItemList(packet_sc_ServerList_Result mReceiveMsg)
@@ -78,19 +75,19 @@ public class DataCenter:SingleTonMonoBehaviour<DataCenter>
         }
     }
 
-    public void InitStartGameData(packet_sc_request_StartGame_Result mReceiveMsg)
+    public void InitStartGameData(S.packet_sc_StartGame mReceiveMsg)
     {
-        UserData.CopyFrom(mReceiveMsg.UserInfo);
-        UserData.RefreshEquipmentStats();
+        //UserData.CopyFrom(mReceiveMsg.);
+        //UserData.RefreshEquipmentStats();
 
-        uint nMapInfoIndex = mReceiveMsg.UserInfo.NMapIndex;
-        var mMapInfo = ExcelTableMgr.Instance.MapInfoList.Find((x) => x.Index == nMapInfoIndex);
-        if (mMapInfo != null)
-        {
-            string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\{mMapInfo.FileName}.map";
-            MapData.mMapInfo = mMapInfo;
-            MapData.mMapBasicInfo = new MapReader(path);
-        }
+        //uint nMapInfoIndex = mReceiveMsg.UserInfo.NMapIndex;
+        //var mMapInfo = ExcelTableMgr.Instance.MapInfoList.Find((x) => x.Index == nMapInfoIndex);
+        //if (mMapInfo != null)
+        //{
+        //    string path = $"D:\\Me\\MyProject\\Mir2Server\\Mir2Config\\Maps\\{mMapInfo.FileName}.map";
+        //    MapData.mMapInfo = mMapInfo;
+        //    MapData.mMapBasicInfo = new MapReader(path);
+        //}
     }
 
 }

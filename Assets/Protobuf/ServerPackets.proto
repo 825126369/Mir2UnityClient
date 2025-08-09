@@ -80,8 +80,14 @@ message packet_sc_LoginBanned
     uint64 ExpiryDate = 2;
 }
 
-//ServerPacketIds.LoginSuccess
+//ServerPacketIds.LoginSuccess//这个废弃了
 message packet_sc_LoginSuccess
+{
+    repeated NetProto.ShareData.packet_data_SelectInfo Characters = 1;
+}
+
+//新加的
+message packet_sc_request_AllRoleInfo
 {
     repeated NetProto.ShareData.packet_data_SelectInfo Characters = 1;
 }

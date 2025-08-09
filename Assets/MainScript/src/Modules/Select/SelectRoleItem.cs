@@ -27,7 +27,7 @@ public class SelectRoleItem : MonoBehaviour
     public GameObject goSheShou;
     public GameObject goSheShouSelect;
 
-    private packet_data_SelectRole_RoleInfo mData;
+    private packet_data_SelectInfo mData;
     private SelectRoleView mManager;
     private bool bInit = false;
     public void Init(SelectRoleView mManager)
@@ -38,13 +38,13 @@ public class SelectRoleItem : MonoBehaviour
         this.mManager = mManager;
         mClickBtn.onClick.AddListener(() =>
         {
-            mManager.OnSelectRoldId(mData.NRoleId);
+           // mManager.OnSelectRoldId(mData.NRoleId);
         });
     }
 
-    public void OnSelect(uint nRoleId)
+    public void OnSelect(int nIndex)
     {
-        ShowTip(nRoleId == mData.NRoleId);
+        ShowTip(nIndex == mData.Index);
     }
 
     private void ShowTip(bool Show)
@@ -81,12 +81,12 @@ public class SelectRoleItem : MonoBehaviour
         }
     }
 
-    public void Refresh(packet_data_SelectRole_RoleInfo mData)
+    public void Refresh(packet_data_SelectInfo mData)
     {
         this.mData = mData;
         if (this.mData != null)
         {
-            PrintTool.Log(gameObject.name + " | " + mData.NRoleId);
+            PrintTool.Log(gameObject.name + " | " + mData.Index);
             goHaveRole.SetActive(true);
             textName.text = mData.Name;
             textLevel.text = mData.Level.ToString();

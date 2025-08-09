@@ -18,19 +18,19 @@ namespace Mir2
             Frames = FrameSet.Player;
         }
 
-        public override void Load(packet_data_UserInfo info)
+        public override void Load(NetProto.SCPacket.packet_sc_UserInformation info)
         {
             Name = info.Name;
             //NameColour = info.NameColour;
             Class = (MirClass)info.Class;
             Gender = (MirGender)info.Gender;
-            Level = (ushort)info.NLevel;
+            Level = (ushort)info.Level;
             // Hair = info.Hair;
 
             HP = (int)info.HP;
             MP = (int)info.MP;
 
-            Experience = (long)info.NLevelExp;
+            Experience = (long)info.Experience;
             // MaxExperience = info.MaxExperience;
 
             //Inventory = info.Inventory;

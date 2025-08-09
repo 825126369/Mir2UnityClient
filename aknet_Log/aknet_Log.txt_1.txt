@@ -1,0 +1,13 @@
+2025/8/10 1:44:55  Error: ShareData.proto:159:5: "packet_data_ItemInfo" is not defined.
+ShareData.proto:215:5: "packet_data_ItemInfo" is not defined.
+ShareData.proto:257:5: "packet_data_ItemInfo" is not defined.
+ClientData.proto:3:1: Import "ShareData.proto" was not found or had errors.
+ClientData.proto:27:5: "packet_data_UserItem" is not defined.
+ClientData.proto:28:14: "packet_data_UserItem" is not defined.
+ClientData.proto:29:14: "packet_data_UserItem" is not defined.
+ClientData.proto:43:14: "packet_data_UserItem" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.St
