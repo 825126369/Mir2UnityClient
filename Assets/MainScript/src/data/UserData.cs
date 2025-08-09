@@ -1,5 +1,5 @@
 using Mir2;
-using NetProtocols.Game;
+using NetProto.ShareData;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -65,31 +65,31 @@ public class UserData
 
     public void CopyFrom(packet_data_UserInfo netUserInfo)
     {
-        this.nId = netUserInfo.NPlayerId;
-        this.nLevel = netUserInfo.NLevel;
-        this.nLevelExp = netUserInfo.NLevelExp;
-        this.Class = (MirClass)netUserInfo.Class;
-        this.Gender = (MirGender)netUserInfo.Gender;
-        this.Name = netUserInfo.Name;
-        this.nWorldObjectId = netUserInfo.NMapObjectId;
+        //this.nId = netUserInfo.NPlayerId;
+        //this.nLevel = netUserInfo.NLevel;
+        //this.nLevelExp = netUserInfo.NLevelExp;
+        //this.Class = (MirClass)netUserInfo.Class;
+        //this.Gender = (MirGender)netUserInfo.Gender;
+        //this.Name = netUserInfo.Name;
+        //this.nWorldObjectId = netUserInfo.NMapObjectId;
 
-        this.MapLocation = netUserInfo.Location.ToVector3Int();
-        this.CurrentMapIndex = netUserInfo.NMapIndex;
-        this.Direction = (MirDirection)netUserInfo.Direction;
+        //this.MapLocation = netUserInfo.Location.ToVector3Int();
+        //this.CurrentMapIndex = netUserInfo.NMapIndex;
+        //this.Direction = (MirDirection)netUserInfo.Direction;
 
-        foreach (var v in netUserInfo.EquipList)
-        {
-            ItemData mItemData = new ItemData();
-            mItemData.CopyFrom(v);
-            this.mEquipList.Add(mItemData);
-        }
+        //foreach (var v in netUserInfo.EquipList)
+        //{
+        //    ItemData mItemData = new ItemData();
+        //    mItemData.CopyFrom(v);
+        //    this.mEquipList.Add(mItemData);
+        //}
 
-        foreach (var v in netUserInfo.BagList)
-        {
-            ItemData mItemData = new ItemData();
-            mItemData.CopyFrom(v);
-            this.mBagList.Add(mItemData);
-        }
+        //foreach (var v in netUserInfo.BagList)
+        //{
+        //    ItemData mItemData = new ItemData();
+        //    mItemData.CopyFrom(v);
+        //    this.mBagList.Add(mItemData);
+        //}
     }
 
     public void RefreshEquipmentStats()

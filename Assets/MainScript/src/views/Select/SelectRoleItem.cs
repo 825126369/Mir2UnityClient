@@ -1,5 +1,5 @@
 using Mir2;
-using NetProtocols.Game;
+using NetProto.ShareData;
 using UnityEngine;
 using UnityEngine.UI;
 

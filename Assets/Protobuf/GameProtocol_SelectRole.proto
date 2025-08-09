@@ -1,6 +1,6 @@
 syntax = "proto3";
-package NetProtocols.Game;
-import "GameProtocol_Data.proto";
+package NetProto.Game;
+import "ShareData.proto";
 
 //选人界面，请求所有角色信息
 message packet_cs_request_AllRoleInfo
@@ -11,7 +11,7 @@ message packet_cs_request_AllRoleInfo
 message packet_sc_request_AllRoleInfo_Result
 {
 	uint32 nErrorCode = 1;
-	repeated packet_data_SelectRole_RoleInfo mRoleList = 2;
+	repeated NetProto.ShareData.packet_data_SelectRole_RoleInfo mRoleList = 2;
 }
 
 //选人界面，创建角色
@@ -26,7 +26,7 @@ message packet_cs_request_CreateRole
 message packet_sc_request_CreateRole_Result
 {
 	uint32 nErrorCode = 1;
-	repeated packet_data_SelectRole_RoleInfo mRoleList = 2;
+	repeated NetProto.ShareData.packet_data_SelectRole_RoleInfo mRoleList = 2;
 }
 
 //选人界面， 删除角色
@@ -38,5 +38,5 @@ message packet_cs_request_DeleteRole
 message packet_sc_request_DeleteRole_Result
 {
 	uint32 nErrorCode = 1;
-	repeated packet_data_SelectRole_RoleInfo mRoleList = 2;
+	repeated NetProto.ShareData.packet_data_SelectRole_RoleInfo mRoleList = 2;
 }

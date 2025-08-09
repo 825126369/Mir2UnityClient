@@ -1,5 +1,4 @@
-
-using NetProtocols.Game;
+using NetProto.Game;
 
 namespace Mir2
 {

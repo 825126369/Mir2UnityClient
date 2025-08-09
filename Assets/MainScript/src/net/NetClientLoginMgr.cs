@@ -59,7 +59,7 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
 
     void receive_scRequestLogin(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+        packet_sc_Login_Result mReceiveMsg = packet_sc_Login_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -75,13 +75,11 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         {
             UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-
-        IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 
     void receive_scRequestRegister(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+        packet_sc_Login_Result mReceiveMsg = packet_sc_Login_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -93,13 +91,11 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         {
             UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-        
-        IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 
     void receive_scChangePassword(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_Login_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_Login_Result>(mNetPackage);
+        packet_sc_Login_Result mReceiveMsg = packet_sc_Login_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -111,6 +107,5 @@ public class NetClientLoginMgr : SingleTonMonoBehaviour<NetClientLoginMgr>
         {
             UIMgr.CommonDialogView.ShowOk("提示", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-        IMessagePool<packet_sc_Login_Result>.recycle(mReceiveMsg);
     }
 }

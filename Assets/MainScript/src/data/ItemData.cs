@@ -1,4 +1,4 @@
-using NetProtocols.Game;
+using NetProto.ShareData;
 
 public class ItemData
 {
@@ -12,12 +12,12 @@ public class ItemData
 
     public void CopyFrom(packet_data_ItemInfo ItemInfo)
     {
-        this.nItemId = ItemInfo.NItemId;
-        this.nCount = ItemInfo.NCount;
-        this.nBagIndex = (uint)ItemInfo.NBagIndex;
-        this.nSlotIndex = (uint)ItemInfo.NSlotIndex;
-        this.nStarLevel = ItemInfo.NStarLevel;
-        this.nDura = ItemInfo.NDura;
+        //this.nItemId = ItemInfo.;
+        //this.nCount = ItemInfo.NCount;
+        //this.nBagIndex = (uint)ItemInfo.NBagIndex;
+        //this.nSlotIndex = (uint)ItemInfo.NSlotIndex;
+        //this.nStarLevel = ItemInfo.NStarLevel;
+        //this.nDura = ItemInfo.NDura;
     }
 
 }

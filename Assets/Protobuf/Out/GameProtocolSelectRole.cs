@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NetProtocols.Game {
+namespace NetProto.Game {
 
   /// <summary>Holder for reflection information generated from GameProtocol_SelectRole.proto</summary>
   public static partial class GameProtocolSelectRoleReflection {
@@ -24,31 +24,30 @@ namespace NetProtocols.Game {
     static GameProtocolSelectRoleReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "Ch1HYW1lUHJvdG9jb2xfU2VsZWN0Um9sZS5wcm90bxIRTmV0UHJvdG9jb2xz",
-            "LkdhbWUaF0dhbWVQcm90b2NvbF9EYXRhLnByb3RvIjMKHXBhY2tldF9jc19y",
-            "ZXF1ZXN0X0FsbFJvbGVJbmZvEhIKCm5BY2NvdW50SWQYASABKA0igQEKJHBh",
-            "Y2tldF9zY19yZXF1ZXN0X0FsbFJvbGVJbmZvX1Jlc3VsdBISCgpuRXJyb3JD",
-            "b2RlGAEgASgNEkUKCW1Sb2xlTGlzdBgCIAMoCzIyLk5ldFByb3RvY29scy5H",
-            "YW1lLnBhY2tldF9kYXRhX1NlbGVjdFJvbGVfUm9sZUluZm8iXwoccGFja2V0",
-            "X2NzX3JlcXVlc3RfQ3JlYXRlUm9sZRISCgpuQWNjb3VudElkGAEgASgNEgwK",
-            "BE5hbWUYAiABKAkSDgoGR2VuZGVyGAMgASgNEg0KBUNsYXNzGAQgASgNIoAB",
-            "CiNwYWNrZXRfc2NfcmVxdWVzdF9DcmVhdGVSb2xlX1Jlc3VsdBISCgpuRXJy",
-            "b3JDb2RlGAEgASgNEkUKCW1Sb2xlTGlzdBgCIAMoCzIyLk5ldFByb3RvY29s",
-            "cy5HYW1lLnBhY2tldF9kYXRhX1NlbGVjdFJvbGVfUm9sZUluZm8iMQoccGFj",
-            "a2V0X2NzX3JlcXVlc3RfRGVsZXRlUm9sZRIRCgluUGxheWVySWQYASABKA0i",
-            "gAEKI3BhY2tldF9zY19yZXF1ZXN0X0RlbGV0ZVJvbGVfUmVzdWx0EhIKCm5F",
-            "cnJvckNvZGUYASABKA0SRQoJbVJvbGVMaXN0GAIgAygLMjIuTmV0UHJvdG9j",
-            "b2xzLkdhbWUucGFja2V0X2RhdGFfU2VsZWN0Um9sZV9Sb2xlSW5mb2IGcHJv",
-            "dG8z"));
+            "Ch1HYW1lUHJvdG9jb2xfU2VsZWN0Um9sZS5wcm90bxINTmV0UHJvdG8uR2Ft",
+            "ZRoPU2hhcmVEYXRhLnByb3RvIjMKHXBhY2tldF9jc19yZXF1ZXN0X0FsbFJv",
+            "bGVJbmZvEhIKCm5BY2NvdW50SWQYASABKA0iggEKJHBhY2tldF9zY19yZXF1",
+            "ZXN0X0FsbFJvbGVJbmZvX1Jlc3VsdBISCgpuRXJyb3JDb2RlGAEgASgNEkYK",
+            "CW1Sb2xlTGlzdBgCIAMoCzIzLk5ldFByb3RvLlNoYXJlRGF0YS5wYWNrZXRf",
+            "ZGF0YV9TZWxlY3RSb2xlX1JvbGVJbmZvIl8KHHBhY2tldF9jc19yZXF1ZXN0",
+            "X0NyZWF0ZVJvbGUSEgoKbkFjY291bnRJZBgBIAEoDRIMCgROYW1lGAIgASgJ",
+            "Eg4KBkdlbmRlchgDIAEoDRINCgVDbGFzcxgEIAEoDSKBAQojcGFja2V0X3Nj",
+            "X3JlcXVlc3RfQ3JlYXRlUm9sZV9SZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEo",
+            "DRJGCgltUm9sZUxpc3QYAiADKAsyMy5OZXRQcm90by5TaGFyZURhdGEucGFj",
+            "a2V0X2RhdGFfU2VsZWN0Um9sZV9Sb2xlSW5mbyIxChxwYWNrZXRfY3NfcmVx",
+            "dWVzdF9EZWxldGVSb2xlEhEKCW5QbGF5ZXJJZBgBIAEoDSKBAQojcGFja2V0",
+            "X3NjX3JlcXVlc3RfRGVsZXRlUm9sZV9SZXN1bHQSEgoKbkVycm9yQ29kZRgB",
+            "IAEoDRJGCgltUm9sZUxpc3QYAiADKAsyMy5OZXRQcm90by5TaGFyZURhdGEu",
+            "cGFja2V0X2RhdGFfU2VsZWN0Um9sZV9Sb2xlSW5mb2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NetProtocols.Game.GameProtocolDataReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::NetProto.ShareData.ShareDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_AllRoleInfo), global::NetProtocols.Game.packet_cs_request_AllRoleInfo.Parser, new[]{ "NAccountId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_AllRoleInfo_Result), global::NetProtocols.Game.packet_sc_request_AllRoleInfo_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_CreateRole), global::NetProtocols.Game.packet_cs_request_CreateRole.Parser, new[]{ "NAccountId", "Name", "Gender", "Class" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_CreateRole_Result), global::NetProtocols.Game.packet_sc_request_CreateRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_DeleteRole), global::NetProtocols.Game.packet_cs_request_DeleteRole.Parser, new[]{ "NPlayerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_DeleteRole_Result), global::NetProtocols.Game.packet_sc_request_DeleteRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_AllRoleInfo), global::NetProto.Game.packet_cs_request_AllRoleInfo.Parser, new[]{ "NAccountId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_request_AllRoleInfo_Result), global::NetProto.Game.packet_sc_request_AllRoleInfo_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_CreateRole), global::NetProto.Game.packet_cs_request_CreateRole.Parser, new[]{ "NAccountId", "Name", "Gender", "Class" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_request_CreateRole_Result), global::NetProto.Game.packet_sc_request_CreateRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_DeleteRole), global::NetProto.Game.packet_cs_request_DeleteRole.Parser, new[]{ "NPlayerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_request_DeleteRole_Result), global::NetProto.Game.packet_sc_request_DeleteRole_Result.Parser, new[]{ "NErrorCode", "MRoleList" }, null, null, null, null)
           }));
     }
     #endregion
@@ -73,7 +72,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[0]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -271,7 +270,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[1]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -316,12 +315,12 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "mRoleList" field.</summary>
     public const int MRoleListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
-        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser);
-    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo>();
+    private static readonly pb::FieldCodec<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProto.ShareData.packet_data_SelectRole_RoleInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> MRoleList {
+    public pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> MRoleList {
       get { return mRoleList_; }
     }
 
@@ -498,7 +497,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[2]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -807,7 +806,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[3]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -852,12 +851,12 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "mRoleList" field.</summary>
     public const int MRoleListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
-        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser);
-    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo>();
+    private static readonly pb::FieldCodec<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProto.ShareData.packet_data_SelectRole_RoleInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> MRoleList {
+    public pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> MRoleList {
       get { return mRoleList_; }
     }
 
@@ -1034,7 +1033,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[4]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1232,7 +1231,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[5]; }
+      get { return global::NetProto.Game.GameProtocolSelectRoleReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1277,12 +1276,12 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "mRoleList" field.</summary>
     public const int MRoleListFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
-        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_SelectRole_RoleInfo.Parser);
-    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo>();
+    private static readonly pb::FieldCodec<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> _repeated_mRoleList_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProto.ShareData.packet_data_SelectRole_RoleInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> mRoleList_ = new pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_SelectRole_RoleInfo> MRoleList {
+    public pbc::RepeatedField<global::NetProto.ShareData.packet_data_SelectRole_RoleInfo> MRoleList {
       get { return mRoleList_; }
     }
 

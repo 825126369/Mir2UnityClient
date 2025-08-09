@@ -1,10 +1,9 @@
-using NetProtocols.Game;
+using Mir2;
+using NetProto.Game;
+using NetProto.ShareData;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using AKNet.Common;
-using Mir2;
-using AKNet.Extentions.Protobuf;
 
 public class SelectRoleView : MonoBehaviour
 {
@@ -47,10 +46,9 @@ public class SelectRoleView : MonoBehaviour
             if (nSelectRoleId > 0)
             {
                 UIMgr.CommonWindowLoading.Show();
-                var mSendMsg = IMessagePool<packet_cs_request_DeleteRole>.Pop();
+                var mSendMsg = new packet_cs_request_DeleteRole();
                 mSendMsg.NPlayerId = nSelectRoleId;
                 NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_DELETE_ROLE, mSendMsg);
-                IMessagePool<packet_cs_request_DeleteRole>.recycle(mSendMsg);
             }
         });
 
@@ -59,10 +57,9 @@ public class SelectRoleView : MonoBehaviour
             if (nSelectRoleId > 0)
             {
                 UIMgr.CommonWindowLoading.Show();
-                var mSendMsg = IMessagePool<packet_cs_request_StartGame>.Pop();
+                var mSendMsg = new packet_cs_request_StartGame();
                 mSendMsg.NPlayerId = nSelectRoleId;
                 NetClientGameMgr.SendNetData(NetProtocolCommand.CS_REQUEST_STARTGAME, mSendMsg);
-                IMessagePool<packet_cs_request_StartGame>.recycle(mSendMsg);
             }
         });
     }

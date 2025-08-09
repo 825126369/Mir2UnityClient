@@ -1,4 +1,4 @@
-﻿using NetProtocols.Game;
+﻿using NetProto.ShareData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

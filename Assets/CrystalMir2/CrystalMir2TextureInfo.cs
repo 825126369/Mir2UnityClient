@@ -13,7 +13,6 @@ namespace Mir2
         public void SetUrl(string url)
         {
             this.url = url;
-
             GetTextureInfo();
         }
 
@@ -25,7 +24,6 @@ namespace Mir2
             Debug.Log("path: " + path);
 
             int nIndex = int.Parse(Path.GetFileNameWithoutExtension(path));
-
             string libPath = Path.GetDirectoryName(path) + ".Lib";
             int nlibPrefixIndex = libPath.LastIndexOf("Data" + Path.DirectorySeparatorChar);
             libPath = Path.Combine(MLibrarys.RootDir, libPath.Substring(nlibPrefixIndex));

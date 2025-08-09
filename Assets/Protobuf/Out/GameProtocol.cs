@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NetProtocols.Game {
+namespace NetProto.Game {
 
   /// <summary>Holder for reflection information generated from GameProtocol.proto</summary>
   public static partial class GameProtocolReflection {
@@ -24,30 +24,30 @@ namespace NetProtocols.Game {
     static GameProtocolReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChJHYW1lUHJvdG9jb2wucHJvdG8SEU5ldFByb3RvY29scy5HYW1lGhdHYW1l",
-            "UHJvdG9jb2xfRGF0YS5wcm90byIwChtwYWNrZXRfY3NfcmVxdWVzdF9TdGFy",
-            "dEdhbWUSEQoJblBsYXllcklkGAEgASgNInMKInBhY2tldF9zY19yZXF1ZXN0",
-            "X1N0YXJ0R2FtZV9SZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDRI5CghVc2Vy",
-            "SW5mbxgCIAEoCzInLk5ldFByb3RvY29scy5HYW1lLnBhY2tldF9kYXRhX1Vz",
-            "ZXJJbmZvIi4KGXBhY2tldF9jc19yZXF1ZXN0X1R1cm5EaXISEQoJRGlyZWN0",
-            "aW9uGAEgASgNIisKFnBhY2tldF9jc19yZXF1ZXN0X1dhbGsSEQoJRGlyZWN0",
-            "aW9uGAEgASgNIioKFXBhY2tldF9jc19yZXF1ZXN0X1J1bhIRCglEaXJlY3Rp",
-            "b24YASABKA0iaAoWcGFja2V0X3NjX1VzZXJMb2NhdGlvbhIRCglEaXJlY3Rp",
-            "b24YASABKA0SOwoITG9jYXRpb24YAiABKAsyKS5OZXRQcm90b2NvbHMuR2Ft",
-            "ZS5wYWNrZXRfZGF0YV9WZWN0b3IzSW50IoABChxwYWNrZXRfc2NfYnJvYWRj",
-            "YXN0X0xvY2F0aW9uEhAKCE9iamVjdElEGAEgASgNEhEKCURpcmVjdGlvbhgC",
-            "IAEoDRI7CghMb2NhdGlvbhgDIAEoCzIpLk5ldFByb3RvY29scy5HYW1lLnBh",
-            "Y2tldF9kYXRhX1ZlY3RvcjNJbnRiBnByb3RvMw=="));
+            "ChJHYW1lUHJvdG9jb2wucHJvdG8SDU5ldFByb3RvLkdhbWUaD1NoYXJlRGF0",
+            "YS5wcm90byIwChtwYWNrZXRfY3NfcmVxdWVzdF9TdGFydEdhbWUSEQoJblBs",
+            "YXllcklkGAEgASgNInQKInBhY2tldF9zY19yZXF1ZXN0X1N0YXJ0R2FtZV9S",
+            "ZXN1bHQSEgoKbkVycm9yQ29kZRgBIAEoDRI6CghVc2VySW5mbxgCIAEoCzIo",
+            "Lk5ldFByb3RvLlNoYXJlRGF0YS5wYWNrZXRfZGF0YV9Vc2VySW5mbyIuChlw",
+            "YWNrZXRfY3NfcmVxdWVzdF9UdXJuRGlyEhEKCURpcmVjdGlvbhgBIAEoDSIr",
+            "ChZwYWNrZXRfY3NfcmVxdWVzdF9XYWxrEhEKCURpcmVjdGlvbhgBIAEoDSIq",
+            "ChVwYWNrZXRfY3NfcmVxdWVzdF9SdW4SEQoJRGlyZWN0aW9uGAEgASgNImkK",
+            "FnBhY2tldF9zY19Vc2VyTG9jYXRpb24SEQoJRGlyZWN0aW9uGAEgASgNEjwK",
+            "CExvY2F0aW9uGAIgASgLMiouTmV0UHJvdG8uU2hhcmVEYXRhLnBhY2tldF9k",
+            "YXRhX1ZlY3RvcjNJbnQigQEKHHBhY2tldF9zY19icm9hZGNhc3RfTG9jYXRp",
+            "b24SEAoIT2JqZWN0SUQYASABKA0SEQoJRGlyZWN0aW9uGAIgASgNEjwKCExv",
+            "Y2F0aW9uGAMgASgLMiouTmV0UHJvdG8uU2hhcmVEYXRhLnBhY2tldF9kYXRh",
+            "X1ZlY3RvcjNJbnRiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NetProtocols.Game.GameProtocolDataReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::NetProto.ShareData.ShareDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_StartGame), global::NetProtocols.Game.packet_cs_request_StartGame.Parser, new[]{ "NPlayerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_request_StartGame_Result), global::NetProtocols.Game.packet_sc_request_StartGame_Result.Parser, new[]{ "NErrorCode", "UserInfo" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_TurnDir), global::NetProtocols.Game.packet_cs_request_TurnDir.Parser, new[]{ "Direction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_Walk), global::NetProtocols.Game.packet_cs_request_Walk.Parser, new[]{ "Direction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_request_Run), global::NetProtocols.Game.packet_cs_request_Run.Parser, new[]{ "Direction" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_UserLocation), global::NetProtocols.Game.packet_sc_UserLocation.Parser, new[]{ "Direction", "Location" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_broadcast_Location), global::NetProtocols.Game.packet_sc_broadcast_Location.Parser, new[]{ "ObjectID", "Direction", "Location" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_StartGame), global::NetProto.Game.packet_cs_request_StartGame.Parser, new[]{ "NPlayerId" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_request_StartGame_Result), global::NetProto.Game.packet_sc_request_StartGame_Result.Parser, new[]{ "NErrorCode", "UserInfo" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_TurnDir), global::NetProto.Game.packet_cs_request_TurnDir.Parser, new[]{ "Direction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_Walk), global::NetProto.Game.packet_cs_request_Walk.Parser, new[]{ "Direction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_request_Run), global::NetProto.Game.packet_cs_request_Run.Parser, new[]{ "Direction" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_UserLocation), global::NetProto.Game.packet_sc_UserLocation.Parser, new[]{ "Direction", "Location" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_broadcast_Location), global::NetProto.Game.packet_sc_broadcast_Location.Parser, new[]{ "ObjectID", "Direction", "Location" }, null, null, null, null)
           }));
     }
     #endregion
@@ -72,7 +72,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[0]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -270,7 +270,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[1]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -315,10 +315,10 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "UserInfo" field.</summary>
     public const int UserInfoFieldNumber = 2;
-    private global::NetProtocols.Game.packet_data_UserInfo userInfo_;
+    private global::NetProto.ShareData.packet_data_UserInfo userInfo_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::NetProtocols.Game.packet_data_UserInfo UserInfo {
+    public global::NetProto.ShareData.packet_data_UserInfo UserInfo {
       get { return userInfo_; }
       set {
         userInfo_ = value;
@@ -428,7 +428,7 @@ namespace NetProtocols.Game {
       }
       if (other.userInfo_ != null) {
         if (userInfo_ == null) {
-          UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+          UserInfo = new global::NetProto.ShareData.packet_data_UserInfo();
         }
         UserInfo.MergeFrom(other.UserInfo);
       }
@@ -457,7 +457,7 @@ namespace NetProtocols.Game {
           }
           case 18: {
             if (userInfo_ == null) {
-              UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+              UserInfo = new global::NetProto.ShareData.packet_data_UserInfo();
             }
             input.ReadMessage(UserInfo);
             break;
@@ -487,7 +487,7 @@ namespace NetProtocols.Game {
           }
           case 18: {
             if (userInfo_ == null) {
-              UserInfo = new global::NetProtocols.Game.packet_data_UserInfo();
+              UserInfo = new global::NetProto.ShareData.packet_data_UserInfo();
             }
             input.ReadMessage(UserInfo);
             break;
@@ -514,7 +514,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[2]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -712,7 +712,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[3]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -910,7 +910,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[4]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1108,7 +1108,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[5]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[5]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1153,10 +1153,10 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "Location" field.</summary>
     public const int LocationFieldNumber = 2;
-    private global::NetProtocols.Game.packet_data_Vector3Int location_;
+    private global::NetProto.ShareData.packet_data_Vector3Int location_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::NetProtocols.Game.packet_data_Vector3Int Location {
+    public global::NetProto.ShareData.packet_data_Vector3Int Location {
       get { return location_; }
       set {
         location_ = value;
@@ -1266,7 +1266,7 @@ namespace NetProtocols.Game {
       }
       if (other.location_ != null) {
         if (location_ == null) {
-          Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+          Location = new global::NetProto.ShareData.packet_data_Vector3Int();
         }
         Location.MergeFrom(other.Location);
       }
@@ -1295,7 +1295,7 @@ namespace NetProtocols.Game {
           }
           case 18: {
             if (location_ == null) {
-              Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+              Location = new global::NetProto.ShareData.packet_data_Vector3Int();
             }
             input.ReadMessage(Location);
             break;
@@ -1325,7 +1325,7 @@ namespace NetProtocols.Game {
           }
           case 18: {
             if (location_ == null) {
-              Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+              Location = new global::NetProto.ShareData.packet_data_Vector3Int();
             }
             input.ReadMessage(Location);
             break;
@@ -1352,7 +1352,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolReflection.Descriptor.MessageTypes[6]; }
+      get { return global::NetProto.Game.GameProtocolReflection.Descriptor.MessageTypes[6]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1410,10 +1410,10 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "Location" field.</summary>
     public const int LocationFieldNumber = 3;
-    private global::NetProtocols.Game.packet_data_Vector3Int location_;
+    private global::NetProto.ShareData.packet_data_Vector3Int location_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::NetProtocols.Game.packet_data_Vector3Int Location {
+    public global::NetProto.ShareData.packet_data_Vector3Int Location {
       get { return location_; }
       set {
         location_ = value;
@@ -1539,7 +1539,7 @@ namespace NetProtocols.Game {
       }
       if (other.location_ != null) {
         if (location_ == null) {
-          Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+          Location = new global::NetProto.ShareData.packet_data_Vector3Int();
         }
         Location.MergeFrom(other.Location);
       }
@@ -1572,7 +1572,7 @@ namespace NetProtocols.Game {
           }
           case 26: {
             if (location_ == null) {
-              Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+              Location = new global::NetProto.ShareData.packet_data_Vector3Int();
             }
             input.ReadMessage(Location);
             break;
@@ -1606,7 +1606,7 @@ namespace NetProtocols.Game {
           }
           case 26: {
             if (location_ == null) {
-              Location = new global::NetProtocols.Game.packet_data_Vector3Int();
+              Location = new global::NetProto.ShareData.packet_data_Vector3Int();
             }
             input.ReadMessage(Location);
             break;

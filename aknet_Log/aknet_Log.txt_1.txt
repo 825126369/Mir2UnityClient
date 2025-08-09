@@ -1,29 +1,143 @@
-2025/8/8 23:36:57  Error: GameProtocol_Data.proto:66:20: Missing field number.
-GameProtocol_Data.proto:67:36: Missing field number.
-GameProtocol_Data.proto:68:17: Missing field number.
-GameProtocol_Data.proto:69:21: Missing field number.
-GameProtocol_Data.proto:70:15: Missing field number.
-GameProtocol_Data.proto:92:17: Missing field number.
-GameProtocol_Data.proto:93:32: Missing field number.
-GameProtocol_Data.proto:133:43: Missing field number.
-GameProtocol_Data.proto:134:41: Missing field number.
-GameProtocol_Data.proto:165:22: Missing field number.
-GameProtocol_Data.proto:166:24: Missing field number.
-GameProtocol_Data.proto:204:21: Missing field number.
-GameProtocol_Data.proto:218:29: Missing field number.
-GameProtocol_Data.proto:219:26: Missing field number.
-GameProtocol_Data.proto:220:40: Missing field number.
-GameProtocol_Data.proto:221:26: Missing field number.
-GameProtocol_Data.proto:222:20: Missing field number.
-GameProtocol_Data.proto:223:16: Missing field number.
-GameProtocol_Data.proto:224:21: Missing field number.
-GameProtocol.proto:3:1: Import "GameProtocol_Data.proto" was not found or had errors.
-GameProtocol.proto:14:9: "packet_data_UserInfo" is not defined.
-GameProtocol.proto:35:9: "packet_data_Vector3Int" is not defined.
-GameProtocol.proto:42:9: "packet_data_Vector3Int" is not defined.
+2025/8/9 16:24:46  Error: ServerPackets.proto:1661:53: Missing field number.
+ServerPackets.proto:1662:22: Missing field number.
+ServerPackets.proto:1670:2: Expected top-level statement (e.g. "message").
+ServerPackets.proto:1823:19: Missing field number.
+ServerPackets.proto:1824:19: Missing field number.
  
   at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
   at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
-  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <674b26f6d4764f7c8375918f441ef0e0>:0 
-  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <674b26f6d4764f7c8375918f441ef0e0>:0 
-  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramew
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:25:25  Error: ServerPackets.proto:1670:2: Expected top-level statement (e.g. "message").
+ServerPackets.proto:1823:19: Missing field number.
+ServerPackets.proto:1824:19: Missing field number.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:25:38  Error: ServerPackets.proto:1823:19: Missing field number.
+ServerPackets.proto:1824:19: Missing field number.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:26:00  Error: ServerPackets.proto:1508:5: "NetProto.ShareData.packet_data_UserInformation" is not defined.
+ServerPackets.proto:1761:5: "packet_data_Vector3Int" is not defined.
+ServerPackets.proto:1812:14: "byte" is not defined.
+ServerPackets.proto:1829:14: "NetProto.ShareData.packet_data_ClientMail" is not defined.
+ServerPackets.proto:1895:14: "UserItem" is not defined.
+ServerPackets.proto:1902:14: "ClientFriend" is not defined.
+ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:28:14  Error: ServerPackets.proto:1761:5: "packet_data_Vector3Int" is not defined.
+ServerPackets.proto:1812:14: "byte" is not defined.
+ServerPackets.proto:1829:14: "NetProto.ShareData.packet_data_ClientMail" is not defined.
+ServerPackets.proto:1895:14: "UserItem" is not defined.
+ServerPackets.proto:1902:14: "ClientFriend" is not defined.
+ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:28:59  Error: ServerPackets.proto:1812:14: "byte" is not defined.
+ServerPackets.proto:1829:14: "NetProto.ShareData.packet_data_ClientMail" is not defined.
+ServerPackets.proto:1895:14: "UserItem" is not defined.
+ServerPackets.proto:1902:14: "ClientFriend" is not defined.
+ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:29:20  Error: ServerPackets.proto:1829:14: "NetProto.ShareData.packet_data_ClientMail" is not defined.
+ServerPackets.proto:1895:14: "UserItem" is not defined.
+ServerPackets.proto:1902:14: "ClientFriend" is not defined.
+ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:32:47  Error: ServerPackets.proto:1895:14: "UserItem" is not defined.
+ServerPackets.proto:1902:14: "ClientFriend" is not defined.
+ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:36:19  Error: ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1909:14: "NetProto.ShareData.packet_data_GuildBuffInfo" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:42:41  Error: ClientData.proto:26:5: "packet_data_UserItem" is not defined.
+ClientData.proto:27:14: "packet_data_UserItem" is not defined.
+ClientData.proto:28:14: "packet_data_UserItem" is not defined.
+ClientData.proto:42:14: "packet_data_UserItem" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:43:57  Error: ServerPackets.proto:1908:14: "NetProto.ShareData.packet_data_GuildBuff" is not defined.
+ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEditor.DoPublic () [0x00005] in D:\Me\MyProject\Mir2UnityClient\Assets\SimpleFramework\Editor\ProtobufEditor.cs:18 
+2025/8/9 16:44:53  Error: ServerPackets.proto:1938:14: "NetProto.ShareData.packet_data_RankCharacterInfo" is not defined.
+ServerPackets.proto:1939:14: "long" is not defined.
+ServerPackets.proto:1951:14: "NetProto.ShareData.packet_data_ItemRentalInformation" is not defined.
+ 
+  at AKNet.Common.NetLog.GetStackTraceInfo () [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Common.NetLog.LogError (System.Object message) [0x00000] in <e34a7c5f2faf476583f5712a98a84fee>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.RunCmd (System.String exePath, System.String workPath, System.String arg) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at AKNet.Extentions.Protobuf.Editor.AKNetProtoBufEditor.DoPublicCSFile (System.String ProtocExePath, System.String ProtoOutPath, System.String ProtoPath) [0x00000] in <9dd7d18a216143f1b23ca1baaedb67a7>:0 
+  at ProtoBufEd

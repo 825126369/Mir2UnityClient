@@ -1,5 +1,5 @@
 syntax = "proto3";
-package NetProtocols.Game;
+package NetProto.ShareData;
 
 message packet_data_Vector3Int
 {
@@ -32,7 +32,6 @@ message packet_data_ItemInfo
 	uint64 nBagIndex = 1;
 	uint32 nSlotIndex = 2;
 	uint32 nItemId = 3;
-
 	uint32 nCount = 4;
 	uint32 nStarLevel = 5;
 	uint32 nDura = 6;
@@ -42,17 +41,14 @@ message packet_data_UserInfo
 {
 	uint32 nMapObjectId = 1;
 	uint32 nPlayerId = 2;
-	
 	string Name = 3;
 	uint32 Class = 4;
 	uint32 Gender = 5;
 	uint32 nLevel = 6;
 	uint64 nLevelExp = 7;
-
 	uint32 nMapIndex = 8;
 	packet_data_Vector3Int Location = 9;
 	uint32 Direction = 10;
-
 	uint32 HP = 11;
 	uint32 MP = 12;
 	repeated packet_data_ItemInfo BagList = 13; 
@@ -63,11 +59,11 @@ message packet_data_UserInfo
 
 message packet_data_SpellInfo
 {
-    uint32 ObjectID;
-    packet_data_Vector3Int Location;
-    uint32 Spell;
-    uint32 Direction;
-    bool Param;
+    uint32 ObjectID = 1;
+    packet_data_Vector3Int Location = 2;
+    uint32 Spell = 3;
+    uint32 Direction = 4;
+    bool Param = 5;
 }
 
 message packet_data_cs_ChatInfo
@@ -89,8 +85,8 @@ message packet_data_SelectInfo
 
 message packet_data_WorldMapSetup
 {
-    bool Enabled;
-    repeated WorldMapIcon Icons;
+    bool Enabled = 1;
+    repeated packet_data_WorldMapIcon Icons = 2;
 }
 
 message packet_data_IntelligentCreatureRules
@@ -129,9 +125,9 @@ message packet_data_ClientIntelligentCreature
     uint64 Expire = 6;
     uint64 BlackstoneTime = 7;
     uint64 MaintainFoodTime = 8;
-    uint petMode = 9;
-    IntelligentCreatureRules CreatureRules;
-    IntelligentCreatureItemFilter Filter;
+    uint32 petMode = 9;
+    packet_data_IntelligentCreatureRules CreatureRules = 10;
+    packet_data_IntelligentCreatureItemFilter Filter = 11;
 }
 
 message packet_data_ClientBuff
@@ -144,7 +140,7 @@ message packet_data_ClientBuff
     bool Infinite = 6;
     uint32 Stats = 7;
     bool Paused = 8;
-    repeated int Values = 9;
+    repeated uint32 Values = 9;
 }
 
 message packet_data_ExpireInfo
@@ -162,13 +158,13 @@ message packet_data_RentalInformation
 
 message packet_data_SealedInfo
 {
-    uint64 ExpiryDate;
-    uint64 NextSealDate;
+    uint64 ExpiryDate = 1;
+    uint64 NextSealDate = 2;
 }
 
 message packet_data_AwakeMaterialsDataItem
 {
-    repeated byte B = 1;
+    repeated uint32 B = 1;
 }
 
 message packet_data_AwakeMaterialsData
@@ -186,10 +182,10 @@ message packet_data_Awake
     uint32 Awake_ArmorRate = 6;
     uint32 AwakeChanceMin = 7;
     repeated float AwakeMaterialRate = 8;
-    repeated byte AwakeChanceMax = 9;
+    repeated uint32 AwakeChanceMax = 9;
     repeated packet_data_AwakeMaterialsData AwakeMaterials = 10;
     uint32 Type = 11;
-    repeated byte listAwake = 12;
+    repeated uint32 listAwake = 12;
 }
 
 message packet_data_Stats
@@ -201,7 +197,7 @@ message packet_data_UserItem
 {
     uint64 UniqueID = 1;
     uint32 ItemIndex = 2;
-    public ItemInfo Info = 3;
+    packet_data_ItemInfo Info = 3;
     uint32 CurrentDura = 4;
 	uint32 MaxDura = 5;
     uint32 Count = 6;
@@ -214,20 +210,24 @@ message packet_data_UserItem
     bool Identified = 13;
     bool Cursed = 14;
     int32 WeddingRing = 15;
-    repeated UserItem Slots = 16;
-    uint64 BuybackExpiryDate;
-    ExpireInfo ExpireInfo;
-    RentalInformation RentalInformation;
-    SealedInfo SealedInfo;
-    bool IsShopItem;
-    Awake Awake;
-    Stats AddedStats;
+    uint64 BuybackExpiryDate = 16;
+    packet_data_ExpireInfo ExpireInfo = 17;
+    packet_data_RentalInformation RentalInformation = 18;
+    packet_data_SealedInfo SealedInfo = 19;
+    bool IsShopItem = 20;
+    packet_data_Awake Awake = 21;
+    packet_data_Stats AddedStats = 22;
+}
+
+message packet_data_UserItemList
+{
+    repeated packet_data_UserItem Slots = 1;
 }
 
 message packet_data_ClientAuction
 {
     uint64 AuctionID = 1;
-    UserItem Item = 2;
+    packet_data_UserItem Item = 2;
     string Seller = 3;
     uint32 Price = 4;
     uint64 ConsignmentDate = 5;
@@ -247,14 +247,44 @@ message packet_data_BaseStat
 message packet_data_BaseStats
 {
     uint32 Job = 1;
-    repeated BaseStat Stats = 2;
-    Stats Caps = 3;
+    repeated packet_data_BaseStat Stats = 2;
+    packet_data_Stats Caps = 3;
+}
+
+message QuestItemReward
+{
+    packet_data_ItemInfo Item = 1;
+    uint32 Count = 2;
+}
+
+message packet_data_ClientQuestInfo
+{
+    uint32 Index = 1;
+    uint32 NPCIndex = 2;
+    string Name = 3;
+    string Group = 4;
+    repeated string Description = 5;
+    repeated string TaskDescription = 6;
+    repeated string ReturnDescription = 7;
+    repeated string CompletionDescription = 8;
+    uint32 MinLevelNeeded = 9;
+    uint32 MaxLevelNeeded = 10;
+    uint32 QuestNeeded = 11;
+    uint32 ClassNeeded = 12;
+    uint32 Type = 13;
+    uint32 TimeLimitInSeconds = 14;
+    uint32 RewardGold = 15;
+    uint32 RewardExp = 16;
+    uint32 RewardCredit = 17;
+    repeated QuestItemReward RewardsFixedItem = 18;
+    repeated QuestItemReward RewardsSelectItem = 19;
+    uint32 FinishNPCIndex = 20;
 }
 
 message packet_data_ClientQuestProgress
 {
     uint32 Id = 1;
-    ClientQuestInfo QuestInfo = 2;
+    packet_data_ClientQuestInfo QuestInfo = 2;
     repeated string TaskList = 3;
     bool Taken = 4;
     bool Completed = 5;
@@ -265,7 +295,7 @@ message packet_data_GameShopItem
 {
     uint32 ItemIndex = 1;
     uint32 GIndex = 2;
-    ItemInfo Info = 3;
+    packet_data_ItemInfo Info = 3;
     uint32 GoldPrice = 4;
     uint32 CreditPrice = 5;
     uint32 Count = 6;
@@ -314,3 +344,144 @@ message packet_data_ObjectPlayer
     repeated uint32 Buffs = 30;
 }
 
+message packet_data_WorldMapIcon
+{
+    uint32 ImageIndex = 1;
+    string Title = 2;
+    uint32 MapIndex = 3;
+}
+
+message packet_data_ClientMovementInfo
+{
+    uint32 Destination = 1;
+    string Title = 2;
+    packet_data_Vector3Int Location = 3;
+    uint32 Icon = 4;
+}
+
+message packet_data_ClientNPCInfo
+{
+    uint32 ObjectID = 1;
+    string Name = 2;
+    packet_data_Vector3Int Location = 3;
+    uint32 Icon = 4;
+    bool CanTeleportTo = 5;
+}
+
+message packet_data_ClientMapInfo
+{
+    uint32 Width = 1;
+    uint32 Height = 2;
+    uint32 BigMap = 3;
+    string Title = 4;
+    repeated packet_data_ClientMovementInfo Movements = 5;
+    repeated packet_data_ClientNPCInfo NPCs = 6;
+}
+
+message packet_data_WorldMapSetupInfo
+{
+    packet_data_WorldMapSetup Setup = 1;
+    uint32 TeleportToNPCCost = 2;
+}
+
+message packet_data_ClientMagic
+{
+    string Name = 1;
+    uint32 Spell = 2;
+    uint32 BaseCost = 3;
+    uint32 LevelCost = 4;
+    uint32 Icon = 5;
+    uint32 Level1 = 6;
+    uint32 Level2 = 7;
+    uint32 Level3 = 8;
+    uint32 Need1 = 9;
+    uint32 Need2 = 10;
+    uint32 Need3 = 11;
+    uint32 Level = 12;
+    uint32 Key = 13;
+    uint32 Range = 14;
+    uint32 Experience = 15;
+    bool IsTempSpell = 16;
+    uint64 CastTime = 17;
+    uint64 Delay = 18;
+}
+
+message packet_data_ClientGTMap
+{
+    uint32 index = 1;
+    string Name = 2;
+    string Owner = 3;
+    string Leader = 4;
+    string Leader2 = 5;
+    uint32 price = 6;
+    uint32 days = 7;
+    uint32 begin = 8;
+}
+
+message packet_data_GuildMember
+{
+    string Name = 1;
+    uint32 Id = 2;
+    uint64 LastLogin = 3;
+    bool hasvoted = 4;
+    bool Online = 5;
+}
+
+message packet_data_GuildRank
+{
+    repeated packet_data_GuildMember Members = 1;
+    string Name = 2;
+    int32 Index = 3;
+    uint32 Options = 4;
+}
+
+message packet_data_GuildStorageItem
+{
+    packet_data_UserItem Item = 1;
+    uint64 UserId = 2;
+}
+
+message packet_data_Notice
+{
+    string Title = 1;
+    string Message = 2;
+    uint64 LastUpdate = 3;
+}
+
+message packet_data_GuildBuffInfo
+{
+    uint32 Id = 1;
+    uint32 Icon = 2;
+    string Name = 3;
+    uint32 LevelRequirement = 4;
+    uint32 PointsRequirement = 5;
+    uint32 TimeLimit = 6;
+    uint32 ActivationCost = 7;
+    packet_data_Stats Stats = 8;
+}
+
+message packet_data_GuildBuff
+{
+    uint32 Id = 1;
+    packet_data_GuildBuffInfo Info = 2;
+    bool Active = 3;
+    uint32 ActiveTimeRemaining = 4;
+}
+
+message packet_data_RankCharacterInfo
+{
+    uint64 PlayerId = 1;
+    string Name = 2;
+    uint32 Class = 3;
+    uint32 level = 4;
+    uint64 Experience = 5;//clients shouldnt care about this only server
+    uint64 LastUpdated = 6;
+}
+
+message packet_data_ItemRentalInformation
+{
+    uint64 ItemId = 1;
+    string ItemName = 2;
+    string RentingPlayerName = 3;
+    uint64 ItemReturnDate = 4;
+}

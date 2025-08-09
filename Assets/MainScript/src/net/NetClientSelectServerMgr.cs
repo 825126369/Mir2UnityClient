@@ -52,9 +52,7 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
     private void SendFirstMsg()
     {
         UIMgr.CommonWindowLoading.Show();
-        var mSendMsg = IMessagePool<packet_cs_request_ServerList>.Pop();
-        mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SERVER_LIST, mSendMsg);
-        IMessagePool<packet_cs_request_ServerList>.recycle(mSendMsg);
+        mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SERVER_LIST);
     }
 
     private void Update()
@@ -69,7 +67,7 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
 
     void receive_scServerList(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_ServerList_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_ServerList_Result>(mNetPackage);
+        packet_sc_ServerList_Result mReceiveMsg = packet_sc_ServerList_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -88,7 +86,6 @@ public class NetClientSelectServerMgr : SingleTonMonoBehaviour<NetClientSelectSe
         {
             UIMgr.CommonDialogView.ShowOk("ÌבÊ¾", "ServerCode: " + mReceiveMsg.NErrorCode);
         }
-        IMessagePool<packet_sc_ServerList_Result>.recycle(mReceiveMsg);
     }
 
 }

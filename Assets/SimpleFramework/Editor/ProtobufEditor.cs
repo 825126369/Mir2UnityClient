@@ -1,4 +1,6 @@
+using AKNet.Common;
 using AKNet.Extentions.Protobuf.Editor;
+using System;
 using UnityEditor;
 
 public class ProtoBufEditor
@@ -11,8 +13,16 @@ public class ProtoBufEditor
     private static void DoPublic()
     {
         NetLogEx.Init();
-        AKNetProtoBufEditor.DoPublicCSFile(ProtocPath, ProtocolCSPath, ProtocolPath);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
+        try
+        {
+            AKNetProtoBufEditor.DoPublicCSFile(ProtocPath, ProtocolCSPath, ProtocolPath);
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+        }
+        catch(Exception e)
+        {
+            NetLog.LogError(e.ToString());
+        }
     }
+
 }

@@ -1,5 +1,6 @@
 using Mir2;
-using NetProtocols.Game;
+using NetProto.Game;
+using NetProto.ShareData;
 using NetProtocols.SelectGate;
 using System.Collections.Generic;
 using System.Linq;

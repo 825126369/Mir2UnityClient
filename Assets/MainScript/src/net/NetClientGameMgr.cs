@@ -2,7 +2,8 @@ using AKNet.Common;
 using AKNet.Extentions.Protobuf;
 using Google.Protobuf;
 using Mir2;
-using NetProtocols.Game;
+using NetProto.Game;
+using NetProto.ShareData;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,10 +62,9 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     private void SendFirstMsg()
     {
         UIMgr.CommonWindowLoading.Show();
-        var mSendMsg = IMessagePool<packet_cs_request_AllRoleInfo>.Pop();
+        var mSendMsg = new packet_cs_request_AllRoleInfo();
         mSendMsg.NAccountId = DataCenter.Instance.nAccountId;
         mNetClient.SendNetData(NetProtocolCommand.CS_REQUEST_SELECTROLE_ALL_ROLEINFO, mSendMsg);
-        IMessagePool<packet_cs_request_AllRoleInfo>.recycle(mSendMsg);
     }
 
     private void Update()
@@ -86,7 +86,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
     void receive_sc_Request_selectRole_CreateRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_CreateRole_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_CreateRole_Result>(mNetPackage);
+        packet_sc_request_CreateRole_Result mReceiveMsg = packet_sc_request_CreateRole_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -116,8 +116,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
     void receive_sc_Request_selectRole_DeleteRole_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_DeleteRole_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_DeleteRole_Result>(mNetPackage);
-
+        packet_sc_request_DeleteRole_Result mReceiveMsg = packet_sc_request_DeleteRole_Result.Parser.ParseFrom(mNetPackage.GetData());
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
         {
@@ -145,7 +144,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
     void receive_sc_Request_selectRole_AllRoleInfo_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        packet_sc_request_AllRoleInfo_Result mReceiveMsg = Protocol3Utility.getData<packet_sc_request_AllRoleInfo_Result>(mNetPackage);
+        packet_sc_request_AllRoleInfo_Result mReceiveMsg = packet_sc_request_AllRoleInfo_Result.Parser.ParseFrom(mNetPackage.GetData());
 
         UIMgr.CommonWindowLoading.Hide();
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -182,7 +181,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
 
     void receive_sc_Request_StartGame_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = Protocol3Utility.getData<packet_sc_request_StartGame_Result>(mNetPackage);
+        var mReceiveMsg = packet_sc_request_StartGame_Result.Parser.ParseFrom(mNetPackage.GetData());
         UIMgr.CommonWindowLoading.Hide();
 
         if (mReceiveMsg.NErrorCode == NetErrorCode.NoError)
@@ -216,7 +215,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     
     void receive_sc_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = Protocol3Utility.getData<packet_sc_UserLocation>(mNetPackage);
+        var mReceiveMsg = packet_sc_UserLocation.Parser.ParseFrom(mNetPackage.GetData());
         Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
         MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
         //WorldMgr.Instance.User.HandleServerLocation(pos, Dir);
@@ -224,7 +223,7 @@ public class NetClientGameMgr : SingleTonMonoBehaviour<NetClientGameMgr>
     
     void receive_sc_broadcast_UserLocation_Result(ClientPeerBase clientPeer, NetPackage mNetPackage)
     {
-        var mReceiveMsg = Protocol3Utility.getData<packet_sc_broadcast_Location>(mNetPackage);
+        var mReceiveMsg = packet_sc_broadcast_Location.Parser.ParseFrom(mNetPackage.GetData());
         Vector3Int pos = new Vector3Int(mReceiveMsg.Location.X, mReceiveMsg.Location.Y, mReceiveMsg.Location.Z);
         MirDirection Dir = (MirDirection)mReceiveMsg.Direction;
         WorldMgr.Instance.HandleServerLocation(mReceiveMsg.ObjectID, pos, Dir);

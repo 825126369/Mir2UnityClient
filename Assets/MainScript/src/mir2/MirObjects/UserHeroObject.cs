@@ -1,4 +1,4 @@
-﻿using NetProtocols.Game;
+﻿using NetProto.ShareData;
 
 namespace Mir2
 {

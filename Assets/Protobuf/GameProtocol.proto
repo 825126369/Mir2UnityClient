@@ -1,6 +1,6 @@
 syntax = "proto3";
-package NetProtocols.Game;
-import "GameProtocol_Data.proto";
+package NetProto.Game;
+import "ShareData.proto";
 
 //开始游戏
 message packet_cs_request_StartGame
@@ -11,7 +11,7 @@ message packet_cs_request_StartGame
 message packet_sc_request_StartGame_Result
 {
 	uint32 nErrorCode = 1;
-	packet_data_UserInfo UserInfo = 2;
+	NetProto.ShareData.packet_data_UserInfo UserInfo = 2;
 }
 
 message packet_cs_request_TurnDir
@@ -32,14 +32,14 @@ message packet_cs_request_Run
 message packet_sc_UserLocation
 {
 	uint32 Direction = 1;
-	packet_data_Vector3Int Location = 2;
+	NetProto.ShareData.packet_data_Vector3Int Location = 2;
 }
 
 message packet_sc_broadcast_Location
 {
 	uint32 ObjectID = 1;
 	uint32 Direction = 2;
-	packet_data_Vector3Int Location = 3;
+	NetProto.ShareData.packet_data_Vector3Int Location = 3;
 }
 
 

@@ -1,6 +1,4 @@
-﻿using NetProtocols.Game;
-
-namespace Mir2
+﻿namespace Mir2
 {
     public static class ProtobufExtentions
     {

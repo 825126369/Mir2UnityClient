@@ -1,0 +1,44 @@
+syntax = "proto3";
+package NetProto.ShareData;
+import "ShareData.proto";
+
+message packet_data_ClientHeroInformation
+{
+    uint32 Index = 1;
+    string Name = 2;
+    uint32 Level = 3;
+    uint32 Class = 4;
+    uint32 Gender = 5;
+}
+
+message packet_data_ClientFriend
+{
+    uint32 Index = 1;
+    string Name = 2;
+    string Memo = 3;
+    bool Blocked = 4;
+    bool Online = 5;
+}
+
+message packet_data_ClientRecipeInfo
+{
+    uint32 Gold = 1;
+    uint32 Chance = 2;
+    packet_data_UserItem Item = 3;
+    repeated packet_data_UserItem Tools = 4;
+    repeated packet_data_UserItem Ingredients = 5;
+}
+
+message packet_data_ClientMail
+{
+    uint64 MailID = 1;
+    string SenderName = 2;
+    string Message = 3;
+    bool Opened = 4;
+    bool Locked = 5;
+    bool CanReply = 6;
+    bool Collected = 7;
+    uint64 DateSent = 8;
+    uint32 Gold = 9;
+    repeated packet_data_UserItem Items = 10;
+}

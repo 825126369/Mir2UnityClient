@@ -9,7 +9,7 @@ using pb = global::Google.Protobuf;
 using pbc = global::Google.Protobuf.Collections;
 using pbr = global::Google.Protobuf.Reflection;
 using scg = global::System.Collections.Generic;
-namespace NetProtocols.Game {
+namespace NetProto.Game {
 
   /// <summary>Holder for reflection information generated from GameProtocol_Chat.proto</summary>
   public static partial class GameProtocolChatReflection {
@@ -24,17 +24,16 @@ namespace NetProtocols.Game {
     static GameProtocolChatReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChdHYW1lUHJvdG9jb2xfQ2hhdC5wcm90bxIRTmV0UHJvdG9jb2xzLkdhbWUa",
-            "F0dhbWVQcm90b2NvbF9EYXRhLnByb3RvImIKDnBhY2tldF9jc19jaGF0Eg8K",
-            "B01lc3NhZ2UYASABKAkSPwoLTGlua2VkSXRlbXMYAiADKAsyKi5OZXRQcm90",
-            "b2NvbHMuR2FtZS5wYWNrZXRfZGF0YV9jc19DaGF0SW5mbyIwCg5wYWNrZXRf",
-            "c2NfY2hhdBINCgVuVHlwZRgBIAEoDRIPCgdNZXNzYWdlGAIgASgJYgZwcm90",
-            "bzM="));
+            "ChdHYW1lUHJvdG9jb2xfQ2hhdC5wcm90bxINTmV0UHJvdG8uR2FtZRoPU2hh",
+            "cmVEYXRhLnByb3RvImMKDnBhY2tldF9jc19jaGF0Eg8KB01lc3NhZ2UYASAB",
+            "KAkSQAoLTGlua2VkSXRlbXMYAiADKAsyKy5OZXRQcm90by5TaGFyZURhdGEu",
+            "cGFja2V0X2RhdGFfY3NfQ2hhdEluZm8iMAoOcGFja2V0X3NjX2NoYXQSDQoF",
+            "blR5cGUYASABKA0SDwoHTWVzc2FnZRgCIAEoCWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::NetProtocols.Game.GameProtocolDataReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::NetProto.ShareData.ShareDataReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_cs_chat), global::NetProtocols.Game.packet_cs_chat.Parser, new[]{ "Message", "LinkedItems" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::NetProtocols.Game.packet_sc_chat), global::NetProtocols.Game.packet_sc_chat.Parser, new[]{ "NType", "Message" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_cs_chat), global::NetProto.Game.packet_cs_chat.Parser, new[]{ "Message", "LinkedItems" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::NetProto.Game.packet_sc_chat), global::NetProto.Game.packet_sc_chat.Parser, new[]{ "NType", "Message" }, null, null, null, null)
           }));
     }
     #endregion
@@ -59,7 +58,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolChatReflection.Descriptor.MessageTypes[0]; }
+      get { return global::NetProto.Game.GameProtocolChatReflection.Descriptor.MessageTypes[0]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -104,12 +103,12 @@ namespace NetProtocols.Game {
 
     /// <summary>Field number for the "LinkedItems" field.</summary>
     public const int LinkedItemsFieldNumber = 2;
-    private static readonly pb::FieldCodec<global::NetProtocols.Game.packet_data_cs_ChatInfo> _repeated_linkedItems_codec
-        = pb::FieldCodec.ForMessage(18, global::NetProtocols.Game.packet_data_cs_ChatInfo.Parser);
-    private readonly pbc::RepeatedField<global::NetProtocols.Game.packet_data_cs_ChatInfo> linkedItems_ = new pbc::RepeatedField<global::NetProtocols.Game.packet_data_cs_ChatInfo>();
+    private static readonly pb::FieldCodec<global::NetProto.ShareData.packet_data_cs_ChatInfo> _repeated_linkedItems_codec
+        = pb::FieldCodec.ForMessage(18, global::NetProto.ShareData.packet_data_cs_ChatInfo.Parser);
+    private readonly pbc::RepeatedField<global::NetProto.ShareData.packet_data_cs_ChatInfo> linkedItems_ = new pbc::RepeatedField<global::NetProto.ShareData.packet_data_cs_ChatInfo>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::NetProtocols.Game.packet_data_cs_ChatInfo> LinkedItems {
+    public pbc::RepeatedField<global::NetProto.ShareData.packet_data_cs_ChatInfo> LinkedItems {
       get { return linkedItems_; }
     }
 
@@ -283,7 +282,7 @@ namespace NetProtocols.Game {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::NetProtocols.Game.GameProtocolChatReflection.Descriptor.MessageTypes[1]; }
+      get { return global::NetProto.Game.GameProtocolChatReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

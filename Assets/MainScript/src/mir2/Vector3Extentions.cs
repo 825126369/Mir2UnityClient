@@ -1,5 +1,4 @@
-﻿
-using NetProtocols.Game;
+﻿using NetProto.ShareData;
 using UnityEngine;
 public static class VectorIntExtentions
 {
